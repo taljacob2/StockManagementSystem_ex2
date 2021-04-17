@@ -1,0 +1,13 @@
+# 'schema file generator' every save of a XML file -> write in README
+
+# all the numbers are 'long' numbers ant NOT 'int' numbers -> write in README
+
+#   in the schema file:
+
+    I did: (minimum of 0)
+    line 128:
+    <xs:element ref="rse-holdings" minOccurs="0"/>
+
+    and Aviad did: (minimum of 1)
+    line 15:
+    <xs:element ref="rse-holdings"/>
