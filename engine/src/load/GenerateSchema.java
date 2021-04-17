@@ -23,7 +23,7 @@ import java.nio.file.Paths;
  * @version 1.0
  */
 public class GenerateSchema {
-
+//FIXME CHECKING UPLOAD
     /**
      * the name of the schema file.
      */
