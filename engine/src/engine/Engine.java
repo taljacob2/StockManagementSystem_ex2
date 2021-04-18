@@ -148,7 +148,6 @@ public class Engine {
                      * bubble - compare: check if the symbol of each item not
                      * available in any Stock Symbol that are already in the Engine:
                      */
-                    // bubble - compare:
                     for (Item item : itemCollection) {
                         String currentItemSymbol = item.getSymbol();
 
