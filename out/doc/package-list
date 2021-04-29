@@ -1,4 +1,6 @@
 application
+application.color
+application.dialog
 currency
 engine
 engine.collection
