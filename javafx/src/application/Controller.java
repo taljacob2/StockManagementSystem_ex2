@@ -1,26 +1,23 @@
 package application;
 
 import application.color.ColorPickerApp;
-import application.message.FxDialogs;
+import application.dialog.FxDialogs;
 import engine.Engine;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.paint.Color;
 import main.MenuUI;
 
 import java.io.File;
 import java.util.Random;
 
+/**
+ * Main {@code Controller} for the <tt>JavaFX</tt> {@link JavaFXApp} program.
+ */
 public class Controller {
 
-    @FXML public MenuItem customTheme;
-
     @FXML private Label myMessage;
-
-    @FXML private Button generateButton;
 
     public static void closeRequest() {
         String answer =
@@ -34,9 +31,17 @@ public class Controller {
         JavaFXApp.getStage().setFullScreen(true);
     }
 
+    /**
+     * The method calls a <i>pop-up window</i> for choosing a {@code Color}, and
+     * afterwards {@code set}s the
+     * <blockquote><code> -fx-background-color: </code></blockquote> of the
+     * {@code root} of {@link JavaFXApp} in the <tt>.css</tt> file.
+     *
+     * @param event the {@code ActionEvent} of pressing the button.
+     */
     public void getColor(ActionEvent event) {
 
-        // get color with pop-up window:
+        // get color via the color pop-up window:
         Color answer = ColorPickerApp.getColor();
 
         // cut out the first two '0x' chars from the String:

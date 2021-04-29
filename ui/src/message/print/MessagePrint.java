@@ -1,6 +1,6 @@
 package message.print;
 
-import application.message.FxDialogs;
+import application.dialog.FxDialogs;
 
 import static message.print.MessagePrint.Stream.ERR;
 import static message.print.MessagePrint.Stream.OUT;

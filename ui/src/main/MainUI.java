@@ -5,9 +5,11 @@ import javafx.application.Application;
 
 /**
  * Main class of the UI.
+ *
  * <p>
- * <b>Note:</b>
+ * <b>Note for module dependencies:</b>
  * </p>
+ *
  * <ul>
  *
  * <li>there is a mutual dependency between the <tt>ui</tt> module and
@@ -16,14 +18,15 @@ import javafx.application.Application;
  * <li>the <tt>ui</tt> module is dependent on
  * the <tt>javafx</tt> module.</li>
  *
+ * <li>the <tt>javafx</tt> module is dependent on
+ * the <tt>ui</tt> module and the <tt>engine</tt> module.</li>
+ *
  * </ul>
  *
  * @author Tal Yacob, ID: 208632778.
  * @version Rolling Exercise 2.0.
  */
 public class MainUI {
-
-    private static final JavaFXApp instanceOfJavaFXApp = new JavaFXApp();
 
     /**
      * main User-Interface method.
@@ -35,8 +38,6 @@ public class MainUI {
         // MenuUI.run();
 
         Application.launch(JavaFXApp.class, args);
-        // Application.launch(instanceOfJavaFXApp.getClass());
-
 
     }
 

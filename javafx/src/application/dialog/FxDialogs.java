@@ -1,4 +1,4 @@
-package application.message;
+package application.dialog;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -22,7 +22,15 @@ import java.util.Optional;
  * https://stackoverflow.com/questions/26341152/controlsfx-dialogs-deprecated-for-what/32618003#32618003
  */
 
+/**
+ * This class bundles <i>pop-up window</i>s for message dialogs.
+ */
 public class FxDialogs {
+
+    public static final String YES = "Yes";
+    public static final String NO = "No";
+    public static final String OK = "OK";
+    public static final String CANCEL = "Cancel";
 
     public static void showInformation(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -88,11 +96,6 @@ public class FxDialogs {
         alert.showAndWait();
     }
 
-    public static final String YES = "Yes";
-    public static final String NO = "No";
-    public static final String OK = "OK";
-    public static final String CANCEL = "Cancel";
-
     public static String showConfirm(String title, String message,
                                      String... options) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -143,11 +146,7 @@ public class FxDialogs {
         dialog.setContentText(message);
 
         Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()) {
-            return result.get();
-        } else {
-            return null;
-        }
+        return result.orElse(null);
 
     }
 
