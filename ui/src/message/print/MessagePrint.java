@@ -1,5 +1,7 @@
 package message.print;
 
+import application.message.FxDialogs;
+
 import static message.print.MessagePrint.Stream.ERR;
 import static message.print.MessagePrint.Stream.OUT;
 
@@ -18,9 +20,13 @@ public class MessagePrint {
 
     public static void println(Stream stream, String message) {
         if (stream == OUT) {
-            System.out.println(message);
+            // System.out.println(message);
+            FxDialogs.showInformation("INFO", message);
         } else if (stream == ERR) {
-            System.err.println(message);
+            // System.err.println(message);
+            // Controller.consoleOutput.setText(message); // TODO need to color red the ERROR messages with CSS
+            FxDialogs.showError("ERROR",
+                    message); // TODO need to color red the ERROR messages with CSS
         }
     }
 

@@ -1,10 +1,22 @@
 package main;
 
+import application.JavaFXApp;
+import javafx.application.Application;
+
 /**
  * Main class of the UI.
- * <p><b>Note: there is a mutual dependency between the <tt>ui</tt> module and
- * the
- * <tt>engine</tt> module.</b></p>
+ * <p>
+ * <b>Note:</b>
+ * </p>
+ * <ul>
+ *
+ * <li>there is a mutual dependency between the <tt>ui</tt> module and
+ * the <tt>engine</tt> module.</li>
+ *
+ * <li>the <tt>ui</tt> module is dependent on
+ * the <tt>javafx</tt> module.</li>
+ *
+ * </ul>
  *
  * @author Tal Yacob, ID: 208632778.
  * @version Rolling Exercise 2.0.
@@ -18,7 +30,10 @@ public class MainUI {
      */
     public static void main(String[] args) {
 
-        MenuUI.run();
+        // MenuUI.run();
+
+        Application.launch(JavaFXApp.class, args);
+
 
     }
 

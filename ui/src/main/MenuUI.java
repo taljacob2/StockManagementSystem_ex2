@@ -110,7 +110,7 @@ public class MenuUI {
         }
     }
 
-    private static void command_LOAD_XML_FILE() {
+    public static void command_LOAD_XML_FILE() {
         scanner = new Scanner(System.in); // reset scanner.
 
         MessagePrint.println(MessagePrint.Stream.OUT,
@@ -124,7 +124,20 @@ public class MenuUI {
         }
     }
 
-    private static void command_PRINT_STOCKS() {
+    public static void command_LOAD_XML_FILE(String absolutePathOfFile) {
+        // scanner = new Scanner(System.in); // reset scanner.
+        //
+        // MessagePrint.println(MessagePrint.Stream.OUT,
+        //         Message.Out.Input.please("[String]", "path"));
+
+        try {
+            LoadSaveXML.unmarshal(absolutePathOfFile); // unmarshal from file
+        } catch (IOException e) {
+            MessagePrint.println(MessagePrint.Stream.ERR, e.getMessage());
+        }
+    }
+
+    public static void command_PRINT_STOCKS() {
         try {
 
             // print stocks:
@@ -140,7 +153,7 @@ public class MenuUI {
         }
     }
 
-    private static void command_INFO_ABOUT_A_STOCK() {
+    public static void command_INFO_ABOUT_A_STOCK() {
 
         // first of all check if there are Stocks available in the system:
         if (Engine.isStocks()) {
@@ -167,7 +180,7 @@ public class MenuUI {
         }
     }
 
-    private static void command_EXECUTE_TRANSACTION_ORDER() {
+    public static void command_EXECUTE_TRANSACTION_ORDER() {
 
         // first of all check if there are Stocks available in the system:
         if (Engine.isStocks()) {
@@ -443,7 +456,7 @@ public class MenuUI {
         }
     }
 
-    private static void command_PRINT_LISTS_OF_ALL_ORDERS_AND_TRANSACTIONS() {
+    public static void command_PRINT_LISTS_OF_ALL_ORDERS_AND_TRANSACTIONS() {
         try {
             Stocks stocks = Engine.getStocks();
             for (Stock i : stocks.getCollection()) {
@@ -467,7 +480,7 @@ public class MenuUI {
         }
     }
 
-    private static void command_SAVE_XML_FILE() {
+    public static void command_SAVE_XML_FILE() {
 
         // if there are Stocks in the system
         if (Engine.isStocks()) {
@@ -486,7 +499,7 @@ public class MenuUI {
         }
     }
 
-    private static void command_EXIT() {
+    public static void command_EXIT() {
         exit = true;
         MessagePrint.println(MessagePrint.Stream.OUT, "Exited successfully.");
     }
