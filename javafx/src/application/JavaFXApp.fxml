@@ -1,38 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Controller">
-   <children>
-      <MenuBar blendMode="LIGHTEN" layoutX="14.0" layoutY="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-                  <MenuItem mnemonicParsing="false" onAction="#command_LOAD_XML_FILE" text="Load XML" />
-                  <MenuItem mnemonicParsing="false" onAction="#command_SAVE_XML_FILE" text="Save XML" />
-              <MenuItem mnemonicParsing="false" onAction="#command_EXIT" text="Exit" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-            <Menu mnemonicParsing="false" text="Theme">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Purple" />
-                  <MenuItem mnemonicParsing="false" text="Custom" />
-              </items>
-            </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0"
+            xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="application.Controller">
+    <children>
+        <MenuBar blendMode="LIGHTEN" layoutX="14.0" layoutY="14.0"
+                 AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                 AnchorPane.topAnchor="0.0">
+            <menus>
+                <Menu mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false"
+                                  onAction="#command_LOAD_XML_FILE"
+                                  text="Load XML"/>
+                        <MenuItem mnemonicParsing="false"
+                                  onAction="#command_SAVE_XML_FILE"
+                                  text="Save XML"/>
+                        <MenuItem mnemonicParsing="false"
+                                  onAction="#command_EXIT" text="Exit"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Delete"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="View">
+                    <items>
+                        <MenuItem mnemonicParsing="false"
+                                  onAction="#setFullScreen" text="FullScreen"/>
+                        <MenuItem fx:id="customTheme" mnemonicParsing="false"
+                                  onAction="#getColor" text="Custom Theme"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="About"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <Label fx:id="myMessage" layoutX="203.0" layoutY="223.0"
+               prefHeight="89.0" prefWidth="156.0" text="Label"/>
+        <Button fx:id="generateButton" layoutX="418.0" layoutY="243.0"
+                mnemonicParsing="false" onAction="#generateRandom"
+                text="generate"/>
+    </children>
 </AnchorPane>

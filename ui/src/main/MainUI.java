@@ -23,6 +23,8 @@ import javafx.application.Application;
  */
 public class MainUI {
 
+    private static final JavaFXApp instanceOfJavaFXApp = new JavaFXApp();
+
     /**
      * main User-Interface method.
      *
@@ -33,6 +35,7 @@ public class MainUI {
         // MenuUI.run();
 
         Application.launch(JavaFXApp.class, args);
+        // Application.launch(instanceOfJavaFXApp.getClass());
 
 
     }

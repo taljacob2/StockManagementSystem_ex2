@@ -1,8 +1,14 @@
 package application;
 
+import application.color.ColorPickerApp;
 import application.message.FxDialogs;
 import engine.Engine;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.paint.Color;
 import main.MenuUI;
 
 import java.io.File;
@@ -10,10 +16,11 @@ import java.util.Random;
 
 public class Controller {
 
-    // public static void getColor() {
-    //     /*Color colorPicked = */ColorPickerApp.getColor();
-    //     // System.out.println(colorPicked);
-    // }
+    @FXML public MenuItem customTheme;
+
+    @FXML private Label myMessage;
+
+    @FXML private Button generateButton;
 
     public static void closeRequest() {
         String answer =
@@ -23,14 +30,37 @@ public class Controller {
         }
     }
 
+    public void setFullScreen(ActionEvent event) {
+        JavaFXApp.getStage().setFullScreen(true);
+    }
+
+    public void getColor(ActionEvent event) {
+
+        // get color with pop-up window:
+        Color answer = ColorPickerApp.getColor();
+
+        // cut out the first two '0x' chars from the String:
+        String stringColor = answer.toString().substring(2);
+
+        // set the root the updated style:
+        JavaFXApp.getRoot()
+                .setStyle("-fx-background-color: " + "#" + stringColor);
+
+    }
+
     // TODO kill this
     public void generateRandom(ActionEvent event) {
         Random rand = new Random();
         int myRand = rand.nextInt(50) + 1;
         System.out.println(Integer.toString(myRand));
+        myMessage.setText(Integer.toString(myRand));
     }
 
     public void command_LOAD_XML_FILE(ActionEvent event) {
+
+        // set fileChooser Title:
+        JavaFXApp.fileChooser.setTitle("Choose a '.xml' file");
+
         File file = JavaFXApp.fileChooser.showOpenDialog(null);
         MenuUI.command_LOAD_XML_FILE(file.getAbsolutePath());
     }
@@ -54,6 +84,11 @@ public class Controller {
 
     public void command_SAVE_XML_FILE(ActionEvent event) {
         if (Engine.isStocks()) {
+
+            // set fileChooser Title:
+            JavaFXApp.fileChooser
+                    .setTitle("Choose where to save the '.xml' file");
+
             File file = JavaFXApp.fileChooser.showSaveDialog(null);
             MenuUI.command_SAVE_XML_FILE(file.getAbsolutePath());
         }
@@ -62,6 +97,5 @@ public class Controller {
     public void command_EXIT(ActionEvent event) {
         closeRequest();
     }
-
 
 }
