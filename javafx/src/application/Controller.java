@@ -1,6 +1,7 @@
 package application;
 
 import application.message.FxDialogs;
+import engine.Engine;
 import javafx.event.ActionEvent;
 import main.MenuUI;
 
@@ -8,6 +9,11 @@ import java.io.File;
 import java.util.Random;
 
 public class Controller {
+
+    // public static void getColor() {
+    //     /*Color colorPicked = */ColorPickerApp.getColor();
+    //     // System.out.println(colorPicked);
+    // }
 
     public static void closeRequest() {
         String answer =
@@ -17,6 +23,7 @@ public class Controller {
         }
     }
 
+    // TODO kill this
     public void generateRandom(ActionEvent event) {
         Random rand = new Random();
         int myRand = rand.nextInt(50) + 1;
@@ -46,7 +53,10 @@ public class Controller {
     }
 
     public void command_SAVE_XML_FILE(ActionEvent event) {
-        MenuUI.command_SAVE_XML_FILE();
+        if (Engine.isStocks()) {
+            File file = JavaFXApp.fileChooser.showSaveDialog(null);
+            MenuUI.command_SAVE_XML_FILE(file.getAbsolutePath());
+        }
     }
 
     public void command_EXIT(ActionEvent event) {

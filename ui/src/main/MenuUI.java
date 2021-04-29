@@ -499,6 +499,25 @@ public class MenuUI {
         }
     }
 
+    public static void command_SAVE_XML_FILE(String absolutePathOfFile) {
+
+        // if there are Stocks in the system
+
+
+            // scanner = new Scanner(System.in); // reset scanner.
+
+            // MessagePrint.println(MessagePrint.Stream.OUT,
+            //         Message.Out.Input.please("String", "path"));
+            // String input = scanner.nextLine().trim();
+
+            try {
+                LoadSaveXML.marshal(absolutePathOfFile);   // marshal to file
+            } catch (IOException e) {
+                MessagePrint.println(MessagePrint.Stream.ERR, e.getMessage());
+            }
+
+    }
+
     public static void command_EXIT() {
         exit = true;
         MessagePrint.println(MessagePrint.Stream.OUT, "Exited successfully.");
