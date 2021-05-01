@@ -12,7 +12,7 @@ import message.builder.BuildMessage;
  */
 public class BuildError_Stocks extends BuildError {
 
-    public String printEmpty() {
+    public String getEmpty() {
 
         // append the message.
         stringBuilder.append("There are no Stocks available in the system.");

@@ -90,8 +90,8 @@ public class Message {
          */
         public static class Stocks {
 
-            public static String printEmpty() {
-                return new BuildError_Stocks().printEmpty();
+            public static String getEmpty() {
+                return new BuildError_Stocks().getEmpty();
             }
 
             public static String unFoundSymbol(String symbol) {

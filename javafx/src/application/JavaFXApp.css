@@ -1,4 +1,25 @@
 
 .root {
     -fx-background-color: blueviolet;
+    /*-fx-background-color:linear-gradient(to bottom right, green, red);*/
+    /*-fx-background-image: url("snowHills.jpg");*/
+}
+
+/*.menu-bar{*/
+/*    -fx-background-color: red;*/
+/*}*/
+
+.progress-bar {
+    /*-fx-border-color: red;*/
+    /*-fx-progress-color: red;*/
+    /*-fx-background-image: url("snowHills.jpg");*/
+}
+
+.tool-bar {
+    -fx-background-color: darkcyan;
+}
+
+.tool-bar:hover {
+    /*-fx-background-color: blue;*/
+    -fx-background-color: linear-gradient(green, red);
 }

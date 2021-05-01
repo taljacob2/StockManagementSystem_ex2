@@ -146,6 +146,7 @@ public class LoadSaveXML {
             } catch (NullPointerException e) {
                 MessagePrint.println(MessagePrint.Stream.ERR,
                         Message.Err.XML.Load.nullPointerException());
+                e.printStackTrace();// TODO : check
             }
         } else {
 
@@ -172,7 +173,7 @@ public class LoadSaveXML {
         checkValidUsers(users);//TODO: need to UN-NOTE this and implement!!!
 
         // users found as valid, so we are allowed to set the Users:
-        Engine.setUsers(users); // set stocks of Engine.
+        Engine.setUsers(users); // set users of Engine.
     }
 
     /**
@@ -206,11 +207,14 @@ public class LoadSaveXML {
     private static void checkValidUsers(Users users) throws IOException {
         try {
 
-            // check the validation of the stocks in the File given:
-            Engine.checkValidUsers(users);
+            /*
+             * if there are users in the File given,
+             * check the validation of the users:
+             */
+            if (users != null) { Engine.checkValidUsers(users); }
         } catch (IOException e) {
 
-            // stocks are invalid:
+            // users are invalid:
             throw new IOException(e.getMessage() + ".");
         }
     }

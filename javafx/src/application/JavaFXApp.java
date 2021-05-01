@@ -94,14 +94,20 @@ public class JavaFXApp extends Application {
             Controller.closeRequest();
         });
 
+        // TableView<Stock> tableView =
+        //         FXMLLoader.load(getClass().getResource("StockTable.fxml"));
+
         scene = new Scene(root);
 
         // set .CSS file:
         scene.getStylesheets().add(pathToCSS);
 
-        stage.setScene(scene);
+
+        stage.setScene(scene); // TODO check
+        // stage.setScene(new Scene(tableView));
         stage.show();
 
     }
+
 
 }

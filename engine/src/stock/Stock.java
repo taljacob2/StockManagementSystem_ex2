@@ -48,6 +48,10 @@ public class Stock {
         return symbol;
     }
 
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+
     public void setSymbol() {
         this.symbol = symbol;
     }
@@ -67,6 +71,10 @@ public class Stock {
 
     public String getCompanyName() {
         return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     public void setCompanyName() {

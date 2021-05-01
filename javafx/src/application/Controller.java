@@ -2,22 +2,52 @@ package application;
 
 import application.color.ColorPickerApp;
 import application.dialog.FxDialogs;
+import application.pane.PaneLoader;
+import application.property.NumberProperty;
 import engine.Engine;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import main.MenuUI;
 
 import java.io.File;
+import java.net.URL;
 import java.util.Random;
+import java.util.ResourceBundle;
 
 /**
  * Main {@code Controller} for the <tt>JavaFX</tt> {@link JavaFXApp} program.
+ *
+ * <p>Note: <i>implements</i> {@link Initializable} in order to set the
+ * <i>observers</i> <i>binded</i> to the {@link #progressBar}.</p>
  */
-public class Controller {
+public class Controller implements Initializable {
+
+    /**
+     * This editable field defines a {@code double} number that is binded to the
+     * {@link #progressBar} via <i>observation</i>.
+     * <p>
+     * Edit this number with {@link NumberProperty#setNumber(double)} to set a
+     * <i>value</i> to the {@link #progressBar}.
+     */
+    final private static NumberProperty progressBarDoubleNumber =
+            new NumberProperty();
+
+    // TODO check -- FXML file should be inside this package hierarchy
+    // @FXML StockTable stockTable = new StockTable("StockTable.fxml");
+    // @FXML StockTable stockTable;
+
+    @FXML private BorderPane borderPane;
 
     @FXML private Label myMessage;
+    @FXML private ProgressBar progressBar;
 
     public static void closeRequest() {
         String answer =
@@ -25,6 +55,26 @@ public class Controller {
         if (answer.equals("Yes")) {
             System.exit(0);
         }
+    }
+
+    /**
+     * This method updates the {@link #progressBar} value, through an
+     * <i>iteration</i> of an '{@code Array'} or some kind of '{@code
+     * Collection}'.
+     *
+     * @param i    is the current iteration value.
+     * @param size is the {@code size} of the '{@code Array} or {@code
+     *             Collection}' that is being iterated.
+     */
+    public static void setProgressBarValue(int i, int size) {
+        progressBarDoubleNumber.setNumber((double) (i + 1) / size);
+    }
+
+    /**
+     * This method resets the {@link #progressBar} value.
+     */
+    public static void resetProgressBar() {
+        progressBarDoubleNumber.setNumber(0);
     }
 
     public void setFullScreen(ActionEvent event) {
@@ -57,8 +107,9 @@ public class Controller {
     public void generateRandom(ActionEvent event) {
         Random rand = new Random();
         int myRand = rand.nextInt(50) + 1;
-        System.out.println(Integer.toString(myRand));
         myMessage.setText(Integer.toString(myRand));
+        progressBarDoubleNumber.setNumber(((double) myRand / 100) *
+                2); // TODO: fix progress bar to sync into processes and not to the 'generate' method
     }
 
     public void command_LOAD_XML_FILE(ActionEvent event) {
@@ -88,6 +139,8 @@ public class Controller {
     }
 
     public void command_SAVE_XML_FILE(ActionEvent event) {
+
+        // if there are stocks in the system:
         if (Engine.isStocks()) {
 
             // set fileChooser Title:
@@ -103,4 +156,35 @@ public class Controller {
         closeRequest();
     }
 
+    @Override public void initialize(URL location, ResourceBundle resources) {
+
+        // initialize 'progressBarDoubleNumber':
+        progressBarDoubleNumber.setNumber(0);
+
+        // set all observers for 'progressBarDoubleNumber' property:
+        progressBarDoubleNumber.getProperty()
+                .addListener(new ChangeListener<Number>() {
+                    @Override public void changed(
+                            ObservableValue<? extends Number> observable,
+                            Number oldValue, Number newValue) {
+
+                        // set bind of 'progressBar' to 'progressBarDoubleNumber' property:
+                        progressBar.progressProperty()
+                                .bind(progressBarDoubleNumber.getProperty());
+                    }
+                });
+
+    }
+
+    public void printStocksOnTableView() {
+        System.out.println("you clicked me");
+
+        Pane view = PaneLoader.getPane("/StockTablePane.fxml");
+        borderPane.setCenter(view);
+
+        // set the 'stockTableView' to observe the Stocks in the program:
+        // stockTable = Observe.getTable();
+
+
+    }
 }

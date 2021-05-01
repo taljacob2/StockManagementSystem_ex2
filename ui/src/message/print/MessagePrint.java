@@ -1,5 +1,6 @@
 package message.print;
 
+import application.Controller;
 import application.dialog.FxDialogs;
 
 import static message.print.MessagePrint.Stream.ERR;
@@ -28,6 +29,9 @@ public class MessagePrint {
             FxDialogs.showError("ERROR",
                     message); // TODO need to color red the ERROR messages with CSS
         }
+
+        // TODO - Note: re-setting the JavaFX progress bar:
+        Controller.resetProgressBar();
     }
 
     public static void print(Stream stream, String message) {

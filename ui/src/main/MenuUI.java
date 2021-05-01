@@ -125,11 +125,6 @@ public class MenuUI {
     }
 
     public static void command_LOAD_XML_FILE(String absolutePathOfFile) {
-        // scanner = new Scanner(System.in); // reset scanner.
-        //
-        // MessagePrint.println(MessagePrint.Stream.OUT,
-        //         Message.Out.Input.please("[String]", "path"));
-
         try {
             LoadSaveXML.unmarshal(absolutePathOfFile); // unmarshal from file
         } catch (IOException e) {
@@ -500,15 +495,6 @@ public class MenuUI {
     }
 
     public static void command_SAVE_XML_FILE(String absolutePathOfFile) {
-
-        // if there are Stocks in the system
-
-
-            // scanner = new Scanner(System.in); // reset scanner.
-
-            // MessagePrint.println(MessagePrint.Stream.OUT,
-            //         Message.Out.Input.please("String", "path"));
-            // String input = scanner.nextLine().trim();
 
             try {
                 LoadSaveXML.marshal(absolutePathOfFile);   // marshal to file

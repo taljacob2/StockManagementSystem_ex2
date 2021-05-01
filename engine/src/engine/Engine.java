@@ -1,5 +1,6 @@
 package engine;
 
+import application.Controller;
 import engine.collection.EngineCollection;
 import load.Descriptor;
 import message.Message;
@@ -66,10 +67,14 @@ public class Engine {
 
         // bubble - compare:
         for (int i = 0; i < list.size(); ++i) {
+
+            // TODO - Note: updating the JavaFX progress bar:
+            Controller.setProgressBarValue(i, list.size());
+
+            String i_symbol = list.get(i).getSymbol();
+            String i_companyName = list.get(i).getCompanyName();
             for (int j = list.size() - 1; j > i; --j) {
-                String i_symbol = list.get(i).getSymbol();
                 String j_symbol = list.get(j).getSymbol();
-                String i_companyName = list.get(i).getCompanyName();
                 String j_companyName = list.get(j).getCompanyName();
                 if (i_symbol.equalsIgnoreCase(j_symbol)) {
 
@@ -109,7 +114,7 @@ public class Engine {
      * {@link Stocks} in the {@link Engine}.</p>
      *
      * <p>checking equality of the {@link Item}(s) {@code Symbol} with the
-     * {@link Stock} {@code Symbol} with case-sensitive</p>
+     * {@link Stock} {@code Symbol} with case-sensitive.</p>
      *
      * @param collectionToCheck the collection to check.
      * @throws IOException with an appropriate message in case of an invalid
@@ -117,23 +122,20 @@ public class Engine {
      */
     public static void checkValidUsers(
             EngineCollection<List<User>, User> collectionToCheck)
-            throws IOException { // TODO: split to multiple methods.
+            throws IOException {
 
         // get the collection:
         List<User> usersCollection = collectionToCheck.getCollection();
-        List<Stock> stockCollection = stocks.getCollection();
 
         // bubble - compare:
         for (int i = 0; i < usersCollection.size(); ++i) {
+            String i_name = usersCollection.get(i).getName();
             for (int j = usersCollection.size() - 1; j > i; --j) {
-                String i_name = usersCollection.get(i).getName();
                 String j_name = usersCollection.get(j).getName();
-                Holdings i_holdings = usersCollection.get(i).getHoldings();
-                Holdings j_holdings = usersCollection.get(j).getHoldings();
                 if (i_name.equalsIgnoreCase(j_name)) {
 
                     /*
-                     * found an equality of Strings between Names,
+                     * found an equality of Strings between Names of users,
                      * means this File is invalid:
                      */
                     throw new IOException(
@@ -141,57 +143,72 @@ public class Engine {
                                     "'" + i_name + "' and '" + j_name +
                                     "'");  // TODO: make a message: usersInvalid_NamesAmbiguity !!
                 }
-                if (i_holdings != null) {
-                    List<Item> itemCollection = i_holdings.getCollection();
+            }
 
-                    /*
-                     * bubble - compare: check if the symbol of each item not
-                     * available in any Stock Symbol that are already in the Engine:
-                     */
-                    for (Item item : itemCollection) {
-                        String currentItemSymbol = item.getSymbol();
+            // check the user's holdings:
+            checkValidHoldings(usersCollection.get(i));
+        }
 
-                        for (int n = 0; n < stockCollection.size(); ++n) {
+        // passed all checks, thus valid.
+    }
 
-                            // check for equality of Strings with case-sensitive:
-                            if (currentItemSymbol.equals(stockCollection.get(n)
-                                    .getSymbol())) {
+    /**
+     * This method checks if a given {@link User}'s {@link Holdings} are valid.
+     *
+     * @param userToCheck the {@link User} to check its {@link Holdings}
+     *                    validity.
+     * @throws IOException if there is in as Error.
+     */
+    private static void checkValidHoldings(User userToCheck)
+            throws IOException {
+        List<Stock> stockCollection = stocks.getCollection();
+        Holdings userHoldings = userToCheck.getHoldings();
+        if (userHoldings != null) {
+            List<Item> itemCollection = userHoldings.getCollection();
 
-                                /*
-                                 * if there is an equality of Strings with
-                                 * case-sensitive and this is a valid item.
-                                 */
-                                break;
-                            } else if ((n == (stockCollection.size() - 1)) &&
-                                    (!(currentItemSymbol
-                                            .equals(stockCollection.get(n)
-                                                    .getSymbol())))) {
+            /*
+             * bubble - compare:
+             * check if the Symbol of each Item is not equal to the
+             * Symbols of the Stocks that are already in the Engine:
+             */
+            for (Item item : itemCollection) {
+                String currentItemSymbol = item.getSymbol();
 
-                                /*
-                                 * this is the last Stock available, and there
-                                 * is no equality of Strings between the Symbols,
-                                 * means this File is invalid:
-                                 */
-                                throw new IOException(
-                                        "found a problem with the user: " +
-                                                "'" + i_name + "': " +
-                                                "the 'symbol' of the item: " +
-                                                "'" + currentItemSymbol + "'" +
-                                                " was not found as a Stock 'symbol' in the system"); // TODO: make a message: usersInvalid_SymbolsNotAvailable !! remember to name the 'name' of the current 'i_name' user.
-                            }
+                for (int n = 0; n < stockCollection.size(); ++n) {
 
-                        }
+                    // check for equality of Strings with case-sensitive:
+                    if (currentItemSymbol
+                            .equals(stockCollection.get(n).getSymbol())) {
 
+                        /*
+                         * if there is an equality of Strings with
+                         * case-sensitive thus this is a valid item.
+                         * so there is no need to continue check.
+                         */
+                        break;
+                    } else if ((n == (stockCollection.size() - 1)) &&
+                            (!(currentItemSymbol.equals(stockCollection.get(n)
+                                    .getSymbol())))) {
+
+                        /*
+                         * this is the last Stock available, and there
+                         * is no equality of Strings between the Symbols,
+                         * means this File is invalid:
+                         */
+                        throw new IOException(
+                                "found a problem with the user: " + "'" +
+                                        userToCheck.getName() + "': " +
+                                        "the 'symbol' of the item: " + "'" +
+                                        currentItemSymbol + "'" +
+                                        " was not found as a Stock 'symbol' in the system"); // TODO: make a message: usersInvalid_SymbolsNotAvailable !! remember to name the 'name' of the current 'i_name' user.
                     }
 
-                    // else, all symbols in the 'holdings' collection are valid.
                 }
 
             }
 
+            // else, all symbols in the 'holdings' collection are valid.
         }
-
-        // passed all checks, thus valid.
     }
 
     /**
@@ -227,7 +244,7 @@ public class Engine {
                 }
             }
         } catch (NullPointerException e) {
-            throw new IOException(Message.Err.Stocks.printEmpty());
+            throw new IOException(Message.Err.Stocks.getEmpty());
         }
         throw new IOException(Message.Err.Stocks.unFoundSymbol(symbol));
     }
@@ -287,7 +304,7 @@ public class Engine {
         if (stocks != null) {
             return stocks;
         } else {
-            throw new IOException(Message.Err.Stocks.printEmpty());
+            throw new IOException(Message.Err.Stocks.getEmpty());
         }
     }
 
@@ -305,7 +322,7 @@ public class Engine {
             return users;
         } else {
             throw new IOException(Message.Err.Stocks
-                    .printEmpty()); // TODO: change to Message.Err.Users.printEmpty() ---- need to implement!!!
+                    .getEmpty()); // TODO: change to Message.Err.Users.printEmpty() ---- need to implement!!!
         }
     }
 

@@ -42,7 +42,7 @@ public class EngineCollection<_Collection extends Collection<E>, E>
             }
         } catch (NullPointerException e) {
             MessagePrint.println(MessagePrint.Stream.ERR,
-                    Message.Err.Stocks.printEmpty());
+                    Message.Err.Stocks.getEmpty());
         }
         return stringBuilder.toString();
     }
