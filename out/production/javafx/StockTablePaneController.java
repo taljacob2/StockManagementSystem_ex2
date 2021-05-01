@@ -1,5 +1,3 @@
-package application.observer;
-
 import engine.Engine;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,7 +9,7 @@ import stock.Stock;
 
 import java.io.IOException;
 
-public class Observe {
+public class StockTablePaneController {
 
     // columns:
     @FXML private static final TableColumn<Stock, String> symbolColumn =
