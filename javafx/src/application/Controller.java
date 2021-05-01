@@ -179,7 +179,7 @@ public class Controller implements Initializable {
     public void printStocksOnTableView() {
         System.out.println("you clicked me");
 
-        Pane view = PaneLoader.getPane("/StockTablePane.fxml");
+        Pane view = PaneLoader.getPane("/stocktable/StockTablePane.fxml");
         borderPane.setCenter(view);
 
         // set the 'stockTableView' to observe the Stocks in the program:
