@@ -19,3 +19,5 @@
 # make command "5" as a table?
 
 # snowHills.jpg --- kill this or use this
+
+# in the StockTablePaneController - tableView --- make `Price` be presented as $USD.

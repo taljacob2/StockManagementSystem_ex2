@@ -73,7 +73,7 @@
         </MenuBar>
         <Label fx:id="myMessage" layoutX="1166.0" layoutY="84.0"
                prefHeight="78.0" prefWidth="100.0" text="Label"/>
-        <Button fx:id="generateButton" layoutX="1166.0" layoutY="46.0"
+        <Button fx:id="generateButton" layoutX="1139.0" layoutY="190.0"
                 mnemonicParsing="false" onAction="#generateRandom"
                 text="generate"/>
         <ToolBar layoutX="23.0" layoutY="661.0" prefHeight="40.0"

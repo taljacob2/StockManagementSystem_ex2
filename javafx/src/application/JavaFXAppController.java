@@ -40,6 +40,16 @@ public class JavaFXAppController implements Initializable {
     final private static NumberProperty progressBarDoubleNumber =
             new NumberProperty();
 
+    /**
+     * This editable field defines a {@code double} number that is binded to the
+     * {@link #progressBar} via <i>observation</i>.
+     * <p>
+     * Edit this number with {@link NumberProperty#setNumber(double)} to set a
+     * <i>value</i> to the {@link #progressBar}.
+     */
+    final private static NumberProperty fontSizeDoubleNumber =
+            new NumberProperty();
+
     @FXML private BorderPane borderPane;
 
     @FXML private Label myMessage;
@@ -170,6 +180,10 @@ public class JavaFXAppController implements Initializable {
                                 .bind(progressBarDoubleNumber.getProperty());
                     }
                 });
+
+        // DoubleProperty fontSize = new SimpleDoubleProperty(12); // font size in pt
+        // root.styleProperty().bind(
+        //         Bindings.format("-fx-font-size: %.2fpt;", fontSize));
 
     }
 

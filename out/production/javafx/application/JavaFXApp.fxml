@@ -1,88 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0"
-            xmlns="http://javafx.com/javafx/8.0.171"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="application.Controller">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.JavaFXAppController">
     <children>
-        <BorderPane fx:id="borderPane" layoutX="34.0" layoutY="85.0"
-                    prefHeight="524.0" prefWidth="913.0"
-                    AnchorPane.bottomAnchor="111.0" AnchorPane.leftAnchor="0.0"
-                    AnchorPane.topAnchor="85.0">
+        <BorderPane fx:id="borderPane" layoutX="34.0" layoutY="85.0" prefHeight="524.0" prefWidth="913.0" AnchorPane.bottomAnchor="111.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="85.0">
             <left>
-                <VBox prefHeight="524.0" prefWidth="163.0"
-                      BorderPane.alignment="CENTER">
+                <VBox prefHeight="524.0" prefWidth="163.0" BorderPane.alignment="CENTER">
                     <children>
-                        <Button mnemonicParsing="false"
-                                onAction="#printStocksOnTableView"
-                                text="Print Stocks"/>
+                        <Button mnemonicParsing="false" onAction="#printStocksOnTableView" text="Print Stocks" />
                     </children>
                     <BorderPane.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0"
-                                top="10.0"/>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                     </BorderPane.margin>
                 </VBox>
             </left>
         </BorderPane>
-        <MenuBar blendMode="LIGHTEN" layoutX="14.0" layoutY="14.0"
-                 AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                 AnchorPane.topAnchor="0.0">
+        <MenuBar blendMode="LIGHTEN" layoutX="14.0" layoutY="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem mnemonicParsing="false"
-                                  onAction="#command_LOAD_XML_FILE"
-                                  text="Load XML"/>
-                        <MenuItem mnemonicParsing="false"
-                                  onAction="#command_SAVE_XML_FILE"
-                                  text="Save XML"/>
-                        <MenuItem mnemonicParsing="false"
-                                  onAction="#command_EXIT" text="Exit"/>
+                        <MenuItem mnemonicParsing="false" onAction="#command_LOAD_XML_FILE" text="Load XML" />
+                        <MenuItem mnemonicParsing="false" onAction="#command_SAVE_XML_FILE" text="Save XML" />
+                        <MenuItem mnemonicParsing="false" onAction="#command_EXIT" text="Exit" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Print">
                     <items>
-                        <MenuItem mnemonicParsing="false"
-                                  onAction="#printStocksOnTableView"
-                                  text="Print Stocks"/>
+                        <MenuItem mnemonicParsing="false" onAction="#printStocksOnTableView" text="Print Stocks" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Delete"/>
+                        <MenuItem mnemonicParsing="false" text="Delete" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="View">
                     <items>
-                        <MenuItem mnemonicParsing="false"
-                                  onAction="#setFullScreen" text="FullScreen"/>
-                        <MenuItem mnemonicParsing="false" onAction="#getColor"
-                                  text="Custom Theme"/>
+                        <MenuItem mnemonicParsing="false" onAction="#setFullScreen" text="FullScreen" />
+                        <MenuItem mnemonicParsing="false" onAction="#getColor" text="Custom Theme" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="About"/>
+                        <MenuItem mnemonicParsing="false" text="About" />
                     </items>
                 </Menu>
             </menus>
         </MenuBar>
-        <Label fx:id="myMessage" layoutX="1166.0" layoutY="84.0"
-               prefHeight="78.0" prefWidth="100.0" text="Label"/>
-        <Button fx:id="generateButton" layoutX="1166.0" layoutY="46.0"
-                mnemonicParsing="false" onAction="#generateRandom"
-                text="generate"/>
-        <ToolBar layoutX="23.0" layoutY="661.0" prefHeight="40.0"
-                 prefWidth="200.0" AnchorPane.bottomAnchor="0.0"
-                 AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <Label fx:id="myMessage" layoutX="1166.0" layoutY="84.0" prefHeight="78.0" prefWidth="100.0" text="Label" />
+        <Button fx:id="generateButton" layoutX="1139.0" layoutY="190.0" mnemonicParsing="false" onAction="#generateRandom" text="generate" />
+        <ToolBar layoutX="23.0" layoutY="661.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <items>
-                <Label cache="true" text="Progress:"/>
-                <ProgressBar fx:id="progressBar" cache="true" progress="0.0"/>
-                <Button mnemonicParsing="false" text="Button"/>
+                <Label cache="true" text="Progress:" />
+                <ProgressBar fx:id="progressBar" cache="true" progress="0.0" />
+                <Button mnemonicParsing="false" text="Button" />
             </items>
         </ToolBar>
     </children>

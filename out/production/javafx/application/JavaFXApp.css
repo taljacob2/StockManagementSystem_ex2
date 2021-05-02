@@ -3,6 +3,8 @@
     -fx-background-color: blueviolet;
     /*-fx-background-color:linear-gradient(to bottom right, green, red);*/
     /*-fx-background-image: url("snowHills.jpg");*/
+
+    -fx-font: 24 arial;
 }
 
 /*.menu-bar{*/
