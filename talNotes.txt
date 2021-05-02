@@ -21,3 +21,5 @@
 # snowHills.jpg --- kill this or use this
 
 # in the StockTablePaneController - tableView --- make `Price` be presented as $USD.
+
+# change 'font' via a slider

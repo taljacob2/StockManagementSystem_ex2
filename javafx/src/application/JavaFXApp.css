@@ -4,7 +4,8 @@
     /*-fx-background-color:linear-gradient(to bottom right, green, red);*/
     /*-fx-background-image: url("snowHills.jpg");*/
 
-    -fx-font: 24 arial;
+    -fx-font: 22 sans-serif;
+    -fx-font-family: "Open Sans", sans-serif;
 }
 
 /*.menu-bar{*/
@@ -24,4 +25,12 @@
 .tool-bar:hover {
     /*-fx-background-color: blue;*/
     -fx-background-color: linear-gradient(green, red);
+}
+
+.button {
+    -fx-background-color: linear-gradient(white, darkcyan);
+}
+
+.button:hover {
+    -fx-background-color: red;
 }

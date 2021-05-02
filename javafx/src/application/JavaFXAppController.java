@@ -2,18 +2,21 @@ package application;
 
 import application.color.ColorPickerApp;
 import application.dialog.FxDialogs;
-import application.pane.PaneLoader;
 import application.property.NumberProperty;
+import application.scene.PaneReplacer;
+import application.scene.SceneHandler;
 import engine.Engine;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import main.MenuUI;
 
@@ -28,7 +31,7 @@ import java.util.ResourceBundle;
  * <p>Note: <i>implements</i> {@link Initializable} in order to set the
  * <i>observers</i> <i>binded</i> to the {@link #progressBar}.</p>
  */
-public class JavaFXAppController implements Initializable {
+public class JavaFXAppController implements Initializable, PaneReplacer {
 
     /**
      * This editable field defines a {@code double} number that is binded to the
@@ -55,6 +58,14 @@ public class JavaFXAppController implements Initializable {
     @FXML private Label myMessage;
 
     @FXML private ProgressBar progressBar;
+
+    /**
+     * Contains the {@link javafx.scene.layout.AnchorPane} windows that are
+     * being <i>replaced</i>.
+     */
+    @FXML private StackPane parentContainer = new StackPane();
+
+    @FXML private Button printButton2 = new Button("PRINTBUTTON2");
 
     public static void closeRequest() {
         String answer =
@@ -164,6 +175,17 @@ public class JavaFXAppController implements Initializable {
     }
 
     @Override public void initialize(URL location, ResourceBundle resources) {
+        parentContainer.getChildren()
+                .add(getPane("/application/scene/StockTablePane.fxml"));
+        borderPane.setCenter(parentContainer);
+
+        printButton2.setOnAction(new SceneHandler(parentContainer,
+                "/application/scene/StockTablePane.fxml"));
+
+        //
+        // replaceWith(event, buttonToScene2, parentContainer, anchorRoot,
+        //         "/application/scene/Scene2.fxml");
+
 
         // initialize 'progressBarDoubleNumber':
         progressBarDoubleNumber.setNumber(0);
@@ -183,7 +205,7 @@ public class JavaFXAppController implements Initializable {
 
         // DoubleProperty fontSize = new SimpleDoubleProperty(12); // font size in pt
         // root.styleProperty().bind(
-        //         Bindings.format("-fx-font-size: %.2fpt;", fontSize));
+        //         Bindings.format("-fx-font-size: %.2fpt;", fontSize)); //TODO font slider
 
     }
 
@@ -195,7 +217,18 @@ public class JavaFXAppController implements Initializable {
     public void printStocksOnTableView() {
 
         // set the new pane to show:
-        Pane view = PaneLoader.getPane("/stocktable/StockTablePane.fxml");
+        Pane view = getPane("/stocktable/StockTablePane.fxml");
         borderPane.setCenter(view);
     }
+    //
+    // public void printStocksOnTableView2() {
+    //
+    //
+    //
+    //
+    //     // set the new pane to show:
+    //     Pane parentStackPane = getPane("/stocktable/StockTablePane.fxml");
+    //     borderPane.setCenter(parentStackPane);
+    // }
+
 }

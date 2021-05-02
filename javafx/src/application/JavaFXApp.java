@@ -77,6 +77,10 @@ public class JavaFXApp extends Application {
         return stage;
     }
 
+    public static Scene getScene() {
+        return scene;
+    }
+
     @Override public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
 
@@ -84,7 +88,9 @@ public class JavaFXApp extends Application {
         stage.setTitle("Tal Yacob RSE - Rolling Exercise 2.0");
 
         // set root from a .FXML file:
-        root = FXMLLoader.load(getClass().getResource("JavaFXApp.fxml"));
+        root = FXMLLoader
+                .load(getClass().getResource("/application/JavaFXApp.fxml"));
+        // root = FXMLLoader.load(getClass().getResource("/application/scene/SceneOne.fxml"));// TODO: check
 
         // set COMMANDS: TODO: reorder this, not to be here!
         stage.setOnCloseRequest(event -> {
