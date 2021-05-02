@@ -67,6 +67,8 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
 
     @FXML private Button printButton2 = new Button("PRINTBUTTON2");
 
+    private Button scene2ButtonCheck = new Button("scene2"); //TODO delete this.
+
     public static void closeRequest() {
         String answer =
                 FxDialogs.showConfirm("Hello", "Are you sure?", "Yes", "No");
@@ -175,13 +177,24 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
     }
 
     @Override public void initialize(URL location, ResourceBundle resources) {
-        parentContainer.getChildren()
-                .add(getPane("/application/scene/StockTablePane.fxml"));
-        borderPane.setCenter(
-                parentContainer); // TODO: important : must `setCenter(parentContainer)` in order to show() !!
+
+        /*
+         * set an initial scene in the borderPane's CENTER:
+         * via setting a child Pane to the StackPane:
+         * Note: this is not a must, but only to set an initial scene.
+         */
+        // parentContainer.getChildren()
+        //         .add(getPane("/application/scene/StockTablePane.fxml"));
+        // borderPane.setCenter(
+        //         parentContainer); // TODO: important : must `setCenter(parentContainer)` in order to show() !!
 
         printButton2.setOnAction(new SceneHandler(borderPane, parentContainer,
                 "/application/scene/StockTablePane.fxml"));
+
+        //TODO remove this
+        scene2ButtonCheck.setOnAction(
+                new SceneHandler(borderPane, parentContainer,
+                        "/application/scene/Scene2.fxml"));
 
         //
         // replaceWith(event, buttonToScene2, parentContainer, anchorRoot,
@@ -218,9 +231,10 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
     public void printStocksOnTableView() {
 
         // set the new pane to show:
-        Pane view = getPane("/stocktable/StockTablePane.fxml");
+        Pane view = getPane("/application/scene/Scene1.fxml");
         borderPane.setCenter(
                 view); // TODO: check this is `double` lifting the pane up
+        System.out.println("printStockOnTableView Pressed");
     }
     //
     // public void printStocksOnTableView2() {
