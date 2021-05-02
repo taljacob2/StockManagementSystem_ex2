@@ -43,7 +43,6 @@ public class Stock {
     @XmlElement(name = "rse-data-base") private StockDataBase dataBase =
             new StockDataBase();
 
-
     public String getSymbol() {
         return symbol;
     }

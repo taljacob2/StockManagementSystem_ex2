@@ -1,3 +1,5 @@
+package application.pane.resources.stocktable;
+
 import engine.Engine;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -5,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import message.print.MessagePrint;
 import stock.Stock;
 
@@ -14,55 +17,39 @@ import java.util.ResourceBundle;
 
 public class StockTablePaneController implements Initializable {
 
-
     // ObservableList of all the stocks in the program:
     private static ObservableList<Stock> stockObservableList;
 
-    // table:
-    @FXML private TableView stockTableView;
-
-    public StockTablePaneController() {
+    static {
         try {
             stockObservableList = FXCollections
                     .observableArrayList(Engine.getStocks().getCollection());
         } catch (IOException e) {
             MessagePrint.println(MessagePrint.Stream.ERR, e.getMessage());
         }
-        //
-        // // set symbolColumn:
-        // symbolColumn.setMinWidth(200);
-        // symbolColumn.setCellValueFactory(
-        //         new PropertyValueFactory<Stock, String>("symbol"));
-        //
-        // // set companyNameColumn:
-        // companyNameColumn.setMinWidth(200);
-        // companyNameColumn.setCellValueFactory(
-        //         new PropertyValueFactory<Stock, String>("companyName"));
-        //
-        // // set priceColumn:
-        // priceColumn.setMinWidth(200);
-        // priceColumn.setCellValueFactory(
-        //         new PropertyValueFactory<Stock, Long>("price"));
-
-        // initialize 'stockTableView':
-        stockTableView = new TableView<>(stockObservableList);
-
-
-        // // set content of table:
-        // stockTableView.setItems(stockObservableList);
     }
+
+    @FXML private TableView<Stock> tableView;
+    @FXML private TableColumn<Stock, String> symbolColumn;
+    @FXML private TableColumn<Stock, String> companyNameColumn;
+    @FXML private TableColumn<Stock, Long> priceColumn;
+
+
+    public StockTablePaneController() throws IOException {}
+
 
     @Override public void initialize(URL location, ResourceBundle resources) {
 
         // columns:
-        TableColumn<Stock, String> symbolColumn = new TableColumn<>("Symbol");
+        symbolColumn.setCellValueFactory(
+                new PropertyValueFactory<Stock, String>("symbol"));
+        companyNameColumn.setCellValueFactory(
+                new PropertyValueFactory<Stock, String>("companyName"));
+        priceColumn.setCellValueFactory(
+                new PropertyValueFactory<Stock, Long>("price"));
 
-        TableColumn<Stock, String> companyNameColumn =
-                new TableColumn<>("Company Name");
-
-        TableColumn<Stock, Long> priceColumn = new TableColumn<>("Price");
-
-        // stockTableView.getColumns().addAll()
+        tableView.setItems(stockObservableList);
 
     }
+
 }

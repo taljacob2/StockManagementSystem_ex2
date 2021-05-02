@@ -9,11 +9,19 @@ import java.net.URL;
 
 public class PaneLoader {
 
+    private static final String PATH_TO_PANE_RESOURCES =
+            "/application/pane/resources";
+
     private static Pane pane;
 
     public static Pane getPane(String pathToFXML) {
         try {
-            URL fxmlURL = PaneLoader.class.getResource(pathToFXML);
+            URL fxmlURL = PaneLoader.class
+                    .getResource(PATH_TO_PANE_RESOURCES + pathToFXML);
+
+            //TODO: check:
+            System.out.println(fxmlURL != null ? fxmlURL.toString() : "null");
+
             // TODO: check
             //InputStream inputStream = ClassLoader.class.getResourceAsStream(pathToFXML);
             if (fxmlURL == null) {
