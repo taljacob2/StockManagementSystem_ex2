@@ -1,6 +1,6 @@
 package engine;
 
-import application.Controller;
+import application.JavaFXAppController;
 import engine.collection.EngineCollection;
 import load.Descriptor;
 import message.Message;
@@ -69,7 +69,7 @@ public class Engine {
         for (int i = 0; i < list.size(); ++i) {
 
             // TODO - Note: updating the JavaFX progress bar:
-            Controller.setProgressBarValue(i, list.size());
+            JavaFXAppController.setProgressBarValue(i, list.size());
 
             String i_symbol = list.get(i).getSymbol();
             String i_companyName = list.get(i).getCompanyName();

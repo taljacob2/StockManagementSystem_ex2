@@ -23,12 +23,12 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 /**
- * Main {@code Controller} for the <tt>JavaFX</tt> {@link JavaFXApp} program.
+ * Main {@code Controller} of the <tt>JavaFX</tt> {@link JavaFXApp} program.
  *
  * <p>Note: <i>implements</i> {@link Initializable} in order to set the
  * <i>observers</i> <i>binded</i> to the {@link #progressBar}.</p>
  */
-public class Controller implements Initializable {
+public class JavaFXAppController implements Initializable {
 
     /**
      * This editable field defines a {@code double} number that is binded to the
@@ -40,13 +40,10 @@ public class Controller implements Initializable {
     final private static NumberProperty progressBarDoubleNumber =
             new NumberProperty();
 
-    // TODO check -- FXML file should be inside this package hierarchy
-    // @FXML StockTable stockTable = new StockTable("StockTable.fxml");
-    // @FXML StockTable stockTable;
-
     @FXML private BorderPane borderPane;
 
     @FXML private Label myMessage;
+
     @FXML private ProgressBar progressBar;
 
     public static void closeRequest() {

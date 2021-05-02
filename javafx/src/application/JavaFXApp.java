@@ -86,28 +86,20 @@ public class JavaFXApp extends Application {
         // set root from a .FXML file:
         root = FXMLLoader.load(getClass().getResource("JavaFXApp.fxml"));
 
-        // primaryStage.setFullScreen(true);
-
         // set COMMANDS: TODO: reorder this, not to be here!
         stage.setOnCloseRequest(event -> {
             event.consume();
-            Controller.closeRequest();
+            JavaFXAppController.closeRequest();
         });
-
-        // TableView<Stock> tableView =
-        //         FXMLLoader.load(getClass().getResource("StockTable.fxml"));
 
         scene = new Scene(root);
 
         // set .CSS file:
         scene.getStylesheets().add(pathToCSS);
 
-
         stage.setScene(scene); // TODO check
-        // stage.setScene(new Scene(tableView));
+
         stage.show();
-
     }
-
 
 }

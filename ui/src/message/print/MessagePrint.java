@@ -1,6 +1,6 @@
 package message.print;
 
-import application.Controller;
+import application.JavaFXAppController;
 import application.dialog.FxDialogs;
 
 import static message.print.MessagePrint.Stream.ERR;
@@ -31,7 +31,7 @@ public class MessagePrint {
         }
 
         // TODO - Note: re-setting the JavaFX progress bar:
-        Controller.resetProgressBar();
+        JavaFXAppController.resetProgressBar();
     }
 
     public static void print(Stream stream, String message) {
