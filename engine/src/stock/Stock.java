@@ -31,7 +31,6 @@ public class Stock {
      * Constructor}.
      */
     @XmlElement(name = "rse-price", required = true) private long price;
-
     /**
      * A data-base of all the orders of the stock.
      * <p>Includes:</p>
@@ -44,29 +43,13 @@ public class Stock {
     @XmlElement(name = "rse-data-base") private StockDataBase dataBase =
             new StockDataBase();
 
+
     public String getSymbol() {
         return symbol;
     }
 
     public void setSymbol(String symbol) {
         this.symbol = symbol;
-    }
-
-    public void setSymbol() {
-        this.symbol = symbol;
-    }
-
-    @Override public boolean equals(Object o) {
-        if (this == o) { return true; }
-        if (o == null || getClass() != o.getClass()) { return false; }
-        Stock stock = (Stock) o;
-        return price == stock.price && Objects.equals(symbol, stock.symbol) &&
-                Objects.equals(companyName, stock.companyName) &&
-                Objects.equals(dataBase, stock.dataBase);
-    }
-
-    @Override public int hashCode() {
-        return Objects.hash(symbol, companyName, price, dataBase);
     }
 
     public String getCompanyName() {
@@ -77,16 +60,34 @@ public class Stock {
         this.companyName = companyName;
     }
 
-    public void setCompanyName() {
-        this.companyName = companyName;
-    }
-
     public long getPrice() {
         return price;
     }
 
     public void setPrice(long price) {
         this.price = price;
+    }
+
+    public void setSymbol() {
+        this.symbol = symbol;
+    }
+
+    public void setCompanyName() {
+        this.companyName = companyName;
+    }
+
+    @Override public boolean equals(Object o) {
+        if (this == o) { return true; }
+        if (o == null || getClass() != o.getClass()) { return false; }
+        Stock stock = (Stock) o;
+        return Objects.equals(symbol, stock.symbol) &&
+                Objects.equals(companyName, stock.companyName) &&
+                Objects.equals(price, stock.price) &&
+                Objects.equals(dataBase, stock.dataBase);
+    }
+
+    @Override public int hashCode() {
+        return Objects.hash(symbol, companyName, price, dataBase);
     }
 
     public StockDataBase getDataBase() {

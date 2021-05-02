@@ -14,11 +14,13 @@ public class PaneLoader {
     public static Pane getPane(String pathToFXML) {
         try {
             URL fxmlURL = PaneLoader.class.getResource(pathToFXML);
+            // TODO: check
+            //InputStream inputStream = ClassLoader.class.getResourceAsStream(pathToFXML);
             if (fxmlURL == null) {
                 throw new FileNotFoundException("FXML file can't be found.");
             }
 
-            pane = new FXMLLoader().load(fxmlURL);
+            pane = FXMLLoader.load(fxmlURL);
         } catch (Exception e) {
             MessagePrint.println(MessagePrint.Stream.ERR,
                     "No page " + pathToFXML +
