@@ -176,15 +176,15 @@ public class Controller implements Initializable {
 
     }
 
+    /**
+     * This method <i>loads</i> a {@link Pane} of {@link
+     * javafx.scene.control.TableView} of all the {@link stock.Stocks} in the
+     * program, and shows it to the screen.
+     */
     public void printStocksOnTableView() {
-        System.out.println("you clicked me");
 
+        // set the new pane to show:
         Pane view = PaneLoader.getPane("/stocktable/StockTablePane.fxml");
         borderPane.setCenter(view);
-
-        // set the 'stockTableView' to observe the Stocks in the program:
-        // stockTable = Observe.getTable();
-
-
     }
 }
