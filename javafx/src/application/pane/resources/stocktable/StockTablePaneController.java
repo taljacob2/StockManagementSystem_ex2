@@ -18,9 +18,14 @@ import java.util.ResourceBundle;
 public class StockTablePaneController implements Initializable {
 
     // ObservableList of all the stocks in the program:
-    private static ObservableList<Stock> stockObservableList;
+    private ObservableList<Stock> stockObservableList;
 
-    static {
+    @FXML private TableView<Stock> tableView;
+    @FXML private TableColumn<Stock, String> symbolColumn;
+    @FXML private TableColumn<Stock, String> companyNameColumn;
+    @FXML private TableColumn<Stock, Long> priceColumn;
+
+    public StockTablePaneController() {
         try {
             stockObservableList = FXCollections
                     .observableArrayList(Engine.getStocks().getCollection());
@@ -28,15 +33,6 @@ public class StockTablePaneController implements Initializable {
             MessagePrint.println(MessagePrint.Stream.ERR, e.getMessage());
         }
     }
-
-    @FXML private TableView<Stock> tableView;
-    @FXML private TableColumn<Stock, String> symbolColumn;
-    @FXML private TableColumn<Stock, String> companyNameColumn;
-    @FXML private TableColumn<Stock, Long> priceColumn;
-
-
-    public StockTablePaneController() throws IOException {}
-
 
     @Override public void initialize(URL location, ResourceBundle resources) {
 
