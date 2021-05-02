@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import message.print.MessagePrint;
@@ -19,6 +20,8 @@ import message.print.MessagePrint;
 import java.io.IOException;
 
 public class SceneHandler implements EventHandler {
+
+    private BorderPane borderPaneToShowOnItsCenter;
 
     /**
      * Contains the {@link javafx.scene.layout.AnchorPane} windows that are
@@ -35,7 +38,9 @@ public class SceneHandler implements EventHandler {
      */
     @FXML private AnchorPane anchorRoot = new AnchorPane();
 
-    public SceneHandler(StackPane parentContainer, String pathToFXML) {
+    public SceneHandler(BorderPane borderPaneToShowOnItsCenter,
+                        StackPane parentContainer, String pathToFXML) {
+        this.borderPaneToShowOnItsCenter = borderPaneToShowOnItsCenter;
         this.parentContainer = parentContainer;
         this.pathToFXML = pathToFXML;
     }
@@ -63,6 +68,9 @@ public class SceneHandler implements EventHandler {
             parentContainer.getChildren().remove(anchorRoot);
         });
         timeline.play();
+
+        borderPaneToShowOnItsCenter.setCenter(parentContainer);
     }
+
 
 }

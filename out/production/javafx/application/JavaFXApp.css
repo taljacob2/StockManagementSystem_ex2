@@ -27,10 +27,10 @@
     -fx-background-color: linear-gradient(green, red);
 }
 
-.button{
+.button {
     -fx-background-color: linear-gradient(white, darkcyan);
 }
 
-.button:hover{
+.button:hover {
     -fx-background-color: red;
 }

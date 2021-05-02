@@ -177,9 +177,10 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
     @Override public void initialize(URL location, ResourceBundle resources) {
         parentContainer.getChildren()
                 .add(getPane("/application/scene/StockTablePane.fxml"));
-        borderPane.setCenter(parentContainer);
+        borderPane.setCenter(
+                parentContainer); // TODO: important : must `setCenter(parentContainer)` in order to show() !!
 
-        printButton2.setOnAction(new SceneHandler(parentContainer,
+        printButton2.setOnAction(new SceneHandler(borderPane, parentContainer,
                 "/application/scene/StockTablePane.fxml"));
 
         //
@@ -218,7 +219,8 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
 
         // set the new pane to show:
         Pane view = getPane("/stocktable/StockTablePane.fxml");
-        borderPane.setCenter(view);
+        borderPane.setCenter(
+                view); // TODO: check this is `double` lifting the pane up
     }
     //
     // public void printStocksOnTableView2() {

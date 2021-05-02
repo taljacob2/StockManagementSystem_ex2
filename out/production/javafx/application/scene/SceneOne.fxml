@@ -5,22 +5,32 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-
-<StackPane fx:id="parentContainer" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scene.SceneHandler">
+<StackPane fx:id="parentContainer" xmlns="http://javafx.com/javafx/8.0.171"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="application.scene.SceneHandler">
     <children>
-        <AnchorPane id="AnchorPane" fx:id="anchorRoot" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #0288D1;">
+        <AnchorPane id="AnchorPane" fx:id="anchorRoot" prefHeight="600.0"
+                    prefWidth="800.0" style="-fx-background-color: #0288D1;">
             <children>
-                <Button fx:id="buttonToScene2" layoutX="299.0" layoutY="514.0" mnemonicParsing="false" onAction="#loadSecond" prefHeight="48.0" prefWidth="202.0" style="-fx-background-color: white;" text="Load Second">
+                <Button fx:id="buttonToScene2" layoutX="299.0" layoutY="514.0"
+                        mnemonicParsing="false" onAction="#loadSecond"
+                        prefHeight="48.0" prefWidth="202.0"
+                        style="-fx-background-color: white;" text="Load Second">
                     <font>
-                        <Font size="18.0" />
+                        <Font size="18.0"/>
                     </font>
                 </Button>
-                <Text fill="WHITE" layoutX="243.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Scene 1" textAlignment="CENTER" wrappingWidth="328.13671875">
+                <Text fill="WHITE" layoutX="243.0" layoutY="199.0"
+                      strokeType="OUTSIDE" strokeWidth="0.0" text="Scene 1"
+                      textAlignment="CENTER" wrappingWidth="328.13671875">
                     <font>
-                        <Font name="Lato Black" size="55.0" />
+                        <Font name="Lato Black" size="55.0"/>
                     </font>
                 </Text>
-            <Button fx:id="buttonPrintStocks" layoutX="307.0" layoutY="413.0" mnemonicParsing="false" onAction="#printStocks" prefHeight="42.0" prefWidth="187.0" text="Print Stocks" />
+                <Button fx:id="buttonPrintStocks" layoutX="307.0"
+                        layoutY="413.0" mnemonicParsing="false"
+                        onAction="#printStocks" prefHeight="42.0"
+                        prefWidth="187.0" text="Print Stocks"/>
             </children>
         </AnchorPane>
     </children>
