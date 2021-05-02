@@ -1,11 +1,10 @@
 application
 application.color
 application.dialog
-application.observer.control
-application.observer.table
 application.pane
 application.pane.resources.stocktable
 application.property
+application.scene
 currency
 engine
 engine.collection
