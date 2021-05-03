@@ -1,55 +1,72 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<rizpa-stock-exchange-descriptor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="TAL-RSE-V2.xsd">
+<rizpa-load.stock-exchange-descriptor>
     <rse-stocks>
-        <rse-stock>
+        <rse-load.stock>
             <rse-symbol>GOOGL</rse-symbol>
             <rse-company-name>Google</rse-company-name>
             <rse-price>100</rse-price>
             <rse-data-base>
                 <rse-buy-orders/>
-                <rse-sell-orders/>
-                <rse-successfully-finished-transactions/>
+                <rse-sell-orders>
+                    <rse-load.sell-order>
+                        <timeStamp>21:25:55:097</timeStamp>
+                        <symbol>GOOGL</symbol>
+                        <quantity>20</quantity>
+                        <orderDirection>SELL</orderDirection>
+                        <orderType>LMT</orderType>
+                        <desiredLimitPrice>100</desiredLimitPrice>
+                    </rse-load.sell-order>
+                    <rse-load.sell-order>
+                        <timeStamp>21:26:19:763</timeStamp>
+                        <symbol>GOOGL</symbol>
+                        <quantity>10</quantity>
+                        <orderDirection>SELL</orderDirection>
+                        <orderType>LMT</orderType>
+                        <desiredLimitPrice>110</desiredLimitPrice>
+                    </rse-load.sell-order>
+                </rse-sell-orders>
+                <rse-finished-transaction/>
             </rse-data-base>
-        </rse-stock>
-        <rse-stock>
+        </rse-load.stock>
+        <rse-load.stock>
             <rse-symbol>AAPL</rse-symbol>
             <rse-company-name>Apple</rse-company-name>
             <rse-price>75</rse-price>
             <rse-data-base>
                 <rse-buy-orders/>
                 <rse-sell-orders/>
-                <rse-successfully-finished-transactions/>
+                <rse-finished-transaction/>
             </rse-data-base>
-        </rse-stock>
-        <rse-stock>
+        </rse-load.stock>
+        <rse-load.stock>
             <rse-symbol>MSFT</rse-symbol>
             <rse-company-name>Microsoft</rse-company-name>
             <rse-price>175</rse-price>
             <rse-data-base>
                 <rse-buy-orders/>
                 <rse-sell-orders/>
-                <rse-successfully-finished-transactions/>
+                <rse-finished-transaction/>
             </rse-data-base>
-        </rse-stock>
-        <rse-stock>
+        </rse-load.stock>
+        <rse-load.stock>
             <rse-symbol>AMZN</rse-symbol>
             <rse-company-name>AMAZON</rse-company-name>
             <rse-price>275</rse-price>
             <rse-data-base>
                 <rse-buy-orders/>
                 <rse-sell-orders/>
-                <rse-successfully-finished-transactions/>
+                <rse-finished-transaction/>
             </rse-data-base>
-        </rse-stock>
-        <rse-stock>
+        </rse-load.stock>
+        <rse-load.stock>
             <rse-symbol>ZM</rse-symbol>
             <rse-company-name>Zoom</rse-company-name>
             <rse-price>25</rse-price>
             <rse-data-base>
                 <rse-buy-orders/>
                 <rse-sell-orders/>
-                <rse-successfully-finished-transactions/>
+                <rse-finished-transaction/>
             </rse-data-base>
-        </rse-stock>
+        </rse-load.stock>
     </rse-stocks>
-</rizpa-stock-exchange-descriptor>
+</rizpa-load.stock-exchange-descriptor>

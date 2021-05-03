@@ -12,11 +12,11 @@
                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columns>
-                <TableColumn fx:id="symbolColumn" prefWidth="133.0"
+                <TableColumn fx:id="symbolColumn" prefWidth="120.0"
                              text="Symbol"/>
-                <TableColumn fx:id="companyNameColumn" prefWidth="147.0"
+                <TableColumn fx:id="companyNameColumn" prefWidth="178.0"
                              text="Company Name"/>
-                <TableColumn fx:id="priceColumn" prefWidth="155.0"
+                <TableColumn fx:id="priceColumn" prefWidth="129.0"
                              text="Price"/>
             </columns>
         </TableView>

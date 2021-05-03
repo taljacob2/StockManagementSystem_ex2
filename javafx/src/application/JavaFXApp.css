@@ -1,8 +1,10 @@
 
 .root {
-    -fx-background-color: blueviolet;
-    /*-fx-background-color:linear-gradient(to bottom right, green, red);*/
-    /*-fx-background-image: url("snowHills.jpg");*/
+    /*-fx-background-color: blueviolet;*/
+    -fx-background-image: url("image/island.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
 
     -fx-font: 22 sans-serif;
     -fx-font-family: "Open Sans", sans-serif;
@@ -19,18 +21,38 @@
 }
 
 .tool-bar {
-    -fx-background-color: darkcyan;
+    -fx-background-color: rgba(0, 0, 0, 0.75);
 }
 
-.tool-bar:hover {
-    /*-fx-background-color: blue;*/
-    -fx-background-color: linear-gradient(green, red);
+#menuVBox {
+    -fx-background-color: rgba(0, 0, 0, 0.75);
 }
+
+/*.tool-bar:hover {*/
+/*    !*-fx-background-color: blue;*!*/
+/*    -fx-background-color: linear-gradient(green, red);*/
+/*}*/
 
 .button {
-    -fx-background-color: linear-gradient(white, darkcyan);
+    /*-fx-background-color: linear-gradient(white, darkcyan);*/
+    -fx-background-color: rgba(25, 25, 25, 0.8);
+    -fx-background-radius: 10;
+}
+
+.button:active {
+    /*-fx-background-color: linear-gradient(white, darkcyan);*/
+    -fx-background-color: rgba(25, 25, 25, 0.8);
+}
+
+#rseLabel {
+    -fx-background-color: rgb(101, 96, 30);
+    -fx-background-radius: 10;
 }
 
 .button:hover {
     -fx-background-color: red;
+}
+
+#progressBarLabel {
+    -fx-text-fill: white;
 }

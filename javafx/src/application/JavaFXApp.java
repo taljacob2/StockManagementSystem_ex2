@@ -87,7 +87,7 @@ public class JavaFXApp extends Application {
         // set title:
         stage.setTitle("Tal Yacob RSE - Rolling Exercise 2.0");
 
-        // set root from a .FXML file:
+        // set root from a '.fxml' file:
         root = FXMLLoader
                 .load(getClass().getResource("/application/JavaFXApp.fxml"));
         // root = FXMLLoader.load(getClass().getResource("/application/scene/SceneOne.fxml"));// TODO: check
@@ -100,7 +100,7 @@ public class JavaFXApp extends Application {
 
         scene = new Scene(root);
 
-        // set .CSS file:
+        // set '.css' file:
         scene.getStylesheets().add(pathToCSS);
 
         stage.setScene(scene); // TODO check

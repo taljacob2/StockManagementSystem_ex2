@@ -2,9 +2,9 @@ package application;
 
 import application.color.ColorPickerApp;
 import application.dialog.FxDialogs;
+import application.pane.PaneReplacer;
+import application.pane.handler.PaneAnimationHandler;
 import application.property.NumberProperty;
-import application.scene.PaneReplacer;
-import application.scene.SceneHandler;
 import engine.Engine;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -17,12 +17,11 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.VBox;
 import main.MenuUI;
 
 import java.io.File;
 import java.net.URL;
-import java.util.Random;
 import java.util.ResourceBundle;
 
 /**
@@ -53,21 +52,26 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
     final private static NumberProperty fontSizeDoubleNumber =
             new NumberProperty();
 
+    /**
+     * Contains {@link #replaceAblePane}. The {@link Pane} that is
+     * <i>replace-able</i>.
+     */
+    @FXML private static StackPane parentContainer = new StackPane();
+
+    /**
+     * the <i>replace-able</i> {@link Pane}.
+     */
+    private static Pane replaceAblePane;
+
+    @FXML private Label rseLabel;
+
     @FXML private BorderPane borderPane;
 
-    @FXML private Label myMessage;
+    @FXML private VBox menuVBox;
 
     @FXML private ProgressBar progressBar;
 
-    /**
-     * Contains the {@link javafx.scene.layout.AnchorPane} windows that are
-     * being <i>replaced</i>.
-     */
-    @FXML private StackPane parentContainer = new StackPane();
-
-    @FXML private Button printButton2 = new Button("PRINTBUTTON2");
-
-    private Button scene2ButtonCheck = new Button("scene2"); //TODO delete this.
+    @FXML private Button printStocksButton = new Button();
 
     public static void closeRequest() {
         String answer =
@@ -97,39 +101,113 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
         progressBarDoubleNumber.setNumber(0);
     }
 
+    public static Pane getReplaceAblePane() {
+        return replaceAblePane;
+    }
+
+    public static StackPane getParentContainer() {
+        return parentContainer;
+    }
+
+    @Override public void initialize(URL location, ResourceBundle resources) {
+
+        // set the rseLabel the initial style:
+        System.out.println(ColorPickerApp.getStringColorPicked());
+        ColorPickerApp.setStyleColor(rseLabel, "-fx-background-color: ",
+                ColorPickerApp.getStringColorPicked());
+
+        /*
+         * set an initial scene in the borderPane's CENTER:
+         * via setting a child Pane to the parent StackPane:
+         * Note: this is not a must, but only to set an initial scene.
+         */
+        // setPane("/application/scene/Scene1.fxml");// TODO remove check
+
+
+        printStocksButton.setOnAction(
+                new PaneAnimationHandler(borderPane, parentContainer,
+                        "/application/scene/StockTablePane.fxml",
+                        PaneAnimationHandler.AnimationType.FADE));
+
+
+        // initialize 'progressBarDoubleNumber':
+        progressBarDoubleNumber.setNumber(0);
+
+        // set all observers for 'progressBarDoubleNumber' property:
+        progressBarDoubleNumber.getProperty()
+                .addListener(new ChangeListener<Number>() {
+                    @Override public void changed(
+                            ObservableValue<? extends Number> observable,
+                            Number oldValue, Number newValue) {
+
+                        // set bind of 'progressBar' to 'progressBarDoubleNumber' property:
+                        progressBar.progressProperty()
+                                .bind(progressBarDoubleNumber.getProperty());
+                    }
+                });
+
+        // DoubleProperty fontSize = new SimpleDoubleProperty(12); // font size in pt
+        // root.styleProperty().bind(
+        //         Bindings.format("-fx-font-size: %.2fpt;", fontSize)); //TODO font slider
+
+    }
+
     public void setFullScreen(ActionEvent event) {
         JavaFXApp.getStage().setFullScreen(true);
     }
 
+    // TODO kill this
+    // public void generateRandom(ActionEvent event) {
+    //     Random rand = new Random();
+    //     int myRand = rand.nextInt(50) + 1;
+    //     myMessage.setText(Integer.toString(myRand));
+    //     progressBarDoubleNumber.setNumber(((double) myRand / 100) *
+    //             2); // TODO: fix progress bar to sync into processes and not to the 'generate' method
+    // }
+
     /**
      * The method calls a <i>pop-up window</i> for choosing a {@code Color}, and
      * afterwards {@code set}s the
-     * <blockquote><code> -fx-background-color: </code></blockquote> of the
-     * {@code root} of {@link JavaFXApp} in the <tt>.css</tt> file.
+     * <blockquote><code> -fx-background-color: </code></blockquote> {@code
+     * Components} of {@link JavaFXApp} in the <tt>.css</tt> file.
      *
      * @param event the {@code ActionEvent} of pressing the button.
      */
-    public void getColor(ActionEvent event) {
+    public void setColor(ActionEvent event) {
 
-        // get color via the color pop-up window:
-        Color answer = ColorPickerApp.getColor();
-
-        // cut out the first two '0x' chars from the String:
-        String stringColor = answer.toString().substring(2);
+        // get color via the color pop-up window into a String:
+        String stringColor = ColorPickerApp.getStringColor();
 
         // set the root the updated style:
-        JavaFXApp.getRoot()
-                .setStyle("-fx-background-color: " + "#" + stringColor);
+        ColorPickerApp
+                .setStyleColor(JavaFXApp.getRoot(), "-fx-background-color: ",
+                        stringColor);
 
+        // set the rseLabel the updated style:
+        ColorPickerApp
+                .setStyleColor(rseLabel, "-fx-background-color: ", stringColor);
+
+        new Button().getStyleClass()
+                .add("-fx-background-color: " + "#" + stringColor);
     }
 
-    // TODO kill this
-    public void generateRandom(ActionEvent event) {
-        Random rand = new Random();
-        int myRand = rand.nextInt(50) + 1;
-        myMessage.setText(Integer.toString(myRand));
-        progressBarDoubleNumber.setNumber(((double) myRand / 100) *
-                2); // TODO: fix progress bar to sync into processes and not to the 'generate' method
+    /**
+     * This method <i>loads</i> a {@link Pane} of {@link
+     * javafx.scene.control.TableView} of all the {@link stock.Stocks} in the
+     * program, and shows it to the screen.
+     */
+    public void printStocksOnTableView() {
+
+        // set the new pane to show:
+        Pane view =
+                getPane("/application/scene/StockTablePane.fxml");//todo: check if can be replaced with: getClass().getResource(pathToFXML)
+        borderPane.setCenter(view);
+        // TODO: check this is `double` lifting the pane up
+        System.out.println("printStockOnTableView Pressed");
+    }
+
+    public void scene1() {
+        setPane("/application/scene/Scene1.fxml");
     }
 
     public void command_LOAD_XML_FILE(ActionEvent event) {
@@ -176,75 +254,30 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
         closeRequest();
     }
 
-    @Override public void initialize(URL location, ResourceBundle resources) {
-
-        /*
-         * set an initial scene in the borderPane's CENTER:
-         * via setting a child Pane to the StackPane:
-         * Note: this is not a must, but only to set an initial scene.
-         */
-        // parentContainer.getChildren()
-        //         .add(getPane("/application/scene/StockTablePane.fxml"));
-        // borderPane.setCenter(
-        //         parentContainer); // TODO: important : must `setCenter(parentContainer)` in order to show() !!
-
-        printButton2.setOnAction(new SceneHandler(borderPane, parentContainer,
-                "/application/scene/StockTablePane.fxml"));
-
-        //TODO remove this
-        scene2ButtonCheck.setOnAction(
-                new SceneHandler(borderPane, parentContainer,
-                        "/application/scene/Scene2.fxml"));
-
-        //
-        // replaceWith(event, buttonToScene2, parentContainer, anchorRoot,
-        //         "/application/scene/Scene2.fxml");
-
-
-        // initialize 'progressBarDoubleNumber':
-        progressBarDoubleNumber.setNumber(0);
-
-        // set all observers for 'progressBarDoubleNumber' property:
-        progressBarDoubleNumber.getProperty()
-                .addListener(new ChangeListener<Number>() {
-                    @Override public void changed(
-                            ObservableValue<? extends Number> observable,
-                            Number oldValue, Number newValue) {
-
-                        // set bind of 'progressBar' to 'progressBarDoubleNumber' property:
-                        progressBar.progressProperty()
-                                .bind(progressBarDoubleNumber.getProperty());
-                    }
-                });
-
-        // DoubleProperty fontSize = new SimpleDoubleProperty(12); // font size in pt
-        // root.styleProperty().bind(
-        //         Bindings.format("-fx-font-size: %.2fpt;", fontSize)); //TODO font slider
-
-    }
-
     /**
-     * This method <i>loads</i> a {@link Pane} of {@link
-     * javafx.scene.control.TableView} of all the {@link stock.Stocks} in the
-     * program, and shows it to the screen.
+     * This method sets the new Pane to be shown on the <i>center</i> of the
+     * {@link #borderPane} and <i>updates</i> the {@link #replaceAblePane}
+     * accordingly.
+     *
+     * @param pathToFXML path to the <tt>.fxml</tt> of the pane the user wishes
+     *                   to show.
      */
-    public void printStocksOnTableView() {
+    private void setPane(String pathToFXML) {
 
-        // set the new pane to show:
-        Pane view = getPane("/application/scene/Scene1.fxml");
-        borderPane.setCenter(
-                view); // TODO: check this is `double` lifting the pane up
-        System.out.println("printStockOnTableView Pressed");
+        // get the newPane:
+        Pane newPane = getPane(pathToFXML);
+
+        // add the pane as a child of the parentContainer:
+        parentContainer.getChildren().add(newPane);
+
+        // remove the oldPane as a child of the parentContainer:
+        parentContainer.getChildren().remove(replaceAblePane);
+
+        // update the 'replaceAblePane':
+        replaceAblePane = newPane;
+
+        // show the pane in the center of the borderPane:
+        borderPane.setCenter(newPane);
     }
-    //
-    // public void printStocksOnTableView2() {
-    //
-    //
-    //
-    //
-    //     // set the new pane to show:
-    //     Pane parentStackPane = getPane("/stocktable/StockTablePane.fxml");
-    //     borderPane.setCenter(parentStackPane);
-    // }
-
 }
+

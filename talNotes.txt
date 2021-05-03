@@ -23,3 +23,9 @@
 # in the StockTablePaneController - tableView --- make `Price` be presented as $USD.
 
 # change 'font' via a slider
+
+# Aviad said that the main method should be on the 'javafx' module.
+    is it okay to set the main as my MainUI eventhough its on the 'ui' module?
+
+# -> write in README  that Filechooser is having ExtensionFilters to .FXML and ALL
+        also, root setInitialDirectory is the current Project directory.

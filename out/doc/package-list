@@ -1,8 +1,9 @@
 application
+application.animation
 application.color
 application.dialog
 application.pane
-application.pane.resources.stocktable
+application.pane.handler
 application.property
 application.scene
 currency
