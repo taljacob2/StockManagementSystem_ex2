@@ -6,6 +6,8 @@ import application.pane.PaneReplacer;
 import application.pane.handler.PaneAnimationHandler;
 import application.property.NumberProperty;
 import engine.Engine;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -39,6 +41,16 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
      * Edit this number with {@link NumberProperty#setNumber(double)} to set a
      * <i>value</i> to the {@link #progressBar}.
      */
+    final public static StringProperty messageProperty =
+            new SimpleStringProperty();
+
+    /**
+     * This editable field defines a {@code double} number that is binded to the
+     * {@link #progressBar} via <i>observation</i>.
+     * <p>
+     * Edit this number with {@link NumberProperty#setNumber(double)} to set a
+     * <i>value</i> to the {@link #progressBar}.
+     */
     final private static NumberProperty progressBarDoubleNumber =
             new NumberProperty();
 
@@ -50,7 +62,7 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
      * <i>value</i> to the {@link #progressBar}.
      */
     final private static NumberProperty fontSizeDoubleNumber =
-            new NumberProperty();
+            new NumberProperty();//FIXME need to fix/kill all of this
 
     /**
      * Contains {@link #replaceAblePane}. The {@link Pane} that is
@@ -62,15 +74,12 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
      * the <i>replace-able</i> {@link Pane}.
      */
     private static Pane replaceAblePane;
-
+    @FXML private static Label staticStatusLabel;
+    @FXML private Label statusLabel;
     @FXML private Label rseLabel;
-
     @FXML private BorderPane borderPane;
-
     @FXML private VBox menuVBox;
-
     @FXML private ProgressBar progressBar;
-
     @FXML private Button printStocksButton = new Button();
 
     public static void closeRequest() {
@@ -109,10 +118,15 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
         return parentContainer;
     }
 
+    public static Label getStaticStatusLabel() {
+        return staticStatusLabel;
+    }
+
     @Override public void initialize(URL location, ResourceBundle resources) {
 
+        staticStatusLabel = statusLabel;
+
         // set the rseLabel the initial style:
-        System.out.println(ColorPickerApp.getStringColorPicked());
         ColorPickerApp.setStringStyleColor(rseLabel, "-fx-background-color: ",
                 ColorPickerApp.getStringColorPicked());
 
@@ -129,6 +143,7 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
                         "/application/scene/StockTablePane.fxml",
                         PaneAnimationHandler.AnimationType.FADE));
 
+        /* -- Properties -- */
 
         // initialize 'progressBarDoubleNumber':
         progressBarDoubleNumber.setNumber(0);
@@ -150,10 +165,17 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
         // root.styleProperty().bind(
         //         Bindings.format("-fx-font-size: %.2fpt;", fontSize)); //TODO font slider
 
-    }
 
-    public void setFullScreen(ActionEvent event) {
-        JavaFXApp.getStage().setFullScreen(true);
+        // messageProperty.addListener(new ChangeListener<String>() {
+        //
+        //     @Override
+        //     public void changed(ObservableValue<? extends String> observable,
+        //                         String oldValue, String newValue) {
+        //
+        //         // set bind of 'statusLabel' to 'messageProperty' property:
+        //         statusText.textProperty().bind(messageProperty);
+        //     }
+        // });
     }
 
     // TODO kill this
@@ -164,6 +186,10 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
     //     progressBarDoubleNumber.setNumber(((double) myRand / 100) *
     //             2); // TODO: fix progress bar to sync into processes and not to the 'generate' method
     // }
+
+    public void setFullScreen(ActionEvent event) {
+        JavaFXApp.getStage().setFullScreen(true);
+    }
 
     /**
      * The method calls a <i>pop-up window</i> for choosing a {@code Color}, and
@@ -179,8 +205,8 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
         String stringColor = ColorPickerApp.getStringColor();
 
         // set the root the updated style:
-        ColorPickerApp.setStringStyleColor(JavaFXApp.getRoot(),
-                "-fx-background-color: ", stringColor);
+        // ColorPickerApp.setStringStyleColor(JavaFXApp.getRoot(),
+        //         "-fx-background-color: ", stringColor);
 
         String rgbaString = ColorPickerApp.toRGBAString(0.5);
 
@@ -219,7 +245,7 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
      * javafx.scene.control.TableView} of all the {@link stock.Stocks} in the
      * program, and shows it to the screen.
      */
-    public void printStocksOnTableView() {
+    public void printStocksOnTableView() { //TODO: kill
 
         // set the new pane to show:
         Pane view =

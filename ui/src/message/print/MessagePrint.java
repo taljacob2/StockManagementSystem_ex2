@@ -1,7 +1,6 @@
 package message.print;
 
 import application.JavaFXAppController;
-import application.dialog.FxDialogs;
 
 import static message.print.MessagePrint.Stream.ERR;
 import static message.print.MessagePrint.Stream.OUT;
@@ -22,12 +21,22 @@ public class MessagePrint {
     public static void println(Stream stream, String message) {
         if (stream == OUT) {
             // System.out.println(message);
-            FxDialogs.showInformation("INFO", message);
+            //TODO: check:
+
+            // FxDialogs.showInformation("INFO", message);
+            JavaFXAppController.getStaticStatusLabel()
+                    .setStyle("-fx-text-fill: rgb(202, 200, 197)");
+            JavaFXAppController.getStaticStatusLabel().setText(message);
         } else if (stream == ERR) {
             // System.err.println(message);
             // Controller.consoleOutput.setText(message); // TODO need to color red the ERROR messages with CSS
-            FxDialogs.showError("ERROR",
-                    message); // TODO need to color red the ERROR messages with CSS
+
+            // FxDialogs.showError("ERROR",
+            //         message); // TODO need to color red the ERROR messages with CSS
+
+            JavaFXAppController.getStaticStatusLabel()
+                    .setStyle("-fx-text-fill: red");
+            JavaFXAppController.getStaticStatusLabel().setText(message);
         }
 
         // TODO - Note: re-setting the JavaFX progress bar:
