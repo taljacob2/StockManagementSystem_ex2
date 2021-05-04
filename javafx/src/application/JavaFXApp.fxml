@@ -116,7 +116,7 @@
             <bottom>
                 <ToolBar BorderPane.alignment="CENTER">
                     <items>
-                        <Label fx:id="progressBarLabel" cache="true"
+                        <Label fx:id="progressLabel" cache="true"
                                text="Progress:"/>
                         <ProgressBar fx:id="progressBar" cache="true"
                                      progress="0.0"/>

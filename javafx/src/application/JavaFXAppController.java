@@ -75,7 +75,10 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
      */
     private static Pane replaceAblePane;
     @FXML private static Label staticStatusLabel;
+    @FXML private static Label staticProgressLabel;
     @FXML private Label statusLabel;
+    @FXML private Label progressLabel;
+
     @FXML private Label rseLabel;
     @FXML private BorderPane borderPane;
     @FXML private VBox menuVBox;
@@ -125,6 +128,7 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
     @Override public void initialize(URL location, ResourceBundle resources) {
 
         staticStatusLabel = statusLabel;
+        staticProgressLabel = progressLabel;
 
         // set the rseLabel the initial style:
         ColorPickerApp.setStringStyleColor(rseLabel, "-fx-background-color: ",
@@ -204,14 +208,22 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
         // get color via the color pop-up window into a String:
         String stringColor = ColorPickerApp.getStringColor();
 
-        // set the root the updated style:
+        // translate color:
+        String rgbString = ColorPickerApp.toRGBString();
+        String rgbaString = ColorPickerApp.toRGBAString(0.5);
+
+
+        /* -- Set Style Colors -- */
+
+        // set the root the updated style: //TODO kill this
         // ColorPickerApp.setStringStyleColor(JavaFXApp.getRoot(),
         //         "-fx-background-color: ", stringColor);
 
-        String rgbaString = ColorPickerApp.toRGBAString(0.5);
-
         // set the menuVBox the updated style:
         menuVBox.setStyle("-fx-background-color: " + rgbaString);
+
+        // set the staticProgressLabel the updated style:
+        staticProgressLabel.setStyle("-fx-text-fill: " + rgbString);
 
 
         // set Color of and background Color of label rseLabel:
