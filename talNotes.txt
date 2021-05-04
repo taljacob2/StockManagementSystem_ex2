@@ -32,3 +32,6 @@
 
  # -> write in README  that in change of color theme, the label of "RSE" is
         white on dark colors, and black on bright colors.
+
+         # -> write in README  that in change of color theme, the label of "Progress" is
+                white on dark colors that are less than 150 total, and Colored on bright colors.

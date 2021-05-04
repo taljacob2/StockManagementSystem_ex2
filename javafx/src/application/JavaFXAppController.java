@@ -209,7 +209,6 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
         String stringColor = ColorPickerApp.getStringColor();
 
         // translate color:
-        String rgbString = ColorPickerApp.toRGBString();
         String rgbaString = ColorPickerApp.toRGBAString(0.5);
 
 
@@ -223,10 +222,41 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
         menuVBox.setStyle("-fx-background-color: " + rgbaString);
 
         // set the staticProgressLabel the updated style:
-        staticProgressLabel.setStyle("-fx-text-fill: " + rgbString);
-
+        setProgressLabelColor();
 
         // set Color of and background Color of label rseLabel:
+        setRseLabelColor(stringColor);
+
+    }
+
+    private static void setProgressLabelColor() {
+
+        // translate color:
+        String rgbString = ColorPickerApp.toRGBString();
+
+        double sumOfColors =
+                ColorPickerApp.getRed() + ColorPickerApp.getGreen() +
+                        ColorPickerApp.getBlue();
+
+        if (sumOfColors > 150) {
+
+            /*
+             * if the color is dark enough:
+             * set the staticProgressLabel the updated style:
+             */
+            staticProgressLabel.setStyle("-fx-text-fill: " + rgbString);
+        } else {
+
+            /*
+             * if the color is too dark:
+             * set the staticProgressLabel the updated style:
+             */
+            staticProgressLabel.setStyle("-fx-text-fill: rgb(202, 200, 197)");
+        }
+    }
+
+    private void setRseLabelColor(String stringColor) {
+        //TODO: may make this method a `static` method by doing the `static` label copy trick.
         if ((ColorPickerApp.getRed() >= 150) ||
                 (ColorPickerApp.getGreen() > 150) ||
                 (ColorPickerApp.getBlue() > 150)) {
@@ -249,7 +279,6 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
                     "-fx-background-color: " + "#" + stringColor;
             rseLabel.setStyle(formatString);
         }
-
     }
 
     /**

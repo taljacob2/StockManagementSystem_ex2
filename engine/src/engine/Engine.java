@@ -140,10 +140,10 @@ public class Engine {
                      * found an equality of Strings between Names of users,
                      * means this File is invalid:
                      */
-                    throw new IOException(
+                    throw new IOException(new BuildError().getMessage() +
                             "Invalid Stocks - There is an ambiguity in the 'name' [String]s of the users: " +
-                                    "'" + i_name + "' and '" + j_name +
-                                    "'");  // TODO: make a message: usersInvalid_NamesAmbiguity !!
+                            "'" + i_name + "' and '" + j_name +
+                            "'");  // TODO: make a message: usersInvalid_NamesAmbiguity !!
                 }
             }
 
@@ -197,12 +197,12 @@ public class Engine {
                          * is no equality of Strings between the Symbols,
                          * means this File is invalid:
                          */
-                        throw new IOException(
+                        throw new IOException(new BuildError().getMessage() +
                                 "found a problem with the user: " + "'" +
-                                        userToCheck.getName() + "': " +
-                                        "the 'symbol' of the item: " + "'" +
-                                        currentItemSymbol + "'" +
-                                        " was not found as a Stock 'symbol' in the system"); // TODO: make a message: usersInvalid_SymbolsNotAvailable !! remember to name the 'name' of the current 'i_name' user.
+                                userToCheck.getName() + "': " +
+                                "the 'symbol' of the item: " + "'" +
+                                currentItemSymbol + "'" +
+                                " was not found as a Stock 'symbol' in the system"); // TODO: make a message: usersInvalid_SymbolsNotAvailable !! remember to name the 'name' of the current 'i_name' user.
                     }
 
                 }

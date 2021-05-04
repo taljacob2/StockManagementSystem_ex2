@@ -64,3 +64,8 @@
     -fx-text-fill: rgb(202, 200, 197);
 }
 
+
+.root {
+    animation: zoomin 12s ease-in-out infinite alternate;
+    -webkit-animation: zoomin 12s ease-in-out infinite alternate;
+}
