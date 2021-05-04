@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import message.print.MessagePrint;
 
 /* XXX
     GUIDE: check Animation here:
@@ -91,28 +92,42 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
         // add the extracted Pane as a child of the parentContainer provided:
         parentContainer.getChildren().add(newPane);
 
+        Animation animation = null;
         // if the Animation state is enabled, preset an Animation: // TODO need to implement 'if' statement
         if (application.animation.Animation.getAnimation()) {
-            presentAnimation(event, newPane);
+            animation = presentAnimation(event, newPane);
+        }
+        if (animation != null) {
+
+            // remove the old Pane:
+            animation.setOnFinished(event1 -> parentContainer.getChildren()
+                    .remove(oldPane)); // TODO doesn't work for some reason!
+        } else {
+
+            // TODO: reorder in a message:
+            MessagePrint.println(MessagePrint.Stream.ERR,
+                    "ERROR when removing child in Container.");
+            return;
         }
 
-        // remove the old Pane:
-        parentContainer.getChildren().remove(oldPane);
 
         // present the extracted Pane:
         borderPaneToShowOnItsCenter.setCenter(parentContainer);
     }
 
-    private void presentAnimation(Event event, Pane newPane) {
+    private Animation presentAnimation(Event event, Pane newPane) {
         if (animationType == AnimationType.TIMELINE) {
 
             // Timeline Animation:
-            createTimeLineAnimationAndPlay(event, newPane);
+            return createTimeLineAnimationAndPlay(event, newPane);
         } else if (animationType == AnimationType.FADE) {
 
             // Fade Animation:
-            createFadeTransitionAnimationAndPlay(oldPane, newPane);
+            return createFadeTransitionAnimationAndPlay(oldPane, newPane);
         }
+
+        // in case of an error. shouldn't be happening:
+        return null;
     }
 
     private Timeline createTimeLineAnimation(Event event, Pane pane) {
@@ -129,9 +144,11 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
         return timeline;
     }
 
-    private void createTimeLineAnimationAndPlay(Event event, Pane pane) {
+    private Animation createTimeLineAnimationAndPlay(Event event, Pane pane) {
         Timeline timeline = createTimeLineAnimation(event, pane);
         timeline.play();
+
+        return timeline;
     }
 
     private FadeTransition createFadeInTransitionAnimation(Pane pane,
@@ -154,8 +171,8 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
         return fadeTransition;
     }
 
-    private void createFadeTransitionAnimationAndPlay(Pane oldPane,
-                                                      Pane newPane) {
+    private Animation createFadeTransitionAnimationAndPlay(Pane oldPane,
+                                                           Pane newPane) {
         FadeTransition fadeOutTransition =
                 createFadeOutTransitionAnimation(oldPane, Duration.seconds(1));
         FadeTransition fadeInTransition =
@@ -163,6 +180,8 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
 
         fadeOutTransition.setOnFinished(event -> fadeInTransition.play());
         fadeOutTransition.play();
+
+        return fadeInTransition;
     }
 
     /**

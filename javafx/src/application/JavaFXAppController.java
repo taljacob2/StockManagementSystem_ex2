@@ -66,6 +66,15 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
     final private static NumberProperty fontSizeDoubleNumber =
             new NumberProperty();//FIXME need to fix/kill all of this
 
+    private static final StringProperty rgbaStringProperty =
+            new SimpleStringProperty();
+
+    private static final StringProperty rgbStringProperty =
+            new SimpleStringProperty();
+
+    private static final StringProperty stringColorProperty =
+            new SimpleStringProperty();
+
     /**
      * Contains {@link #replaceAblePane}. The {@link Pane} that is
      * <i>replace-able</i>.
@@ -76,18 +85,26 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
      * the <i>replace-able</i> {@link Pane}.
      */
     private static Pane replaceAblePane;
+
     @FXML private static Label staticStatusLabel;
+
     @FXML private static Label staticProgressLabel;
+
+    @FXML private Button printStocksButton = new Button();
+
     @FXML private Label statusLabel;
+
     @FXML private Label progressLabel; // TODO: can make it static trick.
 
     @FXML private MenuBar menuBar;
 
     @FXML private Label rseLabel;
+
     @FXML private BorderPane borderPane;
+
     @FXML private VBox menuVBox;
+
     @FXML private ProgressBar progressBar;
-    @FXML private Button printStocksButton = new Button();
 
     public static void closeRequest() {
         String answer =
@@ -131,9 +148,6 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
 
     private static void setProgressLabelColor() {
 
-        // translate color:
-        String rgbString = ColorPickerApp.toRGBString();
-
         double sumOfColors =
                 ColorPickerApp.getRed() + ColorPickerApp.getGreen() +
                         ColorPickerApp.getBlue();
@@ -144,7 +158,8 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
              * if the color is dark enough:
              * set the staticProgressLabel the updated style:
              */
-            staticProgressLabel.setStyle("-fx-text-fill: " + rgbString);
+            staticProgressLabel
+                    .setStyle("-fx-text-fill: " + rgbStringProperty.get());
         } else {
 
             /*
@@ -171,7 +186,7 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
 
         // set the rseLabel the initial style:
         ColorPickerApp.setStringStyleColor(rseLabel, "-fx-background-color: ",
-                ColorPickerApp.getStringColorPicked());
+                ColorPickerApp.getStringColor());
 
         /*
          * set an initial scene in the borderPane's CENTER:
@@ -191,7 +206,7 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
         // initialize 'progressBarDoubleNumber':
         progressBarDoubleNumber.setNumber(0);
 
-        // set all observers for 'progressBarDoubleNumber' property:
+        // set all Observers of 'progressBarDoubleNumber':
         progressBarDoubleNumber.getProperty()
                 .addListener(new ChangeListener<Number>() {
                     @Override public void changed(
@@ -219,6 +234,16 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
         //         statusText.textProperty().bind(messageProperty);
         //     }
         // });
+
+
+        // Translate: set Observers of 'ColorPickerApp.colorPickedProperty()':
+        ColorPickerApp.colorPickedProperty()
+                .addListener((observable, oldValue, newValue) -> {
+
+                    rgbaStringProperty.set(ColorPickerApp.toRGBAString(0.5));
+                    rgbStringProperty.set(ColorPickerApp.toRGBString());
+                    stringColorProperty.set(ColorPickerApp.getStringColor());
+                });
     }
 
     public void setFullScreen(ActionEvent event) {
@@ -236,38 +261,35 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
     public void setColor(ActionEvent event) {
 
         // get color via the color pop-up window into a String:
-        String stringColor = ColorPickerApp.getStringColor();
-
-        // translate color:
-        String rgbaString = ColorPickerApp.toRGBAString(0.5);
+        ColorPickerApp.playAndGetStringColor();
 
 
         /* -- Set Style Colors -- */
+
+        // set menuBar the updated style:
+        menuBar.styleProperty().bind(Bindings.when(menuBar.hoverProperty())
+                .then(new SimpleStringProperty(
+                        "-fx-background-color: " + rgbaStringProperty.get() +
+                                ";")).otherwise(new SimpleStringProperty(
+                        "-fx-background-color: " + "rgba(0, 0, 0, 0.75)" +
+                                ";")));
 
         // set root the updated style: //TODO kill this
         // ColorPickerApp.setStringStyleColor(JavaFXApp.getRoot(),
         //         "-fx-background-color: ", stringColor);
 
         // set menuVBox the updated style:
-        menuVBox.setStyle("-fx-background-color: " + rgbaString);
-
-        // set menuBar the updated style:
-        menuBar.styleProperty().bind(Bindings.when(menuBar.hoverProperty())
-                .then(new SimpleStringProperty(
-                        "-fx-background-color: " + rgbaString + ";")).otherwise(
-                        new SimpleStringProperty(
-                                "-fx-background-color: " + "rgb(0, 0, 0)" +
-                                        ";")));
+        menuVBox.setStyle("-fx-background-color: " + rgbaStringProperty.get());
 
         // set staticProgressLabel the updated style:
         setProgressLabelColor();
 
         // set text Color and background Color of label rseLabel:
-        setRseLabelColor(stringColor);
+        setRseLabelColor();
 
     }
 
-    private void setRseLabelColor(String stringColor) {
+    private void setRseLabelColor() {
         //TODO: may make this method a `static` method by doing the `static` label copy trick.
         if ((ColorPickerApp.getRed() >= 150) ||
                 (ColorPickerApp.getGreen() > 150) ||
@@ -279,7 +301,7 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
              */
             String formatString =
                     "-fx-text-fill: black;" + "-fx-background-color: " + "#" +
-                            stringColor;
+                            stringColorProperty.get();
             rseLabel.setStyle(formatString);
         } else {
 
@@ -288,7 +310,7 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
              * set the rseLabel the updated style:
              */
             String formatString = "-fx-text-fill: rgb(202, 200, 197);" +
-                    "-fx-background-color: " + "#" + stringColor;
+                    "-fx-background-color: " + "#" + stringColorProperty.get();
             rseLabel.setStyle(formatString);
         }
     }
@@ -300,12 +322,15 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
      */
     public void printStocksOnTableView() { //TODO: kill
 
-        // set the new pane to show:
-        Pane view =
-                getPane("/application/scene/StockTablePane.fxml");//todo: check if can be replaced with: getClass().getResource(pathToFXML)
-        borderPane.setCenter(view);
-        // TODO: check this is `double` lifting the pane up
-        System.out.println("printStockOnTableView Pressed");
+        // // set the new pane to show:
+        // Pane view =
+        //         getPane("/application/scene/StockTablePane.fxml");//todo: check if can be replaced with: getClass().getResource(pathToFXML)
+        // borderPane.setCenter(view);
+        //
+        // // TODO: check this is `double` lifting the pane up
+        // System.out.println("printStockOnTableView Pressed");
+
+        setPane("/application/scene/StockTablePane.fxml");
     }
 
     public void scene1() {

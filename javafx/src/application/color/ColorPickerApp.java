@@ -1,5 +1,7 @@
 package application.color;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -24,7 +26,9 @@ public class ColorPickerApp {
      * fx-background-color: rgb(101, 96, 30); }</code> in the <tt>.css</tt> file
      * of the {@code primaryStage} of {@link application.JavaFXApp}.
      */
-    private static Color colorPicked = Color.rgb(101, 96, 30);
+    private static ObjectProperty<Color> colorPicked =
+            new SimpleObjectProperty<>(Color.rgb(101, 96, 30));
+
 
     /**
      * This method <i>pops-up</i> a <i>window</i> of choosing a {@code Color}.
@@ -47,7 +51,7 @@ public class ColorPickerApp {
         final ColorPicker colorPicker = new ColorPicker();
 
         // set an initial Color value:
-        colorPicker.setValue(colorPicked);
+        colorPicker.setValue(colorPicked.get());
 
         // set text:
         final Text text = new Text("Choose a Custom Color!");
@@ -57,9 +61,9 @@ public class ColorPickerApp {
         // set ColorPicker action after press:
         colorPicker.setOnAction(event -> {
 
-            // store the value in a variable:
-            colorPicked = colorPicker.getValue();
-            text.setFill(colorPicked);
+            // store the value in a variable Property:
+            colorPicked.set(colorPicker.getValue());
+            text.setFill(colorPicked.get());
         });
         hBox.getChildren().addAll(colorPicker, text);
 
@@ -67,27 +71,35 @@ public class ColorPickerApp {
         window.showAndWait();
 
         // return the color which the user has picked:
-        return colorPicked;
+        return colorPicked.get();
     }
 
-    public static String getStringColor() {
+    public static String playAndGetStringColor() {
 
         // get color via the color pop-up window:
         Color answer = ColorPickerApp.getColor();
 
         // cut out the first two '0x' chars from the String:
-        return ColorPickerApp.trimColor(answer);
+        return ColorPickerApp.toStringColor(answer);
     }
 
     public static Color getColorPicked() {
+        return colorPicked.get();
+    }
+
+    public static ObjectProperty<Color> colorPickedProperty() {
         return colorPicked;
     }
 
-    public static String getStringColorPicked() {
-        return ColorPickerApp.trimColor(colorPicked);
+    public static void setColorPicked(Color colorPicked) {
+        ColorPickerApp.colorPicked.set(colorPicked);
     }
 
-    public static String trimColor(Color color) {
+    public static String getStringColor() {
+        return ColorPickerApp.toStringColor(colorPicked.get());
+    }
+
+    public static String toStringColor(Color color) {
 
         // cut out the first two '0x' chars from the String:
         return color.toString().substring(2);
@@ -116,14 +128,14 @@ public class ColorPickerApp {
     }
 
     public static double getRed() {
-        return colorPicked.getRed() * 255;
+        return colorPicked.get().getRed() * 255;
     }
 
     public static double getGreen() {
-        return colorPicked.getGreen() * 255;
+        return colorPicked.get().getGreen() * 255;
     }
 
     public static double getBlue() {
-        return colorPicked.getBlue() * 255;
+        return colorPicked.get().getBlue() * 255;
     }
 }
