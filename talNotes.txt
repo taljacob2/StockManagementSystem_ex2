@@ -35,3 +35,10 @@
 
          # -> write in README  that in change of color theme, the label of "Progress" is
                 white on dark colors that are less than 150 total, and Colored on bright colors.
+
+# fix that when using the "Animation" replacement there is an actual replacement.
+    because now there is no corrent "remove" of the "oldPane"
+
+
+# add an "icon" to the ".exe"
+

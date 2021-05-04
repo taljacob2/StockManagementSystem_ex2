@@ -25,9 +25,9 @@
 }
 
 
-
 #menuVBox {
     -fx-background-color: rgba(0, 0, 0, 0.75);
+    /*-fx-background-radius: 10;*/
 }
 
 /*.tool-bar:hover {*/
@@ -51,7 +51,7 @@
 #rseLabel {
     -fx-text-fill: rgb(202, 200, 197);
     -fx-background-color: rgb(101, 96, 30);
-    -fx-background-radius: 10;
+    /*-fx-background-radius: 10;*/
 }
 
 .button:hover {
@@ -70,6 +70,15 @@
     -fx-text-fill: rgb(202, 200, 197);
 }
 
-.table-view{
+.table-view {
     -fx-opacity: 0.5;
+}
+
+#leftBorderPane {
+    -fx-background-radius: 10;
+}
+
+#bottomBorderPane {
+    -fx-background-radius: 10;
+    -fx-background-color: rgba(0, 0, 0, 0.75);
 }

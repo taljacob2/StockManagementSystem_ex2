@@ -90,6 +90,10 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
 
     @FXML private static Label staticProgressLabel;
 
+    @FXML private BorderPane leftBorderPane;
+
+    @FXML private BorderPane bottomBorderPane;
+
     @FXML private Button printStocksButton = new Button();
 
     @FXML private Label statusLabel;
