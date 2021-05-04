@@ -113,7 +113,7 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
 
         // set the rseLabel the initial style:
         System.out.println(ColorPickerApp.getStringColorPicked());
-        ColorPickerApp.setStyleColor(rseLabel, "-fx-background-color: ",
+        ColorPickerApp.setStringStyleColor(rseLabel, "-fx-background-color: ",
                 ColorPickerApp.getStringColorPicked());
 
         /*
@@ -179,16 +179,39 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
         String stringColor = ColorPickerApp.getStringColor();
 
         // set the root the updated style:
-        ColorPickerApp
-                .setStyleColor(JavaFXApp.getRoot(), "-fx-background-color: ",
-                        stringColor);
+        ColorPickerApp.setStringStyleColor(JavaFXApp.getRoot(),
+                "-fx-background-color: ", stringColor);
 
-        // set the rseLabel the updated style:
-        ColorPickerApp
-                .setStyleColor(rseLabel, "-fx-background-color: ", stringColor);
+        String rgbaString = ColorPickerApp.toRGBAString(0.5);
 
-        new Button().getStyleClass()
-                .add("-fx-background-color: " + "#" + stringColor);
+        // set the menuVBox the updated style:
+        menuVBox.setStyle("-fx-background-color: " + rgbaString);
+
+
+        // set Color of and background Color of label rseLabel:
+        if ((ColorPickerApp.getRed() >= 150) ||
+                (ColorPickerApp.getGreen() > 150) ||
+                (ColorPickerApp.getBlue() > 150)) {
+
+            /*
+             * if the background is bright:
+             * set the rseLabel the updated style:
+             */
+            String formatString =
+                    "-fx-text-fill: black;" + "-fx-background-color: " + "#" +
+                            stringColor;
+            rseLabel.setStyle(formatString);
+        } else {
+
+            /*
+             * if the background is dark:
+             * set the rseLabel the updated style:
+             */
+            String formatString = "-fx-text-fill: rgb(202, 200, 197);" +
+                    "-fx-background-color: " + "#" + stringColor;
+            rseLabel.setStyle(formatString);
+        }
+
     }
 
     /**

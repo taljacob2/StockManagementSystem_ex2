@@ -76,9 +76,12 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
     }
 
     /**
-     * {@code handle} with a <b>silde</b> {@code Animation} between scenes.
+     * Switch between the {@link Pane}s. {@code handle} it with an {@code
+     * Animation} in between, if the {@code Animation} is enabled in {@link
+     * application.animation.Animation#getAnimation()}.
      *
      * @param event the encountered {@link Event}.
+     * @see application.animation.Animation
      */
     @Override public void handle(Event event) {
 

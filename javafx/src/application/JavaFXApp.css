@@ -36,15 +36,18 @@
 .button {
     /*-fx-background-color: linear-gradient(white, darkcyan);*/
     -fx-background-color: rgba(25, 25, 25, 0.8);
+    -fx-text-fill: rgb(202, 200, 197);
     -fx-background-radius: 10;
 }
 
 .button:active {
+/ / TODO kill
     /*-fx-background-color: linear-gradient(white, darkcyan);*/
-    -fx-background-color: rgba(25, 25, 25, 0.8);
+-fx-background-color: rgba(25, 25, 25, 0.8);
 }
 
 #rseLabel {
+    -fx-text-fill: rgb(202, 200, 197);
     -fx-background-color: rgb(101, 96, 30);
     -fx-background-radius: 10;
 }
@@ -55,4 +58,12 @@
 
 #progressBarLabel {
     -fx-text-fill: white;
+}
+
+.cell {
+    -fx-background-color: red;
+}
+
+.cell:focused {
+    -fx-background-color: blueviolet;
 }

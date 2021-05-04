@@ -93,8 +93,37 @@ public class ColorPickerApp {
         return color.toString().substring(2);
     }
 
-    public static void setStyleColor(Node node, String anyRole,
-                                     String stringColor) {
+    public static void setStringStyleColor(Node node, String anyRole,
+                                           String stringColor) {
         node.setStyle("-fx-background-color: " + "#" + stringColor);
+    }
+
+    public static String toRGBString(double red, double green, double blue) {
+        return String.format("rgb(%f, %f, %f)", red, green, blue);
+    }
+
+    public static String toRGBString() {
+        return toRGBString(getRed(), getGreen(), getBlue());
+    }
+
+    public static String toRGBAString(double red, double green, double blue,
+                                      double alpha) {
+        return String.format("rgb(%f, %f, %f, %f)", red, green, blue, alpha);
+    }
+
+    public static String toRGBAString(double alpha) {
+        return toRGBAString(getRed(), getGreen(), getBlue(), alpha);
+    }
+
+    public static double getRed() {
+        return colorPicked.getRed() * 255;
+    }
+
+    public static double getGreen() {
+        return colorPicked.getGreen() * 255;
+    }
+
+    public static double getBlue() {
+        return colorPicked.getBlue() * 255;
     }
 }
