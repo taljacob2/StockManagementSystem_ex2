@@ -6,6 +6,7 @@ import application.pane.PaneReplacer;
 import application.pane.handler.PaneAnimationHandler;
 import application.property.NumberProperty;
 import engine.Engine;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
@@ -15,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -77,7 +79,9 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
     @FXML private static Label staticStatusLabel;
     @FXML private static Label staticProgressLabel;
     @FXML private Label statusLabel;
-    @FXML private Label progressLabel;
+    @FXML private Label progressLabel; // TODO: can make it static trick.
+
+    @FXML private MenuBar menuBar;
 
     @FXML private Label rseLabel;
     @FXML private BorderPane borderPane;
@@ -124,6 +128,41 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
     public static Label getStaticStatusLabel() {
         return staticStatusLabel;
     }
+
+    private static void setProgressLabelColor() {
+
+        // translate color:
+        String rgbString = ColorPickerApp.toRGBString();
+
+        double sumOfColors =
+                ColorPickerApp.getRed() + ColorPickerApp.getGreen() +
+                        ColorPickerApp.getBlue();
+
+        if (sumOfColors > 150) {
+
+            /*
+             * if the color is dark enough:
+             * set the staticProgressLabel the updated style:
+             */
+            staticProgressLabel.setStyle("-fx-text-fill: " + rgbString);
+        } else {
+
+            /*
+             * if the color is too dark:
+             * set the staticProgressLabel the updated style:
+             */
+            staticProgressLabel.setStyle("-fx-text-fill: rgb(202, 200, 197)");
+        }
+    }
+
+    // TODO kill this
+    // public void generateRandom(ActionEvent event) {
+    //     Random rand = new Random();
+    //     int myRand = rand.nextInt(50) + 1;
+    //     myMessage.setText(Integer.toString(myRand));
+    //     progressBarDoubleNumber.setNumber(((double) myRand / 100) *
+    //             2); // TODO: fix progress bar to sync into processes and not to the 'generate' method
+    // }
 
     @Override public void initialize(URL location, ResourceBundle resources) {
 
@@ -182,15 +221,6 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
         // });
     }
 
-    // TODO kill this
-    // public void generateRandom(ActionEvent event) {
-    //     Random rand = new Random();
-    //     int myRand = rand.nextInt(50) + 1;
-    //     myMessage.setText(Integer.toString(myRand));
-    //     progressBarDoubleNumber.setNumber(((double) myRand / 100) *
-    //             2); // TODO: fix progress bar to sync into processes and not to the 'generate' method
-    // }
-
     public void setFullScreen(ActionEvent event) {
         JavaFXApp.getStage().setFullScreen(true);
     }
@@ -214,45 +244,27 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
 
         /* -- Set Style Colors -- */
 
-        // set the root the updated style: //TODO kill this
+        // set root the updated style: //TODO kill this
         // ColorPickerApp.setStringStyleColor(JavaFXApp.getRoot(),
         //         "-fx-background-color: ", stringColor);
 
-        // set the menuVBox the updated style:
+        // set menuVBox the updated style:
         menuVBox.setStyle("-fx-background-color: " + rgbaString);
 
-        // set the staticProgressLabel the updated style:
+        // set menuBar the updated style:
+        menuBar.styleProperty().bind(Bindings.when(menuBar.hoverProperty())
+                .then(new SimpleStringProperty(
+                        "-fx-background-color: " + rgbaString + ";")).otherwise(
+                        new SimpleStringProperty(
+                                "-fx-background-color: " + "rgb(0, 0, 0)" +
+                                        ";")));
+
+        // set staticProgressLabel the updated style:
         setProgressLabelColor();
 
-        // set Color of and background Color of label rseLabel:
+        // set text Color and background Color of label rseLabel:
         setRseLabelColor(stringColor);
 
-    }
-
-    private static void setProgressLabelColor() {
-
-        // translate color:
-        String rgbString = ColorPickerApp.toRGBString();
-
-        double sumOfColors =
-                ColorPickerApp.getRed() + ColorPickerApp.getGreen() +
-                        ColorPickerApp.getBlue();
-
-        if (sumOfColors > 150) {
-
-            /*
-             * if the color is dark enough:
-             * set the staticProgressLabel the updated style:
-             */
-            staticProgressLabel.setStyle("-fx-text-fill: " + rgbString);
-        } else {
-
-            /*
-             * if the color is too dark:
-             * set the staticProgressLabel the updated style:
-             */
-            staticProgressLabel.setStyle("-fx-text-fill: rgb(202, 200, 197)");
-        }
     }
 
     private void setRseLabelColor(String stringColor) {
