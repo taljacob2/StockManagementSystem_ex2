@@ -44,11 +44,6 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
      */
     private String pathToFXML;
 
-    // /**
-    //  * The <i>old</i> {@link Pane} that is being replaced.
-    //  */
-    // @FXML private Pane replaceAblePane;
-
     /**
      * @param borderPaneToShowOnItsCenter the {@link BorderPane} to show on its
      *                                    center the new scene.
@@ -62,9 +57,8 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
      *                                    file for the new scene to be shown.
      * @param animationType               the <i>type</i> of {@link Animation}
      *                                    to be shown while transitioning
-     *                                    between
-     *                                    {@code JavaFXAppController.getReplaceAblePane()} and
-     *                                    the
+     *                                    between {@code JavaFXAppController.getReplaceAblePane()}
+     *                                    and the
      *                                    <i>new</i> {@link Pane}.
      */
     public PaneAnimationHandler(BorderPane borderPaneToShowOnItsCenter,
@@ -72,7 +66,6 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
                                 AnimationType animationType) {
         this.borderPaneToShowOnItsCenter = borderPaneToShowOnItsCenter;
         this.parentContainer = parentContainer;
-        // this.replaceAblePane = JavaFXAppController.getReplaceAblePane();
         this.pathToFXML = pathToFXML;
         this.animationType = animationType;
     }
@@ -105,12 +98,16 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
     private Animation presentAnimation(Event event, Pane newPane) {
         if (animationType == AnimationType.TIMELINE) {
 
-            // Timeline Animation:
+            // Timeline - Animation:
             return createTimeLineAnimationAndPlay(event, newPane);
-        } else if (animationType == AnimationType.FADE) {
+        } else if (animationType == AnimationType.FADE_OUT_IN) {
 
-            // Fade Animation:
-            return createFadeTransitionAnimationAndPlay(newPane);
+            // Fade Out In - Animation:
+            return createFadeOutInTransitionAnimationAndPlay(newPane);
+        } else if (animationType == AnimationType.FADE_IN_OUT) {
+
+            // Fade In Out - Animation:
+            return createFadeInOutTransitionAnimationAndPlay(newPane);
         }
 
         // in case of an error. shouldn't be happening:
@@ -158,7 +155,34 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
         return fadeTransition;
     }
 
-    private Animation createFadeTransitionAnimationAndPlay(Pane newPane) {
+    private Animation createFadeInOutTransitionAnimationAndPlay(Pane newPane) {
+        FadeTransition fadeOutTransition = createFadeOutTransitionAnimation(
+                JavaFXAppController.getReplaceAblePane(),
+                Duration.seconds(0.5));
+
+        FadeTransition fadeInTransition =
+                createFadeInTransitionAnimation(newPane, Duration.seconds(0.5));
+
+        fadeInTransition.setOnFinished(event -> {
+
+            // play fade out of 'replaceAblePane':
+            fadeOutTransition.play(); // TODO: check
+        });
+
+        /*
+         * Start the 'newPane' in '0' Opacity.
+         * The 'FadeTransition' would return it to '1'.
+         */
+        newPane.setOpacity(0);
+        parentContainer.getChildren().add(newPane);
+
+        // play fade in of 'newPane':
+        fadeInTransition.play();
+
+        return fadeOutTransition;
+    }
+
+    private Animation createFadeOutInTransitionAnimationAndPlay(Pane newPane) {
         FadeTransition fadeOutTransition = createFadeOutTransitionAnimation(
                 JavaFXAppController.getReplaceAblePane(),
                 Duration.seconds(0.5));
@@ -167,15 +191,18 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
                 createFadeInTransitionAnimation(newPane, Duration.seconds(0.5));
 
         fadeOutTransition.setOnFinished(event -> {
-            parentContainer.getChildren().remove(JavaFXAppController
-                    .getReplaceAblePane()); // TODO check
+            parentContainer.getChildren()
+                    .remove(JavaFXAppController.getReplaceAblePane());
 
-
+            /*
+             * Start the 'newPane' in '0' Opacity.
+             * The 'FadeTransition' would return it to '1'.
+             */
             newPane.setOpacity(0);
-            parentContainer.getChildren().add(newPane); // TODO check
+            parentContainer.getChildren().add(newPane);
 
             // play fade in of 'newPane':
-            fadeInTransition.play(); // TODO: check
+            fadeInTransition.play();
 
         });
 
@@ -189,7 +216,7 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
      * The <i>type</i> of {@link Animation} the user wishes to invoke.
      */
     public enum AnimationType {
-        TIMELINE, FADE
+        TIMELINE, FADE_OUT_IN, FADE_IN_OUT
     }
 
 }

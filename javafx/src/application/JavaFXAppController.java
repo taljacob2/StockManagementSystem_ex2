@@ -218,7 +218,7 @@ public class JavaFXAppController
         printStocksButton.setOnAction(
                 new PaneAnimationHandler(borderPane, parentContainer,
                         "/application/pane/resources/fxml/StockTablePane.fxml",
-                        PaneAnimationHandler.AnimationType.FADE));
+                        PaneAnimationHandler.AnimationType.FADE_IN_OUT));
 
         // define 'ownProfileButton':
         ownProfileButton.setOnAction(event -> setPane(
@@ -228,7 +228,7 @@ public class JavaFXAppController
         loginButton.setOnAction(
                 new PaneAnimationHandler(borderPane, parentContainer,
                         "/application/pane/resources/fxml/Login.fxml",
-                        PaneAnimationHandler.AnimationType.FADE));
+                        PaneAnimationHandler.AnimationType.FADE_IN_OUT));
 
 
         /* -- Properties -- */
