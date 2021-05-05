@@ -46,3 +46,8 @@
 
 # reset the 'statusLabel' when clicking on any button.
     dot it by adding a 'resetLabel' call into every button ActionEvent.
+
+
+# make "disable" to the menuVBox as long as there are no stocks in the system.
+
+# fix progressBar is not progressing for some reason now.
