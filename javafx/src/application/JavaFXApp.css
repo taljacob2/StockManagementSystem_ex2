@@ -71,14 +71,14 @@
 }
 
 .table-view {
-    -fx-opacity: 0.5;
+    -fx-opacity: 0.9;
 }
 
 #leftBorderPane {
-    -fx-background-radius: 10;
+    /*-fx-background-radius: 10;*/
 }
 
 #bottomBorderPane {
-    -fx-background-radius: 10;
+    /*-fx-background-radius: 10;*/
     -fx-background-color: rgba(0, 0, 0, 0.75);
 }

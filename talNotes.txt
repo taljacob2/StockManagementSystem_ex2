@@ -42,3 +42,4 @@
 
 # add an "icon" to the ".exe"
 
+# add colors to labels of buttons

@@ -89,19 +89,18 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
         // get newPane to show:
         Pane newPane = getPane(pathToFXML);
 
-        // add the extracted Pane as a child of the parentContainer provided:
-        parentContainer.getChildren().add(newPane);
-
         Animation animation = null;
+
         // if the Animation state is enabled, preset an Animation: // TODO need to implement 'if' statement
         if (application.animation.Animation.getAnimation()) {
             animation = presentAnimation(event, newPane);
         }
         if (animation != null) {
 
-            // remove the old Pane:
-            animation.setOnFinished(event1 -> parentContainer.getChildren()
-                    .remove(oldPane)); // TODO doesn't work for some reason!
+
+            // animation.setOnFinished(event1 -> {
+            //     parentContainer.getChildren().remove(oldPane);
+            // }); // TODO doesn't work for some reason!
         } else {
 
             // TODO: reorder in a message:
@@ -109,7 +108,6 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
                     "ERROR when removing child in Container.");
             return;
         }
-
 
         // present the extracted Pane:
         borderPaneToShowOnItsCenter.setCenter(parentContainer);
@@ -144,8 +142,18 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
         return timeline;
     }
 
-    private Animation createTimeLineAnimationAndPlay(Event event, Pane pane) {
-        Timeline timeline = createTimeLineAnimation(event, pane);
+    private Animation createTimeLineAnimationAndPlay(Event event,
+                                                     Pane newPane) {
+
+        // remove the old Pane:
+        if (parentContainer.getChildren().size() > 0) {
+            parentContainer.getChildren().clear();
+        }
+
+        // add the extracted Pane as a child of the parentContainer provided:
+        parentContainer.getChildren().add(newPane);
+
+        Timeline timeline = createTimeLineAnimation(event, newPane);
         timeline.play();
 
         return timeline;
@@ -174,11 +182,27 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
     private Animation createFadeTransitionAnimationAndPlay(Pane oldPane,
                                                            Pane newPane) {
         FadeTransition fadeOutTransition =
-                createFadeOutTransitionAnimation(oldPane, Duration.seconds(1));
-        FadeTransition fadeInTransition =
-                createFadeInTransitionAnimation(newPane, Duration.seconds(1));
+                createFadeOutTransitionAnimation(oldPane, Duration.seconds(2));
 
-        fadeOutTransition.setOnFinished(event -> fadeInTransition.play());
+        FadeTransition fadeInTransition =
+                createFadeInTransitionAnimation(newPane, Duration.seconds(2));
+
+        fadeOutTransition.setOnFinished(event -> {
+
+            // remove the old Pane:
+            if (parentContainer.getChildren().size() > 0) {
+                parentContainer.getChildren().clear();
+            }
+
+            // add the extracted Pane as a child of the parentContainer provided:
+            parentContainer.getChildren().add(newPane);
+
+            // play fade in of oldPane:
+            fadeInTransition.play();
+
+        });
+
+        // play fade out:
         fadeOutTransition.play();
 
         return fadeInTransition;

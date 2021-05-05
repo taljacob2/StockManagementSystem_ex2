@@ -91,23 +91,14 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
     @FXML private static Label staticProgressLabel;
 
     @FXML private BorderPane leftBorderPane;
-
     @FXML private BorderPane bottomBorderPane;
-
     @FXML private Button printStocksButton = new Button();
-
     @FXML private Label statusLabel;
-
     @FXML private Label progressLabel; // TODO: can make it static trick.
-
     @FXML private MenuBar menuBar;
-
     @FXML private Label rseLabel;
-
     @FXML private BorderPane borderPane;
-
     @FXML private VBox menuVBox;
-
     @FXML private ProgressBar progressBar;
 
     public static void closeRequest() {
@@ -203,7 +194,7 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
         printStocksButton.setOnAction(
                 new PaneAnimationHandler(borderPane, parentContainer,
                         "/application/scene/StockTablePane.fxml",
-                        PaneAnimationHandler.AnimationType.FADE));
+                        PaneAnimationHandler.AnimationType.TIMELINE));
 
         /* -- Properties -- */
 
@@ -410,5 +401,6 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
         // show the pane in the center of the borderPane:
         borderPane.setCenter(newPane);
     }
+
 }
 

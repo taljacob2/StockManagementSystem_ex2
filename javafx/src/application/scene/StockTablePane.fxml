@@ -9,6 +9,7 @@
             fx:controller="application.scene.StockTablePane">
     <children>
         <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0"
+                   stylesheets="@StockTablePane.css"
                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columns>
