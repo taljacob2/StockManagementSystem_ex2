@@ -79,10 +79,10 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
     /**
      * Switch between the {@link Pane}s. {@code handle} it with an {@code
      * Animation} in between, if the {@code Animation} is enabled in {@link
-     * application.animation.Animation#getAnimation()}.
+     * application.pane.animation.Animation#getAnimation()}.
      *
      * @param event the encountered {@link Event}.
-     * @see application.animation.Animation
+     * @see application.pane.animation.Animation
      */
     @Override public void handle(Event event) {
 
@@ -92,7 +92,7 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
         Animation animation = null;
 
         // if the Animation state is enabled, preset an Animation: // TODO need to implement 'if' statement
-        if (application.animation.Animation.getAnimation()) {
+        if (application.pane.animation.Animation.getAnimation()) {
             animation = presentAnimation(event, newPane);
         }
         if (animation != null) {

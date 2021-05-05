@@ -79,24 +79,23 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
      * Contains {@link #replaceAblePane}. The {@link Pane} that is
      * <i>replace-able</i>.
      */
-    @FXML private static StackPane parentContainer = new StackPane();
+    private static StackPane parentContainer = new StackPane();
 
     /**
      * the <i>replace-able</i> {@link Pane}.
      */
     private static Pane replaceAblePane;
-
-    @FXML private static Label staticStatusLabel;
+    private static Label staticStatusLabel;
+    private static VBox staticMenuVBox;
 
     @FXML private static Label staticProgressLabel;
-
     @FXML private BorderPane leftBorderPane;
     @FXML private BorderPane bottomBorderPane;
     @FXML private Button printStocksButton = new Button();
     @FXML private Button ownProfileButton = new Button();
     @FXML private Button loginButton = new Button();
     @FXML private Label statusLabel;
-    @FXML private Label progressLabel; // TODO: can make it static trick.
+    @FXML private Label progressLabel;
     @FXML private MenuBar menuBar;
     @FXML private Label rseLabel;
     @FXML private BorderPane borderPane;
@@ -176,8 +175,21 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
     //             2); // TODO: fix progress bar to sync into processes and not to the 'generate' method
     // }
 
+    public static VBox getStaticMenuVBox() {
+        return staticMenuVBox;
+    }
+
     @Override public void initialize(URL location, ResourceBundle resources) {
 
+        /*
+         * by default disable the menuVBox.
+         * keep it disabled until there are loaded Stocks in the system.
+         */
+        menuVBox.setDisable(true);
+
+        /* -- set static variables -- */
+
+        staticMenuVBox = menuVBox;
         staticStatusLabel = statusLabel;
         staticProgressLabel = progressLabel;
 
@@ -192,24 +204,24 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
          * via setting a child Pane to the parent StackPane:
          * Note: this is not a must, but only to set an initial Pane.
          */
-        setPane("/application/scene/Welcome.fxml");// TODO remove check
+        setPane("/application/pane/resources/fxml/Welcome.fxml");// TODO remove check
 
         /* -- define Buttons -- */
 
         // define 'printStocksButton':
         printStocksButton.setOnAction(
                 new PaneAnimationHandler(borderPane, parentContainer,
-                        "/application/scene/StockTablePane.fxml",
+                        "/application/pane/resources/fxml/StockTablePane.fxml",
                         PaneAnimationHandler.AnimationType.TIMELINE));
 
         // define 'ownProfileButton':
-        ownProfileButton.setOnAction(
-                event -> setPane("/application/scene/OwnProfile.fxml"));
+        ownProfileButton.setOnAction(event -> setPane(
+                "/application/pane/resources/fxml/OwnProfile.fxml"));
 
         // define 'loginButton':
         loginButton.setOnAction(
                 new PaneAnimationHandler(borderPane, parentContainer,
-                        "/application/scene/Login.fxml",
+                        "/application/pane/resources/fxml/Login.fxml",
                         PaneAnimationHandler.AnimationType.FADE));
 
 
@@ -343,11 +355,11 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
         // // TODO: check this is `double` lifting the pane up
         // System.out.println("printStockOnTableView Pressed");
 
-        setPane("/application/scene/StockTablePane.fxml");
+        setPane("/application/pane/resources/fxml/StockTablePane.fxml");
     }
 
     public void scene1() {
-        setPane("/application/scene/Scene1.fxml");
+        setPane("/application/pane/resources/fxml/Scene1.fxml");
     }
 
     public void command_LOAD_XML_FILE(ActionEvent event) {
@@ -405,6 +417,5 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
     private void setPane(String pathToFXML) {
         setPane(borderPane, parentContainer, replaceAblePane, pathToFXML);
     }
-
 }
 

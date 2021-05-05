@@ -1,5 +1,6 @@
 package load;
 
+import application.JavaFXAppController;
 import engine.Engine;
 import message.Message;
 import message.builder.err.BuildError_XML;
@@ -32,7 +33,7 @@ public class LoadSaveXML {
          https://howtodoinjava.com/jaxb/jaxb-exmaple-marshalling-and-unmarshalling-list-or-set-of-objects/ */
 
     /**
-     * try-catching:
+     * Try-catching:
      * <ul>
      *     <li>{@link NullPointerException}</li>
      *     <li>{@link JAXBException}</li>
@@ -103,12 +104,18 @@ public class LoadSaveXML {
     }
 
     /**
-     * try-catching:
+     * Try-catching:
      *  <ul>
      *      <li>{@link IOException}</li>
      *      <li>{@link NullPointerException}</li>
      *  </ul>
-     * unmarshal (= Load) from '.xml' to {@link Engine}'s {@code stocks}.
+     * unmarshal (= Load) from '.xml' to {@link Engine}'s {@code stocks} and
+     * {@link Engine}'s {@code users}, while <i>checking</i> their validity
+     * first.
+     *
+     * <p>Note: after all the checks of {@link Stocks} and {@link Users}
+     * valid, enable the <tt>JavaFX</tt> {@link JavaFXAppController}
+     * <i>menuVBox</i> {@code Component}.</p>
      *
      * @param pathOfXML the path of the desired XML to load.
      * @throws IOException if file doesn't have the correct suffix (= '.xml')
@@ -131,11 +138,20 @@ public class LoadSaveXML {
                 Users users = Objects.requireNonNull(
                         unmarshalDescriptor(new File(pathOfXML))).getUsers();
 
-                // check these stocks, and set them in engine if they are valid:
-                checkAndSetStocksInEngine(stocks);
+                /*
+                 * Check these stocks. Do not set them in engine yet even
+                 * if they are valid. check the 'users' before-hand:
+                 */
+                checkValidStocks(stocks);
 
-                // check these users, and set them in engine if they are valid:
-                checkAndSetUsersInEngine(users);
+                // Check these users, and set them in engine if they are valid:
+                checkAndSetUsersInEngine(users, stocks);
+
+                // stocks found as valid, so we are allowed to set the Stocks:
+                Engine.setStocks(stocks);
+
+                // after all checks are valid, enable JavaFX menuVBox:
+                JavaFXAppController.getStaticMenuVBox().setDisable(false);
 
                 // print Success message:
                 MessagePrint.println(MessagePrint.Stream.OUT,
@@ -146,7 +162,6 @@ public class LoadSaveXML {
             } catch (NullPointerException e) {
                 MessagePrint.println(MessagePrint.Stream.ERR,
                         Message.Err.XML.Load.nullPointerException());
-                e.printStackTrace();// TODO : check
             }
         } else {
 
@@ -166,18 +181,27 @@ public class LoadSaveXML {
         Engine.setStocks(stocks); // set stocks of Engine.
     }
 
-    private static void checkAndSetUsersInEngine(Users users)
+    /**
+     * @param users  the {@link Users} to check their validity via their {@code
+     *               Name}s and {@code Symbols}.
+     * @param stocks the {@link Stocks} to <i>compare</i> their {@code Symbol}s
+     *               with the given {@link Users} {@link user.holding.Holdings}
+     *               {@link stock.Stock} {@code Symbol}s.
+     * @throws IOException in case the given {@link Users} have found invalid.
+     */
+    private static void checkAndSetUsersInEngine(Users users, Stocks stocks)
             throws IOException { //TODO: need to implement!!!
 
         // check the validation of the users in the File given:
-        checkValidUsers(users);//TODO: need to UN-NOTE this and implement!!!
+        checkValidUsers(users, stocks);//TODO: need to UN-NOTE this and
+        // implement!!!
 
         // users found as valid, so we are allowed to set the Users:
         Engine.setUsers(users); // set users of Engine.
     }
 
     /**
-     * this method checks whether the {@link Stocks} unmarshalled are valid or
+     * This method checks whether the {@link Stocks} unmarshalled are valid or
      * not.
      *
      * @param stocks the {@link Stocks} to check for validity.
@@ -196,22 +220,27 @@ public class LoadSaveXML {
     }
 
     /**
-     * this method checks whether the {@link Users} unmarshalled are valid or
+     * This method checks whether the {@link Users} unmarshalled are valid or
      * not.
-     * <p>Note: this must be invoked only <b>after</b> there are valid
-     * {@link Stocks} in the {@link Engine}.</p>
      *
-     * @param users the {@link Users} to check for validity.
+     * <p>Note: this must be invoked only <b>after</b> the
+     * {@link #checkValidStocks(Stocks)} has been invoked on the given {@link
+     * Stocks}, and determined them as valid.</p>
+     *
+     * @param users  the {@link Users} to check for validity.
+     * @param stocks the {@link Stocks} to <i>compare</i> each {@link
+     *               user.User}s {@link user.holding.Holdings} validity with.
      * @throws IOException if the users are invalid.
      */
-    private static void checkValidUsers(Users users) throws IOException {
+    private static void checkValidUsers(Users users, Stocks stocks)
+            throws IOException {
         try {
 
             /*
              * if there are users in the File given,
              * check the validation of the users:
              */
-            if (users != null) { Engine.checkValidUsers(users); }
+            if (users != null) { Engine.checkValidUsers(users, stocks); }
         } catch (IOException e) {
 
             // users are invalid:

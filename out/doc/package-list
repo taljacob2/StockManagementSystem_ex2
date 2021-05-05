@@ -1,11 +1,11 @@
 application
-application.animation
 application.color
 application.dialog
 application.pane
+application.pane.animation
 application.pane.handler
+application.pane.resources.controller
 application.property
-application.scene
 currency
 engine
 engine.collection

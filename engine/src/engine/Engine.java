@@ -100,7 +100,6 @@ public class Engine {
         }
 
         // passed all checks, thus valid.
-
     }
 
     /**
@@ -112,18 +111,21 @@ public class Engine {
      *         truly stocks <i>symbol(s)</i> that already in the {@code Engine}.</li>
      * </ul>
      *
-     * <p>Note: this must be invoked only <b>after</b> there are valid
-     * {@link Stocks} in the {@link Engine}.</p>
+     * <p>Note: this must be invoked only <b>after</b> the
+     * {@link #checkValidStocks(EngineCollection)} has been invoked on the given
+     * {@link Stocks}, and determined them as valid.</p>
      *
      * <p>checking equality of the {@link Item}(s) {@code Symbol} with the
      * {@link Stock} {@code Symbol} with case-sensitive.</p>
      *
      * @param collectionToCheck the collection to check.
+     * @param stocks            the {@link Stocks} to <i>compare</i> each {@link
+     *                          User}s {@link Holdings} validity with.
      * @throws IOException with an appropriate message in case of an invalid
      *                     occurrence.
      */
     public static void checkValidUsers(
-            EngineCollection<List<User>, User> collectionToCheck)
+            EngineCollection<List<User>, User> collectionToCheck, Stocks stocks)
             throws IOException {
 
         // get the collection:
@@ -148,7 +150,7 @@ public class Engine {
             }
 
             // check the user's holdings:
-            checkValidHoldings(usersCollection.get(i));
+            checkValidHoldings(usersCollection.get(i), stocks);
         }
 
         // passed all checks, thus valid.
@@ -159,9 +161,12 @@ public class Engine {
      *
      * @param userToCheck the {@link User} to check its {@link Holdings}
      *                    validity.
-     * @throws IOException if there is in as Error.
+     * @param stocks      the {@link Stocks} to <i>compare</i> the {@link
+     *                    User}'s {@link Holdings} validity with.
+     * @throws IOException if there is the {@link User} has been found as
+     *                     invalid.
      */
-    private static void checkValidHoldings(User userToCheck)
+    private static void checkValidHoldings(User userToCheck, Stocks stocks)
             throws IOException {
         List<Stock> stockCollection = stocks.getCollection();
         Holdings userHoldings = userToCheck.getHoldings();
@@ -256,6 +261,7 @@ public class Engine {
      * {@code this} class, such as:
      * <ul>
      *     <li>{@link #stocks} field.</li>
+     *     <li>{@link #users} field.</li>
      * </ul>
      */
     public static Descriptor createDescriptor() {
