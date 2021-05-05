@@ -2,7 +2,7 @@ package application;
 
 import application.color.ColorPickerApp;
 import application.dialog.FxDialogs;
-import application.pane.PaneReplacer;
+import application.pane.PaneReplacerShortened;
 import application.pane.handler.PaneAnimationHandler;
 import application.property.NumberProperty;
 import engine.Engine;
@@ -34,7 +34,8 @@ import java.util.ResourceBundle;
  * <p>Note: <i>implements</i> {@link Initializable} in order to set the
  * <i>observers</i> <i>binded</i> to the {@link #progressBar}.</p>
  */
-public class JavaFXAppController implements Initializable, PaneReplacer {
+public class JavaFXAppController
+        implements Initializable, PaneReplacerShortened {
 
     /**
      * This editable field defines a {@code double} number that is binded to the
@@ -82,7 +83,8 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
     private static StackPane parentContainer = new StackPane();
 
     /**
-     * the <i>replace-able</i> {@link Pane}.
+     * The <i>replace-able</i> {@link Pane}.<p> Note: needs to be updated for
+     * every <i>replace</i> of {@code Pane}s.</p>
      */
     private static Pane replaceAblePane;
     private static Label staticStatusLabel;
@@ -132,6 +134,10 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
 
     public static Pane getReplaceAblePane() {
         return replaceAblePane;
+    }
+
+    public static void setReplaceAblePane(Pane replaceAblePane) {
+        JavaFXAppController.replaceAblePane = replaceAblePane;
     }
 
     public static StackPane getParentContainer() {
@@ -185,7 +191,7 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
          * by default disable the menuVBox.
          * keep it disabled until there are loaded Stocks in the system.
          */
-        menuVBox.setDisable(true);
+        // menuVBox.setDisable(true); // TODO: check enabled
 
         /* -- set static variables -- */
 
@@ -212,7 +218,7 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
         printStocksButton.setOnAction(
                 new PaneAnimationHandler(borderPane, parentContainer,
                         "/application/pane/resources/fxml/StockTablePane.fxml",
-                        PaneAnimationHandler.AnimationType.TIMELINE));
+                        PaneAnimationHandler.AnimationType.FADE));
 
         // define 'ownProfileButton':
         ownProfileButton.setOnAction(event -> setPane(
@@ -414,7 +420,7 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
      * @param pathToFXML path to the <tt>.fxml</tt> of the pane the user wishes
      *                   to show.
      */
-    private void setPane(String pathToFXML) {
+    public void setPane(String pathToFXML) {
         setPane(borderPane, parentContainer, replaceAblePane, pathToFXML);
     }
 }

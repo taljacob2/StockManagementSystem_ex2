@@ -1,5 +1,6 @@
 package application.pane;
 
+import application.JavaFXAppController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
@@ -105,19 +106,19 @@ public interface PaneReplacer {
                          Pane parentContainer, Pane replaceAblePane,
                          String pathToFXML) {
 
-        // get the newPane:
+        // get the 'newPane':
         Pane newPane = getPane(pathToFXML);
 
-        // add the pane as a child of the parentContainer:
+        // add the pane as a child of the 'parentContainer':
         parentContainer.getChildren().add(newPane);
 
-        // remove the oldPane as a child of the parentContainer:
+        // remove the 'replaceAblePane' as a child of the 'parentContainer':
         parentContainer.getChildren().remove(replaceAblePane);
 
         // update the 'replaceAblePane':
-        replaceAblePane = newPane;
+        JavaFXAppController.setReplaceAblePane(newPane);
 
-        // show the pane in the center of the borderPane:
+        // show the pane in the center of the 'borderPane':
         borderPaneToShowOnItsCenter.setCenter(newPane);
     }
 
