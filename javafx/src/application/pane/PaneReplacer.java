@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
@@ -48,7 +49,6 @@ public interface PaneReplacer {
                     "No page " + pathToFXML +
                             " please check 'PaneLoader' or 'FXMLLoader'" +
                             " and make sure that the .fxml file is a 'Pane' Component!.");
-            // e.printStackTrace(); // TODO: check
         }
         return pane;
     }
@@ -92,24 +92,94 @@ public interface PaneReplacer {
         timeline.play();
     }
 
-    // @FXML default void replaceWith(AnchorPane anchorRoot, String pathToFXML)
-    //         throws IOException {
-    //     Parent root = FXMLLoader.load(getClass().getResource(pathToFXML));
-    //     Scene scene = anchorRoot.getScene();
-    //     root.translateYProperty().set(scene.getHeight());
-    //
-    //     parentContainer.getChildren().add(root);
-    //
-    //     Timeline timeline = new Timeline();
-    //     KeyValue keyValue = new KeyValue(root.translateYProperty(), 0,
-    //             Interpolator.EASE_IN);
-    //     KeyFrame keyFrame = new KeyFrame(Duration.seconds(2), keyValue);
-    //     timeline.getKeyFrames().add(keyFrame);
-    //     timeline.setOnFinished(t -> {
-    //         parentContainer.getChildren().remove(anchorRoot);
-    //     });
-    //     timeline.play();
-    // }
+    /**
+     * This method sets the new Pane to be shown on a <i>center</i> of the
+     * {@link javafx.scene.layout.BorderPane} and <i>updates</i> the {@link
+     * Pane} accordingly.
+     *
+     * @param borderPaneToShowOnItsCenter the {@link BorderPane} to show the
+     *                                    {@link Pane} provided in the
+     *                                    <tt>.fxml</tt> file.
+     * @param parentContainer             is a <il>child</il> of the provided
+     *                                    {@link BorderPane}, and the {@link
+     *                                    Parent} of the {@link Pane} that is
+     *                                    being provided by the <tt>.fxml</tt>
+     *                                    file.
+     * @param replaceAblePane             is the current <i>child</i> of the
+     *                                    provided {@code parentContainer}, and
+     *                                    is wished to be replaced.
+     * @param pathToFXML                  path to the <tt>.fxml</tt> of the pane
+     *                                    the user wishes to show.
+     */
+    default void setPane(BorderPane borderPaneToShowOnItsCenter,
+                         Pane parentContainer, Pane replaceAblePane,
+                         String pathToFXML) {
 
+        // get the newPane:
+        Pane newPane = getPane(pathToFXML);
 
+        // add the pane as a child of the parentContainer:
+        parentContainer.getChildren().add(newPane);
+
+        // remove the oldPane as a child of the parentContainer:
+        parentContainer.getChildren().remove(replaceAblePane);
+
+        // update the 'replaceAblePane':
+        replaceAblePane = newPane;
+
+        // show the pane in the center of the borderPane:
+        borderPaneToShowOnItsCenter.setCenter(newPane);
+    }
+
+    /**
+     * This method is similar to {@link #setPane(BorderPane, Pane, Pane,
+     * String)} but without updating the {@code replaceAblePane}.
+     *
+     * @param borderPaneToShowOnItsCenter the {@link BorderPane} to show the
+     *                                    {@link Pane} provided in the
+     *                                    <tt>.fxml</tt> file.
+     * @param parentContainer             is a <il>child</il> of the provided
+     *                                    {@link BorderPane}, and the {@link
+     *                                    Parent} of the {@link Pane} that is
+     *                                    being provided by the <tt>.fxml</tt>
+     *                                    file.
+     * @param pathToFXML                  path to the <tt>.fxml</tt> of the pane
+     *                                    the user wishes to show.
+     * @see #setPane(BorderPane, Pane, Pane, String)
+     */
+    default void setPane(BorderPane borderPaneToShowOnItsCenter,
+                         Pane parentContainer, String pathToFXML) {
+
+        // get the newPane:
+        Pane newPane = getPane(pathToFXML);
+
+        // add the pane as a child of the parentContainer:
+        parentContainer.getChildren().add(newPane);
+
+        // show the pane in the center of the borderPane:
+        borderPaneToShowOnItsCenter.setCenter(newPane);
+    }
+
+    /**
+     * This method is similar to {@link #setPane(BorderPane, Pane, Pane,
+     * String)} but without updating the {@code replaceAblePane} and {@code
+     * parentContainer}'s <i>children</i>.
+     *
+     * @param borderPaneToShowOnItsCenter the {@link BorderPane} to show the
+     *                                    {@link Pane} provided in the
+     *                                    <tt>.fxml</tt> file.
+     * @param pathToFXML                  path to the <tt>.fxml</tt> of the pane
+     *                                    the user wishes to show.
+     * @see #setPane(BorderPane, Pane, Pane, String)
+     * @see #setPane(BorderPane, Pane, String)
+     */
+    default void setPane(BorderPane borderPaneToShowOnItsCenter,
+                         String pathToFXML) {
+
+        // get the newPane:
+        Pane newPane = getPane(pathToFXML);
+
+        // show the pane in the center of the borderPane:
+        borderPaneToShowOnItsCenter.setCenter(newPane);
+    }
 }

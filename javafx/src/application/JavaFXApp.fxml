@@ -87,6 +87,9 @@
                                                         mnemonicParsing="false"
                                                         prefWidth="276.0"
                                                         text="Print Stocks"/>
+                                                <Button fx:id="ownProfileButton"
+                                                        mnemonicParsing="false"
+                                                        text="Own Profile"/>
                                             </children>
                                         </VBox>
                                     </center>

@@ -93,6 +93,7 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
     @FXML private BorderPane leftBorderPane;
     @FXML private BorderPane bottomBorderPane;
     @FXML private Button printStocksButton = new Button();
+    @FXML private Button ownProfileButton = new Button();
     @FXML private Label statusLabel;
     @FXML private Label progressLabel; // TODO: can make it static trick.
     @FXML private MenuBar menuBar;
@@ -183,18 +184,27 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
         ColorPickerApp.setStringStyleColor(rseLabel, "-fx-background-color: ",
                 ColorPickerApp.getStringColor());
 
+        /* -- set Initial Pane -- */
+
         /*
-         * set an initial scene in the borderPane's CENTER:
+         * set an initial Pane in the borderPane's CENTER:
          * via setting a child Pane to the parent StackPane:
-         * Note: this is not a must, but only to set an initial scene.
+         * Note: this is not a must, but only to set an initial Pane.
          */
-        // setPane("/application/scene/Scene1.fxml");// TODO remove check
+        setPane("/application/scene/Welcome.fxml");// TODO remove check
 
+        /* -- define Buttons -- */
 
+        // define 'printStocksButton':
         printStocksButton.setOnAction(
                 new PaneAnimationHandler(borderPane, parentContainer,
                         "/application/scene/StockTablePane.fxml",
                         PaneAnimationHandler.AnimationType.TIMELINE));
+
+        // define 'ownProfileButton':
+        ownProfileButton.setOnAction(
+                event -> setPane("/application/scene/OwnProfile.fxml"));
+
 
         /* -- Properties -- */
 
@@ -248,7 +258,8 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
     /**
      * The method calls a <i>pop-up window</i> for choosing a {@code Color}, and
      * afterwards {@code set}s the
-     * <blockquote><code> -fx-background-color: </code></blockquote> {@code
+     * <blockquote><code> -fx-background-color: </code></blockquote>
+     * <blockquote><code> -fx-text-fill: </code></blockquote> {@code
      * Components} of {@link JavaFXApp} in the <tt>.css</tt> file.
      *
      * @param event the {@code ActionEvent} of pressing the button.
@@ -385,21 +396,7 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
      *                   to show.
      */
     private void setPane(String pathToFXML) {
-
-        // get the newPane:
-        Pane newPane = getPane(pathToFXML);
-
-        // add the pane as a child of the parentContainer:
-        parentContainer.getChildren().add(newPane);
-
-        // remove the oldPane as a child of the parentContainer:
-        parentContainer.getChildren().remove(replaceAblePane);
-
-        // update the 'replaceAblePane':
-        replaceAblePane = newPane;
-
-        // show the pane in the center of the borderPane:
-        borderPane.setCenter(newPane);
+        setPane(borderPane, parentContainer, replaceAblePane, pathToFXML);
     }
 
 }

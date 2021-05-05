@@ -68,6 +68,7 @@
                                             <children>
                                                 <Button mnemonicParsing="false" onAction="#scene1" text="Scene 1" />
                                                 <Button fx:id="printStocksButton" mnemonicParsing="false" prefWidth="276.0" text="Print Stocks" />
+                                    <Button fx:id="ownProfileButton" mnemonicParsing="false" text="Own Profile" />
                                             </children>
                                         </VBox>
                                     </center>
@@ -87,36 +88,36 @@
                     </left>
                 </BorderPane>
             </center>
-         <bottom>
-            <AnchorPane BorderPane.alignment="CENTER">
-               <children>
-                  <BorderPane fx:id="bottomBorderPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <center>
-                              <Label fx:id="statusLabel" wrapText="true">
-                           <padding>
-                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                           </padding>
-                        </Label>
-                     </center>
-                     <left>
-                        <HBox alignment="CENTER_LEFT" spacing="10.0">
-                           <children>
-                                    <Label fx:id="progressLabel" cache="true" text="Progress:" />
-                                    <ProgressBar fx:id="progressBar" cache="true" progress="0.0" />
-                                    <Button mnemonicParsing="false" text="Button" />
-                           </children>
-                           <padding>
-                              <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
-                           </padding>
-                        </HBox>
-                     </left>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                  </BorderPane>
-               </children>
-            </AnchorPane>
-         </bottom>
+            <bottom>
+                <AnchorPane BorderPane.alignment="CENTER">
+                    <children>
+                        <BorderPane fx:id="bottomBorderPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <center>
+                                <Label fx:id="statusLabel" wrapText="true">
+                                    <padding>
+                                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                    </padding>
+                                </Label>
+                            </center>
+                            <left>
+                                <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                    <children>
+                                        <Label fx:id="progressLabel" cache="true" text="Progress:" />
+                                        <ProgressBar fx:id="progressBar" cache="true" progress="0.0" />
+                                        <Button mnemonicParsing="false" text="Button" />
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+                                    </padding>
+                                </HBox>
+                            </left>
+                            <opaqueInsets>
+                                <Insets />
+                            </opaqueInsets>
+                        </BorderPane>
+                    </children>
+                </AnchorPane>
+            </bottom>
         </BorderPane>
     </children>
 </AnchorPane>

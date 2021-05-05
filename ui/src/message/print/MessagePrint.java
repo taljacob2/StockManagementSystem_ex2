@@ -20,20 +20,24 @@ public class MessagePrint {
 
     public static void println(Stream stream, String message) {
         if (stream == OUT) {
+            // DEPRECATED: console
             // System.out.println(message);
-            //TODO: check:
 
+            // DEPRECATED: pop-up
             // FxDialogs.showInformation("INFO", message);
+
+            // set text and color of text in the statusLabel:
             JavaFXAppController.getStaticStatusLabel()
                     .setStyle("-fx-text-fill: rgb(202, 200, 197)");
             JavaFXAppController.getStaticStatusLabel().setText(message);
         } else if (stream == ERR) {
+            // DEPRECATED: console
             // System.err.println(message);
-            // Controller.consoleOutput.setText(message); // TODO need to color red the ERROR messages with CSS
 
-            // FxDialogs.showError("ERROR",
-            //         message); // TODO need to color red the ERROR messages with CSS
+            // DEPRECATED: pop-up
+            // FxDialogs.showError("ERROR", message);
 
+            // set text and color of text in the statusLabel:
             JavaFXAppController.getStaticStatusLabel()
                     .setStyle("-fx-text-fill: red");
             JavaFXAppController.getStaticStatusLabel().setText(message);
@@ -45,10 +49,14 @@ public class MessagePrint {
 
     public static void print(Stream stream, String message) {
         if (stream == OUT) {
-            System.out.print(message);
+            // DEPRECATED:
+            // System.out.print(message);
+
         } else if (stream == ERR) {
-            System.err.print(message);
+            // DEPRECATED:
+            // System.err.print(message);
         }
+        println(stream, message);
     }
 
     /**
