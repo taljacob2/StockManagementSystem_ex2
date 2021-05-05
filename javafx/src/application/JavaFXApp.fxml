@@ -83,6 +83,9 @@
                                                 <Button mnemonicParsing="false"
                                                         onAction="#scene1"
                                                         text="Scene 1"/>
+                                                <Button fx:id="loginButton"
+                                                        mnemonicParsing="false"
+                                                        text="Login"/>
                                                 <Button fx:id="printStocksButton"
                                                         mnemonicParsing="false"
                                                         prefWidth="276.0"

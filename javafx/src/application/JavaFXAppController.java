@@ -94,6 +94,7 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
     @FXML private BorderPane bottomBorderPane;
     @FXML private Button printStocksButton = new Button();
     @FXML private Button ownProfileButton = new Button();
+    @FXML private Button loginButton = new Button();
     @FXML private Label statusLabel;
     @FXML private Label progressLabel; // TODO: can make it static trick.
     @FXML private MenuBar menuBar;
@@ -204,6 +205,12 @@ public class JavaFXAppController implements Initializable, PaneReplacer {
         // define 'ownProfileButton':
         ownProfileButton.setOnAction(
                 event -> setPane("/application/scene/OwnProfile.fxml"));
+
+        // define 'loginButton':
+        loginButton.setOnAction(
+                new PaneAnimationHandler(borderPane, parentContainer,
+                        "/application/scene/Login.fxml",
+                        PaneAnimationHandler.AnimationType.FADE));
 
 
         /* -- Properties -- */

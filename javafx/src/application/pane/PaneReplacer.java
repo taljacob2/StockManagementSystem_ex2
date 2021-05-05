@@ -100,7 +100,7 @@ public interface PaneReplacer {
      * @param borderPaneToShowOnItsCenter the {@link BorderPane} to show the
      *                                    {@link Pane} provided in the
      *                                    <tt>.fxml</tt> file.
-     * @param parentContainer             is a <il>child</il> of the provided
+     * @param parentContainer             is a <i>child</i> of the provided
      *                                    {@link BorderPane}, and the {@link
      *                                    Parent} of the {@link Pane} that is
      *                                    being provided by the <tt>.fxml</tt>
@@ -138,7 +138,7 @@ public interface PaneReplacer {
      * @param borderPaneToShowOnItsCenter the {@link BorderPane} to show the
      *                                    {@link Pane} provided in the
      *                                    <tt>.fxml</tt> file.
-     * @param parentContainer             is a <il>child</il> of the provided
+     * @param parentContainer             is a <i>child</i> of the provided
      *                                    {@link BorderPane}, and the {@link
      *                                    Parent} of the {@link Pane} that is
      *                                    being provided by the <tt>.fxml</tt>

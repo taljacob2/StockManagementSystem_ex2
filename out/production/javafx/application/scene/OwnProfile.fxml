@@ -1,29 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.scene.OwnProfile">
+<?import javafx.scene.layout.*?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="application.scene.OwnProfile">
    <children>
-      <BorderPane layoutX="57.0" layoutY="26.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane layoutX="57.0" layoutY="26.0" prefHeight="200.0"
+                  prefWidth="200.0" AnchorPane.bottomAnchor="0.0"
+                  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                  AnchorPane.topAnchor="0.0">
          <top>
             <AnchorPane BorderPane.alignment="CENTER">
                <children>
-                  <Label alignment="CENTER" prefHeight="42.0" prefWidth="79.0" text="Name" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Label alignment="CENTER" prefHeight="42.0" prefWidth="79.0"
+                         text="Name" AnchorPane.bottomAnchor="0.0"
+                         AnchorPane.leftAnchor="0.0"
+                         AnchorPane.rightAnchor="0.0"
+                         AnchorPane.topAnchor="0.0"/>
                </children>
             </AnchorPane>
          </top>
          <bottom>
             <AnchorPane BorderPane.alignment="CENTER">
                <children>
-                  <Label alignment="CENTER" prefHeight="41.0" prefWidth="93.0" text="TotalWorth" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Label alignment="CENTER" prefHeight="41.0" prefWidth="93.0"
+                         text="TotalWorth" AnchorPane.bottomAnchor="0.0"
+                         AnchorPane.leftAnchor="0.0"
+                         AnchorPane.rightAnchor="0.0"
+                         AnchorPane.topAnchor="0.0"/>
                </children>
             </AnchorPane>
          </bottom>
          <center>
-            <BorderPane fx:id="borderPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <BorderPane fx:id="borderPane" prefHeight="200.0" prefWidth="200.0"
+                        BorderPane.alignment="CENTER"/>
          </center>
       </BorderPane>
    </children>

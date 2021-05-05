@@ -82,3 +82,11 @@
     /*-fx-background-radius: 10;*/
     -fx-background-color: rgba(0, 0, 0, 0.75);
 }
+
+.login{
+    -fx-background-image: url("image/boat.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    /*-fx-background-color: blue;*/
+}
