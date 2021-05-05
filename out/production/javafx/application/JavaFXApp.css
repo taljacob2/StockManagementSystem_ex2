@@ -83,7 +83,7 @@
     -fx-background-color: rgba(0, 0, 0, 0.75);
 }
 
-.login{
+.login {
     -fx-background-image: url("image/boat.jpg");
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;

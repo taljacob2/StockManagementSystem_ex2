@@ -43,3 +43,6 @@
 # add an "icon" to the ".exe"
 
 # add colors to labels of buttons
+
+# reset the 'statusLabel' when clicking on any button.
+    dot it by adding a 'resetLabel' call into every button ActionEvent.
