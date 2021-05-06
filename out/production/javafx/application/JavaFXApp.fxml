@@ -41,17 +41,18 @@
                         <Menu mnemonicParsing="false" text="Settings">
                             <items>
                                 <MenuItem mnemonicParsing="false" text="Animation">
-                           <graphic>
-                              <SplitMenuButton mnemonicParsing="false" text="Choose Animation">
-                                <items>
-                                  <MenuItem mnemonicParsing="false" onAction="#defineAnimationFadeInOut" text="Fade In Out" />
-                                  <MenuItem mnemonicParsing="false" onAction="#defineAnimationFadeOutIn" text="Fade Out In" />
-                                    <MenuItem mnemonicParsing="false" onAction="#defineAnimationTimelineBottomToTop" text="Timeline Bottom Top" />
-                                    <MenuItem mnemonicParsing="false" onAction="#defineAnimationTimelineRightToLeft" text="Timeline Right Left" />
-                                    <MenuItem mnemonicParsing="false" onAction="#defineAnimationNone" text="None" />
-                                </items>
-                              </SplitMenuButton>
-                           </graphic></MenuItem>
+                                    <graphic>
+                                        <SplitMenuButton mnemonicParsing="false" text="Choose Animation">
+                                            <items>
+                                                <MenuItem mnemonicParsing="false" onAction="#defineAnimationFadeInOut" text="Fade In Out" />
+                                                <MenuItem mnemonicParsing="false" onAction="#defineAnimationFadeOutIn" text="Fade Out In" />
+                                                <MenuItem mnemonicParsing="false" onAction="#defineAnimationTimelineBottomToTop" text="Timeline Bottom Top" />
+                                                <MenuItem mnemonicParsing="false" onAction="#defineAnimationTimelineRightToLeft" text="Timeline Right Left" />
+                                                <MenuItem mnemonicParsing="false" onAction="#defineAnimationNone" text="None" />
+                                            </items>
+                                        </SplitMenuButton>
+                                    </graphic>
+                                </MenuItem>
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Help">
@@ -78,7 +79,7 @@
                                     <center>
                                         <VBox fx:id="menuVBox" alignment="TOP_CENTER">
                                             <children>
-                                                <Button mnemonicParsing="false" onAction="#scene1" text="Scene 1" />
+                                                <Button fx:id="scene1Button" mnemonicParsing="false" text="Scene 1" />
                                                 <Button fx:id="loginButton" mnemonicParsing="false" text="Login" />
                                                 <Button fx:id="printStocksButton" mnemonicParsing="false" prefWidth="276.0" text="Print Stocks" />
                                                 <Button fx:id="ownProfileButton" mnemonicParsing="false" text="Own Profile" />

@@ -108,8 +108,8 @@
                                         <VBox fx:id="menuVBox"
                                               alignment="TOP_CENTER">
                                             <children>
-                                                <Button mnemonicParsing="false"
-                                                        onAction="#scene1"
+                                                <Button fx:id="scene1Button"
+                                                        mnemonicParsing="false"
                                                         text="Scene 1"/>
                                                 <Button fx:id="loginButton"
                                                         mnemonicParsing="false"

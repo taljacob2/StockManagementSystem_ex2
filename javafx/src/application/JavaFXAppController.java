@@ -93,6 +93,7 @@ public class JavaFXAppController
     @FXML private static Label staticProgressLabel;
     @FXML private BorderPane leftBorderPane;
     @FXML private BorderPane bottomBorderPane;
+    @FXML private Button scene1Button = new Button();
     @FXML private Button printStocksButton = new Button();
     @FXML private Button ownProfileButton = new Button();
     @FXML private Button loginButton = new Button();
@@ -191,7 +192,7 @@ public class JavaFXAppController
          * by default disable the menuVBox.
          * keep it disabled until there are loaded Stocks in the system.
          */
-        // menuVBox.setDisable(true); // TODO: check enabled
+        menuVBox.setDisable(true);
 
         /* -- set static variables -- */
 
@@ -352,8 +353,12 @@ public class JavaFXAppController
         setPane("/application/pane/resources/fxml/StockTablePane.fxml");
     }
 
-    public void scene1() {
-        setPane("/application/pane/resources/fxml/Scene1.fxml");
+    public void scene1() { // TODO: kill this
+        new PaneAnimationHandler(borderPane, parentContainer,
+                "/application" + "/pane/resources/fxml/Scene1.fxml",
+                PaneAnimationHandler.AnimationType.FADE_IN_OUT).handle(null);
+
+        // setPane("/application/pane/resources/fxml/Scene1.fxml");
     }
 
     public void command_LOAD_XML_FILE(ActionEvent event) {
@@ -406,8 +411,7 @@ public class JavaFXAppController
      * accordingly.
      *
      * <p>
-     * Note: there is no {@link application.pane.animation.Animation} in this
-     * method.
+     * Note: there is no {@link javafx.animation.Animation} in this method.
      *
      * @param pathToFXML path to the <tt>.fxml</tt> of the pane the user wishes
      *                   to show.
@@ -419,15 +423,17 @@ public class JavaFXAppController
     private void defineAnimationToAllButtons(
             PaneAnimationHandler.AnimationType chooseAnimationType) {
 
+        // define 'scene1Button':
+        scene1Button.setOnAction(
+                new PaneAnimationHandler(borderPane, parentContainer,
+                        "/application/pane/resources/fxml/Scene1.fxml",
+                        chooseAnimationType));
+
         // define 'printStocksButton':
         printStocksButton.setOnAction(
                 new PaneAnimationHandler(borderPane, parentContainer,
                         "/application/pane/resources/fxml/StockTablePane.fxml",
                         chooseAnimationType));
-
-        // // define 'ownProfileButton':
-        // ownProfileButton.setOnAction(event -> setPane(
-        //         "/application/pane/resources/fxml/OwnProfile.fxml"));
 
         // define 'ownProfileButton':
         ownProfileButton.setOnAction(
@@ -441,23 +447,6 @@ public class JavaFXAppController
                         "/application/pane/resources/fxml/Login.fxml",
                         chooseAnimationType));
     }
-
-    // public void defineNoneAnimationToAllButtons(
-    //         PaneAnimationHandler.AnimationType chooseAnimationType) {
-    //
-    //     // define 'printStocksButton':
-    //     ownProfileButton.setOnAction(event -> setPane(
-    //             "/application/pane/resources/fxml/StockTablePane.fxml"));
-    //
-    //     // define 'ownProfileButton':
-    //     ownProfileButton.setOnAction(event -> setPane(
-    //             "/application/pane/resources/fxml/OwnProfile.fxml"));
-    //
-    //     // define 'loginButton':
-    //     ownProfileButton.setOnAction(event -> setPane(
-    //             "/application/pane/resources/fxml/Login.fxml"));
-    //
-    // }
 
     @FXML private void defineAnimationFadeInOut() {
         defineAnimationToAllButtons(

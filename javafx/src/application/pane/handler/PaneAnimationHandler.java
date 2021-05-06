@@ -282,8 +282,10 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
              * We are doing so by removing it as a child of the parentContainer, and
              * right after that adding it as a child of the parentContainer.
              */
-            parentContainer.getChildren()
-                    .remove(JavaFXAppController.getReplaceAblePane());
+            //         FIXME not sure why this is kinda BUGGED
+            // parentContainer.getChildren()
+            //         .remove(JavaFXAppController.getReplaceAblePane()); //
+
 
             // play fade out of 'replaceAblePane':
             fadeOutTransition.play();
