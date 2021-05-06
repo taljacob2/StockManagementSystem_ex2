@@ -51,3 +51,7 @@
 # make "disable" to the menuVBox as long as there are no stocks in the system.
 
 # fix progressBar is not progressing for some reason now.
+
+# write in README -> that I made 5 types of Animations: available in the
+"Settings"
+Menu.
