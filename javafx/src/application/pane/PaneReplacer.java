@@ -44,45 +44,6 @@ public interface PaneReplacer {
         return pane;
     }
 
-    // /**
-    //  * This method <b>replaces</b> an {@link AnchorPane} with an another {@link
-    //  * AnchorPane} that is the <i>root</i> of a given <tt>.fxml</tt> file.
-    //  * <p> Note: this is implemented with {@link Timeline} {@code Animation}
-    //  * for graphical purposes only, but could also be implemented without
-    //  * it.</p>
-    //  *
-    //  * @param event           the encountered {@link ActionEvent}.
-    //  * @param parentContainer the <i>parent</i> {@code Container} of the {@link
-    //  *                        AnchorPane} to be replaced. <p>Important: Must be
-    //  *                        a {@link StackPane}.</p>
-    //  * @param anchorRoot      the new {@link AnchorPane} to be replaced with.
-    //  *                        <p> Note: this {@link AnchorPane} should be the
-    //  *                        <i>root</i> of the <tt>.fxml</tt> file.</p>
-    //  * @param pathToFXML      the <i>path</i> to the <tt>.fxml</tt> file of the
-    //  *                        {@link AnchorPane}.
-    //  * @throws IOException in case of an Error.
-    //  */
-    // @FXML default void replaceWith(ActionEvent event, StackPane parentContainer,
-    //                                AnchorPane anchorRoot,
-    //                                String pathToFXML) // TODO: maybe kill this method/class
-    //         throws IOException {
-    //     Parent root = FXMLLoader.load(getClass().getResource(pathToFXML));
-    //     Scene scene = anchorRoot.getScene();
-    //     root.translateYProperty().set(scene.getHeight());
-    //
-    //     parentContainer.getChildren().add(root);
-    //
-    //     Timeline timeline = new Timeline();
-    //     KeyValue keyValue = new KeyValue(root.translateYProperty(), 0,
-    //             Interpolator.EASE_IN);
-    //     KeyFrame keyFrame = new KeyFrame(Duration.seconds(2), keyValue);
-    //     timeline.getKeyFrames().add(keyFrame);
-    //     timeline.setOnFinished(t -> {
-    //         parentContainer.getChildren().remove(anchorRoot);
-    //     });
-    //     timeline.play();
-    // }
-
     /**
      * This method sets the new Pane to be shown on a <i>center</i> of the
      * {@link javafx.scene.layout.BorderPane} and <i>updates</i> the {@link

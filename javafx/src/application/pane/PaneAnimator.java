@@ -1,7 +1,6 @@
-package application.pane.handler;
+package application.pane;
 
 import application.JavaFXAppController;
-import application.pane.PaneReplacer;
 import javafx.animation.*;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -12,117 +11,75 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
-/* XXX
-    GUIDE: check Animation here:
-    https://www.genuinecoder.com/javafx-animation-tutorial/
- */
+public interface PaneAnimator extends PaneReplacer {
 
-/**
- * Use this class as a {@link EventHandler} for handling <b>slide</b>
- * <tt>JavaFX</tt> {@code Animation}s.
- */
-public class PaneAnimationHandler implements EventHandler, PaneReplacer {
+    static Animation presentAnimation(Event event, Pane parentContainer,
+                                      Pane newPane,
+                                      AnimationType animationType) {
+        Animation animation =
+                presentEventRequiredAnimation(event, parentContainer, newPane,
+                        animationType);
+        if (animation == null) {
+            presentNoEventRequiredAnimation(parentContainer, newPane,
+                    animationType);
+        }
 
-    /**
-     * Stores here the {@link Animation} <i>type</i> the user wishes to invoke.
-     */
-    private AnimationType animationType;
-
-    /**
-     * Stores here the {@link BorderPane} to show the new scene on its {@link
-     * BorderPane#getCenter()}.
-     */
-    private BorderPane borderPaneToShowOnItsCenter;
-
-    /**
-     * Contains the {@link Pane} that is being <i>replaced</i>.
-     */
-    @FXML private Pane parentContainer;
-
-    /**
-     * The <i>path</i> to the attached <tt>.fxml</tt> file.
-     */
-    private String pathToFXML;
-
-    /**
-     * @param borderPaneToShowOnItsCenter the {@link BorderPane} to show on its
-     *                                    center the new scene.
-     * @param parentContainer             the {@code Parent} {@code Pane} {@code
-     *                                    Container} of the new scene to be
-     *                                    shown. Note: this must be a {@code
-     *                                    Container} that is able to use the
-     *                                    {@link Pane#getChildren()} in order to
-     *                                    {@code add} children to it.
-     * @param pathToFXML                  the <i>path</i> to the <tt>.fxml</tt>
-     *                                    file for the new scene to be shown.
-     * @param animationType               the <i>type</i> of {@link Animation}
-     *                                    to be shown while transitioning
-     *                                    between {@code JavaFXAppController.getReplaceAblePane()}
-     *                                    and the
-     *                                    <i>new</i> {@link Pane}.
-     */
-    public PaneAnimationHandler(BorderPane borderPaneToShowOnItsCenter,
-                                Pane parentContainer, String pathToFXML,
-                                AnimationType animationType) {
-        this.borderPaneToShowOnItsCenter = borderPaneToShowOnItsCenter;
-        this.parentContainer = parentContainer;
-        this.pathToFXML = pathToFXML;
-        this.animationType = animationType;
+        // in case of an error. shouldn't be happening:
+        return animation;
     }
 
-    /**
-     * Switch between the {@link Pane}s. {@code handle} it with an {@code
-     * Animation} in between, according to the {@link #animationType} provided.
-     *
-     * @param event the encountered {@link Event}.
-     * @see AnimationType
-     */
-    @Override public void handle(Event event) {
-
-        // Get 'newPane' to show:
-        Pane newPane = getPane(pathToFXML);
-
-        // If the Animation state is enabled, preset an Animation:
-        presentAnimation(event, newPane);
-
-        // Present the extracted Pane:
-        borderPaneToShowOnItsCenter.setCenter(parentContainer);
-    }
-
-    private Animation presentAnimation(Event event, Pane newPane) {
+    static Animation presentEventRequiredAnimation(Event event,
+                                                   Pane parentContainer,
+                                                   Pane newPane,
+                                                   AnimationType animationType) {
         if (animationType == AnimationType.TIMELINE_BOTTOM_TO_TOP) {
 
             // Timeline Bottom To Top - Animation:
-            return createTimeLineBottomToTopAnimationAndPlay(event, newPane);
+            return createTimeLineBottomToTopAnimationAndPlay(event,
+                    parentContainer, newPane);
         } else if (animationType == AnimationType.TIMELINE_RIGHT_TO_LEFT) {
 
             // Timeline Right To Left - Animation:
-            return createTimeLineRightToLeftAnimationAndPlay(event, newPane);
-        } else if (animationType == AnimationType.FADE_OUT_IN) {
-
-            // Fade Out In - Animation:
-            return createFadeOutInTransitionAnimationAndPlay(newPane);
-        } else if (animationType == AnimationType.FADE_IN_OUT) {
-
-            // Fade In Out - Animation:
-            return createFadeInOutTransitionAnimationAndPlay(newPane);
-        } else if (animationType == AnimationType.NONE) {
-            setPaneWithNoneAnimation(newPane);
+            return createTimeLineRightToLeftAnimationAndPlay(event,
+                    parentContainer, newPane);
         }
 
         // in case of an error. shouldn't be happening:
         return null;
     }
 
-    private void setPaneWithNoneAnimation(Pane newPane) {
+    static Animation presentNoEventRequiredAnimation(Pane parentContainer,
+                                                     Pane newPane,
+                                                     AnimationType animationType) {
+        if (animationType == AnimationType.FADE_OUT_IN) {
+
+            // Fade Out In - Animation:
+            return createFadeOutInTransitionAnimationAndPlay(parentContainer,
+                    newPane);
+        } else if (animationType == AnimationType.FADE_IN_OUT) {
+
+            // Fade In Out - Animation:
+            return createFadeInOutTransitionAnimationAndPlay(parentContainer,
+                    newPane);
+        } else if (animationType == AnimationType.NONE) {
+            setPaneWithNoneAnimation(parentContainer, newPane);
+        }
+
+        // in case of an error. shouldn't be happening:
+        return null;
+    }
+
+    @Deprecated
+    static void setPaneWithNoneAnimation(Pane parentContainer, Pane newPane) {
+        // TODO: maybe can kill this
         parentContainer.getChildren().add(newPane);
         parentContainer.getChildren()
                 .remove(JavaFXAppController.getReplaceAblePane());
         JavaFXAppController.setReplaceAblePane(newPane);
     }
 
-    private Timeline createTimeLineBottomToCenterAnimation(Event event,
-                                                           Pane newPane) {
+    static Timeline createTimeLineBottomToCenterAnimation(Event event,
+                                                          Pane newPane) {
         Timeline timeline = new Timeline();
         Node triggeringNode = (Node) (event.getSource());
         Scene scene = triggeringNode.getScene();
@@ -136,8 +93,8 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
         return timeline;
     }
 
-    private Timeline createTimeLineRightToCenterAnimation(Event event,
-                                                          Pane newPane) {
+    static Timeline createTimeLineRightToCenterAnimation(Event event,
+                                                         Pane newPane) {
         Timeline timeline = new Timeline();
         Node triggeringNode = (Node) (event.getSource());
         Scene scene = triggeringNode.getScene();
@@ -151,7 +108,7 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
         return timeline;
     }
 
-    private Timeline createTimeLineCenterToLeftAnimation(Event event) {
+    static Timeline createTimeLineCenterToLeftAnimation(Event event) {
         Timeline timeline = new Timeline();
         Node triggeringNode = (Node) (event.getSource());
         Scene scene = triggeringNode.getScene();
@@ -166,7 +123,7 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
         return timeline;
     }
 
-    private Timeline createTimeLineCenterToTopAnimation(Event event) {
+    static Timeline createTimeLineCenterToTopAnimation(Event event) {
         Timeline timeline = new Timeline();
         Node triggeringNode = (Node) (event.getSource());
         Scene scene = triggeringNode.getScene();
@@ -181,8 +138,9 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
         return timeline;
     }
 
-    private Animation createTimeLineBottomToTopAnimationAndPlay(Event event,
-                                                                Pane newPane) {
+    static Animation createTimeLineBottomToTopAnimationAndPlay(Event event,
+                                                               Pane parentContainer,
+                                                               Pane newPane) {
         Timeline timeline =
                 createTimeLineBottomToCenterAnimation(event, newPane);
         parentContainer.getChildren().add(newPane);
@@ -214,8 +172,9 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
         return timeline;
     }
 
-    private Animation createTimeLineRightToLeftAnimationAndPlay(Event event,
-                                                                Pane newPane) {
+    static Animation createTimeLineRightToLeftAnimationAndPlay(Event event,
+                                                               Pane parentContainer,
+                                                               Pane newPane) {
         Timeline timeline =
                 createTimeLineRightToCenterAnimation(event, newPane);
         parentContainer.getChildren().add(newPane);
@@ -247,8 +206,8 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
         return timeline;
     }
 
-    private FadeTransition createFadeInTransitionAnimation(Pane pane,
-                                                           Duration duration) {
+    static FadeTransition createFadeInTransitionAnimation(Pane pane,
+                                                          Duration duration) {
         FadeTransition fadeTransition = new FadeTransition(duration, pane);
         fadeTransition.setFromValue(0.0);
         fadeTransition.setToValue(1.0);
@@ -256,8 +215,8 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
         return fadeTransition;
     }
 
-    private FadeTransition createFadeOutTransitionAnimation(Pane pane,
-                                                            Duration duration) {
+    static FadeTransition createFadeOutTransitionAnimation(Pane pane,
+                                                           Duration duration) {
         FadeTransition fadeTransition = new FadeTransition(duration, pane);
         fadeTransition.setFromValue(1.0);
         fadeTransition.setToValue(0.0);
@@ -265,7 +224,8 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
         return fadeTransition;
     }
 
-    private Animation createFadeInOutTransitionAnimationAndPlay(Pane newPane) {
+    static Animation createFadeInOutTransitionAnimationAndPlay(
+            Pane parentContainer, Pane newPane) {
         FadeTransition fadeOutTransition = createFadeOutTransitionAnimation(
                 JavaFXAppController.getReplaceAblePane(),
                 Duration.seconds(0.5));
@@ -307,7 +267,8 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
         return fadeOutTransition;
     }
 
-    private Animation createFadeOutInTransitionAnimationAndPlay(Pane newPane) {
+    static Animation createFadeOutInTransitionAnimationAndPlay(
+            Pane parentContainer, Pane newPane) {
         FadeTransition fadeOutTransition = createFadeOutTransitionAnimation(
                 JavaFXAppController.getReplaceAblePane(),
                 Duration.seconds(0.5));
@@ -351,6 +312,7 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
         return fadeInTransition;
     }
 
+
     /**
      * The <i>type</i> of {@link Animation} the user wishes to invoke.
      */
@@ -359,4 +321,126 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
         FADE_IN_OUT, NONE
     }
 
+
+    /**
+     * Use this {@code Class} as a {@link EventHandler} for handling
+     * <tt>JavaFX</tt> {@link Pane} <i>switches</i> and {@link Animation}s.
+     */
+    public class Handler implements EventHandler, PaneReplacer {
+
+        /* XXX
+         *  GUIDE: check Animation here:
+         *  https://www.genuinecoder.com/javafx-animation-tutorial/
+         */
+
+        /**
+         * Stores here the {@link BorderPane} to show the new scene on its
+         * {@link BorderPane#getCenter()}.
+         */
+        private BorderPane borderPaneToShowOnItsCenter;
+
+        /**
+         * Contains the {@link Pane} that is being <i>replaced</i>.
+         */
+        @FXML private Pane parentContainer;
+
+        /**
+         * The <i>path</i> to the attached <tt>.fxml</tt> file.
+         */
+        private String pathToFXML;
+
+        /**
+         * Stores here the {@link Animation} <i>type</i> the user wishes to
+         * invoke.
+         */
+        private AnimationType animationType;
+
+        /**
+         * @param borderPaneToShowOnItsCenter the {@link BorderPane} to show on
+         *                                    its center the new scene.
+         * @param parentContainer             the {@code Parent} {@code Pane}
+         *                                    {@code Container} of the new scene
+         *                                    to be shown. <p> Note: this must
+         *                                    be a {@code Container} that is
+         *                                    able to use the {@link Pane#getChildren()}
+         *                                    in order to {@code add} children
+         *                                    to it.</p>
+         * @param pathToFXML                  the <i>path</i> to the <tt>.fxml</tt>
+         *                                    file for the new scene to be
+         *                                    shown.
+         * @param animationType               the <i>type</i> of {@link
+         *                                    Animation} to be shown while
+         *                                    transitioning between the {@code
+         *                                    replaceAblePane} and the
+         *                                    <i>new</i> {@link Pane}.
+         */
+        public Handler(BorderPane borderPaneToShowOnItsCenter,
+                       Pane parentContainer, String pathToFXML,
+                       AnimationType animationType) {
+            this.borderPaneToShowOnItsCenter = borderPaneToShowOnItsCenter;
+            this.parentContainer = parentContainer;
+            this.pathToFXML = pathToFXML;
+            this.animationType = animationType;
+        }
+
+        /**
+         * Switch between the {@link Pane}s. {@code handle} it with an {@code
+         * Animation} in between, according to the {@link #animationType}
+         * provided.
+         *
+         * @param event the encountered {@link Event}.
+         * @see AnimationType
+         */
+        @Override public void handle(Event event) {
+            setPane(event, borderPaneToShowOnItsCenter, parentContainer,
+                    pathToFXML, animationType);
+        }
+
+        /**
+         * This method sets the new Pane to be shown on a <i>center</i> of the
+         * {@link javafx.scene.layout.BorderPane} and <i>updates</i> the {@link
+         * Pane} accordingly.
+         *
+         * <p>Note: this implementation is using an
+         * {@link javafx.animation.Animation} to switch between the {@link Pane}
+         * s, according to the user's decision.
+         * </p>
+         *
+         * @param event                       the {@link Event} that <i>triggers
+         *                                    </i> this method invocation.
+         * @param borderPaneToShowOnItsCenter the {@link BorderPane} to show the
+         *                                    {@link Pane} provided in the
+         *                                    <tt>.fxml</tt> file.
+         * @param parentContainer             is a <i>child</i> of the provided
+         *                                    {@link BorderPane}, and the {@link
+         *                                    javafx.scene.Parent} of the {@link
+         *                                    Pane} that is being provided by
+         *                                    the
+         *                                    <tt>.fxml</tt> file.
+         * @param pathToFXML                  path to the <tt>.fxml</tt> of the
+         *                                    pane the user wishes to show.
+         * @param animationType               the {@link javafx.animation.Animation}
+         *                                    <i>type</i> that is able to be
+         *                                    configured via {@link application.pane.PaneAnimator.AnimationType},
+         *                                    and will determine the current
+         *                                    <i>switch</i> of {@link Pane}s
+         *                                    {@link javafx.animation.Animation}.
+         * @see application.pane.PaneAnimator.AnimationType
+         */
+        private void setPane(Event event,
+                             BorderPane borderPaneToShowOnItsCenter,
+                             Pane parentContainer, String pathToFXML,
+                             PaneAnimator.AnimationType animationType) {
+
+            // Get 'newPane' to show:
+            Pane newPane = getPane(pathToFXML);
+
+            // If the Animation state is enabled, preset an Animation:
+            presentAnimation(event, parentContainer, newPane, animationType);
+
+            // Present the extracted Pane:
+            borderPaneToShowOnItsCenter.setCenter(parentContainer);
+        }
+
+    }
 }

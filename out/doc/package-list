@@ -2,7 +2,6 @@ application
 application.color
 application.dialog
 application.pane
-application.pane.handler
 application.pane.resources.controller
 application.property
 currency

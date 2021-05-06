@@ -2,8 +2,8 @@ package application;
 
 import application.color.ColorPickerApp;
 import application.dialog.FxDialogs;
+import application.pane.PaneAnimator;
 import application.pane.PaneReplacerShortened;
-import application.pane.handler.PaneAnimationHandler;
 import application.property.NumberProperty;
 import engine.Engine;
 import javafx.beans.binding.Bindings;
@@ -213,11 +213,17 @@ public class JavaFXAppController
          */
         setPane("/application/pane/resources/fxml/Welcome.fxml");// TODO remove check
 
+        scene1Button.setOnAction(
+                new PaneAnimator.Handler(borderPane, parentContainer,
+                        "/application/pane/resources/fxml/Welcome.fxml",
+                        PaneAnimator.AnimationType.NONE));
+        // Fade In - Animation:
+        // TODO: checking:
+
         /* -- define Buttons -- */
 
         // Default Animation is 'FADE_IN_OUT':
-        defineAnimationToAllButtons(
-                PaneAnimationHandler.AnimationType.FADE_IN_OUT);
+        defineAnimationToAllButtons(PaneAnimator.AnimationType.FADE_IN_OUT);
 
 
         /* -- Properties -- */
@@ -354,9 +360,9 @@ public class JavaFXAppController
     }
 
     public void scene1() { // TODO: kill this
-        new PaneAnimationHandler(borderPane, parentContainer,
+        new PaneAnimator.Handler(borderPane, parentContainer,
                 "/application" + "/pane/resources/fxml/Scene1.fxml",
-                PaneAnimationHandler.AnimationType.FADE_IN_OUT).handle(null);
+                PaneAnimator.AnimationType.FADE_IN_OUT).handle(null);
 
         // setPane("/application/pane/resources/fxml/Scene1.fxml");
     }
@@ -421,55 +427,53 @@ public class JavaFXAppController
     }
 
     private void defineAnimationToAllButtons(
-            PaneAnimationHandler.AnimationType chooseAnimationType) {
+            PaneAnimator.AnimationType animationType) {
 
         // define 'scene1Button':
         scene1Button.setOnAction(
-                new PaneAnimationHandler(borderPane, parentContainer,
+                new PaneAnimator.Handler(borderPane, parentContainer,
                         "/application/pane/resources/fxml/Scene1.fxml",
-                        chooseAnimationType));
+                        animationType));
 
         // define 'printStocksButton':
         printStocksButton.setOnAction(
-                new PaneAnimationHandler(borderPane, parentContainer,
+                new PaneAnimator.Handler(borderPane, parentContainer,
                         "/application/pane/resources/fxml/StockTablePane.fxml",
-                        chooseAnimationType));
+                        animationType));
 
         // define 'ownProfileButton':
         ownProfileButton.setOnAction(
-                new PaneAnimationHandler(borderPane, parentContainer,
+                new PaneAnimator.Handler(borderPane, parentContainer,
                         "/application/pane/resources/fxml/OwnProfile.fxml",
-                        chooseAnimationType));
+                        animationType));
 
         // define 'loginButton':
         loginButton.setOnAction(
-                new PaneAnimationHandler(borderPane, parentContainer,
+                new PaneAnimator.Handler(borderPane, parentContainer,
                         "/application/pane/resources/fxml/Login.fxml",
-                        chooseAnimationType));
+                        animationType));
     }
 
     @FXML private void defineAnimationFadeInOut() {
-        defineAnimationToAllButtons(
-                PaneAnimationHandler.AnimationType.FADE_IN_OUT);
+        defineAnimationToAllButtons(PaneAnimator.AnimationType.FADE_IN_OUT);
     }
 
     @FXML private void defineAnimationFadeOutIn() {
-        defineAnimationToAllButtons(
-                PaneAnimationHandler.AnimationType.FADE_OUT_IN);
+        defineAnimationToAllButtons(PaneAnimator.AnimationType.FADE_OUT_IN);
     }
 
     @FXML private void defineAnimationTimelineBottomToTop() {
         defineAnimationToAllButtons(
-                PaneAnimationHandler.AnimationType.TIMELINE_BOTTOM_TO_TOP);
+                PaneAnimator.AnimationType.TIMELINE_BOTTOM_TO_TOP);
     }
 
     @FXML private void defineAnimationTimelineRightToLeft() {
         defineAnimationToAllButtons(
-                PaneAnimationHandler.AnimationType.TIMELINE_RIGHT_TO_LEFT);
+                PaneAnimator.AnimationType.TIMELINE_RIGHT_TO_LEFT);
     }
 
     @FXML private void defineAnimationNone() {
-        defineAnimationToAllButtons(PaneAnimationHandler.AnimationType.NONE);
+        defineAnimationToAllButtons(PaneAnimator.AnimationType.NONE);
     }
 
 }

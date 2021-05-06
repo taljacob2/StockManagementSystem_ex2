@@ -53,5 +53,14 @@
 # fix progressBar is not progressing for some reason now.
 
 # write in README -> that I made 5 types of Animations: available in the
-"Settings"
-Menu.
+"Settings" Menu.
+
+# order "PaneAnimator" that WONT be configured ONLY TO JavaFXApp via
+    JavaFXAppController.setReplaceAblePane(newPane); and
+    JavaFXAppController.getReplaceAblePane();
+
+    but needs to be generic!!
+
+    # then, we can configure a "PaneAnimationHandlerJavaFXApp" that "extends"
+        "PaneAnimationHandler" with the bond to JavaFX borderPane,
+        parentContainer, and replaceAblePane.
