@@ -214,21 +214,9 @@ public class JavaFXAppController
 
         /* -- define Buttons -- */
 
-        // define 'printStocksButton':
-        printStocksButton.setOnAction(
-                new PaneAnimationHandler(borderPane, parentContainer,
-                        "/application/pane/resources/fxml/StockTablePane.fxml",
-                        PaneAnimationHandler.AnimationType.FADE_IN_OUT));
-
-        // define 'ownProfileButton':
-        ownProfileButton.setOnAction(event -> setPane(
-                "/application/pane/resources/fxml/OwnProfile.fxml"));
-
-        // define 'loginButton':
-        loginButton.setOnAction(
-                new PaneAnimationHandler(borderPane, parentContainer,
-                        "/application/pane/resources/fxml/Login.fxml",
-                        PaneAnimationHandler.AnimationType.FADE_IN_OUT));
+        // Default Animation is 'FADE_IN_OUT':
+        defineAnimationToAllButtons(
+                PaneAnimationHandler.AnimationType.FADE_IN_OUT);
 
 
         /* -- Properties -- */
@@ -417,11 +405,83 @@ public class JavaFXAppController
      * {@link #borderPane} and <i>updates</i> the {@link #replaceAblePane}
      * accordingly.
      *
+     * <p>
+     * Note: there is no {@link application.pane.animation.Animation} in this
+     * method.
+     *
      * @param pathToFXML path to the <tt>.fxml</tt> of the pane the user wishes
      *                   to show.
      */
     public void setPane(String pathToFXML) {
-        setPane(borderPane, parentContainer, replaceAblePane, pathToFXML);
+        setPane(borderPane, parentContainer, pathToFXML);
     }
+
+    private void defineAnimationToAllButtons(
+            PaneAnimationHandler.AnimationType chooseAnimationType) {
+
+        // define 'printStocksButton':
+        printStocksButton.setOnAction(
+                new PaneAnimationHandler(borderPane, parentContainer,
+                        "/application/pane/resources/fxml/StockTablePane.fxml",
+                        chooseAnimationType));
+
+        // // define 'ownProfileButton':
+        // ownProfileButton.setOnAction(event -> setPane(
+        //         "/application/pane/resources/fxml/OwnProfile.fxml"));
+
+        // define 'ownProfileButton':
+        ownProfileButton.setOnAction(
+                new PaneAnimationHandler(borderPane, parentContainer,
+                        "/application/pane/resources/fxml/OwnProfile.fxml",
+                        chooseAnimationType));
+
+        // define 'loginButton':
+        loginButton.setOnAction(
+                new PaneAnimationHandler(borderPane, parentContainer,
+                        "/application/pane/resources/fxml/Login.fxml",
+                        chooseAnimationType));
+    }
+
+    // public void defineNoneAnimationToAllButtons(
+    //         PaneAnimationHandler.AnimationType chooseAnimationType) {
+    //
+    //     // define 'printStocksButton':
+    //     ownProfileButton.setOnAction(event -> setPane(
+    //             "/application/pane/resources/fxml/StockTablePane.fxml"));
+    //
+    //     // define 'ownProfileButton':
+    //     ownProfileButton.setOnAction(event -> setPane(
+    //             "/application/pane/resources/fxml/OwnProfile.fxml"));
+    //
+    //     // define 'loginButton':
+    //     ownProfileButton.setOnAction(event -> setPane(
+    //             "/application/pane/resources/fxml/Login.fxml"));
+    //
+    // }
+
+    @FXML private void defineAnimationFadeInOut() {
+        defineAnimationToAllButtons(
+                PaneAnimationHandler.AnimationType.FADE_IN_OUT);
+    }
+
+    @FXML private void defineAnimationFadeOutIn() {
+        defineAnimationToAllButtons(
+                PaneAnimationHandler.AnimationType.FADE_OUT_IN);
+    }
+
+    @FXML private void defineAnimationTimelineBottomToTop() {
+        defineAnimationToAllButtons(
+                PaneAnimationHandler.AnimationType.TIMELINE_BOTTOM_TO_TOP);
+    }
+
+    @FXML private void defineAnimationTimelineRightToLeft() {
+        defineAnimationToAllButtons(
+                PaneAnimationHandler.AnimationType.TIMELINE_RIGHT_TO_LEFT);
+    }
+
+    @FXML private void defineAnimationNone() {
+        defineAnimationToAllButtons(PaneAnimationHandler.AnimationType.NONE);
+    }
+
 }
 

@@ -35,12 +35,6 @@
                                           text="Print Stocks"/>
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Edit">
-                            <items>
-                                <MenuItem mnemonicParsing="false"
-                                          text="Delete"/>
-                            </items>
-                        </Menu>
                         <Menu mnemonicParsing="false" text="View">
                             <items>
                                 <MenuItem mnemonicParsing="false"
@@ -49,6 +43,40 @@
                                 <MenuItem mnemonicParsing="false"
                                           onAction="#setColor"
                                           text="Custom Theme"/>
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="Settings">
+                            <items>
+                                <MenuItem mnemonicParsing="false"
+                                          text="Animation">
+                                    <graphic>
+                                        <SplitMenuButton mnemonicParsing="false"
+                                                         text="Choose Animation">
+                                            <items>
+                                                <MenuItem
+                                                        mnemonicParsing="false"
+                                                        onAction="#defineAnimationFadeInOut"
+                                                        text="Fade In Out"/>
+                                                <MenuItem
+                                                        mnemonicParsing="false"
+                                                        onAction="#defineAnimationFadeOutIn"
+                                                        text="Fade Out In"/>
+                                                <MenuItem
+                                                        mnemonicParsing="false"
+                                                        onAction="#defineAnimationTimelineBottomToTop"
+                                                        text="Timeline Bottom Top"/>
+                                                <MenuItem
+                                                        mnemonicParsing="false"
+                                                        onAction="#defineAnimationTimelineRightToLeft"
+                                                        text="Timeline Right Left"/>
+                                                <MenuItem
+                                                        mnemonicParsing="false"
+                                                        onAction="#defineAnimationNone"
+                                                        text="None"/>
+                                            </items>
+                                        </SplitMenuButton>
+                                    </graphic>
+                                </MenuItem>
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Help">

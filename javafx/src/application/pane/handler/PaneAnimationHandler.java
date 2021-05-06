@@ -72,11 +72,10 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
 
     /**
      * Switch between the {@link Pane}s. {@code handle} it with an {@code
-     * Animation} in between, if the {@code Animation} is enabled in {@link
-     * application.pane.animation.Animation#getAnimation()}.
+     * Animation} in between, according to the {@link #animationType} provided.
      *
      * @param event the encountered {@link Event}.
-     * @see application.pane.animation.Animation
+     * @see AnimationType
      */
     @Override public void handle(Event event) {
 
@@ -84,9 +83,7 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
         Pane newPane = getPane(pathToFXML);
 
         // If the Animation state is enabled, preset an Animation:
-        if (application.pane.animation.Animation.getAnimation()) {
-            presentAnimation(event, newPane);
-        }
+        presentAnimation(event, newPane);
 
         // Present the extracted Pane:
         borderPaneToShowOnItsCenter.setCenter(parentContainer);
@@ -109,10 +106,19 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
 
             // Fade In Out - Animation:
             return createFadeInOutTransitionAnimationAndPlay(newPane);
+        } else if (animationType == AnimationType.NONE) {
+            setPaneWithNoneAnimation(newPane);
         }
 
         // in case of an error. shouldn't be happening:
         return null;
+    }
+
+    private void setPaneWithNoneAnimation(Pane newPane) {
+        parentContainer.getChildren().add(newPane);
+        parentContainer.getChildren()
+                .remove(JavaFXAppController.getReplaceAblePane());
+        JavaFXAppController.setReplaceAblePane(newPane);
     }
 
     private Timeline createTimeLineBottomToCenterAnimation(Event event,
@@ -347,7 +353,8 @@ public class PaneAnimationHandler implements EventHandler, PaneReplacer {
      * The <i>type</i> of {@link Animation} the user wishes to invoke.
      */
     public enum AnimationType {
-        TIMELINE_RIGHT_TO_LEFT, TIMELINE_BOTTOM_TO_TOP, FADE_OUT_IN, FADE_IN_OUT
+        TIMELINE_RIGHT_TO_LEFT, TIMELINE_BOTTOM_TO_TOP, FADE_OUT_IN,
+        FADE_IN_OUT, NONE
     }
 
 }

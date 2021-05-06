@@ -6,7 +6,7 @@ import javafx.scene.layout.Pane;
 /**
  * This <i>interface</i> serves a {@code Class} that has a {@link
  * javafx.scene.layout.BorderPane} as a field. <p>This <i>interface</i> is used
- * to simplify the call to the {@link #setPane(BorderPane, Pane, Pane, String)}
+ * to simplify the call to the {@link #setPane(BorderPane, Pane, String)}
  * method, to make the calls to it shorter.</p>
  */
 public interface PaneReplacerShortened extends PaneReplacer {
