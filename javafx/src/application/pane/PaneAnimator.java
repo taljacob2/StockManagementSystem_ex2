@@ -11,10 +11,23 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
+/**
+ * This <i>interface</i> gets <i>two</i> {@link Pane}s, and creates a
+ * <tt>JavaFX</tt> {@link Animation}s transition between them.
+ * <p>Also:</p>
+ * <ul>
+ *      <li>Defines an {@link AnimationType}, to define the {@link Animation}
+ *      <i>types</i> available to be used.
+ *      </li>
+ *
+ *      <li>Defines a {@link Handler} to serve as an {@link Animation}
+ *      {@link EventHandler}.
+ *      </li>
+ * </ul>
+ */
 public interface PaneAnimator extends PaneReplacer {
 
-    static Animation presentAnimation(Event event, Pane parentContainer,
-                                      Pane newPane,
+    static Animation presentAnimation(Event event, Pane parentContainer, Pane newPane,
                                       AnimationType animationType) {
         Animation animation =
                 presentEventRequiredAnimation(event, parentContainer, newPane,
@@ -28,10 +41,8 @@ public interface PaneAnimator extends PaneReplacer {
         return animation;
     }
 
-    static Animation presentEventRequiredAnimation(Event event,
-                                                   Pane parentContainer,
-                                                   Pane newPane,
-                                                   AnimationType animationType) {
+    static Animation presentEventRequiredAnimation(Event event, Pane parentContainer,
+                                                   Pane newPane, AnimationType animationType) {
         if (animationType == AnimationType.TIMELINE_BOTTOM_TO_TOP) {
 
             // Timeline Bottom To Top - Animation:
@@ -48,8 +59,7 @@ public interface PaneAnimator extends PaneReplacer {
         return null;
     }
 
-    static Animation presentNoEventRequiredAnimation(Pane parentContainer,
-                                                     Pane newPane,
+    static Animation presentNoEventRequiredAnimation(Pane parentContainer, Pane newPane,
                                                      AnimationType animationType) {
         if (animationType == AnimationType.FADE_OUT_IN) {
 
@@ -69,17 +79,14 @@ public interface PaneAnimator extends PaneReplacer {
         return null;
     }
 
-    @Deprecated
-    static void setPaneWithNoneAnimation(Pane parentContainer, Pane newPane) {
+    @Deprecated static void setPaneWithNoneAnimation(Pane parentContainer, Pane newPane) {
         // TODO: maybe can kill this
         parentContainer.getChildren().add(newPane);
-        parentContainer.getChildren()
-                .remove(JavaFXAppController.getReplaceAblePane());
+        parentContainer.getChildren().remove(JavaFXAppController.getReplaceAblePane());
         JavaFXAppController.setReplaceAblePane(newPane);
     }
 
-    static Timeline createTimeLineBottomToCenterAnimation(Event event,
-                                                          Pane newPane) {
+    static Timeline createTimeLineBottomToCenterAnimation(Event event, Pane newPane) {
         Timeline timeline = new Timeline();
         Node triggeringNode = (Node) (event.getSource());
         Scene scene = triggeringNode.getScene();
@@ -93,8 +100,7 @@ public interface PaneAnimator extends PaneReplacer {
         return timeline;
     }
 
-    static Timeline createTimeLineRightToCenterAnimation(Event event,
-                                                         Pane newPane) {
+    static Timeline createTimeLineRightToCenterAnimation(Event event, Pane newPane) {
         Timeline timeline = new Timeline();
         Node triggeringNode = (Node) (event.getSource());
         Scene scene = triggeringNode.getScene();
@@ -115,8 +121,7 @@ public interface PaneAnimator extends PaneReplacer {
         JavaFXAppController.getReplaceAblePane().translateXProperty().set(0);
 
         KeyValue keyValue = new KeyValue(
-                JavaFXAppController.getReplaceAblePane().translateXProperty(),
-                -scene.getWidth(), Interpolator.EASE_IN);
+                JavaFXAppController.getReplaceAblePane().translateXProperty(), -scene.getWidth(), Interpolator.EASE_IN);
         KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), keyValue);
         timeline.getKeyFrames().add(keyFrame);
 
@@ -130,24 +135,20 @@ public interface PaneAnimator extends PaneReplacer {
         JavaFXAppController.getReplaceAblePane().translateYProperty().set(0);
 
         KeyValue keyValue = new KeyValue(
-                JavaFXAppController.getReplaceAblePane().translateYProperty(),
-                -scene.getHeight(), Interpolator.EASE_IN);
+                JavaFXAppController.getReplaceAblePane().translateYProperty(), -scene.getHeight(), Interpolator.EASE_IN);
         KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), keyValue);
         timeline.getKeyFrames().add(keyFrame);
 
         return timeline;
     }
 
-    static Animation createTimeLineBottomToTopAnimationAndPlay(Event event,
-                                                               Pane parentContainer,
+    static Animation createTimeLineBottomToTopAnimationAndPlay(Event event, Pane parentContainer,
                                                                Pane newPane) {
-        Timeline timeline =
-                createTimeLineBottomToCenterAnimation(event, newPane);
+        Timeline timeline = createTimeLineBottomToCenterAnimation(event, newPane);
         parentContainer.getChildren().add(newPane);
         timeline.play();
 
-        Timeline replaceAbleTimeline =
-                createTimeLineCenterToTopAnimation(event);
+        Timeline replaceAbleTimeline = createTimeLineCenterToTopAnimation(event);
 
         /*
          * Animate the 'replaceAblePane' before removing it,
@@ -156,14 +157,11 @@ public interface PaneAnimator extends PaneReplacer {
          * We are doing so by removing it as a child of the parentContainer, and
          * right after that adding it as a child of the parentContainer.
          */
-        parentContainer.getChildren()
-                .remove(JavaFXAppController.getReplaceAblePane());
-        parentContainer.getChildren()
-                .add(JavaFXAppController.getReplaceAblePane());
+        parentContainer.getChildren().remove(JavaFXAppController.getReplaceAblePane());
+        parentContainer.getChildren().add(JavaFXAppController.getReplaceAblePane());
         replaceAbleTimeline.play();
         replaceAbleTimeline.setOnFinished(event1 -> {
-            parentContainer.getChildren()
-                    .remove(JavaFXAppController.getReplaceAblePane());
+            parentContainer.getChildren().remove(JavaFXAppController.getReplaceAblePane());
 
             // Update the 'replaceAblePane':
             JavaFXAppController.setReplaceAblePane(newPane);
@@ -172,16 +170,13 @@ public interface PaneAnimator extends PaneReplacer {
         return timeline;
     }
 
-    static Animation createTimeLineRightToLeftAnimationAndPlay(Event event,
-                                                               Pane parentContainer,
+    static Animation createTimeLineRightToLeftAnimationAndPlay(Event event, Pane parentContainer,
                                                                Pane newPane) {
-        Timeline timeline =
-                createTimeLineRightToCenterAnimation(event, newPane);
+        Timeline timeline = createTimeLineRightToCenterAnimation(event, newPane);
         parentContainer.getChildren().add(newPane);
         timeline.play();
 
-        Timeline replaceAbleTimeline =
-                createTimeLineCenterToLeftAnimation(event);
+        Timeline replaceAbleTimeline = createTimeLineCenterToLeftAnimation(event);
 
         /*
          * Animate the 'replaceAblePane' before removing it,
@@ -190,14 +185,11 @@ public interface PaneAnimator extends PaneReplacer {
          * We are doing so by removing it as a child of the parentContainer, and
          * right after that adding it as a child of the parentContainer.
          */
-        parentContainer.getChildren()
-                .remove(JavaFXAppController.getReplaceAblePane());
-        parentContainer.getChildren()
-                .add(JavaFXAppController.getReplaceAblePane());
+        parentContainer.getChildren().remove(JavaFXAppController.getReplaceAblePane());
+        parentContainer.getChildren().add(JavaFXAppController.getReplaceAblePane());
         replaceAbleTimeline.play();
         replaceAbleTimeline.setOnFinished(event1 -> {
-            parentContainer.getChildren()
-                    .remove(JavaFXAppController.getReplaceAblePane());
+            parentContainer.getChildren().remove(JavaFXAppController.getReplaceAblePane());
 
             // Update the 'replaceAblePane':
             JavaFXAppController.setReplaceAblePane(newPane);
@@ -206,8 +198,7 @@ public interface PaneAnimator extends PaneReplacer {
         return timeline;
     }
 
-    static FadeTransition createFadeInTransitionAnimation(Pane pane,
-                                                          Duration duration) {
+    static FadeTransition createFadeInTransitionAnimation(Pane pane, Duration duration) {
         FadeTransition fadeTransition = new FadeTransition(duration, pane);
         fadeTransition.setFromValue(0.0);
         fadeTransition.setToValue(1.0);
@@ -215,8 +206,7 @@ public interface PaneAnimator extends PaneReplacer {
         return fadeTransition;
     }
 
-    static FadeTransition createFadeOutTransitionAnimation(Pane pane,
-                                                           Duration duration) {
+    static FadeTransition createFadeOutTransitionAnimation(Pane pane, Duration duration) {
         FadeTransition fadeTransition = new FadeTransition(duration, pane);
         fadeTransition.setFromValue(1.0);
         fadeTransition.setToValue(0.0);
@@ -224,14 +214,11 @@ public interface PaneAnimator extends PaneReplacer {
         return fadeTransition;
     }
 
-    static Animation createFadeInOutTransitionAnimationAndPlay(
-            Pane parentContainer, Pane newPane) {
+    static Animation createFadeInOutTransitionAnimationAndPlay(Pane parentContainer, Pane newPane) {
         FadeTransition fadeOutTransition = createFadeOutTransitionAnimation(
-                JavaFXAppController.getReplaceAblePane(),
-                Duration.seconds(0.5));
+                JavaFXAppController.getReplaceAblePane(), Duration.seconds(0.5));
 
-        FadeTransition fadeInTransition =
-                createFadeInTransitionAnimation(newPane, Duration.seconds(0.5));
+        FadeTransition fadeInTransition = createFadeInTransitionAnimation(newPane, Duration.seconds(0.5));
 
         fadeInTransition.setOnFinished(event -> {
 
@@ -267,18 +254,14 @@ public interface PaneAnimator extends PaneReplacer {
         return fadeOutTransition;
     }
 
-    static Animation createFadeOutInTransitionAnimationAndPlay(
-            Pane parentContainer, Pane newPane) {
+    static Animation createFadeOutInTransitionAnimationAndPlay(Pane parentContainer, Pane newPane) {
         FadeTransition fadeOutTransition = createFadeOutTransitionAnimation(
-                JavaFXAppController.getReplaceAblePane(),
-                Duration.seconds(0.5));
+                JavaFXAppController.getReplaceAblePane(), Duration.seconds(0.5));
 
-        FadeTransition fadeInTransition =
-                createFadeInTransitionAnimation(newPane, Duration.seconds(0.5));
+        FadeTransition fadeInTransition = createFadeInTransitionAnimation(newPane, Duration.seconds(0.5));
 
         fadeOutTransition.setOnFinished(event -> {
-            parentContainer.getChildren()
-                    .remove(JavaFXAppController.getReplaceAblePane());
+            parentContainer.getChildren().remove(JavaFXAppController.getReplaceAblePane());
 
             /*
              * Start the 'newPane' in '0' Opacity.
@@ -301,10 +284,8 @@ public interface PaneAnimator extends PaneReplacer {
          * We are doing so by removing it as a child of the parentContainer, and
          * right after that adding it as a child of the parentContainer.
          */
-        parentContainer.getChildren()
-                .remove(JavaFXAppController.getReplaceAblePane());
-        parentContainer.getChildren()
-                .add(JavaFXAppController.getReplaceAblePane());
+        parentContainer.getChildren().remove(JavaFXAppController.getReplaceAblePane());
+        parentContainer.getChildren().add(JavaFXAppController.getReplaceAblePane());
 
         // play fade out of 'replaceAblePane':
         fadeOutTransition.play();
@@ -317,8 +298,7 @@ public interface PaneAnimator extends PaneReplacer {
      * The <i>type</i> of {@link Animation} the user wishes to invoke.
      */
     public enum AnimationType {
-        TIMELINE_RIGHT_TO_LEFT, TIMELINE_BOTTOM_TO_TOP, FADE_OUT_IN,
-        FADE_IN_OUT, NONE
+        TIMELINE_RIGHT_TO_LEFT, TIMELINE_BOTTOM_TO_TOP, FADE_OUT_IN, FADE_IN_OUT, NONE
     }
 
 
@@ -374,8 +354,7 @@ public interface PaneAnimator extends PaneReplacer {
          *                                    replaceAblePane} and the
          *                                    <i>new</i> {@link Pane}.
          */
-        public Handler(BorderPane borderPaneToShowOnItsCenter,
-                       Pane parentContainer, String pathToFXML,
+        public Handler(BorderPane borderPaneToShowOnItsCenter, Pane parentContainer, String pathToFXML,
                        AnimationType animationType) {
             this.borderPaneToShowOnItsCenter = borderPaneToShowOnItsCenter;
             this.parentContainer = parentContainer;
@@ -427,8 +406,7 @@ public interface PaneAnimator extends PaneReplacer {
          *                                    {@link javafx.animation.Animation}.
          * @see application.pane.PaneAnimator.AnimationType
          */
-        private void setPane(Event event,
-                             BorderPane borderPaneToShowOnItsCenter,
+        private void setPane(Event event, BorderPane borderPaneToShowOnItsCenter,
                              Pane parentContainer, String pathToFXML,
                              PaneAnimator.AnimationType animationType) {
 
