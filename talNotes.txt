@@ -67,5 +67,4 @@
 
 
 # BUG ONLY ON FADE IN OUT ANIMATION - If you "SPAM" the click of PANE buttons,
-there
-would be panes that won't be removed. - Fix it.
+    there would be panes that won't be removed. - Fix it.
