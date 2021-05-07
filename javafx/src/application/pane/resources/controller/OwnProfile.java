@@ -11,7 +11,7 @@ public class OwnProfile extends PaneShower {
 
     public OwnProfile() {
 
-        // show 'StockTablePane' on the BorderPane's Center:
+        // show 'StockTablePane' on the BorderPane's CENTER:
         super("/application/pane/resources/fxml/StockTablePane.fxml");
     }
 

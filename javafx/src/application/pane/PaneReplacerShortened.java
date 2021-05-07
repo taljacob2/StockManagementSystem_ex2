@@ -12,7 +12,7 @@ import javafx.scene.layout.Pane;
 public interface PaneReplacerShortened extends PaneReplacer {
 
     /**
-     * This method sets the new Pane to be shown on the <i>center</i> of the
+     * This method sets the new Pane to be shown on the <i>CENTER</i> of the
      * {@link BorderPane} of this {@code Class}, and <i>updates</i> the {@code
      * replaceAblePane} of it accordingly.
      *

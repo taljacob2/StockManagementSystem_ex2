@@ -357,7 +357,7 @@ public interface PaneAnimator extends PaneReplacer {
 
         /**
          * @param borderPaneToShowOnItsCenter the {@link BorderPane} to show on
-         *                                    its center the new scene.
+         *                                    its CENTER the new scene.
          * @param parentContainer             the {@code Parent} {@code Pane}
          *                                    {@code Container} of the new scene
          *                                    to be shown. <p> Note: this must
@@ -397,7 +397,7 @@ public interface PaneAnimator extends PaneReplacer {
         }
 
         /**
-         * This method sets the new Pane to be shown on a <i>center</i> of the
+         * This method sets the new Pane to be shown on a <i>CENTER</i> of the
          * {@link javafx.scene.layout.BorderPane} and <i>updates</i> the {@link
          * Pane} accordingly.
          *

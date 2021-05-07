@@ -30,22 +30,16 @@ import java.util.ResourceBundle;
 
 /**
  * Main {@code Controller} of the <tt>JavaFX</tt> {@link JavaFXApp} program.
+ * <p>
+ * Sets {@link Pane}s as the {@link #borderPane}'s <i>CENTER</i>: via setting a
+ * child {@link Pane} to the parent {@link #parentContainer}.
  *
  * <p>Note: <i>implements</i> {@link Initializable} in order to set the
- * <i>observers</i> <i>binded</i> to the {@link #progressBar}.</p>
+ * <i>observers</i> <i>binded</i> to the {@link #progressBar} and
+ * {@link ColorPickerApp#getColorPicked()}.</p>
  */
 public class JavaFXAppController
         implements Initializable, PaneReplacerShortened {
-
-    /**
-     * This editable field defines a {@code double} number that is binded to the
-     * {@link #progressBar} via <i>observation</i>.
-     * <p>
-     * Edit this number with {@link NumberProperty#setNumber(double)} to set a
-     * <i>value</i> to the {@link #progressBar}.
-     */
-    final public static StringProperty messageProperty =
-            new SimpleStringProperty();
 
     /**
      * This editable field defines a {@code double} number that is binded to the
@@ -80,7 +74,7 @@ public class JavaFXAppController
      * Contains {@link #replaceAblePane}. The {@link Pane} that is
      * <i>replace-able</i>.
      */
-    private static StackPane parentContainer = new StackPane();
+    @FXML private static StackPane parentContainer = new StackPane();
 
     /**
      * The <i>replace-able</i> {@link Pane}.<p> Note: needs to be updated for
@@ -93,10 +87,10 @@ public class JavaFXAppController
     @FXML private static Label staticProgressLabel;
     @FXML private BorderPane leftBorderPane;
     @FXML private BorderPane bottomBorderPane;
-    @FXML private Button scene1Button = new Button();
-    @FXML private Button printStocksButton = new Button();
-    @FXML private Button ownProfileButton = new Button();
-    @FXML private Button loginButton = new Button();
+    @FXML private Button scene1Button;
+    @FXML private Button printStocksButton;
+    @FXML private Button ownProfileButton;
+    @FXML private Button loginButton;
     @FXML private Label statusLabel;
     @FXML private Label progressLabel;
     @FXML private MenuBar menuBar;
@@ -200,29 +194,16 @@ public class JavaFXAppController
         staticStatusLabel = statusLabel;
         staticProgressLabel = progressLabel;
 
-        // set the rseLabel the initial style:
-        ColorPickerApp.setStringStyleColor(rseLabel, "-fx-background-color: ",
-                ColorPickerApp.getStringColor());
-
-        /* -- set Initial Pane -- */
-
         /*
-         * set an initial Pane in the borderPane's CENTER:
-         * via setting a child Pane to the parent StackPane:
-         * Note: this is not a must, but only to set an initial Pane.
+         * Set Initial Pane:
+         * Note: this is not a must
          */
         setPane("/application/pane/resources/fxml/Welcome.fxml");// TODO remove check
 
-        scene1Button.setOnAction(
-                new PaneAnimator.Handler(borderPane, parentContainer,
-                        "/application/pane/resources/fxml/Welcome.fxml",
-                        PaneAnimator.AnimationType.NONE));
-        // Fade In - Animation:
-        // TODO: checking:
-
-        /* -- define Buttons -- */
-
-        // Default Animation is 'FADE_IN_OUT':
+        /*
+         * Define Buttons.
+         * Also, set Default Animation to 'FADE_IN_OUT'
+         */
         defineAnimationToAllButtons(PaneAnimator.AnimationType.FADE_IN_OUT);
 
 
@@ -286,13 +267,13 @@ public class JavaFXAppController
      */
     public void setColor(ActionEvent event) {
 
-        // get color via the color pop-up window into a String:
-        ColorPickerApp.playAndGetStringColor();
+        // Play the color pop-up window:
+        ColorPickerApp.play();
 
 
         /* -- Set Style Colors -- */
 
-        // set menuBar the updated style:
+        // Set menuBar the updated style:
         menuBar.styleProperty().bind(Bindings.when(menuBar.hoverProperty())
                 .then(new SimpleStringProperty(
                         "-fx-background-color: " + rgbaStringProperty.get() +
@@ -300,19 +281,14 @@ public class JavaFXAppController
                         "-fx-background-color: " + "rgba(0, 0, 0, 0.75)" +
                                 ";")));
 
-        // set root the updated style: //TODO kill this
-        // ColorPickerApp.setStringStyleColor(JavaFXApp.getRoot(),
-        //         "-fx-background-color: ", stringColor);
-
-        // set menuVBox the updated style:
+        // Set menuVBox the updated style:
         menuVBox.setStyle("-fx-background-color: " + rgbaStringProperty.get());
 
-        // set staticProgressLabel the updated style:
-        setProgressLabelColor();
-
-        // set text Color and background Color of label rseLabel:
+        // Set text Color and background Color of label rseLabel:
         setRseLabelColor();
 
+        // Set staticProgressLabel the updated style:
+        setProgressLabelColor();
     }
 
     private void setRseLabelColor() {
@@ -357,14 +333,6 @@ public class JavaFXAppController
         // System.out.println("printStockOnTableView Pressed");
 
         setPane("/application/pane/resources/fxml/StockTablePane.fxml");
-    }
-
-    public void scene1() { // TODO: kill this
-        new PaneAnimator.Handler(borderPane, parentContainer,
-                "/application" + "/pane/resources/fxml/Scene1.fxml",
-                PaneAnimator.AnimationType.FADE_IN_OUT).handle(null);
-
-        // setPane("/application/pane/resources/fxml/Scene1.fxml");
     }
 
     public void command_LOAD_XML_FILE(ActionEvent event) {
@@ -412,7 +380,7 @@ public class JavaFXAppController
     }
 
     /**
-     * This method sets the new Pane to be shown on the <i>center</i> of the
+     * This method sets the new Pane to be shown on the <i>CENTER</i> of the
      * {@link #borderPane} and <i>updates</i> the {@link #replaceAblePane}
      * accordingly.
      *
@@ -429,11 +397,12 @@ public class JavaFXAppController
     private void defineAnimationToAllButtons(
             PaneAnimator.AnimationType animationType) {
 
+        // TODO: kill this button because of in-compatibility with screen fits
         // define 'scene1Button':
-        scene1Button.setOnAction(
-                new PaneAnimator.Handler(borderPane, parentContainer,
-                        "/application/pane/resources/fxml/Scene1.fxml",
-                        animationType));
+        // scene1Button.setOnAction(
+        //         new PaneAnimator.Handler(borderPane, parentContainer,
+        //                 "/application/pane/resources/fxml/Scene1.fxml",
+        //                 animationType));
 
         // define 'printStocksButton':
         printStocksButton.setOnAction(

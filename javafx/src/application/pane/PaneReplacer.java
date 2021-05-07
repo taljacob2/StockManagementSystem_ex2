@@ -45,7 +45,7 @@ public interface PaneReplacer {
     }
 
     /**
-     * This method sets the new Pane to be shown on a <i>center</i> of the
+     * This method sets the new Pane to be shown on a <i>CENTER</i> of the
      * {@link javafx.scene.layout.BorderPane} and <i>updates</i> the {@link
      * Pane} accordingly.
      *
@@ -76,7 +76,7 @@ public interface PaneReplacer {
         // update the 'replaceAblePane':
         JavaFXAppController.setReplaceAblePane(newPane);
 
-        // show the pane in the center of the 'borderPane':
+        // show the pane in the CENTER of the 'borderPane':
         borderPaneToShowOnItsCenter.setCenter(newPane);
     }
 
@@ -99,7 +99,7 @@ public interface PaneReplacer {
         // get the newPane:
         Pane newPane = getPane(pathToFXML);
 
-        // show the pane in the center of the borderPane:
+        // show the pane in the CENTER of the borderPane:
         borderPaneToShowOnItsCenter.setCenter(newPane);
     }
 }

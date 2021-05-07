@@ -3,7 +3,6 @@ package application.color;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.layout.HBox;
@@ -14,7 +13,12 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * This class is used for picking a {@code Color} via a <i>pop-up window</i>.
+ * This {@code Class} is used for:
+ * <ul>
+ *     <li>picking a {@code Color} via a <i>pop-up</i> window.</li>
+ *     <li>managing {@code static} methods to handle with {@link Color}s and
+ *     {@link String}s.</li>
+ * </ul>
  */
 public class ColorPickerApp {
 
@@ -26,22 +30,30 @@ public class ColorPickerApp {
      * fx-background-color: rgb(101, 96, 30); }</code> in the <tt>.css</tt> file
      * of the {@code primaryStage} of {@link application.JavaFXApp}.
      */
-    private static ObjectProperty<Color> colorPicked =
+    private static final ObjectProperty<Color> colorPicked =
             new SimpleObjectProperty<>(Color.rgb(101, 96, 30));
 
 
     /**
-     * This method <i>pops-up</i> a <i>window</i> of choosing a {@code Color}.
-     *
-     * @return The chosen {@link Color} by the user.
+     * The <b>core</b> method of this {@code Class}. Calls {@link #getColor()}
+     * to <i>pop-up</i> a <i>window</i> of choosing a {@code Color}.
      */
-    public static Color getColor() {
+    public static void play() {
+
+        // Get color via the color pop-up window:
+        ColorPickerApp.getColor();
+    }
+
+    /**
+     * This method <i>pops-up</i> a <i>window</i> of choosing a {@code Color}.
+     */
+    private static void getColor() {
         Stage window = new Stage();
 
-        // user must handle the pop-up window:
+        // User must handle the pop-up window:
         window.initModality(Modality.APPLICATION_MODAL);
 
-        // set window title:
+        // Set window title:
         window.setTitle("Pick a Color");
 
         Scene scene = new Scene(new HBox(20), 400, 100);
@@ -50,18 +62,18 @@ public class ColorPickerApp {
 
         final ColorPicker colorPicker = new ColorPicker();
 
-        // set an initial Color value:
+        // Set an initial Color value:
         colorPicker.setValue(colorPicked.get());
 
-        // set text:
+        // Set text:
         final Text text = new Text("Choose a Custom Color!");
-        text.setFont(Font.font("Verdana", 20));
+        text.setFont(Font.font("Sans-Serif", 20));
         text.setFill(colorPicker.getValue());
 
-        // set ColorPicker action after press:
+        // Set ColorPicker action after press:
         colorPicker.setOnAction(event -> {
 
-            // store the value in a variable Property:
+            // Store the value in a variable Property:
             colorPicked.set(colorPicker.getValue());
             text.setFill(colorPicked.get());
         });
@@ -69,30 +81,18 @@ public class ColorPickerApp {
 
         window.setScene(scene);
         window.showAndWait();
-
-        // return the color which the user has picked:
-        return colorPicked.get();
-    }
-
-    public static String playAndGetStringColor() {
-
-        // get color via the color pop-up window:
-        Color answer = ColorPickerApp.getColor();
-
-        // cut out the first two '0x' chars from the String:
-        return ColorPickerApp.toStringColor(answer);
     }
 
     public static Color getColorPicked() {
         return colorPicked.get();
     }
 
-    public static ObjectProperty<Color> colorPickedProperty() {
-        return colorPicked;
-    }
-
     public static void setColorPicked(Color colorPicked) {
         ColorPickerApp.colorPicked.set(colorPicked);
+    }
+
+    public static ObjectProperty<Color> colorPickedProperty() {
+        return colorPicked;
     }
 
     public static String getStringColor() {
@@ -103,11 +103,6 @@ public class ColorPickerApp {
 
         // cut out the first two '0x' chars from the String:
         return color.toString().substring(2);
-    }
-
-    public static void setStringStyleColor(Node node, String anyRole,
-                                           String stringColor) {
-        node.setStyle("-fx-background-color: " + "#" + stringColor);
     }
 
     public static String toRGBString(double red, double green, double blue) {

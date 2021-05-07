@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 
 /**
  * This class represents a <tt>JavaFX</tt> {@code Controller} that is able to
- * <i>show</i> a {@link javafx.scene.layout.Pane} on the <i>Center</i> of its
+ * <i>show</i> a {@link javafx.scene.layout.Pane} on the <i>CENTER</i> of its
  * {@link BorderPane}.
  * <p>
  * Note: The {@code Class}es that <b><i>extends</i></b> this {@code Class} are
@@ -34,7 +34,7 @@ public class PaneShower implements Initializable, PaneReplacer {
 
     /**
      * This method sets the new {@link javafx.scene.layout.Pane} to be shown on
-     * the <i>center</i> of the {@link #borderPane}.
+     * the <i>CENTER</i> of the {@link #borderPane}.
      *
      * @param pathToFXML path to the <tt>.fxml</tt> of the {@link
      *                   javafx.scene.layout.Pane} the user wishes to show.

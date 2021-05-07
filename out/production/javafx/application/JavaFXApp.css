@@ -11,11 +11,12 @@
 }
 
 .menu-bar {
-    -fx-background-color: rgb(0, 0, 0);
+    -fx-background-color: rgba(0, 0, 0, 0.75);
 }
 
 .menu-bar:hover {
-    -fx-background-color: rgb(101, 96, 30);
+    /* initial color */
+    -fx-background-color: rgba(101, 96, 30, 0.5);
 }
 
 .progress-bar {
