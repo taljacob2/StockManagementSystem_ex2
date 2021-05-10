@@ -23,7 +23,7 @@ import java.util.Optional;
  */
 
 /**
- * This class bundles <i>pop-up window</i>s for message dialogs.
+ * This {@code class} bundles <i>pop-up window</i>s for message dialogs.
  */
 public class FxDialogs {
 

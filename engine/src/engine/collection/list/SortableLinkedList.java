@@ -6,13 +6,13 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 /**
- * <p>This class {@code extends} a known {@link java.util.List} <i>{@code
+ * <p>This {@code class} {@code extends} a known {@link java.util.List} <i>{@code
  * implementor}</i>, with the addition of automatic sort of its {@code
  * Elements}.
  * </p>
  *
  * <blockquote><b>
- * Note: this class is currently <i>{@code extending}</i> the {@link LinkedList}
+ * Note: This {@code class} is currently <i>{@code extending}</i> the {@link LinkedList}
  * {@code class}, but is replaceable by any {@link java.util.List} <i>{@code
  * implementor}</i>.
  * </b></blockquote>

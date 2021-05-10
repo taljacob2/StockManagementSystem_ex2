@@ -8,7 +8,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * This class represents a <tt>JavaFX</tt> {@code Controller} that is able to
+ * This {@code class} represents a <tt>JavaFX</tt> {@code Controller} that is
+ * able to
  * <i>show</i> a {@link javafx.scene.layout.Pane} on the <i>CENTER</i> of its
  * {@link BorderPane}.
  * <p>

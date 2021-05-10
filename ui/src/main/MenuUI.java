@@ -15,7 +15,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- * This class defines the Menu's User-Interface.
+ * This {@code class} defines the Menu's User-Interface.
  *
  * @version 1.2
  */

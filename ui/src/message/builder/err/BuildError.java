@@ -3,8 +3,9 @@ package message.builder.err;
 import message.builder.BuildMessage;
 
 /**
- * This class is a sub-class in the message building process.
- * <p>This class in the parent class of all the {@code Error} messages in the
+ * This {@code class} is a sub-class in the message building process.
+ * <p>This {@code class} in the parent class of all the {@code Error} messages
+ * in the
  * building process.</p>
  *
  * @version 1.0

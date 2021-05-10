@@ -45,7 +45,7 @@ public class Engine {
 
     /**
      * Empty constructor.
-     * <blockquote><b>private constructor restricted to this class
+     * <blockquote><b>private constructor restricted to this {@code class}
      * itself</b></blockquote>
      */
     private Engine() {}

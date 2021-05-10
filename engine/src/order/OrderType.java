@@ -1,7 +1,7 @@
 package order;
 
 /**
- * This class defines all the types of orders.
+ * This {@code class} defines all the types of orders.
  * <p> Each type has the {@link #isLMT()} method to check if a
  * desiredLimitPrice limit is required for an order.</p>
  *

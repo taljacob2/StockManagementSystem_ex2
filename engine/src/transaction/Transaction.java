@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 /**
- * This class represents a {@code Transaction} of {@link stock.Stock}s.
+ * This {@code class} represents a {@code Transaction} of {@link stock.Stock}s.
  * <p>A {@code Transaction} occurs when two {@link Order}(s) happen to
  * match successfully:</p>
  *

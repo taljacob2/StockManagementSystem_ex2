@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * This class represents the format of a TimeStamp.
+ * This {@code class} represents the format of a TimeStamp.
  * <p>Has the method {@link #getTimeStamp()} to get a timeStamp of current
  * execution.</p>
  *

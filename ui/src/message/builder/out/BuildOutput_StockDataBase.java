@@ -8,7 +8,7 @@ import order.Order;
 import transaction.Transaction;
 
 /**
- * This class is a sub-class in the message building process.
+ * This {@code class} is a sub-class in the message building process.
  * <p>Represents a part of an {@code Output} message.</p>
  *
  * @version 1.0

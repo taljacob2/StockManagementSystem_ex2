@@ -6,15 +6,16 @@ import static message.print.MessagePrint.Stream.ERR;
 import static message.print.MessagePrint.Stream.OUT;
 
 /**
- * This class bundles all program's prints to a {@link java.io.PrintStream} and
- * prints all the given messages.
+ * This {@code class} bundles all program's prints to a {@link
+ * java.io.PrintStream} and prints all the given messages.
  *
  * @version 1.0
  */
 public class MessagePrint {
 
     /**
-     * private Constructor, to prevent others to make instances of this class.
+     * {@code private} Constructor, to prevent others to make instances of this
+     * class.
      */
     private MessagePrint() {}
 

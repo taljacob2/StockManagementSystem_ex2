@@ -16,8 +16,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * This class is a {@code Controller}, and <i>controls</i> the {@link TableView}
- * of all the {@link stock.Stocks} in the program.
+ * This {@code class} is a {@code Controller} loaded from a <tt>.fxml</tt>
+ * file.
+ *
+ * <p><i>Controls</i> the {@link TableView} of all the {@link stock.Stocks} in
+ * the program.</p>
  */
 public class StockTablePane implements Initializable {
 

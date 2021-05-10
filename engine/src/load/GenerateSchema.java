@@ -11,10 +11,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * This class is used for generating a Schema-XML <tt>.xsd</tt> file.
+ * This {@code class} is used for generating a Schema-XML <tt>.xsd</tt> file.
  *
  * <p>
- * Note:<blockquote>Ideally, this class should only be used <i>once per
+ * Note:<blockquote>Ideally, this {@code class} should only be used <i>once per
  * exercise</i>, in order to generate a schema file. but on this project I chose
  * to <i>generate</i> a schema file for each requirement of the user to save a
  * <tt>.xml</tt> file.

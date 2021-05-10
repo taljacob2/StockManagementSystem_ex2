@@ -19,7 +19,8 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 /**
- * This class loads (unmarshal) and saves (marshal) a <tt>.xml</tt> file.
+ * This {@code class} loads (unmarshal) and saves (marshal) a <tt>.xml</tt>
+ * file.
  * <ul>
  *     <li>Implemented with '.xml' suffix case-insensitive.</li>
  * </ul>

@@ -4,7 +4,7 @@ import message.builder.err.BuildError;
 import message.builder.out.BuildOutput;
 
 /**
- * This class in the parent class of all the message building process. The class
+ * This {@code class} in the parent class of all the message building process. The class
  * uses {@link #stringBuilder} to {@link StringBuilder#append(String)} {@code
  * String}s according to the user's decision.
  *

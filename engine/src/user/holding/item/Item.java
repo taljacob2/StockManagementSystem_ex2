@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * This class represents a Buy or Sell Order.
+ * This {@code class} represents a Buy or Sell Order.
  *
  * @version 1.0
  */

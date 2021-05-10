@@ -4,7 +4,7 @@ import java.text.NumberFormat;
 import java.util.Locale;
 
 /**
- * This class sets the print <i>format</i> for <i>currencies</i>.
+ * This {@code class} sets the print <i>format</i> for <i>currencies</i>.
  *
  * @version 1.0
  */

@@ -5,7 +5,7 @@ import message.builder.err.*;
 import message.builder.out.*;
 
 /**
- * This class organizes all the messages of the program.
+ * This {@code class} organizes all the messages of the program.
  * <blockquote>Uses the Message Building Process in order to produce the
  * messages.</blockquote>
  *

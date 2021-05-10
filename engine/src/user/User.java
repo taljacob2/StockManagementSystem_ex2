@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * This class represents a {@code User} in the system.
+ * This {@code class} represents a {@code User} in the system.
  * <p>A {@code User} owns {@link Holdings} of {@link user.holding.item.Item}(s)
  * which represent the {@link stock.Stock}(s) he owns and their according {@code
  * quantity}.</p>

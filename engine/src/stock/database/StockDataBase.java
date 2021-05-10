@@ -16,8 +16,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Collection;
 
 /**
- * This class manages all the {@link Order}(s) and {@link Transaction}(s) of a
- * specific {@link stock.Stock}.
+ * This {@code class} manages all the {@link Order}(s) and {@link
+ * Transaction}(s) of a specific {@link stock.Stock}.
  * <p>There are 3 main {@code Collection}s:</p>
  * <ul>
  *     <li>{@link #awaitingBuyOrders}.</li>

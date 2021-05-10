@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlTransient;
 import java.util.Collection;
 
 /**
- * This class represents a {@link Collection} of {@code classes} to be loaded
- * from a <tt>.xml</tt> file, or to be saved into a <tt>.xml</tt> file, that
- * implements the {@code JAXB} annotations.
+ * This {@code class} represents a {@link Collection} of {@code classes} to be
+ * loaded from a <tt>.xml</tt> file, or to be saved into a <tt>.xml</tt> file,
+ * that implements the {@code JAXB} annotations.
  *
  * @param <_Collection> represents a {@link Collection}.
  * @param <E>           the Type of {@code Element} in the {@link Collection}.
