@@ -1,4 +1,4 @@
 Manifest-Version: 1.0
 Main-Class: main.MainUI
-Class-Path: engine.jar
+Class-Path: engine.jar javafx.jar
 
