@@ -198,7 +198,7 @@ public class JavaFXAppController
          * Set Initial Pane:
          * Note: this is not a must
          */
-        setPane("/application/pane/resources/fxml/Welcome.fxml");// TODO remove check
+        setPane("/application/pane/resources/welcome/Welcome.fxml");// TODO remove check
         // setPane(borderPane, "/application/pane/resources/fxml/Welcome
         // .fxml");// TODO remove check
 
@@ -334,7 +334,7 @@ public class JavaFXAppController
         // // TODO: check this is `double` lifting the pane up
         // System.out.println("printStockOnTableView Pressed");
 
-        setPane("/application/pane/resources/fxml/StockTablePane.fxml");
+        setPane("/application/pane/resources/stocktablepane/StockTablePane.fxml");
     }
 
     public void command_LOAD_XML_FILE(ActionEvent event) {
@@ -409,19 +409,19 @@ public class JavaFXAppController
         // define 'printStocksButton':
         printStocksButton.setOnAction(
                 new PaneAnimator.Handler(borderPane, parentContainer,
-                        "/application/pane/resources/fxml/StockTablePane.fxml",
+                        "/application/pane/resources/stocktablepane/StockTablePane.fxml",
                         animationType));
 
         // define 'ownProfileButton':
         ownProfileButton.setOnAction(
                 new PaneAnimator.Handler(borderPane, parentContainer,
-                        "/application/pane/resources/fxml/OwnProfile.fxml",
+                        "/application/pane/resources/ownprofile/OwnProfile.fxml",
                         animationType));
 
         // define 'loginButton':
         loginButton.setOnAction(
                 new PaneAnimator.Handler(borderPane, parentContainer,
-                        "/application/pane/resources/fxml/Login.fxml",
+                        "/application/pane/resources/login/Login.fxml",
                         animationType));
     }
 

@@ -1,4 +1,4 @@
-package application.pane.resources.controller;
+package application.pane.resources.stocktablepane;
 
 import engine.Engine;
 import javafx.collections.FXCollections;

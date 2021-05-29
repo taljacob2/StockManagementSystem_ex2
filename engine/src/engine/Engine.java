@@ -329,8 +329,7 @@ public class Engine {
         if (users != null) {
             return users;
         } else {
-            throw new IOException(Message.Err.Stocks
-                    .getEmpty()); // TODO: change to Message.Err.Users.printEmpty() ---- need to implement!!!
+            throw new IOException(Message.Err.Users.getEmpty());
         }
     }
 

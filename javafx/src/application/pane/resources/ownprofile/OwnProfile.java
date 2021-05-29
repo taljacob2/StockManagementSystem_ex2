@@ -1,4 +1,4 @@
-package application.pane.resources.controller;
+package application.pane.resources.ownprofile;
 
 import application.pane.PaneShower;
 
@@ -14,7 +14,7 @@ public class OwnProfile extends PaneShower {
     public OwnProfile() {
 
         // Show 'StockTablePane' on the BorderPane's CENTER:
-        super("/application/pane/resources/fxml/StockTablePane.fxml");
+        super("/application/pane/resources/stocktablepane/StockTablePane.fxml");
     }
 
 }

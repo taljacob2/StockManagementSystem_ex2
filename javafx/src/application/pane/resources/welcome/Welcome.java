@@ -1,4 +1,4 @@
-package application.pane.resources.controller;
+package application.pane.resources.welcome;
 
 /**
  * This {@code class} is a {@code Controller} loaded from a <tt>.fxml</tt>

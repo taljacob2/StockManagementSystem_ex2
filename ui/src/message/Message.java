@@ -9,7 +9,7 @@ import message.builder.out.*;
  * <blockquote>Uses the Message Building Process in order to produce the
  * messages.</blockquote>
  *
- * @version 1.1
+ * @version 2.0
  * @see BuildMessage
  */
 public class Message {
@@ -96,6 +96,18 @@ public class Message {
 
             public static String unFoundSymbol(String symbol) {
                 return new BuildError_Stocks().unFoundSymbol(symbol);
+            }
+
+        }
+
+        /**
+         * Organizes all {@link BuildError_Users} messages.
+         * <p>Reached within {@code Message.Err.Users}</p>
+         */
+        public static class Users {
+
+            public static String getEmpty() {
+                return new BuildError_Users().getEmpty();
             }
 
         }
