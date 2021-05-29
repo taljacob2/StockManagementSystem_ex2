@@ -55,7 +55,8 @@
 # write in README -> that I made 5 types of Animations: available in the
 "Settings" Menu.
 
-# order "PaneAnimator" that WONT be configured ONLY TO JavaFXApp via
+# order "PaneAnimator" (and "PaneReplacer") that WONT be configured ONLY TO
+JavaFXApp via
     JavaFXAppController.setReplaceAblePane(newPane); and
     JavaFXAppController.getReplaceAblePane();
 

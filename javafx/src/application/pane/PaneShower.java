@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
  * {@link BorderPane}.
  * <p>
  * Note: The {@code Class}es that <b><i>extends</i></b> this {@code Class} are
- * the {@code Class}es whom wish to <i>show</i> a {@link
+ * the {@code Class}es that wish to <i>show</i> a {@link
  * javafx.scene.layout.Pane} on them.
  */
 public class PaneShower implements Initializable, PaneReplacer {

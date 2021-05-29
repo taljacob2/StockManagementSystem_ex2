@@ -199,6 +199,8 @@ public class JavaFXAppController
          * Note: this is not a must
          */
         setPane("/application/pane/resources/fxml/Welcome.fxml");// TODO remove check
+        // setPane(borderPane, "/application/pane/resources/fxml/Welcome
+        // .fxml");// TODO remove check
 
         /*
          * Define Buttons.
