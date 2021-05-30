@@ -5,12 +5,16 @@ import message.Message;
 import message.builder.out.BuildOutput_StockDataBase;
 import stock.database.StockDataBase;
 import transaction.Transaction;
+import user.User;
+import user.holding.item.Item;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * A Stock annotated with JAXB, to marshal / unmarshal a <tt>.xml</tt> file.
@@ -229,4 +233,21 @@ public class Stock {
         return stringBuilder.toString();
     }
 
+    /**
+     * This method returns the {@code quantity} of {@code this} {@link Stock}
+     * that is listed as a {@link user.holding.item.Item} as a {@code Holding}
+     * of a given {@link User}.
+     *
+     * @param user the user that {@code this} {@code Stock} serves as an {@code
+     *             Item}.
+     * @return the {@code quantity} of this {@code Stock} as the given {@code
+     * User}'s {@code Item}.
+     */
+    public long getQuantity(User user) {
+        List<Item> itemList = user.getHoldings().getCollection().stream()
+                .filter(item -> item.getSymbol().equals(this.getSymbol()))
+                .collect(Collectors.toList());
+
+        return itemList.get(0).getQuantity();
+    }
 }

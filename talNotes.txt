@@ -71,3 +71,6 @@ JavaFXApp via
     there would be panes that won't be removed. - Fix it.
 
 # revision JavaFXApp.css
+
+# need to add a func in "Stock" that is "getQuantity(User user)" that
+     returns the quanity of this stock in a given user.

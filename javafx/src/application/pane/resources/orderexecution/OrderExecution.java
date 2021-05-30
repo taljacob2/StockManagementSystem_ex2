@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Spinner;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import message.print.MessagePrint;
@@ -38,6 +39,7 @@ public class OrderExecution implements Initializable {
     @FXML private ComboBox<Stock> stockComboBox;
     @FXML private ComboBox<String> orderTypeComboBox;
     @FXML private Button executeOrderButton;
+    @FXML private Spinner<Long> spinner;
 
 
     public OrderExecution() {}
@@ -49,6 +51,9 @@ public class OrderExecution implements Initializable {
 
         buySellComboBox.valueProperty().addListener(
                 (observable, oldValue, newValue) -> initStockComboBox());
+
+        stockComboBox.valueProperty()
+                .addListener((observable, oldValue, newValue) -> initSpinner());
 
 
         initExecuteOrderButton(JavaFXAppController.getStaticBorderPane(),
@@ -64,6 +69,22 @@ public class OrderExecution implements Initializable {
                         .or(stockComboBox.valueProperty().isNull()
                                 .or(orderTypeComboBox.valueProperty()
                                         .isNull())));
+
+    }
+
+    private void initSpinner() {
+        if (buySellComboBox.valueProperty().getValue().toString()
+                .equals("Sell")) {
+
+            spinner.valueFactoryProperty().getValue().setValue(
+                    stockComboBox.getValue()
+                            .getQuantity(SelectedUser.getSelectedUser()));
+
+        } else if (buySellComboBox.valueProperty().getValue().toString()
+                .equals("Buy")) {
+
+            spinner.valueFactoryProperty().getValue().setValue(0L);
+        }
     }
 
     private void initExecuteOrderButton(BorderPane borderPane,
@@ -109,5 +130,6 @@ public class OrderExecution implements Initializable {
 
         }
     }
+
 
 }
