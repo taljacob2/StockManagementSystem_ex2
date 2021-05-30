@@ -2,7 +2,14 @@ application
 application.color
 application.dialog
 application.pane
-application.pane.resources.controller
+application.pane.resources.login
+application.pane.resources.login.selecteduser
+application.pane.resources.orderexecution
+application.pane.resources.ownprofile
+application.pane.resources.scene1
+application.pane.resources.scene2
+application.pane.resources.stocktablepane
+application.pane.resources.welcome
 application.property
 currency
 engine
