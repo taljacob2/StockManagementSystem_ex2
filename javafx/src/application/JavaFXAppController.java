@@ -292,6 +292,10 @@ public class JavaFXAppController
 
         /* -- Set Style Colors -- */
 
+        if (rgbaStringProperty.get() == null) {
+            rgbaStringProperty.set(ColorPickerApp.toRGBAString(0.5));
+        }
+
         // Set menuBar the updated style:
         menuBar.styleProperty().bind(Bindings.when(menuBar.hoverProperty())
                 .then(new SimpleStringProperty(
@@ -312,6 +316,7 @@ public class JavaFXAppController
 
     private void setRseLabelColor() {
         //TODO: may make this method a `static` method by doing the `static` label copy trick.
+        String formatString = "";
         if ((ColorPickerApp.getRed() >= 150) ||
                 (ColorPickerApp.getGreen() > 150) ||
                 (ColorPickerApp.getBlue() > 150)) {
@@ -320,20 +325,25 @@ public class JavaFXAppController
              * if the background is bright:
              * set the rseLabel the updated style:
              */
-            String formatString =
-                    "-fx-text-fill: black;" + "-fx-background-color: " + "#" +
-                            stringColorProperty.get();
-            rseLabel.setStyle(formatString);
+            formatString = "-fx-text-fill: black;";
+            if (stringColorProperty.get() == null) {
+                stringColorProperty.set(ColorPickerApp.getStringColor());
+            }
+
         } else {
 
             /*
              * if the background is dark:
              * set the rseLabel the updated style:
              */
-            String formatString = "-fx-text-fill: rgb(202, 200, 197);" +
-                    "-fx-background-color: " + "#" + stringColorProperty.get();
-            rseLabel.setStyle(formatString);
+            formatString = "-fx-text-fill: rgb(202,200,197);";
+            if (stringColorProperty.get() == null) {
+                stringColorProperty.set(ColorPickerApp.getStringColor());
+            }
         }
+        formatString +=
+                "-fx-background-color: " + "#" + stringColorProperty.get();
+        rseLabel.setStyle(formatString);
     }
 
     /**

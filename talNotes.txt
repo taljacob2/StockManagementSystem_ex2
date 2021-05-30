@@ -72,5 +72,7 @@ JavaFXApp via
 
 # revision JavaFXApp.css
 
+# show the "OwnProfile" pane when visioning the "OrderExecution" page.
+
 # need to add a func in "Stock" that is "getQuantity(User user)" that
      returns the quanity of this stock in a given user.

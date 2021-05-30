@@ -100,7 +100,7 @@ public class OrderExecution implements Initializable {
 
     private void initStockComboBox() {
 
-        // Remove all previous items in the comboBox:
+        // Remove all previous items in the stock-comboBox:
         stockComboBox.getItems().clear();
 
         if (buySellComboBox.valueProperty().getValue().toString()
