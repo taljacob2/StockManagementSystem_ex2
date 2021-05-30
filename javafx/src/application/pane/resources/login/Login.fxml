@@ -14,39 +14,40 @@
         <BorderPane prefHeight="200.0" prefWidth="200.0"
                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <top>
+                <FlowPane alignment="CENTER" BorderPane.alignment="CENTER">
+                    <children>
+                        <ComboBox fx:id="profileComboBox"
+                                  promptText="Choose a profile"/>
+                    </children>
+                    <BorderPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </BorderPane.margin>
+                </FlowPane>
+            </top>
+            <center>
+                <Label alignment="CENTER" text="Choose A Profile To Log Into:"
+                       textFill="WHITE" BorderPane.alignment="CENTER">
+                    <font>
+                        <Font name="SansSerif Regular" size="36.0"/>
+                    </font>
+                    <BorderPane.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </BorderPane.margin>
+                </Label>
+            </center>
             <bottom>
-                <Button mnemonicParsing="false" text="Button"
+                <Button fx:id="orderButton" mnemonicParsing="false"
+                        text="Order with the selected profile"
                         BorderPane.alignment="CENTER">
                     <font>
                         <Font name="SansSerif Regular" size="15.0"/>
                     </font>
-                </Button>
-            </bottom>
-            <top>
-                <FlowPane alignment="CENTER" BorderPane.alignment="CENTER">
-                    <children>
-                        <Label alignment="CENTER"
-                               text="Choose A Profile To Log Into:"
-                               textFill="WHITE">
-                            <font>
-                                <Font name="SansSerif Regular" size="36.0"/>
-                            </font>
-                            <FlowPane.margin>
-                                <Insets bottom="5.0" left="5.0" right="5.0"
-                                        top="5.0"/>
-                            </FlowPane.margin>
-                        </Label>
-                    </children>
-                </FlowPane>
-            </top>
-            <left>
-                <ComboBox fx:id="comboBox" promptText="Choose a profile"
-                          BorderPane.alignment="CENTER">
                     <BorderPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </BorderPane.margin>
-                </ComboBox>
-            </left>
+                </Button>
+            </bottom>
         </BorderPane>
     </children>
 </AnchorPane>

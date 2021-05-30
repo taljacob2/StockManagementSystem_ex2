@@ -83,6 +83,9 @@ public class JavaFXAppController
     private static Pane replaceAblePane;
     private static Label staticStatusLabel;
     private static VBox staticMenuVBox;
+    private static BorderPane staticBorderPane;
+    private static PaneAnimator.AnimationType animationType =
+            PaneAnimator.AnimationType.FADE_IN_OUT;
 
     @FXML private static Label staticProgressLabel;
     @FXML private BorderPane leftBorderPane;
@@ -98,6 +101,15 @@ public class JavaFXAppController
     @FXML private BorderPane borderPane;
     @FXML private VBox menuVBox;
     @FXML private ProgressBar progressBar;
+
+    public static PaneAnimator.AnimationType getAnimationType() {
+        return animationType;
+    }
+
+    public static void setAnimationType(
+            PaneAnimator.AnimationType animationType) {
+        JavaFXAppController.animationType = animationType;
+    }
 
     public static void closeRequest() {
         String answer =
@@ -167,6 +179,10 @@ public class JavaFXAppController
         }
     }
 
+    public static VBox getStaticMenuVBox() {
+        return staticMenuVBox;
+    }
+
     // TODO kill this
     // public void generateRandom(ActionEvent event) {
     //     Random rand = new Random();
@@ -176,8 +192,8 @@ public class JavaFXAppController
     //             2); // TODO: fix progress bar to sync into processes and not to the 'generate' method
     // }
 
-    public static VBox getStaticMenuVBox() {
-        return staticMenuVBox;
+    public static BorderPane getStaticBorderPane() {
+        return staticBorderPane;
     }
 
     @Override public void initialize(URL location, ResourceBundle resources) {
@@ -193,6 +209,7 @@ public class JavaFXAppController
         staticMenuVBox = menuVBox;
         staticStatusLabel = statusLabel;
         staticProgressLabel = progressLabel;
+        staticBorderPane = borderPane;
 
         /*
          * Set Initial Pane:
@@ -206,7 +223,7 @@ public class JavaFXAppController
          * Define Buttons.
          * Also, set Default Animation to 'FADE_IN_OUT'
          */
-        defineAnimationToAllButtons(PaneAnimator.AnimationType.FADE_IN_OUT);
+        defineAnimationToAllButtons();
 
 
         /* -- Properties -- */
@@ -396,8 +413,7 @@ public class JavaFXAppController
         setPane(borderPane, parentContainer, pathToFXML);
     }
 
-    private void defineAnimationToAllButtons(
-            PaneAnimator.AnimationType animationType) {
+    private void defineAnimationToAllButtons() {
 
         // TODO: kill this button because of in-compatibility with screen fits
         // define 'scene1Button':
@@ -426,25 +442,28 @@ public class JavaFXAppController
     }
 
     @FXML private void defineAnimationFadeInOut() {
-        defineAnimationToAllButtons(PaneAnimator.AnimationType.FADE_IN_OUT);
+        animationType = PaneAnimator.AnimationType.FADE_IN_OUT;
+        defineAnimationToAllButtons();
     }
 
     @FXML private void defineAnimationFadeOutIn() {
-        defineAnimationToAllButtons(PaneAnimator.AnimationType.FADE_OUT_IN);
+        animationType = PaneAnimator.AnimationType.FADE_OUT_IN;
+        defineAnimationToAllButtons();
     }
 
     @FXML private void defineAnimationTimelineBottomToTop() {
-        defineAnimationToAllButtons(
-                PaneAnimator.AnimationType.TIMELINE_BOTTOM_TO_TOP);
+        animationType = PaneAnimator.AnimationType.TIMELINE_BOTTOM_TO_TOP;
+        defineAnimationToAllButtons();
     }
 
     @FXML private void defineAnimationTimelineRightToLeft() {
-        defineAnimationToAllButtons(
-                PaneAnimator.AnimationType.TIMELINE_RIGHT_TO_LEFT);
+        animationType = PaneAnimator.AnimationType.TIMELINE_RIGHT_TO_LEFT;
+        defineAnimationToAllButtons();
     }
 
     @FXML private void defineAnimationNone() {
-        defineAnimationToAllButtons(PaneAnimator.AnimationType.NONE);
+        animationType = PaneAnimator.AnimationType.NONE;
+        defineAnimationToAllButtons();
     }
 
 }

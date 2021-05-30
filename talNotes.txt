@@ -22,7 +22,7 @@
 
 # in the StockTablePaneController - tableView --- make `Price` be presented as $USD.
 
-# change 'font' via a slider
+# change 'font' via a slider ->>>> update: change via "Spinner" component.
 
 # Aviad said that the main method should be on the 'javafx' module.
     is it okay to set the main as my MainUI eventhough its on the 'ui' module?
@@ -48,7 +48,7 @@
     dot it by adding a 'resetLabel' call into every button ActionEvent.
 
 
-# make "disable" to the menuVBox as long as there are no stocks in the system.
+#V make "disable" to the menuVBox as long as there are no stocks in the system.
 
 # fix progressBar is not progressing for some reason now.
 
@@ -71,4 +71,3 @@ JavaFXApp via
     there would be panes that won't be removed. - Fix it.
 
 # revision JavaFXApp.css
-

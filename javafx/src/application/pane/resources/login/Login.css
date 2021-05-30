@@ -6,3 +6,7 @@
 .button {
     -fx-background-color: red;
 }
+
+.button:hover {
+    -fx-background-color: linear-gradient(black, darkcyan);
+}

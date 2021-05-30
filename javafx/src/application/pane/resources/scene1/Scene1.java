@@ -1,4 +1,4 @@
-package application.pane.resources.controller;
+package application.pane.resources.scene1;
 
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -19,35 +19,29 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Scene2 implements Initializable {
+public class Scene1 implements Initializable {
 
     @FXML private Button button;
-    @FXML private AnchorPane container;
+    @FXML private AnchorPane anchorRoot;
+    @FXML private StackPane parentContainer;
 
-    /**
-     * Initializes the controller class.
-     */
-    @Override public void initialize(URL url, ResourceBundle resourceBundle) {
-        // TODO
-    }
+    @Override public void initialize(URL url, ResourceBundle resourceBundle) {}
 
-    @FXML private void loadThird(ActionEvent event) throws IOException {
+    @FXML private void loadSecond(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass()
-                .getResource("/application/pane/resources/Scene3.fxml"));
+                .getResource("/application/pane/resources/scene2/Scene2.fxml"));
         Scene scene = button.getScene();
-        root.translateXProperty().set(scene.getWidth());
-
-        StackPane parentContainer = (StackPane) button.getScene().getRoot();
+        root.translateYProperty().set(scene.getHeight());
 
         parentContainer.getChildren().add(root);
 
         Timeline timeline = new Timeline();
-        KeyValue keyValue = new KeyValue(root.translateXProperty(), 0,
+        KeyValue keyValue = new KeyValue(root.translateYProperty(), 0,
                 Interpolator.EASE_IN);
-        KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), keyValue);
+        KeyFrame keyFrame = new KeyFrame(Duration.seconds(2), keyValue);
         timeline.getKeyFrames().add(keyFrame);
         timeline.setOnFinished(t -> {
-            parentContainer.getChildren().remove(container);
+            parentContainer.getChildren().remove(anchorRoot);
         });
         timeline.play();
     }
