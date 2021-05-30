@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -29,7 +28,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                      </VBox.margin>
                   </ComboBox>
-                  <Label text="Quantity:">
+                  <Label text="Quantity:" textFill="WHITE">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                      </VBox.margin>

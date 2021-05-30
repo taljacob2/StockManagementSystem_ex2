@@ -52,18 +52,11 @@ public class Item implements Comparable<Item> {
     }
 
     @Override public String toString() {
-        try {
-            Stock stock = Engine.getStockBySymbol(symbol);
-            return "Item{" + "symbol='" + symbol + '\'' + ", quantity=" +
-                    quantity + ", price=" +
-                    Currency.numberFormat.format(stock.getPrice()) + '}';
-        } catch (IOException e) {
+        Stock stock = getStock();
+        return "Item{" + "symbol='" + symbol + '\'' + ", quantity=" + quantity +
+                ", price=" + Currency.numberFormat.format(stock.getPrice()) +
+                '}';
 
-            // Note: this exception should not happen thanks to the initial check of users.
-            MessagePrint.println(MessagePrint.Stream.OUT, e.getMessage());
-        }
-
-        return null;
     }
 
     @Override public boolean equals(Object o) {
@@ -79,5 +72,16 @@ public class Item implements Comparable<Item> {
 
     @Override public int compareTo(Item o) { // TODO: need to implement??
         return 0;
+    }
+
+    public Stock getStock() {
+        try {
+            return Engine.getStockBySymbol(symbol);
+        } catch (IOException e) {
+
+            // Note: this exception should not happen thanks to the initial check of users.
+            MessagePrint.println(MessagePrint.Stream.OUT, e.getMessage());
+        }
+        return null;
     }
 }

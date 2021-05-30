@@ -5,8 +5,8 @@ import user.User;
 
 /**
  * This {@code Class} saves the {@link user.User} that was selected in the
- * <i>Login page</i>, in order to transfer it to the <i>Order-Execution
- * page</i>.
+ * <i>Login page</i> in a {@link SimpleObjectProperty}, in order to transfer it
+ * to the <i>Order-Execution page</i>.
  */
 public class SelectedUser {
 

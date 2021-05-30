@@ -3,17 +3,22 @@ package application.pane.resources.orderexecution;
 import application.JavaFXAppController;
 import application.pane.PaneAnimator;
 import application.pane.resources.login.selecteduser.SelectedUser;
+import engine.Engine;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import message.print.MessagePrint;
 import stock.Stock;
 import user.User;
+import user.holding.item.Item;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 /**
  * This {@code class} is a {@code Controller} loaded from a <tt>.fxml</tt>
@@ -34,15 +39,31 @@ public class OrderExecution implements Initializable {
     @FXML private ComboBox<String> orderTypeComboBox;
     @FXML private Button executeOrderButton;
 
+
     public OrderExecution() {}
 
     @Override public void initialize(URL location, ResourceBundle resources) {
         buySellComboBox.getItems().addAll("Buy", "Sell");
         orderTypeComboBox.getItems().addAll("LMT", "MKT");
 
+
+        buySellComboBox.valueProperty().addListener(
+                (observable, oldValue, newValue) -> initStockComboBox());
+
+
         initExecuteOrderButton(JavaFXAppController.getStaticBorderPane(),
                 JavaFXAppController.getParentContainer(),
                 JavaFXAppController.getAnimationType());
+
+        /*
+         * All combo-boxes must be selecting something,
+         * in order to press the button.
+         */
+        executeOrderButton.disableProperty()
+                .bind(buySellComboBox.valueProperty().isNull()
+                        .or(stockComboBox.valueProperty().isNull()
+                                .or(orderTypeComboBox.valueProperty()
+                                        .isNull())));
     }
 
     private void initExecuteOrderButton(BorderPane borderPane,
@@ -50,13 +71,43 @@ public class OrderExecution implements Initializable {
                                         PaneAnimator.AnimationType animationType) {
 
         // define 'orderExecutionButton':
-        buySellComboBox.setOnAction(
+        executeOrderButton.setOnAction(
                 new PaneAnimator.Handler(borderPane, parentContainer,
-                        "/application/pane/resources/orderexecution" +
-                                "/OrderExecution.fxml", animationType));
+                        "/application/pane/resources/login/Login.fxml",
+                        animationType));
+    }
 
-        //     TODO: check:
-        System.out.println("selectedUser = " + SelectedUser.getSelectedUser());
+    private void initStockComboBox() {
+
+        // Remove all previous items in the comboBox:
+        stockComboBox.getItems().clear();
+
+        if (buySellComboBox.valueProperty().getValue().toString()
+                .equals("Buy")) {
+            try {
+
+                // Show all stock available in the system:
+                stockComboBox.getItems()
+                        .addAll(Engine.getStocks().getCollection());
+            } catch (IOException e) {
+
+                /*
+                 * Note: this exception should not happen thanks to the
+                 * initial check of stocks.
+                 */
+                MessagePrint.println(MessagePrint.Stream.ERR, e.getMessage());
+            }
+
+        } else if (buySellComboBox.valueProperty().getValue().toString()
+                .equals("Sell")) {
+
+            // Show only the stock available in the user's items:
+            stockComboBox.getItems()
+                    .addAll(SelectedUser.getSelectedUser().getHoldings()
+                            .getCollection().stream().map(Item::getStock)
+                            .collect(Collectors.toList()));
+
+        }
     }
 
 }

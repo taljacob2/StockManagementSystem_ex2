@@ -85,7 +85,7 @@ public class JavaFXAppController
     private static VBox staticMenuVBox;
     private static BorderPane staticBorderPane;
     private static PaneAnimator.AnimationType animationType =
-            PaneAnimator.AnimationType.FADE_IN_OUT;
+            PaneAnimator.AnimationType.FADE_OUT_IN;
 
     @FXML private static Label staticProgressLabel;
     @FXML private BorderPane leftBorderPane;
