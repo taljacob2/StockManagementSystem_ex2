@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.pane.resources.orderexecution.OrderExecution">
    <children>
@@ -38,7 +39,7 @@
                         <Insets left="10.0" />
                      </padding>
                   </Label>
-                  <Spinner fx:id="spinner">
+                  <Spinner fx:id="spinner" editable="true">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
@@ -52,6 +53,13 @@
          <center>
             <Button fx:id="executeOrderButton" mnemonicParsing="false" text="Execute Order" BorderPane.alignment="CENTER" />
          </center>
+         <top>
+            <Label fx:id="userNameLabel" textFill="WHITE" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="SansSerif Regular" size="36.0" />
+               </font>
+            </Label>
+         </top>
       </BorderPane>
    </children>
 </AnchorPane>

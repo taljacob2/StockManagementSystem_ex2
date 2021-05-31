@@ -3664,10 +3664,10 @@
     <target name="jfxsa-debug-noscript"
             depends="-set-fallback-no-javascript, jfxsa-debug"/>
 
-    <target name="jfxsa-profile"
-            depends="-mark-project-state-profiling,-check-jfx-runtime,-warn-of-preloader,profile"/>
-    <target name="jfxsa-profile-noscript"
-            depends="-set-fallback-no-javascript, jfxsa-profile"/>
+    <target name="jfxsa-user"
+            depends="-mark-project-state-profiling,-check-jfx-runtime,-warn-of-preloader,user"/>
+    <target name="jfxsa-user-noscript"
+            depends="-set-fallback-no-javascript, jfxsa-user"/>
 
     <target name="-check-clean-if-config-changed" depends="-init-project">
         <deploy-defines/>
@@ -3810,7 +3810,7 @@
         </exec>
     </target>
 
-    <target name="-profile-check-1">
+    <target name="-user-check-1">
         <property name="run.jvmargs.ide" value=""/>
         <condition property="profiler.configured">
             <or>
@@ -3822,13 +3822,13 @@
         </condition>
     </target>
 
-    <target if="jnlp-file-exists+netbeans.home" name="-profile-check-jnlp">
-        <antcall target="-profile-check-1"/>
+    <target if="jnlp-file-exists+netbeans.home" name="-user-check-jnlp">
+        <antcall target="-user-check-1"/>
     </target>
 
-    <target name="-do-jfxws-profile" depends="-mark-project-state-profiling,-mark-project-needs-jnlp,
+    <target name="-do-jfxws-user" depends="-mark-project-state-profiling,-mark-project-needs-jnlp,
             -check-jdk-7u4or5-mac,jar,-check-jfx-webstart,-resolve-jnlp-file,-check-jfx-runtime">
-        <echo message="Executing ${jfx.deployment.jnlp} in profile mode using ${active.webstart.executable}"/>
+        <echo message="Executing ${jfx.deployment.jnlp} in user mode using ${active.webstart.executable}"/>
         <property name="run.jvmargs.ide" value=""/>
         <exec executable="${active.webstart.executable}">
             <env key="JAVAWS_VM_ARGS" value="${run.jvmargs.ide}"/>
@@ -3837,11 +3837,11 @@
         </exec>
     </target>
 
-    <target name="jfxws-profile" if="profiler.configured"
-            depends="-profile-check-1"
-            description="Profile JavaFX javaws project in IDE">
+    <target name="jfxws-user" if="profiler.configured"
+            depends="-user-check-1"
+            description="User JavaFX javaws project in IDE">
         <startprofiler/>
-        <antcall target="-do-jfxws-profile"/>
+        <antcall target="-do-jfxws-user"/>
     </target>
 
     <target name="jfxws-run-noscript"
@@ -3850,8 +3850,8 @@
     <target name="jfxws-debug-noscript"
             depends="-set-fallback-no-javascript, jfxws-debug"/>
 
-    <target name="jfxws-profile-noscript"
-            depends="-set-fallback-no-javascript, jfxws-profile"/>
+    <target name="jfxws-user-noscript"
+            depends="-set-fallback-no-javascript, jfxws-user"/>
 
 
     <!-- Running/Debugging/Profiling in Browser -->
@@ -3973,13 +3973,13 @@
         </exec>
     </target>
 
-    <target if="html-file-exists+netbeans.home" name="-profile-check-html">
-        <antcall target="-profile-check-1"/>
+    <target if="html-file-exists+netbeans.home" name="-user-check-html">
+        <antcall target="-user-check-1"/>
     </target>
 
-    <target name="-do-jfxbe-profile" depends="-mark-project-state-profiling,-mark-project-needs-jnlp,
+    <target name="-do-jfxbe-user" depends="-mark-project-state-profiling,-mark-project-needs-jnlp,
             -check-jdk-7u4or5-mac,jar,-check-selected-browser-path,-set-html-file,-check-jfx-runtime">
-        <echo message="Executing ${jfx.deployment.html} in profile mode using ${javafx.run.inbrowser}"/>
+        <echo message="Executing ${jfx.deployment.html} in user mode using ${javafx.run.inbrowser}"/>
         <echo message="(${javafx.run.inbrowser.path})"/>
         <property name="run.jvmargs.ide" value=""/>
         <exec executable="${javafx.run.inbrowser.path}">
@@ -3988,11 +3988,11 @@
         </exec>
     </target>
 
-    <target name="jfxbe-profile" if="profiler.configured"
-            depends="-profile-check-html"
-            description="Profile JavaFX project in browser">
+    <target name="jfxbe-user" if="profiler.configured"
+            depends="-user-check-html"
+            description="User JavaFX project in browser">
         <startprofiler/>
-        <antcall target="-do-jfxbe-profile"/>
+        <antcall target="-do-jfxbe-user"/>
     </target>
 
     <target name="jfxbe-run-noscript"
@@ -4001,8 +4001,8 @@
     <target name="jfxbe-debug-noscript"
             depends="-set-fallback-no-javascript, jfxbe-debug"/>
 
-    <target name="jfxbe-profile-noscript"
-            depends="-set-fallback-no-javascript, jfxbe-profile"/>
+    <target name="jfxbe-user-noscript"
+            depends="-set-fallback-no-javascript, jfxbe-user"/>
 
 
 </project>

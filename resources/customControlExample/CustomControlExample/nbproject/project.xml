@@ -12,7 +12,7 @@
                 <dependency dependsOn="jar" target="debug"/>
                 <dependency dependsOn="-jfx-copylibs" target="jar"/>
                 <dependency dependsOn="-rebase-libs" target="jar"/>
-                <dependency dependsOn="jar" target="profile"/>
+                <dependency dependsOn="jar" target="user"/>
                 <dependency dependsOn="jar" target="run"/>
             </extension>
         </buildExtensions>

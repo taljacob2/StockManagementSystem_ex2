@@ -7,7 +7,7 @@ import application.pane.PaneShower;
  * file.
  *
  * <p>Represents the {@link javafx.scene.layout.Pane} of showing the
- * <i>Status</i> of a <i>Profile</i> in the system.</p>
+ * <i>Status</i> of a <i>User</i> in the system.</p>
  */
 public class OwnProfile extends PaneShower {
 

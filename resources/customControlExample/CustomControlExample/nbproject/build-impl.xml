@@ -835,18 +835,18 @@ is divided into following sections:
     <!--
                 pre NB7.2 profiling section; consider it deprecated
             -->
-    <target depends="-profile-pre-init, init, -profile-post-init, -profile-init-macrodef-profile, -profile-init-check"
-            if="profiler.info.jvmargs.agent" name="profile-init"/>
-    <target if="profiler.info.jvmargs.agent" name="-profile-pre-init">
+    <target depends="-user-pre-init, init, -user-post-init, -user-init-macrodef-user, -user-init-check"
+            if="profiler.info.jvmargs.agent" name="user-init"/>
+    <target if="profiler.info.jvmargs.agent" name="-user-pre-init">
         <!-- Empty placeholder for easier customization. -->
         <!-- You can override this target in the ../build.xml file. -->
     </target>
-    <target if="profiler.info.jvmargs.agent" name="-profile-post-init">
+    <target if="profiler.info.jvmargs.agent" name="-user-post-init">
         <!-- Empty placeholder for easier customization. -->
         <!-- You can override this target in the ../build.xml file. -->
     </target>
     <target if="profiler.info.jvmargs.agent"
-            name="-profile-init-macrodef-profile">
+            name="-user-init-macrodef-user">
         <macrodef name="resolve">
             <attribute name="name"/>
             <attribute name="value"/>
@@ -854,7 +854,7 @@ is divided into following sections:
                 <property name="@{name}" value="${env.@{value}}"/>
             </sequential>
         </macrodef>
-        <macrodef name="profile">
+        <macrodef name="user">
             <attribute default="${main.class}" name="classname"/>
             <element name="customize" optional="true"/>
             <sequential>
@@ -881,8 +881,8 @@ is divided into following sections:
             </sequential>
         </macrodef>
     </target>
-    <target depends="-profile-pre-init, init, -profile-post-init, -profile-init-macrodef-profile"
-            if="profiler.info.jvmargs.agent" name="-profile-init-check">
+    <target depends="-user-pre-init, init, -user-post-init, -user-init-macrodef-user"
+            if="profiler.info.jvmargs.agent" name="-user-init-check">
         <fail unless="profiler.info.jvm">Must set JVM to use for profiling in
             profiler.info.jvm
         </fail>
@@ -1377,9 +1377,9 @@ is divided into following sections:
     <!--
                 pre NB7.2 profiler integration
             -->
-    <target depends="profile-init,compile"
-            description="Profile a project in the IDE."
-            if="profiler.info.jvmargs.agent" name="-profile-pre72">
+    <target depends="user-init,compile"
+            description="User a project in the IDE."
+            if="profiler.info.jvmargs.agent" name="-user-pre72">
         <fail unless="netbeans.home">This target only works when run from inside
             the NetBeans IDE.
         </fail>
@@ -1388,13 +1388,13 @@ is divided into following sections:
                 <path path="${run.classpath}"/>
             </classpath>
         </nbprofiledirect>
-        <profile/>
+        <user/>
     </target>
-    <target depends="profile-init,compile-single"
-            description="Profile a selected class in the IDE."
-            if="profiler.info.jvmargs.agent" name="-profile-single-pre72">
-        <fail unless="profile.class">Must select one file in the IDE or set
-            profile.class
+    <target depends="user-init,compile-single"
+            description="User a selected class in the IDE."
+            if="profiler.info.jvmargs.agent" name="-user-single-pre72">
+        <fail unless="user.class">Must select one file in the IDE or set
+            user.class
         </fail>
         <fail unless="netbeans.home">This target only works when run from inside
             the NetBeans IDE.
@@ -1404,10 +1404,10 @@ is divided into following sections:
                 <path path="${run.classpath}"/>
             </classpath>
         </nbprofiledirect>
-        <profile classname="${profile.class}"/>
+        <user classname="${user.class}"/>
     </target>
-    <target depends="profile-init,compile-single"
-            if="profiler.info.jvmargs.agent" name="-profile-applet-pre72">
+    <target depends="user-init,compile-single"
+            if="profiler.info.jvmargs.agent" name="-user-applet-pre72">
         <fail unless="netbeans.home">This target only works when run from inside
             the NetBeans IDE.
         </fail>
@@ -1416,14 +1416,14 @@ is divided into following sections:
                 <path path="${run.classpath}"/>
             </classpath>
         </nbprofiledirect>
-        <profile classname="sun.applet.AppletViewer">
+        <user classname="sun.applet.AppletViewer">
             <customize>
                 <arg value="${applet.url}"/>
             </customize>
-        </profile>
+        </user>
     </target>
-    <target depends="profile-init,compile-test-single"
-            if="profiler.info.jvmargs.agent" name="-profile-test-single-pre72">
+    <target depends="user-init,compile-test-single"
+            if="profiler.info.jvmargs.agent" name="-user-test-single-pre72">
         <fail unless="netbeans.home">This target only works when run from inside
             the NetBeans IDE.
         </fail>
@@ -1439,7 +1439,7 @@ is divided into following sections:
                  path="${profiler.info.agentpath}:${profiler.current.path}"/>
             <jvmarg value="${profiler.info.jvmargs.agent}"/>
             <jvmarg line="${profiler.info.jvmargs}"/>
-            <test name="${profile.class}"/>
+            <test name="${user.class}"/>
             <classpath>
                 <path path="${run.test.classpath}"/>
             </classpath>
@@ -1454,7 +1454,7 @@ is divided into following sections:
     <!--
                 end of pre NB72 profiling section
             -->
-    <target if="netbeans.home" name="-profile-check">
+    <target if="netbeans.home" name="-user-check">
         <condition property="profiler.configured">
             <or>
                 <contains casesensitive="true" string="${run.jvmargs.ide}"
@@ -1464,15 +1464,15 @@ is divided into following sections:
             </or>
         </condition>
     </target>
-    <target depends="-profile-check,-profile-pre72,jar"
-            description="Profile a project in the IDE." if="profiler.configured"
-            name="profile" unless="profiler.info.jvmargs.agent">
+    <target depends="-user-check,-user-pre72,jar"
+            description="User a project in the IDE." if="profiler.configured"
+            name="user" unless="profiler.info.jvmargs.agent">
         <startprofiler/>
         <antcall target="run"/>
     </target>
-    <target depends="-profile-check,-profile-single-pre72"
-            description="Profile a selected class in the IDE."
-            if="profiler.configured" name="profile-single"
+    <target depends="-user-check,-user-single-pre72"
+            description="User a selected class in the IDE."
+            if="profiler.configured" name="user-single"
             unless="profiler.info.jvmargs.agent">
         <fail unless="run.class">Must select one file in the IDE or set
             run.class
@@ -1480,12 +1480,12 @@ is divided into following sections:
         <startprofiler/>
         <antcall target="run-single"/>
     </target>
-    <target depends="-profile-test-single-pre72"
-            description="Profile a selected test in the IDE."
-            name="profile-test-single"/>
-    <target depends="-profile-check"
-            description="Profile a selected test in the IDE."
-            if="profiler.configured" name="profile-test"
+    <target depends="-user-test-single-pre72"
+            description="User a selected test in the IDE."
+            name="user-test-single"/>
+    <target depends="-user-check"
+            description="User a selected test in the IDE."
+            if="profiler.configured" name="user-test"
             unless="profiler.info.jvmargs">
         <fail unless="test.includes">Must select some files in the IDE or set
             test.includes
@@ -1493,17 +1493,17 @@ is divided into following sections:
         <startprofiler/>
         <antcall target="test-single"/>
     </target>
-    <target depends="-profile-check"
-            description="Profile a selected class in the IDE."
-            if="profiler.configured" name="profile-test-with-main">
+    <target depends="-user-check"
+            description="User a selected class in the IDE."
+            if="profiler.configured" name="user-test-with-main">
         <fail unless="run.class">Must select one file in the IDE or set
             run.class
         </fail>
         <startprofiler/>
         <antcal target="run-test-with-main"/>
     </target>
-    <target depends="-profile-check,-profile-applet-pre72"
-            if="profiler.configured" name="profile-applet"
+    <target depends="-user-check,-user-applet-pre72"
+            if="profiler.configured" name="user-applet"
             unless="profiler.info.jvmargs.agent">
         <fail unless="applet.url">Must select one file in the IDE or set
             applet.url

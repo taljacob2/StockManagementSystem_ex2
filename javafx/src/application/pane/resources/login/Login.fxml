@@ -18,7 +18,7 @@
                 <FlowPane alignment="CENTER" BorderPane.alignment="CENTER">
                     <children>
                         <ComboBox fx:id="profileComboBox"
-                                  promptText="Choose a profile"/>
+                                  promptText="Choose a user"/>
                     </children>
                     <BorderPane.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
@@ -26,7 +26,7 @@
                 </FlowPane>
             </top>
             <center>
-                <Label alignment="CENTER" text="Choose A Profile To Log Into:"
+                <Label alignment="CENTER" text="Choose A User To Log Into:"
                        textFill="WHITE" BorderPane.alignment="CENTER">
                     <font>
                         <Font name="SansSerif Regular" size="36.0"/>
@@ -38,7 +38,7 @@
             </center>
             <bottom>
                 <Button fx:id="orderButton" mnemonicParsing="false"
-                        text="Order with the selected profile"
+                        text="Order with the selected user"
                         BorderPane.alignment="CENTER">
                     <font>
                         <Font name="SansSerif Regular" size="15.0"/>

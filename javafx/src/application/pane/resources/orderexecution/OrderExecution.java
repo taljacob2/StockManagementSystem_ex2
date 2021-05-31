@@ -6,9 +6,7 @@ import application.pane.resources.login.selecteduser.SelectedUser;
 import engine.Engine;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Spinner;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import message.print.MessagePrint;
@@ -39,7 +37,9 @@ public class OrderExecution implements Initializable {
     @FXML private ComboBox<Stock> stockComboBox;
     @FXML private ComboBox<String> orderTypeComboBox;
     @FXML private Button executeOrderButton;
-    @FXML private Spinner<Long> spinner;
+    @FXML private Spinner<Integer> spinner;
+    private SpinnerValueFactory<Integer> spinnerValueFactory;
+    @FXML private Label userNameLabel;
 
 
     public OrderExecution() {}
@@ -55,36 +55,63 @@ public class OrderExecution implements Initializable {
         stockComboBox.valueProperty()
                 .addListener((observable, oldValue, newValue) -> initSpinner());
 
+        userNameLabel.setText(
+                "Hello, " + SelectedUser.getSelectedUser().getName() + ". " +
+                        "Please make an order.");
+
 
         initExecuteOrderButton(JavaFXAppController.getStaticBorderPane(),
                 JavaFXAppController.getParentContainer(),
                 JavaFXAppController.getAnimationType());
+
+        /* -- Disable -- */
+
+        stockComboBox.disableProperty()
+                .bind(buySellComboBox.valueProperty().isNull()
+                        .or(buySellComboBox.disableProperty()));
+
+        orderTypeComboBox.disableProperty()
+                .bind(stockComboBox.valueProperty().isNull()
+                        .or(stockComboBox.disableProperty()));
+
+        spinner.disableProperty()
+                .bind(orderTypeComboBox.valueProperty().isNull()
+                        .or(orderTypeComboBox.disableProperty()));
 
         /*
          * All combo-boxes must be selecting something,
          * in order to press the button.
          */
         executeOrderButton.disableProperty()
-                .bind(buySellComboBox.valueProperty().isNull()
-                        .or(stockComboBox.valueProperty().isNull()
-                                .or(orderTypeComboBox.valueProperty()
-                                        .isNull())));
-
+                .bind(buySellComboBox.disableProperty()
+                        .or(stockComboBox.disableProperty()
+                                .or(orderTypeComboBox.disableProperty()
+                                        .or(spinner.disableProperty()))));
     }
 
     private void initSpinner() {
         if (buySellComboBox.valueProperty().getValue().toString()
-                .equals("Sell")) {
+                .equals("Sell") &&
+                (stockComboBox.valueProperty().isNotNull().get())) {
+            spinnerValueFactory =
+                    new SpinnerValueFactory.IntegerSpinnerValueFactory(1,
+                            (int) stockComboBox.getValue().getQuantity(
+                                    SelectedUser.getSelectedUser()), 1);
 
-            spinner.valueFactoryProperty().getValue().setValue(
-                    stockComboBox.getValue()
-                            .getQuantity(SelectedUser.getSelectedUser()));
-
+        } else if (buySellComboBox.valueProperty().getValue().toString()
+                .equals("Sell") &&
+                (stockComboBox.valueProperty().isNull().get())) {
+            spinnerValueFactory =
+                    new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 0, 0);
         } else if (buySellComboBox.valueProperty().getValue().toString()
                 .equals("Buy")) {
 
-            spinner.valueFactoryProperty().getValue().setValue(0L);
+            // TODO: check max - limit here is hardcoded: 999999
+            spinnerValueFactory =
+                    new SpinnerValueFactory.IntegerSpinnerValueFactory(1,
+                            999999, 1);
         }
+        spinner.setValueFactory(spinnerValueFactory);
     }
 
     private void initExecuteOrderButton(BorderPane borderPane,
