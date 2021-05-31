@@ -38,6 +38,13 @@ public class OrderExecution implements Initializable {
     @FXML private ComboBox<String> orderTypeComboBox;
     @FXML private Button executeOrderButton;
     @FXML private Spinner<Integer> spinner;
+
+    /**
+     * Note: the when performing a "Buy" order, the 'max' limit of the {@code
+     * quantity} is hardcoded to be: '1000000'.
+     *
+     * @see #initSpinner
+     */
     private SpinnerValueFactory<Integer> spinnerValueFactory;
     @FXML private Label userNameLabel;
 
@@ -106,10 +113,10 @@ public class OrderExecution implements Initializable {
         } else if (buySellComboBox.valueProperty().getValue().toString()
                 .equals("Buy")) {
 
-            // TODO: check max - limit here is hardcoded: 999999
+            // Note: max - limit here is hardcoded: 1000000
             spinnerValueFactory =
                     new SpinnerValueFactory.IntegerSpinnerValueFactory(1,
-                            999999, 1);
+                            1000000, 1);
         }
         spinner.setValueFactory(spinnerValueFactory);
     }
