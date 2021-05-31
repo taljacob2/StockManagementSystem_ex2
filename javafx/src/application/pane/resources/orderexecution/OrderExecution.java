@@ -65,6 +65,13 @@ public class OrderExecution implements Initializable {
      */
     private Long activeMaxQuantity = Long.MAX_VALUE;
 
+    /**
+     * This field determines whether to "arm" the {@link #executeOrderButton} or
+     * not.
+     * <p>The {@code Button} should be armed only <i>once</i>.</p>
+     */
+    private boolean executeOrderButtonWasNotPressedYet = true;
+
     @FXML private ComboBox<String> buySellComboBox;
     @FXML private ComboBox<Stock> stockComboBox;
     @FXML private ComboBox<String> orderTypeComboBox;
@@ -236,20 +243,38 @@ public class OrderExecution implements Initializable {
     }
 
     private void initExecuteOrderButton() {
-        setExecuteOrderButton(JavaFXAppController.getStaticBorderPane(),
+        setActionOfExecuteOrderButton(JavaFXAppController.getStaticBorderPane(),
                 JavaFXAppController.getParentContainer(),
                 JavaFXAppController.getAnimationType());
     }
 
-    private void setExecuteOrderButton(BorderPane borderPane,
-                                       Pane parentContainer,
-                                       PaneAnimator.AnimationType animationType) {
+    private void setActionOfExecuteOrderButton(BorderPane borderPane,
+                                               Pane parentContainer,
+                                               PaneAnimator.AnimationType animationType) {
 
-        // define 'orderExecutionButton':
+        // Define 'executeOrderButton':
         executeOrderButton.setOnAction(
                 new PaneAnimator.Handler(borderPane, parentContainer,
                         "/application/pane/resources/login/Login.fxml",
                         animationType));
+
+        /*
+         * Set the 'executeOrderButton' to be pressed only ONCE when "spam"
+         * clicking it.
+         */
+        executeOrderButton.armedProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    if (!executeOrderButtonWasNotPressedYet) {
+
+                        // If the button was already pressed
+                        executeOrderButton.disarm();
+                    }
+                    if (executeOrderButtonWasNotPressedYet) {
+
+                        // If this is the first time the button is being pressed
+                        executeOrderButtonWasNotPressedYet = false;
+                    }
+                });
     }
 
     private void initStockComboBox() {
@@ -284,6 +309,4 @@ public class OrderExecution implements Initializable {
 
         }
     }
-
-
 }
