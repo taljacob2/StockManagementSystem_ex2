@@ -33,17 +33,20 @@ import java.util.stream.Collectors;
  */
 public class OrderExecution implements Initializable {
 
+    private Long activeMinQuantity = 1L;
+    private Long activeMaxQuantity = Long.MAX_VALUE;
+
     @FXML private ComboBox<String> buySellComboBox;
     @FXML private ComboBox<Stock> stockComboBox;
     @FXML private ComboBox<String> orderTypeComboBox;
     @FXML private Button executeOrderButton;
-    @FXML private Spinner<Integer> spinner;
-
+    @FXML private TextField quantityTextField;
+    @FXML private Label validityLabel;
     /**
      * Note: the when performing a "Buy" order, the 'max' limit of the {@code
      * quantity} is hardcoded to be: '1000000'.
      *
-     * @see #initSpinner
+     * @see #initQuantity
      */
     private SpinnerValueFactory<Integer> spinnerValueFactory;
     @FXML private Label userNameLabel;
@@ -59,12 +62,47 @@ public class OrderExecution implements Initializable {
         buySellComboBox.valueProperty().addListener(
                 (observable, oldValue, newValue) -> initStockComboBox());
 
-        stockComboBox.valueProperty()
-                .addListener((observable, oldValue, newValue) -> initSpinner());
+        stockComboBox.valueProperty().addListener(
+                (observable, oldValue, newValue) -> initQuantity());
 
         userNameLabel.setText(
                 "Hello, " + SelectedUser.getSelectedUser().getName() + ". " +
                         "Please make an order.");
+
+        quantityTextField.setTextFormatter(new TextFormatter<>(change -> {
+
+            // Allow only numbers:
+            if (change.getText().matches("[0-9]*")) {
+                return change;
+            }
+            return null;
+
+        }));
+
+        quantityTextField.textProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    try {
+                        if (Long.parseLong(newValue) > activeMaxQuantity) {
+                            quantityTextField.setText(oldValue);
+                        }
+
+                        if (Long.parseLong(newValue) < activeMinQuantity) {
+                            quantityTextField.setText(oldValue);
+                        }
+                    } catch (NumberFormatException e) {
+                        MessagePrint.println(MessagePrint.Stream.ERR,
+                                "Invalid [long] quantity.");
+                        return;
+                    }
+                    if (quantityTextField.textProperty().getValue()
+                            .matches("")) {
+                        MessagePrint.println(MessagePrint.Stream.ERR,
+                                "Invalid [long] quantity.");
+                        return;
+                    }
+                    MessagePrint.println(MessagePrint.Stream.OUT,
+                            "Valid [long] quantity.");
+                });
 
         initExecuteOrderButton(JavaFXAppController.getStaticBorderPane(),
                 JavaFXAppController.getParentContainer(),
@@ -80,7 +118,7 @@ public class OrderExecution implements Initializable {
                 .bind(stockComboBox.valueProperty().isNull()
                         .or(stockComboBox.disableProperty()));
 
-        spinner.disableProperty()
+        quantityTextField.disableProperty()
                 .bind(orderTypeComboBox.valueProperty().isNull()
                         .or(orderTypeComboBox.disableProperty()));
 
@@ -92,32 +130,34 @@ public class OrderExecution implements Initializable {
                 .bind(buySellComboBox.disableProperty()
                         .or(stockComboBox.disableProperty()
                                 .or(orderTypeComboBox.disableProperty()
-                                        .or(spinner.disableProperty()))));
+                                        .or(quantityTextField
+                                                .disableProperty()))));
     }
 
-    private void initSpinner() {
+    private void initQuantity() {
         if (buySellComboBox.valueProperty().getValue().toString()
                 .equals("Sell") &&
                 (stockComboBox.valueProperty().isNotNull().get())) {
-            spinnerValueFactory =
-                    new SpinnerValueFactory.IntegerSpinnerValueFactory(1,
-                            (int) stockComboBox.getValue().getQuantity(
-                                    SelectedUser.getSelectedUser()), 1);
 
+            // "Sell" is being selected, and a "Stock" is being selected.
+            activeMinQuantity = 1L;
+            activeMaxQuantity = stockComboBox.getValue()
+                    .getQuantity(SelectedUser.getSelectedUser());
         } else if (buySellComboBox.valueProperty().getValue().toString()
                 .equals("Sell") &&
                 (stockComboBox.valueProperty().isNull().get())) {
-            spinnerValueFactory =
-                    new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 0, 0);
+
+            // "Sell" is being selected, and a "Stock" is NOT being selected.
+            activeMinQuantity = 0L;
+            activeMaxQuantity = 0L;
+            quantityTextField.setText(null);
         } else if (buySellComboBox.valueProperty().getValue().toString()
                 .equals("Buy")) {
 
-            // Note: max - limit here is hardcoded: 1000000
-            spinnerValueFactory =
-                    new SpinnerValueFactory.IntegerSpinnerValueFactory(1,
-                            1000000, 1);
+            // "Buy" is being selected.
+            activeMinQuantity = 1L;
+            activeMaxQuantity = Long.MAX_VALUE;
         }
-        spinner.setValueFactory(spinnerValueFactory);
     }
 
     private void initExecuteOrderButton(BorderPane borderPane,

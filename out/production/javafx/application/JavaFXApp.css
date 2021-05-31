@@ -42,20 +42,14 @@
     -fx-background-radius: 10;
 }
 
-.button:active {
-/ / TODO kill
-    /*-fx-background-color: linear-gradient(white, darkcyan);*/
--fx-background-color: rgba(25, 25, 25, 0.8);
+.button:hover {
+    -fx-background-color: red;
 }
 
 #rseLabel {
     -fx-text-fill: rgb(202, 200, 197);
     -fx-background-color: rgb(101, 96, 30);
     /*-fx-background-radius: 10;*/
-}
-
-.button:hover {
-    -fx-background-color: red;
 }
 
 #progressBarLabel {

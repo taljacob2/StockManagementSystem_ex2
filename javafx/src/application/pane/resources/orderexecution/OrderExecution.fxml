@@ -27,17 +27,24 @@
                   </ComboBox>
                   <Label text="Quantity:" textFill="WHITE">
                      <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                      </VBox.margin>
                      <padding>
                         <Insets left="10.0"/>
                      </padding>
                   </Label>
-                  <Spinner fx:id="spinner">
+                  <TextField fx:id="quantityTextField"/>
+                  <Label fx:id="validityLabel" textFill="WHITE">
+                     <padding>
+                        <Insets left="10.0"/>
+                     </padding>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                      </VBox.margin>
-                  </Spinner>
+                     <font>
+                        <Font name="SansSerif Regular" size="15.0"/>
+                     </font>
+                  </Label>
                   <Button fx:id="executeOrderButton" mnemonicParsing="false"
                           text="Execute Order">
                      <VBox.margin>
