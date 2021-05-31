@@ -80,7 +80,10 @@ public class OrderExecution implements Initializable {
     @FXML private Label validityLabel;
     @FXML private Label userNameLabel;
 
-
+    /**
+     * Must have a Default Constructor for {@code JAXBContext} <tt>.xml</tt>
+     * load and save.
+     */
     public OrderExecution() {}
 
     @Override public void initialize(URL location, ResourceBundle resources) {
