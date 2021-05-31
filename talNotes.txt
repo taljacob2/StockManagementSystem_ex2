@@ -76,3 +76,24 @@ JavaFXApp via
 
 # need to add a func in "Stock" that is "getQuantity(User user)" that
      returns the quanity of this stock in a given user.
+
+# check if there is an option to make the "Spinner" in "OrderExecution.class" to
+    be "Editable" without bugs.
+
+
+
+
+
+    _________________________________________________________________________
+
+        /* XXX - GUIDE: dynamic style:
+               https://stackoverflow.com/questions/36159860/javafx-change-style-dynamically-on-pane */
+
+
+        PseudoClass mouseOver = PseudoClass.getPseudoClass("mouse-over");
+        Pane myPane = new Pane();
+        myPane.getStyleClass().add("my-pane");
+        myPane.setOnMouseEntered(
+                e -> myPane.pseudoClassStateChanged(mouseOver, true));
+        myPane.setOnMouseExited(
+                e -> myPane.pseudoClassStateChanged(mouseOver, false));

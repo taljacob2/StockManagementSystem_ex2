@@ -90,7 +90,6 @@ public class JavaFXApp extends Application {
         // set root from a '.fxml' file:
         root = FXMLLoader
                 .load(getClass().getResource("/application/JavaFXApp.fxml"));
-        // root = FXMLLoader.load(getClass().getResource("/application/scene/SceneOne.fxml"));// TODO: check
 
         // set COMMANDS: TODO: reorder this, not to be here!
         stage.setOnCloseRequest(event -> {
@@ -103,8 +102,8 @@ public class JavaFXApp extends Application {
         // set '.css' file:
         scene.getStylesheets().add(pathToCSS);
 
-        stage.setScene(scene); // TODO check
-
+        stage.setScene(scene);
+        
         stage.show();
     }
 

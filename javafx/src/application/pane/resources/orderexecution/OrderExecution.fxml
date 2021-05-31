@@ -30,24 +30,26 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
                      <padding>
-                        <Insets left="10.0" />
+                        <Insets left="10.0"/>
                      </padding>
                   </Label>
-                  <Spinner fx:id="spinner" editable="true">
+                  <Spinner fx:id="spinner">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                      </VBox.margin>
                   </Spinner>
+                  <Button fx:id="executeOrderButton" mnemonicParsing="false"
+                          text="Execute Order">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                     </VBox.margin>
+                  </Button>
                </children>
                <opaqueInsets>
                   <Insets/>
                </opaqueInsets>
             </VBox>
          </left>
-         <center>
-            <Button fx:id="executeOrderButton" mnemonicParsing="false"
-                    text="Execute Order" BorderPane.alignment="CENTER"/>
-         </center>
          <top>
             <Label fx:id="userNameLabel" textFill="WHITE"
                    BorderPane.alignment="CENTER">

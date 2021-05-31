@@ -66,7 +66,6 @@ public class OrderExecution implements Initializable {
                 "Hello, " + SelectedUser.getSelectedUser().getName() + ". " +
                         "Please make an order.");
 
-
         initExecuteOrderButton(JavaFXAppController.getStaticBorderPane(),
                 JavaFXAppController.getParentContainer(),
                 JavaFXAppController.getAnimationType());
