@@ -98,10 +98,8 @@ public class OrderExecution implements Initializable {
             }
         };
 
-        // FIXME: check why bad: it runs when initializing, but I don't know why
         new JavaFXAppHandler("/application/pane/resources/login/Login.fxml",
-                () -> System.out.println("hello"))
-                .handleOnce(executeOrderButton);
+                executeOrderRunnable).handleOnce(executeOrderButton);
 
         initDisable();
     }
