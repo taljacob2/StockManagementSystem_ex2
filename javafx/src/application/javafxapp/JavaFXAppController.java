@@ -90,7 +90,6 @@ public class JavaFXAppController
     @FXML private static Label staticProgressLabel;
     @FXML private BorderPane leftBorderPane;
     @FXML private BorderPane bottomBorderPane;
-    @FXML private Button scene1Button;
     @FXML private Button printStocksButton;
     @FXML private Button ownProfileButton;
     @FXML private Button loginButton;
@@ -425,30 +424,17 @@ public class JavaFXAppController
 
     private void defineAnimationToAllButtons() {
 
-        // TODO: kill this button because of in-compatibility with screen fits
-        // define 'scene1Button':
-        // scene1Button.setOnAction(
-        //         new PaneAnimator.Handler(borderPane, parentContainer,
-        //                 "/application/pane/resources/fxml/Scene1.fxml",
-        //                 animationType));
-
         // define 'printStocksButton':
-        // new JavaFXAppHandler(borderPane, parentContainer,
-        //         "/application/pane/resources/stocktablepane/StockTablePane.fxml",
-        //         animationType).handle(printStocksButton);
-
-        JavaFXAppHandler.handleOnce(printStocksButton,
+        JavaFXAppHandler.handle(printStocksButton,
                 "/application/pane/resources/stocktablepane/StockTablePane.fxml");
 
         // define 'ownProfileButton':
-        new PaneAnimator.Handler(borderPane, parentContainer,
-                "/application/pane/resources/ownprofile/OwnProfile.fxml",
-                animationType).handle(ownProfileButton);
+        JavaFXAppHandler.handle(ownProfileButton,
+                "/application/pane/resources/ownprofile/OwnProfile.fxml");
 
         // define 'loginButton':
-        new PaneAnimator.Handler(borderPane, parentContainer,
-                "/application/pane/resources/login/Login.fxml", animationType)
-                .handle(loginButton);
+        JavaFXAppHandler.handle(loginButton,
+                "/application/pane/resources/login/Login.fxml");
     }
 
     @FXML private void defineAnimationFadeInOut() {

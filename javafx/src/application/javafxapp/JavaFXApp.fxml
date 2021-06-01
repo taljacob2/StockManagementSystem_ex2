@@ -108,9 +108,6 @@
                                               alignment="TOP_CENTER"
                                               spacing="10.0">
                                             <children>
-                                                <Button fx:id="scene1Button"
-                                                        mnemonicParsing="false"
-                                                        text="Scene 1"/>
                                                 <Button fx:id="loginButton"
                                                         mnemonicParsing="false"
                                                         text="Login"/>

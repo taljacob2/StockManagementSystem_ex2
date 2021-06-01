@@ -527,6 +527,8 @@ public interface PaneAnimator extends PaneReplacer {
         /**
          * Set the {@link javafx.scene.control.ButtonBase} to be pressed only
          * <i>once</i> when "spam" clicking it.
+         *
+         * @param buttonBase the {@link ButtonBase} to be configured.
          */
         public void armOnce(ButtonBase buttonBase) {
             buttonBase.armedProperty()
