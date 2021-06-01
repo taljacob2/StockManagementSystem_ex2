@@ -1,0 +1,86 @@
+
+.root {
+    /*-fx-background-color: blueviolet;*/
+    -fx-background-image: url("../image/island.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+
+    -fx-font: 22 sans-serif;
+    -fx-font-family: "Open Sans", sans-serif;
+}
+
+.menu-bar {
+    -fx-background-color: rgba(0, 0, 0, 0.75);
+}
+
+.menu-bar:hover {
+    /* initial color */
+    -fx-background-color: rgba(101, 96, 30, 0.5);
+}
+
+.progress-bar {
+    /*-fx-border-color: red;*/
+    /*-fx-progress-color: red;*/
+}
+
+
+#menuVBox {
+    -fx-background-color: rgba(0, 0, 0, 0.75);
+    /*-fx-background-radius: 10;*/
+}
+
+/*.tool-bar:hover {*/
+/*    !*-fx-background-color: blue;*!*/
+/*    -fx-background-color: linear-gradient(green, red);*/
+/*}*/
+
+.button {
+    /*-fx-background-color: linear-gradient(white, darkcyan);*/
+    -fx-background-color: rgba(25, 25, 25, 0.8);
+    -fx-text-fill: rgb(202, 200, 197);
+    -fx-background-radius: 10;
+}
+
+.button:hover {
+    -fx-background-color: red;
+}
+
+#rseLabel {
+    -fx-text-fill: rgb(202, 200, 197);
+    -fx-background-color: rgb(101, 96, 30);
+    /*-fx-background-radius: 10;*/
+}
+
+#progressBarLabel {
+    -fx-text-fill: white;
+}
+
+.tool-bar {
+    -fx-background-color: rgba(0, 0, 0, 0.75);
+}
+
+#statusLabel {
+    -fx-text-fill: rgb(202, 200, 197);
+}
+
+.table-view {
+    -fx-opacity: 0.9;
+}
+
+#leftBorderPane {
+    /*-fx-background-radius: 10;*/
+}
+
+#bottomBorderPane {
+    /*-fx-background-radius: 10;*/
+    -fx-background-color: rgba(0, 0, 0, 0.75);
+}
+
+.login {
+    -fx-background-image: url("../image/boat.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    /*-fx-background-color: blue;*/
+}
