@@ -1,15 +1,12 @@
 package application.pane.resources.login;
 
-import application.JavaFXAppController;
-import application.pane.PaneAnimator;
+import application.javafxapp.JavaFXAppHandler;
 import application.pane.resources.login.selecteduser.SelectedUser;
 import engine.Engine;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import message.print.MessagePrint;
 import user.User;
 
@@ -28,7 +25,7 @@ public class Login implements Initializable {
 
     @FXML private ComboBox<User> profileComboBox;
 
-    @FXML private Button orderButton;
+    @FXML private Button selectUserButton;
 
     public Login() {}
 
@@ -42,24 +39,14 @@ public class Login implements Initializable {
             MessagePrint.println(MessagePrint.Stream.ERR, e.getMessage());
         }
 
-        initOrderButton(JavaFXAppController.getStaticBorderPane(),
-                JavaFXAppController.getParentContainer(),
-                JavaFXAppController.getAnimationType());
+        JavaFXAppHandler.handleOnce(selectUserButton,
+                "/application/pane/resources/orderexecution/OrderExecution.fxml");
 
         SelectedUser.selectedUserProperty()
                 .bind(profileComboBox.valueProperty());
 
-        orderButton.disableProperty()
+        selectUserButton.disableProperty()
                 .bind(profileComboBox.valueProperty().isNull());
     }
 
-    private void initOrderButton(BorderPane borderPane, Pane parentContainer,
-                                 PaneAnimator.AnimationType animationType) {
-
-        // define 'orderExecutionButton':
-        orderButton.setOnAction(
-                new PaneAnimator.Handler(borderPane, parentContainer,
-                        "/application/pane/resources/orderexecution/OrderExecution.fxml",
-                        animationType));
-    }
 }

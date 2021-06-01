@@ -1,14 +1,11 @@
 package application.pane.resources.orderexecution;
 
-import application.JavaFXAppController;
-import application.pane.PaneAnimator;
+import application.javafxapp.JavaFXAppHandler;
 import application.pane.resources.login.selecteduser.SelectedUser;
 import engine.Engine;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import message.print.MessagePrint;
 import stock.Stock;
 import user.User;
@@ -65,19 +62,12 @@ public class OrderExecution implements Initializable {
      */
     private Long activeMaxQuantity = Long.MAX_VALUE;
 
-    /**
-     * This field determines whether to "arm" the {@link #executeOrderButton} or
-     * not.
-     * <p>The {@code Button} should be armed only <i>once</i>.</p>
-     */
-    private boolean executeOrderButtonWasNotPressedYet = true;
-
     @FXML private ComboBox<String> buySellComboBox;
     @FXML private ComboBox<Stock> stockComboBox;
     @FXML private ComboBox<String> orderTypeComboBox;
     @FXML private Button executeOrderButton;
     @FXML private TextField quantityTextField;
-    @FXML private Label validityLabel;
+    @FXML private Label validityLabel; /* TODO: maybe kill this field */
     @FXML private Label userNameLabel;
 
     /**
@@ -90,7 +80,8 @@ public class OrderExecution implements Initializable {
         initComboBoxes();
         initUserNameLabel();
         initTextQuantity();
-        initExecuteOrderButton();
+        JavaFXAppHandler.handleOnce(executeOrderButton,
+                "/application/pane/resources/login/Login.fxml");
         initDisable();
     }
 
@@ -243,41 +234,6 @@ public class OrderExecution implements Initializable {
             activeMinQuantity = 1L;
             activeMaxQuantity = Long.MAX_VALUE;
         }
-    }
-
-    private void initExecuteOrderButton() {
-        setActionOfExecuteOrderButton(JavaFXAppController.getStaticBorderPane(),
-                JavaFXAppController.getParentContainer(),
-                JavaFXAppController.getAnimationType());
-    }
-
-    private void setActionOfExecuteOrderButton(BorderPane borderPane,
-                                               Pane parentContainer,
-                                               PaneAnimator.AnimationType animationType) {
-
-        // Define 'executeOrderButton':
-        executeOrderButton.setOnAction(
-                new PaneAnimator.Handler(borderPane, parentContainer,
-                        "/application/pane/resources/login/Login.fxml",
-                        animationType));
-
-        /*
-         * Set the 'executeOrderButton' to be pressed only ONCE when "spam"
-         * clicking it.
-         */
-        executeOrderButton.armedProperty()
-                .addListener((observable, oldValue, newValue) -> {
-                    if (!executeOrderButtonWasNotPressedYet) {
-
-                        // If the button was already pressed
-                        executeOrderButton.disarm();
-                    }
-                    if (executeOrderButtonWasNotPressedYet) {
-
-                        // If this is the first time the button is being pressed
-                        executeOrderButtonWasNotPressedYet = false;
-                    }
-                });
     }
 
     private void initStockComboBox() {

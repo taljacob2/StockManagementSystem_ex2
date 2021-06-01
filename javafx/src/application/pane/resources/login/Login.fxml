@@ -37,7 +37,7 @@
                 </Label>
             </center>
             <bottom>
-                <Button fx:id="orderButton" mnemonicParsing="false"
+                <Button fx:id="selectUserButton" mnemonicParsing="false"
                         text="Order with the selected user"
                         BorderPane.alignment="CENTER">
                     <font>

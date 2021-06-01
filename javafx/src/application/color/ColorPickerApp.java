@@ -1,5 +1,6 @@
 package application.color;
 
+import application.javafxapp.JavaFXApp;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Insets;
@@ -28,7 +29,7 @@ public class ColorPickerApp {
      * <p>Should be the same value as the <tt>#rseLabel</tt> role:</p>
      * <code>#rseLabel {
      * fx-background-color: rgb(101, 96, 30); }</code> in the <tt>.css</tt> file
-     * of the {@code primaryStage} of {@link application.JavaFXApp}.
+     * of the {@code primaryStage} of {@link JavaFXApp}.
      */
     private static final ObjectProperty<Color> colorPicked =
             new SimpleObjectProperty<>(Color.rgb(101, 96, 30));

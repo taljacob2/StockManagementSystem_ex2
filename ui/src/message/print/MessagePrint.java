@@ -1,6 +1,6 @@
 package message.print;
 
-import application.JavaFXAppController;
+import application.javafxapp.JavaFXAppController;
 
 import static message.print.MessagePrint.Stream.ERR;
 import static message.print.MessagePrint.Stream.OUT;

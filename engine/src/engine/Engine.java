@@ -1,6 +1,6 @@
 package engine;
 
-import application.JavaFXAppController;
+import application.javafxapp.JavaFXAppController;
 import engine.collection.EngineCollection;
 import load.Descriptor;
 import message.Message;

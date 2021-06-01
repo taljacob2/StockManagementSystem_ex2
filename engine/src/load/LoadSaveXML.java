@@ -1,6 +1,6 @@
 package load;
 
-import application.JavaFXAppController;
+import application.javafxapp.JavaFXAppController;
 import engine.Engine;
 import message.Message;
 import message.builder.err.BuildError_XML;

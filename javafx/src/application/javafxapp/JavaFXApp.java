@@ -1,4 +1,4 @@
-package application;
+package application.javafxapp;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -88,8 +88,8 @@ public class JavaFXApp extends Application {
         stage.setTitle("Tal Yacob RSE - Rolling Exercise 2.0");
 
         // set root from a '.fxml' file:
-        root = FXMLLoader
-                .load(getClass().getResource("/application/JavaFXApp.fxml"));
+        root = FXMLLoader.load(getClass()
+                .getResource("/application/javafxapp/JavaFXApp.fxml"));
 
         // set COMMANDS: TODO: reorder this, not to be here!
         stage.setOnCloseRequest(event -> {
@@ -103,7 +103,7 @@ public class JavaFXApp extends Application {
         scene.getStylesheets().add(pathToCSS);
 
         stage.setScene(scene);
-        
+
         stage.show();
     }
 

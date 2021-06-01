@@ -1,12 +1,14 @@
 package application.pane;
 
-import application.JavaFXAppController;
+import application.javafxapp.JavaFXAppController;
 import javafx.animation.*;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ButtonBase;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
@@ -348,6 +350,14 @@ public interface PaneAnimator extends PaneReplacer {
          */
 
         /**
+         * This field determines whether to "arm" the {@link
+         * javafx.scene.control.ButtonBase} or not.
+         * <p>The {@code Button} should be armed only <i>once</i>.</p>
+         */
+        SimpleBooleanProperty executeOrderButtonWasNotPressedYet =
+                new SimpleBooleanProperty(true);
+
+        /**
          * Stores here the {@link BorderPane} to show the new scene on its
          * {@link BorderPane#getCenter()}.
          */
@@ -382,7 +392,7 @@ public interface PaneAnimator extends PaneReplacer {
 
         /**
          * @param borderPaneToShowOnItsCenter the {@link BorderPane} to show on
-         *                                    its CENTER the new scene.
+         *                                    its CENTER the <i>newPane</i>.
          * @param parentContainer             the {@code Parent} {@code Pane}
          *                                    {@code Container} of the new scene
          *                                    to be shown. <p> Note: this must
@@ -391,7 +401,7 @@ public interface PaneAnimator extends PaneReplacer {
          *                                    in order to {@code add} children
          *                                    to it.</p>
          * @param pathToFXML                  the <i>path</i> to the <tt>.fxml</tt>
-         *                                    file for the new scene to be
+         *                                    file for the <i>newPane</i> to be
          *                                    shown.
          * @param animationType               the <i>type</i> of {@link
          *                                    Animation} to be shown while
@@ -457,6 +467,17 @@ public interface PaneAnimator extends PaneReplacer {
             }
         }
 
+        public void handle(ButtonBase buttonBase) {
+            if (handle) {
+
+                // define 'buttonBase':
+                buttonBase.setOnAction(
+                        new PaneAnimator.Handler(borderPaneToShowOnItsCenter,
+                                parentContainer, pathToFXML, animationType));
+                if (runnable != null) { runnable.run(); }
+            }
+        }
+
         /**
          * This method sets the new Pane to be shown on a <i>CENTER</i> of the
          * {@link javafx.scene.layout.BorderPane} and <i>updates</i> the {@link
@@ -501,6 +522,75 @@ public interface PaneAnimator extends PaneReplacer {
 
             // Present the extracted Pane:
             borderPaneToShowOnItsCenter.setCenter(parentContainer);
+        }
+
+        /**
+         * Set the {@link javafx.scene.control.ButtonBase} to be pressed only
+         * <i>once</i> when "spam" clicking it.
+         */
+        public void armOnce(ButtonBase buttonBase) {
+            buttonBase.armedProperty()
+                    .addListener((observable, oldValue, newValue) -> {
+                        if (!executeOrderButtonWasNotPressedYet.get()) {
+
+                            // If the button was already pressed
+                            buttonBase.disarm();
+                        }
+                        if (executeOrderButtonWasNotPressedYet.get()) {
+
+                            // If this is the first time the button is being pressed
+                            executeOrderButtonWasNotPressedYet.setValue(false);
+                        }
+                    });
+        }
+
+        /**
+         * This method makes sure to {@link PaneAnimator.Handler#handle(Event)}
+         * a {@link ButtonBase} with an {@link javafx.animation.Animation},
+         * while enforcing the {@link ButtonBase} to be pressed at most
+         * <b>once</b>.
+         * <p>This means, the user should not be able to "spam" click the
+         * {@link ButtonBase}.
+         *
+         * @param buttonBase      the {@link ButtonBase} to be configured.
+         * @param borderPane      the {@link BorderPane} to show on its CENTER
+         *                        the
+         *                        <i>newPane</i>.
+         * @param parentContainer the {@code Parent} {@code Pane} {@code
+         *                        Container} of the new scene to be shown. <p>
+         *                        Note: this must be a {@code Container} that is
+         *                        able to use the {@link Pane#getChildren()} in
+         *                        order to {@code add} children to it.</p>
+         * @param pathToFXML      the <i>path</i> to the <tt>.fxml</tt> file for
+         *                        the new scene to be shown.
+         * @param animationType   the <i>type</i> of {@link Animation} to be
+         *                        shown while transitioning between the {@code
+         *                        replaceAblePane} and the
+         *                        <i>new</i> {@link Pane}.
+         */
+        public void handleOnce(ButtonBase buttonBase, BorderPane borderPane,
+                               Pane parentContainer,
+                               PaneAnimator.AnimationType animationType,
+                               String pathToFXML) {
+            if (handle) {
+
+                // define 'buttonBase':
+                buttonBase.setOnAction(
+                        new PaneAnimator.Handler(borderPane, parentContainer,
+                                pathToFXML, animationType));
+
+                /*
+                 * Set the 'buttonBase' to be pressed only ONCE when "spam"
+                 * clicking it.
+                 */
+                armOnce(buttonBase);
+                if (runnable != null) { runnable.run(); }
+            }
+        }
+
+        public void handleOnce(ButtonBase buttonBase) {
+            handleOnce(buttonBase, borderPaneToShowOnItsCenter, parentContainer,
+                    animationType, pathToFXML);
         }
 
     }

@@ -1,6 +1,6 @@
 package application.pane;
 
-import application.JavaFXAppController;
+import application.javafxapp.JavaFXAppController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;

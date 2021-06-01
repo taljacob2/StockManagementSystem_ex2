@@ -1,4 +1,4 @@
-package application;
+package application.javafxapp;
 
 import application.color.ColorPickerApp;
 import application.dialog.FxDialogs;
@@ -433,22 +433,22 @@ public class JavaFXAppController
         //                 animationType));
 
         // define 'printStocksButton':
-        printStocksButton.setOnAction(
-                new PaneAnimator.Handler(borderPane, parentContainer,
-                        "/application/pane/resources/stocktablepane/StockTablePane.fxml",
-                        animationType));
+        // new JavaFXAppHandler(borderPane, parentContainer,
+        //         "/application/pane/resources/stocktablepane/StockTablePane.fxml",
+        //         animationType).handle(printStocksButton);
+
+        JavaFXAppHandler.handleOnce(printStocksButton,
+                "/application/pane/resources/stocktablepane/StockTablePane.fxml");
 
         // define 'ownProfileButton':
-        ownProfileButton.setOnAction(
-                new PaneAnimator.Handler(borderPane, parentContainer,
-                        "/application/pane/resources/ownprofile/OwnProfile.fxml",
-                        animationType));
+        new PaneAnimator.Handler(borderPane, parentContainer,
+                "/application/pane/resources/ownprofile/OwnProfile.fxml",
+                animationType).handle(ownProfileButton);
 
         // define 'loginButton':
-        loginButton.setOnAction(
-                new PaneAnimator.Handler(borderPane, parentContainer,
-                        "/application/pane/resources/login/Login.fxml",
-                        animationType));
+        new PaneAnimator.Handler(borderPane, parentContainer,
+                "/application/pane/resources/login/Login.fxml", animationType)
+                .handle(loginButton);
     }
 
     @FXML private void defineAnimationFadeInOut() {

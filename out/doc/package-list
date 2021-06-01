@@ -1,6 +1,6 @@
-application
 application.color
 application.dialog
+application.javafxapp
 application.pane
 application.pane.resources.login
 application.pane.resources.login.selecteduser
