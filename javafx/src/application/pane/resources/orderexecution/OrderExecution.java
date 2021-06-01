@@ -105,7 +105,9 @@ public class OrderExecution implements Initializable {
                                         .toUpperCase()), OrderType.valueOf(
                                 orderTypeComboBox.getValue().toUpperCase()),
                         Long.parseLong(quantityTextField.getText()),
-                        Long.parseLong(limitPriceTextField.getText()));
+                        limitPriceTextField.getText().equalsIgnoreCase("MKT") ?
+                                0L :
+                                Long.parseLong(limitPriceTextField.getText()));
 
             }
         };
