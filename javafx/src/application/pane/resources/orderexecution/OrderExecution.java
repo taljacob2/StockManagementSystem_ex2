@@ -121,6 +121,7 @@ public class OrderExecution implements Initializable {
 
         stockComboBox.valueProperty().addListener(
                 (observable, oldValue, newValue) -> initMinMaxQuantities());
+
     }
 
     private void initUserNameLabel() {
@@ -130,6 +131,8 @@ public class OrderExecution implements Initializable {
     }
 
     private void initDisable() {
+        limitPriceTextField.setDisable(true);
+        executeOrderButton.setDisable(true);
 
         // 'stockComboBox' depends on 'orderDirectionComboBox'.
         stockComboBox.disableProperty()
@@ -148,25 +151,65 @@ public class OrderExecution implements Initializable {
                         .or(orderTypeComboBox.disableProperty()));
 
         // 'limitPriceTextField' depends on 'quantityTextField'.
-        limitPriceTextField.disableProperty().bind(quantityValidityState.not());
 
-        /*
-         * In order to press the button,
-         * all combo-boxes must be enabled and select something,
-         * and all TextField inputs must be enabled and their inputs must
-         * be valid.
-         */
-        executeOrderButton.disableProperty()
-                .bind(orderDirectionComboBox.disableProperty()
-                        .or(stockComboBox.disableProperty()
-                                .or(orderTypeComboBox.disableProperty()
-                                        .or(quantityTextField.disableProperty()
-                                                .or(limitPriceTextField
+
+        orderTypeComboBox.valueProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    if (orderTypeComboBox.getValue().equals("MKT")) {
+                        limitPriceTextField.setText("1");
+                        limitPriceTextField.disableProperty().unbind();
+                        limitPriceTextField.setDisable(true);
+                        executeOrderButton.disableProperty().unbind();
+
+                        /*
+                         * In order to press the button,
+                         * all combo-boxes must be enabled and select something,
+                         * and all TextField inputs must be enabled,
+                         * and their inputs must be valid.
+                         */
+                        executeOrderButton.disableProperty()
+                                .bind(orderDirectionComboBox.disableProperty()
+                                        .or(stockComboBox.disableProperty()
+                                                .or(orderTypeComboBox
                                                         .disableProperty()
-                                                        .or(quantityValidityState
-                                                                .not())
-                                                        .or(limitPriceValidityState
-                                                                .not()))))));
+                                                        .or(quantityTextField
+                                                                .disableProperty()
+                                                                .or(quantityValidityState
+                                                                        .not())))));
+
+                    } else {
+                        limitPriceTextField.disableProperty().unbind();
+                        limitPriceTextField.disableProperty()
+                                .bind(quantityValidityState.not()
+                                        .or(quantityTextField.disabledProperty()
+                                                .or(quantityTextField
+                                                        .textProperty()
+                                                        .isNull())));
+                        executeOrderButton.disableProperty().unbind();
+
+                        /*
+                         * In order to press the button,
+                         * all combo-boxes must be enabled and select something,
+                         * and all TextField inputs must be enabled but limitPriceTextField,
+                         * and their inputs must be valid.
+                         */
+                        executeOrderButton.disableProperty()
+                                .bind(orderDirectionComboBox.disableProperty()
+                                        .or(stockComboBox.disableProperty()
+                                                .or(orderTypeComboBox
+                                                        .disableProperty()
+                                                        .or(quantityTextField
+                                                                .disableProperty()
+                                                                .or(limitPriceTextField
+                                                                        .disableProperty()
+                                                                        .or(quantityValidityState
+                                                                                .not())
+                                                                        .or(limitPriceValidityState
+                                                                                .not()))))));
+                    }
+                });
+
+
     }
 
     /**
@@ -307,9 +350,9 @@ public class OrderExecution implements Initializable {
                 (stockComboBox.valueProperty().isNull().get())) {
 
             // "Sell" is being selected, and a "Stock" is NOT being selected.
-            activeMinQuantity = 0L;
-            activeMaxQuantity = 0L;
-            quantityTextField.setText(null);
+            activeMinQuantity = 1L;
+            activeMaxQuantity = 1L;
+            quantityTextField.setText("1");
         } else if (orderDirectionComboBox.valueProperty().getValue().toString()
                 .equals("Buy")) {
 
