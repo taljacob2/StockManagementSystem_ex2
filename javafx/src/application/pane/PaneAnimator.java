@@ -386,7 +386,8 @@ public interface PaneAnimator extends PaneReplacer {
         private Runnable runnable = null;
 
         /**
-         * Indicates whether to invoke the {@link #handle} method or not.
+         * Indicates whether to invoke the {@link #handle(Event)} method or
+         * not.
          */
         private boolean handle = true;
 
