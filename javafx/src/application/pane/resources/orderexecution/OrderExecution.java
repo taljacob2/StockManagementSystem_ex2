@@ -3,6 +3,7 @@ package application.pane.resources.orderexecution;
 import application.javafxapp.JavaFXAppHandler;
 import application.pane.resources.login.selecteduser.SelectedUser;
 import engine.Engine;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -65,6 +66,11 @@ public class OrderExecution implements Initializable {
      */
     private Long activeMaxQuantity = Long.MAX_VALUE;
 
+    private SimpleBooleanProperty quantityValidityState =
+            new SimpleBooleanProperty(false);
+    private SimpleBooleanProperty limitPriceValidityState =
+            new SimpleBooleanProperty(false);
+
     @FXML private ComboBox<String> orderDirectionComboBox;
     @FXML private ComboBox<Stock> stockComboBox;
     @FXML private ComboBox<String> orderTypeComboBox;
@@ -82,16 +88,18 @@ public class OrderExecution implements Initializable {
     @Override public void initialize(URL location, ResourceBundle resources) {
         initComboBoxes();
         initUserNameLabel();
-        initTextToLongNumbersOnly(quantityTextField, "'Quantity'");
-        initTextToLongNumbersOnly(limitPriceTextField, "'Price'");
-
+        initTextToLongNumbersOnly(quantityTextField, "'Quantity'",
+                quantityValidityState);
+        initTextToLongNumbersOnly(limitPriceTextField, "'Price'",
+                limitPriceValidityState);
 
         Runnable executeOrderRunnable = new Runnable() {
             @Override public void run() {
                 MenuUI.command_EXECUTE_TRANSACTION_ORDER(
-                        stockComboBox.getValue(), OrderDirection
-                                .valueOf(orderDirectionComboBox.getValue()),
-                        OrderType.valueOf(orderTypeComboBox.getValue()),
+                        stockComboBox.getValue(), OrderDirection.valueOf(
+                                orderDirectionComboBox.getValue()
+                                        .toUpperCase()), OrderType.valueOf(
+                                orderTypeComboBox.getValue().toUpperCase()),
                         Long.parseLong(quantityTextField.getText()),
                         Long.parseLong(limitPriceTextField.getText()));
 
@@ -139,16 +147,26 @@ public class OrderExecution implements Initializable {
                 .bind(orderTypeComboBox.valueProperty().isNull()
                         .or(orderTypeComboBox.disableProperty()));
 
+        // 'limitPriceTextField' depends on 'quantityTextField'.
+        limitPriceTextField.disableProperty().bind(quantityValidityState.not());
+
         /*
-         * All combo-boxes must be selecting something, in order to press the
-         * button. Thus, 'executeOrderButton' depends on all the combo-boxes.
+         * In order to press the button,
+         * all combo-boxes must be enabled and select something,
+         * and all TextField inputs must be enabled and their inputs must
+         * be valid.
          */
         executeOrderButton.disableProperty()
                 .bind(orderDirectionComboBox.disableProperty()
                         .or(stockComboBox.disableProperty()
                                 .or(orderTypeComboBox.disableProperty()
-                                        .or(quantityTextField
-                                                .disableProperty()))));
+                                        .or(quantityTextField.disableProperty()
+                                                .or(limitPriceTextField
+                                                        .disableProperty()
+                                                        .or(quantityValidityState
+                                                                .not())
+                                                        .or(limitPriceValidityState
+                                                                .not()))))));
     }
 
     /**
@@ -168,12 +186,15 @@ public class OrderExecution implements Initializable {
      *                  print a <i>message</i> to the user, to inform what is
      *                  the validity of the <i>current</i> {@code TextField's
      *                  value}.
+     * @param validity  updates the <i>validity</i> state.
      * @see #initTextQuantityFormatter(TextField)
-     * @see #initTextQuantityMinMaxValidation(TextField, String)
+     * @see #initTextQuantityMinMaxValidation(TextField, String,
+     * SimpleBooleanProperty)
      */
-    private void initTextToLongNumbersOnly(TextField textField, String field) {
+    private void initTextToLongNumbersOnly(TextField textField, String field,
+                                           SimpleBooleanProperty validity) {
         initTextQuantityFormatter(textField);
-        initTextQuantityMinMaxValidation(textField, field);
+        initTextQuantityMinMaxValidation(textField, field, validity);
     }
 
     /**
@@ -224,9 +245,11 @@ public class OrderExecution implements Initializable {
      *                  print a <i>message</i> to the user, to inform what is
      *                  the validity of the <i>current</i> {@code TextField's
      *                  value}.
+     * @param validity  updates the <i>validity</i> state.
      */
     private void initTextQuantityMinMaxValidation(TextField textField,
-                                                  String field) {
+                                                  String field,
+                                                  SimpleBooleanProperty validity) {
         textField.textProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     try {
@@ -239,17 +262,20 @@ public class OrderExecution implements Initializable {
                     } catch (NumberFormatException e) {
 
                         // Means, the given number is invalid.
+                        validity.setValue(false);
                         printInvalidErrorMessage(field);
                         return;
                     }
                     if (textField.textProperty().getValue().matches("")) {
 
-                        // Means, there is no number given.
+                        // Means, there is no number given. Number is invalid.
+                        validity.setValue(false);
                         printInvalidErrorMessage(field);
                         return;
                     }
 
                     // If the given number is valid.
+                    validity.setValue(true);
                     printValidOutputMessage(field);
                 });
     }
