@@ -4,6 +4,8 @@ import application.javafxapp.JavaFXAppHandler;
 import application.pane.resources.login.selecteduser.SelectedUser;
 import engine.Engine;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -78,6 +80,8 @@ public class OrderExecution implements Initializable {
     @FXML private TextField quantityTextField;
     @FXML private TextField limitPriceTextField;
     @FXML private Label userNameLabel;
+
+    private ChangeListener<String> textFieldChangeListner;
 
     /**
      * Must have a Default Constructor for {@code JAXBContext} <tt>.xml</tt>
@@ -156,7 +160,11 @@ public class OrderExecution implements Initializable {
         orderTypeComboBox.valueProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (orderTypeComboBox.getValue().equals("MKT")) {
-                        limitPriceTextField.setText("1");
+                        limitPriceTextField.textFormatterProperty().setValue(
+                                new TextFormatter<>(change -> change));
+                        limitPriceTextField.textProperty()
+                                .removeListener(textFieldChangeListner);
+                        limitPriceTextField.setText("MKT");
                         limitPriceTextField.disableProperty().unbind();
                         limitPriceTextField.setDisable(true);
                         executeOrderButton.disableProperty().unbind();
@@ -178,6 +186,9 @@ public class OrderExecution implements Initializable {
                                                                         .not())))));
 
                     } else {
+                        initTextToLongNumbersOnly(limitPriceTextField,
+                                "'Price'", limitPriceValidityState);
+
                         limitPriceTextField.disableProperty().unbind();
                         limitPriceTextField.disableProperty()
                                 .bind(quantityValidityState.not()
@@ -293,33 +304,39 @@ public class OrderExecution implements Initializable {
     private void initTextQuantityMinMaxValidation(TextField textField,
                                                   String field,
                                                   SimpleBooleanProperty validity) {
-        textField.textProperty()
-                .addListener((observable, oldValue, newValue) -> {
-                    try {
-                        if (Long.parseLong(newValue) > activeMaxQuantity) {
-                            textField.setText(oldValue);
+
+
+        textField.textProperty().addListener(
+                textFieldChangeListner = new ChangeListener<String>() {
+                    @Override public void changed(
+                            ObservableValue<? extends String> observable,
+                            String oldValue, String newValue) {
+                        try {
+                            if (Long.parseLong(newValue) > activeMaxQuantity) {
+                                textField.setText(oldValue);
+                            }
+                            if (Long.parseLong(newValue) < activeMinQuantity) {
+                                textField.setText(oldValue);
+                            }
+                        } catch (NumberFormatException e) {
+
+                            // Means, the given number is invalid.
+                            validity.setValue(false);
+                            printInvalidErrorMessage(field);
+                            return;
                         }
-                        if (Long.parseLong(newValue) < activeMinQuantity) {
-                            textField.setText(oldValue);
+                        if (textField.textProperty().getValue().matches("")) {
+
+                            // Means, there is no number given. Number is invalid.
+                            validity.setValue(false);
+                            printInvalidErrorMessage(field);
+                            return;
                         }
-                    } catch (NumberFormatException e) {
 
-                        // Means, the given number is invalid.
-                        validity.setValue(false);
-                        printInvalidErrorMessage(field);
-                        return;
+                        // If the given number is valid.
+                        validity.setValue(true);
+                        printValidOutputMessage(field);
                     }
-                    if (textField.textProperty().getValue().matches("")) {
-
-                        // Means, there is no number given. Number is invalid.
-                        validity.setValue(false);
-                        printInvalidErrorMessage(field);
-                        return;
-                    }
-
-                    // If the given number is valid.
-                    validity.setValue(true);
-                    printValidOutputMessage(field);
                 });
     }
 
