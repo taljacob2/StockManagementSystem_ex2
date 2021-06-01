@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.pane.resources.orderexecution.OrderExecution">
    <children>
       <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
             <VBox BorderPane.alignment="CENTER">
                <children>
-                  <ComboBox fx:id="orderDirectionComboBox"
-                            promptText="Buy / Sell">
+                  <ComboBox fx:id="orderDirectionComboBox" promptText="Buy / Sell">
                      <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
                   </ComboBox>
-                  <ComboBox fx:id="stockComboBox" promptText="Stock">
+                  <ComboBox fx:id="stockComboBox" prefWidth="400.0" promptText="Stock">
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
@@ -28,38 +33,43 @@
                   </ComboBox>
                   <Label text="Quantity:" textFill="WHITE">
                      <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
                      <padding>
-                        <Insets left="10.0"/>
+                        <Insets left="10.0" />
                      </padding>
                   </Label>
-                  <TextField fx:id="quantityTextField"/>
-                  <Label layoutX="15.0" layoutY="138.0"
-                         text="Desired Limit Price:" textFill="WHITE">
-                     <padding>
-                        <Insets left="10.0"/>
-                     </padding>
-                  </Label>
-                  <TextField fx:id="limitPriceTextField" layoutX="10.0"
-                             layoutY="164.0"/>
-                  <Button fx:id="executeOrderButton" mnemonicParsing="false"
-                          text="Execute Order">
+                  <TextField fx:id="quantityTextField">
                      <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></TextField>
+                  <Label layoutX="15.0" layoutY="138.0" text="Desired Limit Price:" textFill="WHITE">
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="limitPriceTextField" layoutX="10.0" layoutY="164.0">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin></TextField>
+                  <Button fx:id="executeOrderButton" mnemonicParsing="false" text="Execute Order">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </VBox.margin>
                   </Button>
                </children>
                <opaqueInsets>
-                  <Insets/>
+                  <Insets />
                </opaqueInsets>
             </VBox>
          </left>
          <top>
-            <Label fx:id="userNameLabel" textFill="WHITE"
-                   BorderPane.alignment="CENTER">
+            <Label fx:id="userNameLabel" textFill="WHITE" BorderPane.alignment="CENTER">
                <font>
-                  <Font name="SansSerif Regular" size="36.0"/>
+                  <Font name="SansSerif Regular" size="36.0" />
                </font>
             </Label>
          </top>
