@@ -175,7 +175,11 @@ public class MenuUI {
         }
     }
 
-    public static void command_EXECUTE_TRANSACTION_ORDER() {
+    public static void command_EXECUTE_TRANSACTION_ORDER(Stock stock,
+                                                         OrderDirection orderDirection,
+                                                         OrderType orderType,
+                                                         Long quantity,
+                                                         Long desiredLimitPrice) {
 
         // first of all check if there are Stocks available in the system:
         if (Engine.isStocks()) {
@@ -183,13 +187,12 @@ public class MenuUI {
             // get Parameters of the Order, and insert the new Order to Database:
 
             try {
-
-                //TODO check print of all Users:
-                MessagePrint.println(MessagePrint.Stream.OUT,
-                        Engine.getUsers().toString());
+                // //TODO check print of all Users:
+                // MessagePrint.println(MessagePrint.Stream.OUT,
+                //         Engine.getUsers().toString());
 
                 // insert the Symbol, and get the matching stock to it:
-                Stock stock = inputOrderSymbolAndGetMatchingStock();
+                // Stock stock = inputOrderSymbolAndGetMatchingStock();
 
                 // get the orderDirection:
                 OrderDirection orderDirection = getOrderDirection();
@@ -496,11 +499,11 @@ public class MenuUI {
 
     public static void command_SAVE_XML_FILE(String absolutePathOfFile) {
 
-            try {
-                LoadSaveXML.marshal(absolutePathOfFile);   // marshal to file
-            } catch (IOException e) {
-                MessagePrint.println(MessagePrint.Stream.ERR, e.getMessage());
-            }
+        try {
+            LoadSaveXML.marshal(absolutePathOfFile);   // marshal to file
+        } catch (IOException e) {
+            MessagePrint.println(MessagePrint.Stream.ERR, e.getMessage());
+        }
 
     }
 
