@@ -353,9 +353,10 @@ public interface PaneAnimator extends PaneReplacer {
          * This field determines whether to "arm" the {@link
          * javafx.scene.control.ButtonBase} or not.
          * <p>The {@code Button} should be armed only <i>once</i>.</p>
+         * Indicates whether to invoke the {@link #handle(Event)} method or
+         * not.
          */
-        SimpleBooleanProperty executeOrderButtonWasNotPressedYet =
-                new SimpleBooleanProperty(true);
+        private SimpleBooleanProperty handle = new SimpleBooleanProperty(true);
 
         /**
          * Stores here the {@link BorderPane} to show the new scene on its
@@ -384,12 +385,6 @@ public interface PaneAnimator extends PaneReplacer {
          * method, right after invoking the {@link #handle(Event)}'s body.
          */
         private Runnable runnable = null;
-
-        /**
-         * Indicates whether to invoke the {@link #handle(Event)} method or
-         * not.
-         */
-        private boolean handle = true;
 
         /**
          * @param borderPaneToShowOnItsCenter the {@link BorderPane} to show on
@@ -422,7 +417,7 @@ public interface PaneAnimator extends PaneReplacer {
                        AnimationType animationType, boolean handle) {
             initFields(borderPaneToShowOnItsCenter, parentContainer, pathToFXML,
                     animationType);
-            this.handle = handle;
+            this.handle.setValue(handle);
         }
 
         public Handler(BorderPane borderPaneToShowOnItsCenter,
@@ -439,8 +434,116 @@ public interface PaneAnimator extends PaneReplacer {
                        Runnable runnable) {
             initFields(borderPaneToShowOnItsCenter, parentContainer, pathToFXML,
                     animationType);
+            this.handle.setValue(handle);
+            this.runnable = runnable;
+        }
+
+        public Handler() {}
+
+        public Handler(Runnable runnable) {
+            this.runnable = runnable;
+        }
+
+        public Handler(BorderPane borderPaneToShowOnItsCenter,
+                       Pane parentContainer, String pathToFXML,
+                       AnimationType animationType,
+                       SimpleBooleanProperty handle, Runnable runnable) {
+            this.borderPaneToShowOnItsCenter = borderPaneToShowOnItsCenter;
+            this.parentContainer = parentContainer;
+            this.pathToFXML = pathToFXML;
+            this.animationType = animationType;
             this.handle = handle;
             this.runnable = runnable;
+        }
+
+        public Handler(SimpleBooleanProperty handle) {
+            this.handle = handle;
+        }
+
+        public Handler(BorderPane borderPaneToShowOnItsCenter) {
+            this.borderPaneToShowOnItsCenter = borderPaneToShowOnItsCenter;
+        }
+
+        public Handler(Pane parentContainer) {
+            this.parentContainer = parentContainer;
+        }
+
+        public Handler(String pathToFXML) {
+            this.pathToFXML = pathToFXML;
+        }
+
+        public Handler(AnimationType animationType) {
+            this.animationType = animationType;
+        }
+
+        public Handler(SimpleBooleanProperty handle, Runnable runnable) {
+            this.handle = handle;
+            this.runnable = runnable;
+        }
+
+        public static void handleOnce(Handler handler, ButtonBase buttonBase,
+                                      String pathToFXML) {
+            handler.handleOnce(buttonBase,
+                    handler.getBorderPaneToShowOnItsCenter(),
+                    handler.getParentContainer(), handler.getAnimationType(),
+                    pathToFXML);
+        }
+
+        public boolean getHandle() {
+            return handle.get();
+        }
+
+        public BorderPane getBorderPaneToShowOnItsCenter() {
+            return borderPaneToShowOnItsCenter;
+        }
+
+        public void setBorderPaneToShowOnItsCenter(
+                BorderPane borderPaneToShowOnItsCenter) {
+            this.borderPaneToShowOnItsCenter = borderPaneToShowOnItsCenter;
+        }
+
+        public Pane getParentContainer() {
+            return parentContainer;
+        }
+
+        public void setParentContainer(Pane parentContainer) {
+            this.parentContainer = parentContainer;
+        }
+
+        public String getPathToFXML() {
+            return pathToFXML;
+        }
+
+        public void setPathToFXML(String pathToFXML) {
+            this.pathToFXML = pathToFXML;
+        }
+
+        public AnimationType getAnimationType() {
+            return animationType;
+        }
+
+        public void setAnimationType(AnimationType animationType) {
+            this.animationType = animationType;
+        }
+
+        public Runnable getRunnable() {
+            return runnable;
+        }
+
+        public void setRunnable(Runnable runnable) {
+            this.runnable = runnable;
+        }
+
+        public boolean isHandle() {
+            return handle.get();
+        }
+
+        public void setHandle(boolean handle) {
+            this.handle.set(handle);
+        }
+
+        public SimpleBooleanProperty handleProperty() {
+            return handle;
         }
 
         private void initFields(BorderPane borderPaneToShowOnItsCenter,
@@ -461,21 +564,21 @@ public interface PaneAnimator extends PaneReplacer {
          * @see AnimationType
          */
         @Override public void handle(Event event) {
-            if (handle) {
+            if (handle.get()) {
                 setPane(event, borderPaneToShowOnItsCenter, parentContainer,
                         pathToFXML, animationType);
-                if (runnable != null) { runnable.run(); }
             }
         }
 
         public void handle(ButtonBase buttonBase) {
-            if (handle) {
+            if (handle.get()) {
 
                 // define 'buttonBase':
                 buttonBase.setOnAction(
                         new PaneAnimator.Handler(borderPaneToShowOnItsCenter,
                                 parentContainer, pathToFXML, animationType));
-                if (runnable != null) { runnable.run(); }
+
+                runRunnable(buttonBase);
             }
         }
 
@@ -526,24 +629,52 @@ public interface PaneAnimator extends PaneReplacer {
         }
 
         /**
-         * Set the {@link javafx.scene.control.ButtonBase} to be pressed only
+         * <b>important:</b>
+         * <p>
+         * Sets the {@link javafx.scene.control.ButtonBase} to be pressed only
          * <i>once</i> when "spam" clicking it.
+         * </p>
+         * <ul>
+         *      <li>Switches {@link Pane}s <i>once</i>.</li>
+         *      <li>Invokes the {@link #runnable}'s {@link Runnable#run()}s
+         *      <i>once</i>.</li>
+         * </ul>
          *
          * @param buttonBase the {@link ButtonBase} to be configured.
          */
         public void armOnce(ButtonBase buttonBase) {
             buttonBase.armedProperty()
                     .addListener((observable, oldValue, newValue) -> {
-                        if (!executeOrderButtonWasNotPressedYet.get()) {
+                        if (!handle.get()) {
 
                             // If the button was already pressed
                             buttonBase.disarm();
                         }
-                        if (executeOrderButtonWasNotPressedYet.get()) {
+                        if (handle.get()) {
 
                             // If this is the first time the button is being pressed
-                            executeOrderButtonWasNotPressedYet.setValue(false);
+                            handle.setValue(false);
+
+                            // Run the given 'runnable' once and for all:
+                            if (runnable != null) { runnable.run(); }
                         }
+                    });
+        }
+
+        /**
+         * Invoke the {@link #runnable}'s {@code run()} method, if there is any
+         * <i>and</i> if the {@link javafx.scene.control.ButtonBase} is being
+         * pressed.
+         *
+         * @param buttonBase the {@link ButtonBase} that is being pressed.
+         */
+        private void runRunnable(ButtonBase buttonBase) {
+            buttonBase.armedProperty()
+                    .addListener((observable, oldValue, newValue) -> {
+
+                        // Run the given 'runnable':
+                        if (runnable != null) { runnable.run(); }
+
                     });
         }
 
@@ -575,7 +706,7 @@ public interface PaneAnimator extends PaneReplacer {
                                Pane parentContainer,
                                PaneAnimator.AnimationType animationType,
                                String pathToFXML) {
-            if (handle) {
+            if (handle.get()) {
 
                 // define 'buttonBase':
                 buttonBase.setOnAction(
@@ -587,7 +718,6 @@ public interface PaneAnimator extends PaneReplacer {
                  * clicking it.
                  */
                 armOnce(buttonBase);
-                if (runnable != null) { runnable.run(); }
             }
         }
 
@@ -595,6 +725,5 @@ public interface PaneAnimator extends PaneReplacer {
             handleOnce(buttonBase, borderPaneToShowOnItsCenter, parentContainer,
                     animationType, pathToFXML);
         }
-
     }
 }

@@ -39,8 +39,9 @@ public class Login implements Initializable {
             MessagePrint.println(MessagePrint.Stream.ERR, e.getMessage());
         }
 
-        JavaFXAppHandler.handleOnce(selectUserButton,
-                "/application/pane/resources/orderexecution/OrderExecution.fxml");
+        new JavaFXAppHandler(
+                "/application/pane/resources/orderexecution/OrderExecution" +
+                        ".fxml").handleOnce(selectUserButton);
 
         SelectedUser.selectedUserProperty()
                 .bind(profileComboBox.valueProperty());

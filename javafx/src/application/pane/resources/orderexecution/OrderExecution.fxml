@@ -10,9 +10,10 @@
          <left>
             <VBox BorderPane.alignment="CENTER">
                <children>
-                  <ComboBox fx:id="buySellComboBox" promptText="Buy / Sell">
+                  <ComboBox fx:id="orderDirectionComboBox"
+                            promptText="Buy / Sell">
                      <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                      </VBox.margin>
                   </ComboBox>
                   <ComboBox fx:id="stockComboBox" promptText="Stock">
@@ -34,17 +35,14 @@
                      </padding>
                   </Label>
                   <TextField fx:id="quantityTextField"/>
-                  <Label fx:id="validityLabel" textFill="WHITE">
+                  <Label layoutX="15.0" layoutY="138.0"
+                         text="Desired Limit Price:" textFill="WHITE">
                      <padding>
                         <Insets left="10.0"/>
                      </padding>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                     </VBox.margin>
-                     <font>
-                        <Font name="SansSerif Regular" size="15.0"/>
-                     </font>
                   </Label>
+                  <TextField fx:id="limitPriceTextField" layoutX="10.0"
+                             layoutY="164.0"/>
                   <Button fx:id="executeOrderButton" mnemonicParsing="false"
                           text="Execute Order">
                      <VBox.margin>

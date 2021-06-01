@@ -35,21 +35,21 @@ public class JavaFXAppHandler extends PaneAnimator.Handler {
                 JavaFXAppController.getAnimationType(), handle, runnable);
     }
 
-    /**
-     * This <b>static</b> method makes sure to {@link PaneAnimator.Handler#handle(Event)}
-     * a {@link ButtonBase} with an {@link javafx.animation.Animation}, while
-     * enforcing the {@link ButtonBase} to be pressed at most <b>once</b>.
-     * <p>This means, the user should not be able to "spam" click the
-     * {@link ButtonBase}.
-     *
-     * @param buttonBase the {@link ButtonBase} to be configured.
-     * @param pathToFXML the <i>path</i> to the <tt>.fxml</tt> file for the new
-     *                   scene to be shown.
-     * @see application.pane.PaneAnimator.Handler#handleOnce(ButtonBase)
-     */
-    public static void handleOnce(ButtonBase buttonBase, String pathToFXML) {
-        new JavaFXAppHandler(pathToFXML).handleOnce(buttonBase);
-    }
+    // /** // TODO: kill this?
+    //  * This <b>static</b> method makes sure to {@link PaneAnimator.Handler#handle(Event)}
+    //  * a {@link ButtonBase} with an {@link javafx.animation.Animation}, while
+    //  * enforcing the {@link ButtonBase} to be pressed at most <b>once</b>.
+    //  * <p>This means, the user should not be able to "spam" click the
+    //  * {@link ButtonBase}.
+    //  *
+    //  * @param buttonBase the {@link ButtonBase} to be configured.
+    //  * @param pathToFXML the <i>path</i> to the <tt>.fxml</tt> file for the new
+    //  *                   scene to be shown.
+    //  * @see application.pane.PaneAnimator.Handler#handleOnce(ButtonBase)
+    //  */
+    // public static void handleOnce(ButtonBase buttonBase, String pathToFXML) {
+    //     new JavaFXAppHandler(pathToFXML).handleOnce(buttonBase);
+    // }
 
     /**
      * This <b>static</b> method makes sure to {@link PaneAnimator.Handler#handle(Event)}
@@ -136,7 +136,6 @@ public class JavaFXAppHandler extends PaneAnimator.Handler {
         new JavaFXAppHandler(pathToFXML, runnable).handle(buttonBase);
     }
 
-
     /**
      * This <b>static</b> method makes sure to {@link PaneAnimator.Handler#handle(Event)}
      * a {@link ButtonBase} with an {@link javafx.animation.Animation}, while
@@ -178,5 +177,4 @@ public class JavaFXAppHandler extends PaneAnimator.Handler {
                               boolean handle, Runnable runnable) {
         new JavaFXAppHandler(pathToFXML, handle, runnable).handle(buttonBase);
     }
-
 }

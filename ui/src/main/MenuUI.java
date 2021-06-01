@@ -175,11 +175,7 @@ public class MenuUI {
         }
     }
 
-    public static void command_EXECUTE_TRANSACTION_ORDER(Stock stock,
-                                                         OrderDirection orderDirection,
-                                                         OrderType orderType,
-                                                         Long quantity,
-                                                         Long desiredLimitPrice) {
+    public static void command_EXECUTE_TRANSACTION_ORDER() {
 
         // first of all check if there are Stocks available in the system:
         if (Engine.isStocks()) {
@@ -192,7 +188,7 @@ public class MenuUI {
                 //         Engine.getUsers().toString());
 
                 // insert the Symbol, and get the matching stock to it:
-                // Stock stock = inputOrderSymbolAndGetMatchingStock();
+                Stock stock = inputOrderSymbolAndGetMatchingStock();
 
                 // get the orderDirection:
                 OrderDirection orderDirection = getOrderDirection();
@@ -209,6 +205,48 @@ public class MenuUI {
                 // get the desiredLimitPrice (only if the orderType is 'LMT'):
                 if (orderType == OrderType.LMT) {
                     desiredLimitPrice = getOrderDesiredLimit();
+                } else if (orderType == OrderType.MKT) {
+
+                    // set the 'desiredLimitPrice':
+                    desiredLimitPrice =
+                            Engine.calcDesiredLimitPriceOfMKTOrder(stock,
+                                    orderDirection);
+                }
+
+                // create the instance of the Order and insert it to DataBase:
+                Order order =
+                        insertOrder(stock, orderDirection, orderType, quantity,
+                                desiredLimitPrice);
+
+                // calc this newly placed order with the matching already placed Orders:
+                Engine.calcOrdersOfASingleStock(stock, order);
+
+            } catch (IOException e) {
+                MessagePrint.println(MessagePrint.Stream.ERR, e.getMessage());
+            }
+
+        }
+    }
+
+    public static void command_EXECUTE_TRANSACTION_ORDER(Stock stock,
+                                                         OrderDirection orderDirection,
+                                                         OrderType orderType,
+                                                         Long quantity,
+                                                         Long insertedDesiredLimitPrice) {
+
+        // first of all check if there are Stocks available in the system:
+        if (Engine.isStocks()) {
+
+            // get Parameters of the Order, and insert the new Order to Database:
+
+            try {
+
+                // initialize 'desiredLimitPrice' to 0.
+                Long desiredLimitPrice = 0L;
+
+                // get the desiredLimitPrice (only if the orderType is 'LMT'):
+                if (orderType == OrderType.LMT) {
+                    desiredLimitPrice = insertedDesiredLimitPrice;
                 } else if (orderType == OrderType.MKT) {
 
                     // set the 'desiredLimitPrice':

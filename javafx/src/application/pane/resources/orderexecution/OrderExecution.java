@@ -8,6 +8,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import main.MenuUI;
 import message.print.MessagePrint;
+import order.OrderDirection;
+import order.OrderType;
 import stock.Stock;
 import user.User;
 import user.holding.item.Item;
@@ -63,12 +65,12 @@ public class OrderExecution implements Initializable {
      */
     private Long activeMaxQuantity = Long.MAX_VALUE;
 
-    @FXML private ComboBox<String> buySellComboBox;
+    @FXML private ComboBox<String> orderDirectionComboBox;
     @FXML private ComboBox<Stock> stockComboBox;
     @FXML private ComboBox<String> orderTypeComboBox;
     @FXML private Button executeOrderButton;
     @FXML private TextField quantityTextField;
-    @FXML private Label validityLabel; /* TODO: maybe kill this field */
+    @FXML private TextField limitPriceTextField;
     @FXML private Label userNameLabel;
 
     /**
@@ -80,18 +82,35 @@ public class OrderExecution implements Initializable {
     @Override public void initialize(URL location, ResourceBundle resources) {
         initComboBoxes();
         initUserNameLabel();
-        initTextQuantity();
-        JavaFXAppHandler.handleOnce(executeOrderButton,
-                "/application/pane/resources/login/Login.fxml",
-                MenuUI::command_EXECUTE_TRANSACTION_ORDER);
+        initTextToLongNumbersOnly(quantityTextField, "'Quantity'");
+        initTextToLongNumbersOnly(limitPriceTextField, "'Price'");
+
+
+        Runnable executeOrderRunnable = new Runnable() {
+            @Override public void run() {
+                MenuUI.command_EXECUTE_TRANSACTION_ORDER(
+                        stockComboBox.getValue(), OrderDirection
+                                .valueOf(orderDirectionComboBox.getValue()),
+                        OrderType.valueOf(orderTypeComboBox.getValue()),
+                        Long.parseLong(quantityTextField.getText()),
+                        Long.parseLong(limitPriceTextField.getText()));
+
+            }
+        };
+
+        // FIXME: check why bad: it runs when initializing, but I don't know why
+        new JavaFXAppHandler("/application/pane/resources/login/Login.fxml",
+                () -> System.out.println("hello"))
+                .handleOnce(executeOrderButton);
+
         initDisable();
     }
 
     private void initComboBoxes() {
-        buySellComboBox.getItems().addAll("Buy", "Sell");
+        orderDirectionComboBox.getItems().addAll("Buy", "Sell");
         orderTypeComboBox.getItems().addAll("LMT", "MKT");
 
-        buySellComboBox.valueProperty().addListener(
+        orderDirectionComboBox.valueProperty().addListener(
                 (observable, oldValue, newValue) -> initStockComboBox());
 
         stockComboBox.valueProperty().addListener(
@@ -106,10 +125,10 @@ public class OrderExecution implements Initializable {
 
     private void initDisable() {
 
-        // 'stockComboBox' depends on 'buySellComboBox'.
+        // 'stockComboBox' depends on 'orderDirectionComboBox'.
         stockComboBox.disableProperty()
-                .bind(buySellComboBox.valueProperty().isNull()
-                        .or(buySellComboBox.disableProperty()));
+                .bind(orderDirectionComboBox.valueProperty().isNull()
+                        .or(orderDirectionComboBox.disableProperty()));
 
 
         // 'orderTypeComboBox' depends on 'stockComboBox'.
@@ -127,24 +146,52 @@ public class OrderExecution implements Initializable {
          * button. Thus, 'executeOrderButton' depends on all the combo-boxes.
          */
         executeOrderButton.disableProperty()
-                .bind(buySellComboBox.disableProperty()
+                .bind(orderDirectionComboBox.disableProperty()
                         .or(stockComboBox.disableProperty()
                                 .or(orderTypeComboBox.disableProperty()
                                         .or(quantityTextField
                                                 .disableProperty()))));
     }
 
-    private void initTextQuantity() {
-        initTextQuantityFormatter();
-        initTextQuantityMinMaxValidation();
+    /**
+     * This method enforces that the given number in the {@link TextField} would
+     * be a <i>number</i>.
+     * <p>
+     * This method checks whether the given number within {@link TextField} is a
+     * valid {@code long} number, that is in between the values of {@link
+     * #activeMinQuantity} and {@link #activeMaxQuantity}.
+     * <p>
+     * This method checks the given number in <i>real-time</i>.
+     *
+     * @param textField the {@link TextField} to enforce its field to allow
+     *                  numbers only.
+     * @param field     the <i>name</i> of the field that is presented by the
+     *                  {@link TextField} given. This is required in order to
+     *                  print a <i>message</i> to the user, to inform what is
+     *                  the validity of the <i>current</i> {@code TextField's
+     *                  value}.
+     * @see #initTextQuantityFormatter(TextField)
+     * @see #initTextQuantityMinMaxValidation(TextField, String)
+     */
+    private void initTextToLongNumbersOnly(TextField textField, String field) {
+        initTextQuantityFormatter(textField);
+        initTextQuantityMinMaxValidation(textField, field);
     }
 
     /**
-     * This method enforces that the given number in the {@link
-     * #quantityTextField} would be a <i>number</i>.
+     * This method enforces that the given number in the {@link TextField} would
+     * be a <i>number</i>.
+     *
+     * @param textField the {@link TextField} to:
+     *                  <ul>
+     *                      <li>enforce its field to allow numbers only.</li>
+     *                      <li>enforce its field to allow only numbers in
+     *                      between the values of {@link #activeMinQuantity}
+     *                      and {@link #activeMaxQuantity}.</li>
+     *                  </ul>
      */
-    private void initTextQuantityFormatter() {
-        quantityTextField.setTextFormatter(new TextFormatter<>(change -> {
+    private void initTextQuantityFormatter(TextField textField) {
+        textField.setTextFormatter(new TextFormatter<>(change -> {
 
             // Allow only numbers:
             if (change.getText().matches("[0-9]*")) {
@@ -156,9 +203,9 @@ public class OrderExecution implements Initializable {
     }
 
     /**
-     * This method checks whether the given number within {@link
-     * #quantityTextField} is a valid {@code long} number, that is in between
-     * the values of {@link #activeMinQuantity} and {@link #activeMaxQuantity}.
+     * This method checks whether the given number within {@link TextField} is a
+     * valid {@code long} number, that is in between the values of {@link
+     * #activeMinQuantity} and {@link #activeMaxQuantity}.
      * <p>
      * This method checks the given number in <i>real-time</i>.
      * </p>
@@ -170,50 +217,60 @@ public class OrderExecution implements Initializable {
      *      message to the {@link MessagePrint.Stream#ERR} {@code Stream}.
      *      </li>
      * </ul>
+     *
+     * @param textField the {@link TextField} to enforce its field to allow only
+     *                  numbers in between the values of {@link
+     *                  #activeMinQuantity} and {@link #activeMaxQuantity}.
+     * @param field     the <i>name</i> of the field that is presented by the
+     *                  {@link TextField} given. This is required in order to
+     *                  print a <i>message</i> to the user, to inform what is
+     *                  the validity of the <i>current</i> {@code TextField's
+     *                  value}.
      */
-    private void initTextQuantityMinMaxValidation() {
-        quantityTextField.textProperty()
+    private void initTextQuantityMinMaxValidation(TextField textField,
+                                                  String field) {
+        textField.textProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     try {
                         if (Long.parseLong(newValue) > activeMaxQuantity) {
-                            quantityTextField.setText(oldValue);
+                            textField.setText(oldValue);
                         }
                         if (Long.parseLong(newValue) < activeMinQuantity) {
-                            quantityTextField.setText(oldValue);
+                            textField.setText(oldValue);
                         }
                     } catch (NumberFormatException e) {
 
                         // Means, the given number is invalid.
-                        printInvalidErrorMessage();
+                        printInvalidErrorMessage(field);
                         return;
                     }
-                    if (quantityTextField.textProperty().getValue()
-                            .matches("")) {
+                    if (textField.textProperty().getValue().matches("")) {
 
                         // Means, there is no number given.
-                        printInvalidErrorMessage();
+                        printInvalidErrorMessage(field);
                         return;
                     }
 
                     // If the given number is valid.
-                    printValidOutputMessage();
+                    printValidOutputMessage(field);
                 });
     }
 
-    private void printInvalidErrorMessage() {
+    private void printInvalidErrorMessage(String field) {
         MessagePrint.println(MessagePrint.Stream.ERR,
-                "Invalid [long] 'Quantity'." + "\nNumber needs to be between:" +
-                        " '" + activeMinQuantity + "' and '" +
-                        activeMaxQuantity + "'");
+                "Invalid [long] " + field + "." +
+                        "\nNumber needs to be between:" + " '" +
+                        activeMinQuantity + "' and '" + activeMaxQuantity +
+                        "'");
     }
 
-    private void printValidOutputMessage() {
-        MessagePrint
-                .println(MessagePrint.Stream.OUT, "Valid [long] 'Quantity'.");
+    private void printValidOutputMessage(String field) {
+        MessagePrint.println(MessagePrint.Stream.OUT,
+                "Valid [long] " + field + ".");
     }
 
     private void initMinMaxQuantities() {
-        if (buySellComboBox.valueProperty().getValue().toString()
+        if (orderDirectionComboBox.valueProperty().getValue().toString()
                 .equals("Sell") &&
                 (stockComboBox.valueProperty().isNotNull().get())) {
 
@@ -221,7 +278,7 @@ public class OrderExecution implements Initializable {
             activeMinQuantity = 1L;
             activeMaxQuantity = stockComboBox.getValue()
                     .getQuantity(SelectedUser.getSelectedUser());
-        } else if (buySellComboBox.valueProperty().getValue().toString()
+        } else if (orderDirectionComboBox.valueProperty().getValue().toString()
                 .equals("Sell") &&
                 (stockComboBox.valueProperty().isNull().get())) {
 
@@ -229,7 +286,7 @@ public class OrderExecution implements Initializable {
             activeMinQuantity = 0L;
             activeMaxQuantity = 0L;
             quantityTextField.setText(null);
-        } else if (buySellComboBox.valueProperty().getValue().toString()
+        } else if (orderDirectionComboBox.valueProperty().getValue().toString()
                 .equals("Buy")) {
 
             // "Buy" is being selected.
@@ -243,7 +300,7 @@ public class OrderExecution implements Initializable {
         // Remove all previous items in the stock-comboBox:
         stockComboBox.getItems().clear();
 
-        if (buySellComboBox.valueProperty().getValue().toString()
+        if (orderDirectionComboBox.valueProperty().getValue().toString()
                 .equals("Buy")) {
             try {
 
@@ -259,7 +316,7 @@ public class OrderExecution implements Initializable {
                 MessagePrint.println(MessagePrint.Stream.ERR, e.getMessage());
             }
 
-        } else if (buySellComboBox.valueProperty().getValue().toString()
+        } else if (orderDirectionComboBox.valueProperty().getValue().toString()
                 .equals("Sell")) {
 
             // Show only the stock available in the user's items:
