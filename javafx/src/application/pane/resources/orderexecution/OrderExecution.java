@@ -6,6 +6,7 @@ import engine.Engine;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import main.MenuUI;
 import message.print.MessagePrint;
 import stock.Stock;
 import user.User;
@@ -81,7 +82,8 @@ public class OrderExecution implements Initializable {
         initUserNameLabel();
         initTextQuantity();
         JavaFXAppHandler.handleOnce(executeOrderButton,
-                "/application/pane/resources/login/Login.fxml");
+                "/application/pane/resources/login/Login.fxml",
+                MenuUI::command_EXECUTE_TRANSACTION_ORDER);
         initDisable();
     }
 
