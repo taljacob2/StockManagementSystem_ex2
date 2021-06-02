@@ -37,7 +37,7 @@
             </AnchorPane>
          </bottom>
          <center>
-            <BorderPane fx:id="borderPane" prefHeight="200.0"
+            <BorderPane fx:id="borderPaneToShowTheAnotherInnerPane" prefHeight="200.0"
                         prefWidth="200.0" BorderPane.alignment="CENTER"/>
          </center>
       </BorderPane>
