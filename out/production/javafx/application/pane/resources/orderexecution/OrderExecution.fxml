@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.pane.resources.orderexecution.OrderExecution">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="order-execution" stylesheets="@OrderExecution.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.pane.resources.orderexecution.OrderExecution">
    <children>
       <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
-            <VBox BorderPane.alignment="CENTER">
+            <VBox>
                <children>
                   <ComboBox fx:id="orderDirectionComboBox" promptText="Buy / Sell">
                       <VBox.margin>
@@ -28,7 +28,7 @@
                    </ComboBox>
                   <ComboBox fx:id="orderTypeComboBox" promptText="Order Type">
                      <VBox.margin>
-                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                         <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                      </VBox.margin>
                   </ComboBox>
                    <Label text="Quantity:" textFill="WHITE">
@@ -73,9 +73,9 @@
                  <font>
                      <Font name="SansSerif Regular" size="36.0" />
                  </font>
-               <BorderPane.margin>
-                  <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-               </BorderPane.margin>
+                 <BorderPane.margin>
+                     <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                 </BorderPane.margin>
              </Label>
          </top>
       </BorderPane>

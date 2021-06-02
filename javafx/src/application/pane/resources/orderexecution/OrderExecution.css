@@ -1,0 +1,18 @@
+.order-execution {
+    -fx-background-image: url("/application/image/girl.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+    /*-fx-background-color: blue;*/
+}
+
+.scroll-pane {
+    /*-fx-background-image: url("/application/image/people.jpg");*/
+    /*-fx-background-repeat: no-repeat;*/
+    /*-fx-background-size: cover;*/
+    /*-fx-background-position: center center;*/
+    /*!*-fx-background-color: blue;*!*/
+
+    /*-fx-background-color: transparent;*/
+    /*-fx-control-inner-background: transparent;*/
+}

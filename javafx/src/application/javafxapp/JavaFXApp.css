@@ -1,7 +1,7 @@
 
 .root {
     /*-fx-background-color: blueviolet;*/
-    -fx-background-image: url("../image/island.jpg");
+    -fx-background-image: url("/application/image/island.jpg");
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
     -fx-background-position: center center;
@@ -78,7 +78,7 @@
 }
 
 .login {
-    -fx-background-image: url("../image/boat.jpg");
+    -fx-background-image: url("/application/image/boat.jpg");
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
     -fx-background-position: center center;

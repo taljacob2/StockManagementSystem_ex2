@@ -89,11 +89,7 @@
             <center>
                 <BorderPane fx:id="borderPane" BorderPane.alignment="CENTER">
                     <center>
-                        <StackPane BorderPane.alignment="CENTER">
-                            <BorderPane.margin>
-                                <Insets/>
-                            </BorderPane.margin>
-                        </StackPane>
+                        <StackPane/>
                     </center>
                     <left>
                         <AnchorPane BorderPane.alignment="CENTER">
