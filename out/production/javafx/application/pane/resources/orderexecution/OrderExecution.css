@@ -1,17 +1,12 @@
-.order-execution {
-    -fx-background-image: url("/application/image/girl.jpg");
-    -fx-background-repeat: no-repeat;
-    -fx-background-size: cover;
-    -fx-background-position: center center;
-    /*-fx-background-color: blue;*/
-}
-
-/*.scroll-pane {*/
-/*    -fx-background-color: transparent;*/
+/*.order-execution {*/
+/*    -fx-background-image: url("/application/image/girl.jpg");*/
+/*    -fx-background-repeat: no-repeat;*/
+/*    -fx-background-size: cover;*/
+/*    -fx-background-position: center center;*/
 /*}*/
 
 .scroll-pane .viewport {
-    -fx-background-image: url("/application/image/people.jpg");
+    -fx-background-image: url("/application/image/girl.jpg");
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
     -fx-background-position: center center;
