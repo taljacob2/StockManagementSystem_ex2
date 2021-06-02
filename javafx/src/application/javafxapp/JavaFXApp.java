@@ -27,13 +27,6 @@ public class JavaFXApp extends Application {
             Paths.get(".").toAbsolutePath().normalize().toString();
 
     /**
-     * Stores here the <i>Absolute Path</i> to the main <tt>.css</tt> file used
-     * of the program.
-     */
-    private static final String pathToCSS =
-            JavaFXApp.class.getResource("JavaFXApp.css").toExternalForm();
-
-    /**
      * Stores here the {@code FileChooser} of the program.
      */
     public static FileChooser fileChooser;
@@ -98,9 +91,6 @@ public class JavaFXApp extends Application {
         });
 
         scene = new Scene(root);
-
-        // set '.css' file:
-        scene.getStylesheets().add(pathToCSS);
 
         stage.setScene(scene);
 
