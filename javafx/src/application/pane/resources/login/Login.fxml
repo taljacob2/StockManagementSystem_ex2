@@ -12,7 +12,8 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="application.pane.resources.login.Login">
     <children>
-        <ScrollPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+        <ScrollPane fitToHeight="true" fitToWidth="true"
+                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <content>
                 <BorderPane prefHeight="200.0" prefWidth="200.0">

@@ -2,7 +2,7 @@ package application.pane.resources.viewlog;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.text.Text;
 import message.print.Log;
 
 import java.net.URL;
@@ -17,13 +17,12 @@ import java.util.ResourceBundle;
  */
 public class ViewLog implements Initializable {
 
-    @FXML private Label logLabel;
+    @FXML private Text log;
 
     public ViewLog() {}
 
     @Override public void initialize(URL location, ResourceBundle resources) {
-
-        logLabel.textProperty().setValue(Log.getMessageLog().toString());
+        log.textProperty().setValue(Log.getMessageLog().toString());
     }
 }
 
