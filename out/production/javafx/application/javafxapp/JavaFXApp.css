@@ -16,7 +16,7 @@
 
 .menu-bar:hover {
     /* initial color */
-    -fx-background-color: rgba(101, 96, 30, 0.5);
+    -fx-background-color: rgba(128, 179, 128, 0.5);
 }
 
 .progress-bar {
@@ -48,7 +48,7 @@
 
 #rseLabel {
     -fx-text-fill: rgb(202, 200, 197);
-    -fx-background-color: rgb(101, 96, 30);
+    -fx-background-color: rgb(128, 179, 128);
     /*-fx-background-radius: 10;*/
 }
 
@@ -187,4 +187,18 @@
 
 .scroll-pane > .corner {
     -fx-background-color: rgb(96, 96, 96);
+}
+
+
+
+
+
+
+#menuVBoxScrollPane .viewport{
+    -fx-background-color: rgb(128, 179, 128);
+    /*-fx-background-color: rgba(33, 221, 146, 0.5);*/
+    /*-fx-background-image: url("/application/image/dark.jpg");*/
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
 }

@@ -93,7 +93,8 @@
                         <StackPane/>
                     </center>
                     <left>
-                        <ScrollPane fitToHeight="true" fitToWidth="true"
+                        <ScrollPane fx:id="menuVBoxScrollPane"
+                                    fitToHeight="true" fitToWidth="true"
                                     BorderPane.alignment="CENTER">
                             <content>
                                 <AnchorPane>
@@ -154,6 +155,9 @@
                                     </children>
                                 </AnchorPane>
                             </content>
+                            <opaqueInsets>
+                                <Insets/>
+                            </opaqueInsets>
                         </ScrollPane>
                     </left>
                 </BorderPane>

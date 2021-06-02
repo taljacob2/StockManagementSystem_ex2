@@ -24,15 +24,15 @@ import javafx.stage.Stage;
 public class ColorPickerApp {
 
     /**
-     * Manually initialize to {@code Color} <i>rgb(101, 96, 30);</i>.
+     * Manually initialize to {@code Color} <i>rgb(128, 179, 128);</i>.
      *
      * <p>Should be the same value as the <tt>#rseLabel</tt> role:</p>
      * <code>#rseLabel {
-     * fx-background-color: rgb(101, 96, 30); }</code> in the <tt>.css</tt> file
-     * of the {@code primaryStage} of {@link JavaFXApp}.
+     * fx-background-color: rgb(128, 179, 128); }</code> in the <tt>.css</tt>
+     * file of the {@code primaryStage} of {@link JavaFXApp}.
      */
     private static final ObjectProperty<Color> colorPicked =
-            new SimpleObjectProperty<>(Color.rgb(101, 96, 30));
+            new SimpleObjectProperty<>(Color.rgb(128, 179, 128));
 
 
     /**
