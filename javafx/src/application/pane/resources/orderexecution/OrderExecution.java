@@ -356,13 +356,14 @@ public class OrderExecution implements Initializable {
         MessagePrint.println(MessagePrint.Stream.ERR,
                 "Invalid [long] " + field + "." +
                         "\nNumber needs to be between:" + " '" +
-                        activeMinQuantity + "' and '" + activeMaxQuantity +
-                        "'");
+                        activeMinQuantity + "' and '" + activeMaxQuantity + "'",
+                false);
     }
 
     private void printValidOutputMessage(String field) {
-        MessagePrint.println(MessagePrint.Stream.OUT,
-                "Valid [long] " + field + ".");
+        MessagePrint
+                .println(MessagePrint.Stream.OUT, "Valid [long] " + field + ".",
+                        false);
     }
 
     private void initMinMaxQuantities() {

@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
  */
 public class Login implements Initializable {
 
-    @FXML private ComboBox<User> profileComboBox;
+    @FXML private ComboBox<User> userComboBox;
 
     @FXML private Button selectUserButton;
 
@@ -31,7 +31,7 @@ public class Login implements Initializable {
 
     @Override public void initialize(URL location, ResourceBundle resources) {
         try {
-            profileComboBox.getItems()
+            userComboBox.getItems()
                     .addAll(Engine.getUsers().getCollection());
         } catch (IOException e) {
 
@@ -43,11 +43,10 @@ public class Login implements Initializable {
                 "/application/pane/resources/orderexecution/OrderExecution" +
                         ".fxml").handleOnce(selectUserButton);
 
-        SelectedUser.selectedUserProperty()
-                .bind(profileComboBox.valueProperty());
+        SelectedUser.selectedUserProperty().bind(userComboBox.valueProperty());
 
         selectUserButton.disableProperty()
-                .bind(profileComboBox.valueProperty().isNull());
+                .bind(userComboBox.valueProperty().isNull());
     }
 
 }

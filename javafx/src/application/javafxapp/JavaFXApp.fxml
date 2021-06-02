@@ -113,6 +113,11 @@
                                                 <Button fx:id="ownProfileButton"
                                                         mnemonicParsing="false"
                                                         text="Own User"/>
+                                                <Button fx:id="viewLogButton"
+                                                        layoutX="27.0"
+                                                        layoutY="102.0"
+                                                        mnemonicParsing="false"
+                                                        text="View Log"/>
                                             </children>
                                             <padding>
                                                 <Insets bottom="10.0"

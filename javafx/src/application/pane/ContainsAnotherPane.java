@@ -10,16 +10,16 @@ import java.util.ResourceBundle;
 /**
  * This {@code class} represents a <tt>JavaFX</tt> {@code Controller} that is
  * able to
- * <i>show</i> a {@link javafx.scene.layout.Pane} on the <i>CENTER</i> of its
- * {@link BorderPane}.
+ * <i>show</i> <b>another</b> {@link javafx.scene.layout.Pane} inside of it,
+ * and does so on the <i>CENTER</i> of its {@link BorderPane}.
  * <p>
  * Note: The {@code Class}es that <b><i>extends</i></b> this {@code Class} are
- * the {@code Class}es that wish to <i>show</i> a {@link
+ * the {@code Class}es that wish to <i>show</i> <b>another</b> {@link
  * javafx.scene.layout.Pane} on them.
  */
-public class PaneShower implements Initializable, PaneReplacer {
+public class ContainsAnotherPane implements Initializable, PaneReplacer {
 
-    @FXML private BorderPane borderPane;
+    @FXML private BorderPane borderPaneToShowTheAnotherInnerPane;
     private String pathToFXML;
 
     /**
@@ -29,19 +29,19 @@ public class PaneShower implements Initializable, PaneReplacer {
      *                   represents the {@link javafx.scene.layout.Pane} to be
      *                   shown.
      */
-    public PaneShower(String pathToFXML) {
+    public ContainsAnotherPane(String pathToFXML) {
         this.pathToFXML = pathToFXML;
     }
 
     /**
      * This method sets the new {@link javafx.scene.layout.Pane} to be shown on
-     * the <i>CENTER</i> of the {@link #borderPane}.
+     * the <i>CENTER</i> of the {@link #borderPaneToShowTheAnotherInnerPane}.
      *
      * @param pathToFXML path to the <tt>.fxml</tt> of the {@link
      *                   javafx.scene.layout.Pane} the user wishes to show.
      */
     private void setPane(String pathToFXML) {
-        setPane(borderPane, pathToFXML);
+        setPane(borderPaneToShowTheAnotherInnerPane, pathToFXML);
     }
 
     @Override public void initialize(URL location, ResourceBundle resources) {

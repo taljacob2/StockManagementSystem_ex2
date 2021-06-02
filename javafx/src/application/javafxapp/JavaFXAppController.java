@@ -90,9 +90,10 @@ public class JavaFXAppController
     @FXML private static Label staticProgressLabel;
     @FXML private BorderPane leftBorderPane;
     @FXML private BorderPane bottomBorderPane;
+    @FXML private Button loginButton;
     @FXML private Button printStocksButton;
     @FXML private Button ownProfileButton;
-    @FXML private Button loginButton;
+    @FXML private Button viewLogButton;
     @FXML private Label statusLabel;
     @FXML private Label progressLabel;
     @FXML private MenuBar menuBar;
@@ -435,6 +436,10 @@ public class JavaFXAppController
         // define 'loginButton':
         JavaFXAppHandler.handle(loginButton,
                 "/application/pane/resources/login/Login.fxml");
+
+        // define 'viewLogButton':
+        JavaFXAppHandler.handle(viewLogButton,
+                "/application/pane/resources/viewlog/ViewLog.fxml");
     }
 
     @FXML private void defineAnimationFadeInOut() {

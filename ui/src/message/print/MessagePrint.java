@@ -19,7 +19,8 @@ public class MessagePrint {
      */
     private MessagePrint() {}
 
-    public static void println(Stream stream, String message) {
+    public static void println(Stream stream, String message,
+                               boolean appendToLog) {
         if (stream == OUT) {
             // DEPRECATED: console
             // System.out.println(message);
@@ -43,22 +44,33 @@ public class MessagePrint {
                     .setStyle("-fx-text-fill: red");
             JavaFXAppController.getStaticStatusLabel().setText(message);
         }
+        if (appendToLog) { Log.getMessageLog().append(message); }
 
         // TODO - Note: re-setting the JavaFX progress bar:
         JavaFXAppController.resetProgressBar();
     }
 
-    public static void print(Stream stream, String message) {
-        if (stream == OUT) {
-            // DEPRECATED:
-            // System.out.print(message);
-
-        } else if (stream == ERR) {
-            // DEPRECATED:
-            // System.err.print(message);
-        }
-        println(stream, message);
+    /**
+     * Default is to <i>append the message to Log</i>.
+     *
+     * @param stream  the {@code PrintStream} to output the <i>message</i> to.
+     * @param message the <i>message</i> to print.
+     */
+    public static void println(Stream stream, String message) {
+        println(stream, message, true);
     }
+
+    // @Deprecated public static void print(Stream stream, String message) {
+    //     if (stream == OUT) {
+    //         // DEPRECATED:
+    //         // System.out.print(message);
+    //
+    //     } else if (stream == ERR) {
+    //         // DEPRECATED:
+    //         // System.err.print(message);
+    //     }
+    //     println(stream, message);
+    // }
 
     /**
      * Defines in what {@link java.io.PrintStream} to print the messages.

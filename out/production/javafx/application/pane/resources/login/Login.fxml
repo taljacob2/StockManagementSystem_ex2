@@ -18,7 +18,7 @@
             <top>
                 <FlowPane alignment="CENTER" BorderPane.alignment="CENTER">
                     <children>
-                        <ComboBox fx:id="profileComboBox"
+                        <ComboBox fx:id="userComboBox"
                                   promptText="Choose a user"/>
                     </children>
                     <BorderPane.margin>
