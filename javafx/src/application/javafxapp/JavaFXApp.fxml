@@ -93,61 +93,68 @@
                         <StackPane/>
                     </center>
                     <left>
-                        <AnchorPane BorderPane.alignment="CENTER">
-                            <children>
-                                <BorderPane fx:id="leftBorderPane"
-                                            AnchorPane.bottomAnchor="0.0"
-                                            AnchorPane.leftAnchor="0.0"
-                                            AnchorPane.rightAnchor="0.0"
-                                            AnchorPane.topAnchor="0.0">
-                                    <center>
-                                        <VBox fx:id="menuVBox"
-                                              alignment="TOP_CENTER"
-                                              spacing="10.0">
-                                            <children>
-                                                <Button fx:id="loginButton"
-                                                        mnemonicParsing="false"
-                                                        text="Login"/>
-                                                <Button fx:id="printStocksButton"
-                                                        mnemonicParsing="false"
-                                                        text="Print Stocks"/>
-                                                <Button fx:id="ownProfileButton"
-                                                        mnemonicParsing="false"
-                                                        text="Own User"/>
-                                                <Button fx:id="viewLogButton"
-                                                        layoutX="27.0"
-                                                        layoutY="102.0"
-                                                        mnemonicParsing="false"
-                                                        text="View Log"/>
-                                            </children>
-                                            <padding>
-                                                <Insets bottom="10.0"
-                                                        left="10.0" right="10.0"
-                                                        top="10.0"/>
-                                            </padding>
-                                        </VBox>
-                                    </center>
-                                    <top>
-                                        <AnchorPane
-                                                BorderPane.alignment="CENTER">
-                                            <BorderPane.margin>
-                                                <Insets/>
-                                            </BorderPane.margin>
-                                            <children>
-                                                <Label fx:id="rseLabel"
-                                                       alignment="CENTER"
-                                                       layoutX="59.0"
-                                                       layoutY="2.0" text="RSE"
-                                                       AnchorPane.bottomAnchor="0.0"
-                                                       AnchorPane.leftAnchor="0.0"
-                                                       AnchorPane.rightAnchor="0.0"
-                                                       AnchorPane.topAnchor="0.0"/>
-                                            </children>
-                                        </AnchorPane>
-                                    </top>
-                                </BorderPane>
-                            </children>
-                        </AnchorPane>
+                        <ScrollPane fitToHeight="true" fitToWidth="true"
+                                    BorderPane.alignment="CENTER">
+                            <content>
+                                <AnchorPane>
+                                    <children>
+                                        <BorderPane fx:id="leftBorderPane"
+                                                    AnchorPane.bottomAnchor="0.0"
+                                                    AnchorPane.leftAnchor="0.0"
+                                                    AnchorPane.rightAnchor="0.0"
+                                                    AnchorPane.topAnchor="0.0">
+                                            <center>
+                                                <VBox fx:id="menuVBox"
+                                                      alignment="TOP_CENTER"
+                                                      spacing="10.0">
+                                                    <children>
+                                                        <Button fx:id="loginButton"
+                                                                mnemonicParsing="false"
+                                                                text="Login"/>
+                                                        <Button fx:id="printStocksButton"
+                                                                mnemonicParsing="false"
+                                                                text="Print Stocks"/>
+                                                        <Button fx:id="ownProfileButton"
+                                                                mnemonicParsing="false"
+                                                                text="Own User"/>
+                                                        <Button fx:id="viewLogButton"
+                                                                layoutX="27.0"
+                                                                layoutY="102.0"
+                                                                mnemonicParsing="false"
+                                                                text="View Log"/>
+                                                    </children>
+                                                    <padding>
+                                                        <Insets bottom="10.0"
+                                                                left="10.0"
+                                                                right="10.0"
+                                                                top="10.0"/>
+                                                    </padding>
+                                                </VBox>
+                                            </center>
+                                            <top>
+                                                <AnchorPane
+                                                        BorderPane.alignment="CENTER">
+                                                    <BorderPane.margin>
+                                                        <Insets/>
+                                                    </BorderPane.margin>
+                                                    <children>
+                                                        <Label fx:id="rseLabel"
+                                                               alignment="CENTER"
+                                                               layoutX="59.0"
+                                                               layoutY="2.0"
+                                                               text="RSE"
+                                                               AnchorPane.bottomAnchor="0.0"
+                                                               AnchorPane.leftAnchor="0.0"
+                                                               AnchorPane.rightAnchor="0.0"
+                                                               AnchorPane.topAnchor="0.0"/>
+                                                    </children>
+                                                </AnchorPane>
+                                            </top>
+                                        </BorderPane>
+                                    </children>
+                                </AnchorPane>
+                            </content>
+                        </ScrollPane>
                     </left>
                 </BorderPane>
             </center>
