@@ -48,7 +48,8 @@ public class BuildOutput_StockDataBase extends BuildOutput {
             Transaction transaction = (Transaction) object;
             stringBuilder
                     .append(Message.Out.Input.success("Transaction creation"))
-                    .append(":\n\t").append(transaction.toString());
+                    .append(":\n\t").append(transaction.toString())
+                    .append("\r\n");
 
         } else if (object instanceof Order) {
             Order order = (Order) object;

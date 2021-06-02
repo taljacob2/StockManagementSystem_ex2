@@ -50,7 +50,8 @@ public class OrderExecution implements Initializable {
      * <p>
      * Mainly, this number is a {@code final} value of {@code 1}.
      */
-    private Long activeMinQuantity = 1L;
+    private Long activeMinQuantityValue = 1L;
+    private Long activeMinLimitPriceValue = 1L;
 
     /**
      * <p>A dynamical value.</p>
@@ -71,7 +72,8 @@ public class OrderExecution implements Initializable {
      *     </li>
      * </ul>
      */
-    private Long activeMaxQuantity = Long.MAX_VALUE;
+    private Long activeMaxQuantityValue = Long.MAX_VALUE;
+    private Long activeMaxLimitPriceValue = Long.MAX_VALUE;
     @FXML private ComboBox<String> orderDirectionComboBox;
     @FXML private ComboBox<Stock> stockComboBox;
     @FXML private ComboBox<String> orderTypeComboBox;
@@ -98,9 +100,11 @@ public class OrderExecution implements Initializable {
         initComboBoxes();
         initUserNameLabel();
         initTextToLongNumbersOnly(quantityTextField, "'Quantity'",
-                quantityValidityState);
+                quantityValidityState, activeMinQuantityValue,
+                activeMaxQuantityValue);
         initTextToLongNumbersOnly(limitPriceTextField, "'Price'",
-                limitPriceValidityState);
+                limitPriceValidityState, activeMinLimitPriceValue,
+                activeMaxLimitPriceValue);
 
         Runnable executeOrderRunnable = new Runnable() {
             @Override public void run() {
@@ -209,7 +213,8 @@ public class OrderExecution implements Initializable {
 
         // Setting the new settings:
         initTextToLongNumbersOnly(limitPriceTextField, "'Price'",
-                limitPriceValidityState);
+                limitPriceValidityState, activeMinLimitPriceValue,
+                activeMaxLimitPriceValue);
         limitPriceTextField.disableProperty().unbind();
         limitPriceTextField.disableProperty().bind(quantityValidityState.not()
                 .or(quantityTextField.disabledProperty()
@@ -241,26 +246,33 @@ public class OrderExecution implements Initializable {
      * <p>
      * This method checks whether the given number within {@link TextField} is a
      * valid {@code long} number, that is in between the values of {@link
-     * #activeMinQuantity} and {@link #activeMaxQuantity}.
+     * #activeMinQuantityValue} and {@link #activeMaxQuantityValue}.
      * <p>
      * This method checks the given number in <i>real-time</i>.
      *
-     * @param textField the {@link TextField} to enforce its field to allow
-     *                  numbers only.
-     * @param field     the <i>name</i> of the field that is presented by the
-     *                  {@link TextField} given. This is required in order to
-     *                  print a <i>message</i> to the user, to inform what is
-     *                  the validity of the <i>current</i> {@code TextField's
-     *                  value}.
-     * @param validity  updates the <i>validity</i> state.
+     * @param textField      the {@link TextField} to enforce its field to allow
+     *                       numbers only.
+     * @param field          the <i>name</i> of the field that is presented by
+     *                       the {@link TextField} given. This is required in
+     *                       order to print a <i>message</i> to the user, to
+     *                       inform what is the validity of the <i>current</i>
+     *                       {@code TextField's value}.
+     * @param validity       updates the <i>validity</i> state.
+     * @param activeMinValue the <i>value</i> that the {@link TextField} should
+     *                       be <tt>greater than or equal to</tt> this value.
+     * @param activeMaxValue the <i>value</i> that the {@link TextField} should
+     *                       be <tt>less than or equal to</tt> this value.
      * @see #initTextQuantityFormatter(TextField)
      * @see #initTextQuantityMinMaxValidation(TextField, String,
-     * SimpleBooleanProperty)
+     * SimpleBooleanProperty, Long, Long)
      */
     private void initTextToLongNumbersOnly(TextField textField, String field,
-                                           SimpleBooleanProperty validity) {
+                                           SimpleBooleanProperty validity,
+                                           Long activeMinValue,
+                                           Long activeMaxValue) {
         initTextQuantityFormatter(textField);
-        initTextQuantityMinMaxValidation(textField, field, validity);
+        initTextQuantityMinMaxValidation(textField, field, validity,
+                activeMinValue, activeMaxValue);
     }
 
     /**
@@ -271,8 +283,8 @@ public class OrderExecution implements Initializable {
      *                  <ul>
      *                      <li>enforce its field to allow numbers only.</li>
      *                      <li>enforce its field to allow only numbers in
-     *                      between the values of {@link #activeMinQuantity}
-     *                      and {@link #activeMaxQuantity}.</li>
+     *                      between the values of {@link #activeMinQuantityValue}
+     *                      and {@link #activeMaxQuantityValue}.</li>
      *                  </ul>
      */
     private void initTextQuantityFormatter(TextField textField) {
@@ -290,7 +302,7 @@ public class OrderExecution implements Initializable {
     /**
      * This method checks whether the given number within {@link TextField} is a
      * valid {@code long} number, that is in between the values of {@link
-     * #activeMinQuantity} and {@link #activeMaxQuantity}.
+     * #activeMinQuantityValue} and {@link #activeMaxQuantityValue}.
      * <p>
      * This method checks the given number in <i>real-time</i>.
      * </p>
@@ -303,45 +315,52 @@ public class OrderExecution implements Initializable {
      *      </li>
      * </ul>
      *
-     * @param textField the {@link TextField} to enforce its field to allow only
-     *                  numbers in between the values of {@link
-     *                  #activeMinQuantity} and {@link #activeMaxQuantity}.
-     * @param field     the <i>name</i> of the field that is presented by the
-     *                  {@link TextField} given. This is required in order to
-     *                  print a <i>message</i> to the user, to inform what is
-     *                  the validity of the <i>current</i> {@code TextField's
-     *                  value}.
-     * @param validity  updates the <i>validity</i> state.
+     * @param textField      the {@link TextField} to enforce its field to allow
+     *                       only numbers in between the values of {@link
+     *                       #activeMinQuantityValue} and {@link
+     *                       #activeMaxQuantityValue}.
+     * @param field          the <i>name</i> of the field that is presented by
+     *                       the {@link TextField} given. This is required in
+     *                       order to print a <i>message</i> to the user, to
+     *                       inform what is the validity of the <i>current</i>
+     *                       {@code TextField's value}.
+     * @param validity       updates the <i>validity</i> state.
+     * @param activeMinValue the <i>value</i> that the {@link TextField} should
+     *                       be <tt>greater than or equal to</tt> this value.
+     * @param activeMaxValue the <i>value</i> that the {@link TextField} should
+     *                       be <tt>less than or equal to</tt> this value.
      */
     private void initTextQuantityMinMaxValidation(TextField textField,
                                                   String field,
-                                                  SimpleBooleanProperty validity) {
-
-
+                                                  SimpleBooleanProperty validity,
+                                                  Long activeMinValue,
+                                                  Long activeMaxValue) {
         textField.textProperty().addListener(
                 textFieldChangeListener = new ChangeListener<String>() {
                     @Override public void changed(
                             ObservableValue<? extends String> observable,
                             String oldValue, String newValue) {
                         try {
-                            if (Long.parseLong(newValue) > activeMaxQuantity) {
+                            if (Long.parseLong(newValue) > activeMaxValue) {
                                 textField.setText(oldValue);
                             }
-                            if (Long.parseLong(newValue) < activeMinQuantity) {
+                            if (Long.parseLong(newValue) < activeMinValue) {
                                 textField.setText(oldValue);
                             }
                         } catch (NumberFormatException e) {
 
                             // Means, the given number is invalid.
                             validity.setValue(false);
-                            printInvalidErrorMessage(field);
+                            printInvalidErrorMessage(field, activeMinValue,
+                                    activeMaxValue);
                             return;
                         }
                         if (textField.textProperty().getValue().matches("")) {
 
                             // Means, there is no number given. Number is invalid.
                             validity.setValue(false);
-                            printInvalidErrorMessage(field);
+                            printInvalidErrorMessage(field, activeMinValue,
+                                    activeMaxValue);
                             return;
                         }
 
@@ -352,11 +371,12 @@ public class OrderExecution implements Initializable {
                 });
     }
 
-    private void printInvalidErrorMessage(String field) {
+    private void printInvalidErrorMessage(String field, Long activeMinValue,
+                                          Long activeMaxValue) {
         MessagePrint.println(MessagePrint.Stream.ERR,
                 "Invalid [long] " + field + "." +
                         "\nNumber needs to be between:" + " '" +
-                        activeMinQuantity + "' and '" + activeMaxQuantity + "'",
+                        activeMinValue + "' and '" + activeMaxValue + "'",
                 false);
     }
 
@@ -372,23 +392,23 @@ public class OrderExecution implements Initializable {
                 (stockComboBox.valueProperty().isNotNull().get())) {
 
             // "Sell" is being selected, and a "Stock" is being selected.
-            activeMinQuantity = 1L;
-            activeMaxQuantity = stockComboBox.getValue()
+            activeMinQuantityValue = 1L;
+            activeMaxQuantityValue = stockComboBox.getValue()
                     .getQuantity(SelectedUser.getSelectedUser());
         } else if (orderDirectionComboBox.valueProperty().getValue().toString()
                 .equals("Sell") &&
                 (stockComboBox.valueProperty().isNull().get())) {
 
             // "Sell" is being selected, and a "Stock" is NOT being selected.
-            activeMinQuantity = 1L;
-            activeMaxQuantity = 1L;
+            activeMinQuantityValue = 1L;
+            activeMaxQuantityValue = 1L;
             quantityTextField.setText("1");
         } else if (orderDirectionComboBox.valueProperty().getValue().toString()
                 .equals("Buy")) {
 
             // "Buy" is being selected.
-            activeMinQuantity = 1L;
-            activeMaxQuantity = Long.MAX_VALUE;
+            activeMinQuantityValue = 1L;
+            activeMaxQuantityValue = Long.MAX_VALUE;
         }
     }
 
