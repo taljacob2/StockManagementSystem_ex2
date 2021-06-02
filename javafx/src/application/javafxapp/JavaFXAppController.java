@@ -409,8 +409,14 @@ public class JavaFXAppController
             JavaFXApp.fileChooser
                     .setTitle("Choose where to save the '.xml' file");
 
-            File file = JavaFXApp.fileChooser.showSaveDialog(null);
-            MenuUI.command_SAVE_XML_FILE(file.getAbsolutePath());
+            try {
+                File file = JavaFXApp.fileChooser.showSaveDialog(null);
+                MenuUI.command_SAVE_XML_FILE(file.getAbsolutePath());
+            } catch (java.lang.NullPointerException catchIgnored) {
+
+                /* In case the fileChooser.showSaveDialog was canceled, ignore. */
+            }
+
         }
     }
 

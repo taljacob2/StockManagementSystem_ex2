@@ -3,6 +3,7 @@ package message.builder.out;
 import message.Message;
 import message.builder.BuildMessage;
 import message.builder.err.BuildError;
+import message.print.Log;
 import message.print.MessagePrint;
 import order.Order;
 import transaction.Transaction;
@@ -48,14 +49,15 @@ public class BuildOutput_StockDataBase extends BuildOutput {
             Transaction transaction = (Transaction) object;
             stringBuilder
                     .append(Message.Out.Input.success("Transaction creation"))
-                    .append(":\n\t").append(transaction.toString())
-                    .append("\r\n");
+                    .append(":\n\t").append(transaction.toString());
+            Log.getMessageLog().append("\r\n");
 
         } else if (object instanceof Order) {
             Order order = (Order) object;
 
             stringBuilder.append(Message.Out.Input.success("Order creation"))
-                    .append(":\n\t").append(order.toString()).append("\r\n");
+                    .append(":\n\t").append(order.toString());
+            Log.getMessageLog().append("\r\n");
 
         } else {
             MessagePrint.println(MessagePrint.Stream.ERR,
