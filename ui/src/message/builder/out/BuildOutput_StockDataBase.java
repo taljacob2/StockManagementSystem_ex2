@@ -54,7 +54,7 @@ public class BuildOutput_StockDataBase extends BuildOutput {
             Order order = (Order) object;
 
             stringBuilder.append(Message.Out.Input.success("Order creation"))
-                    .append(":\n\t").append(order.toString());
+                    .append(":\n\t").append(order.toString()).append("\r\n");
 
         } else {
             MessagePrint.println(MessagePrint.Stream.ERR,

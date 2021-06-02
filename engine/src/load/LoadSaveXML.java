@@ -156,7 +156,7 @@ public class LoadSaveXML {
 
                 // print Success message:
                 MessagePrint.println(MessagePrint.Stream.OUT,
-                        Message.Out.XML.Load.success(pathOfXML));
+                        Message.Out.XML.Load.success(pathOfXML + '\n'));
 
             } catch (IOException e) {
                 MessagePrint.println(MessagePrint.Stream.ERR, e.getMessage());

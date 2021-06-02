@@ -368,9 +368,13 @@ public class JavaFXAppController
 
         // set fileChooser Title:
         JavaFXApp.fileChooser.setTitle("Choose a '.xml' file");
+        try {
+            File file = JavaFXApp.fileChooser.showOpenDialog(null);
+            MenuUI.command_LOAD_XML_FILE(file.getAbsolutePath());
+        } catch (java.lang.NullPointerException catchIgnored) {
 
-        File file = JavaFXApp.fileChooser.showOpenDialog(null);
-        MenuUI.command_LOAD_XML_FILE(file.getAbsolutePath());
+            /* In case the fileChooser.showOpenDialog was canceled, ignore. */
+        }
     }
 
     public void command_PRINT_STOCKS(ActionEvent event) {
