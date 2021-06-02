@@ -94,6 +94,9 @@ public class JavaFXApp extends Application {
 
         stage.setScene(scene);
 
+        stage.setMinHeight(600);
+        stage.setMinWidth(600);
+
         stage.show();
     }
 

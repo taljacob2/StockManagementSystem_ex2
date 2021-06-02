@@ -152,7 +152,8 @@
                 </BorderPane>
             </center>
             <bottom>
-                <AnchorPane BorderPane.alignment="CENTER">
+                <AnchorPane fx:id="bottomAnchorPane" minHeight="100.0"
+                            BorderPane.alignment="CENTER">
                     <children>
                         <BorderPane fx:id="bottomBorderPane"
                                     AnchorPane.bottomAnchor="0.0"

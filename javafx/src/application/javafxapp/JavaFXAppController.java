@@ -18,10 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import main.MenuUI;
 
 import java.io.File;
@@ -89,6 +86,7 @@ public class JavaFXAppController
 
     @FXML private static Label staticProgressLabel;
     @FXML private BorderPane leftBorderPane;
+    @FXML private AnchorPane bottomAnchorPane;
     @FXML private BorderPane bottomBorderPane;
     @FXML private Button loginButton;
     @FXML private Button printStocksButton;
@@ -269,6 +267,14 @@ public class JavaFXAppController
                     rgbStringProperty.set(ColorPickerApp.toRGBString());
                     stringColorProperty.set(ColorPickerApp.getStringColor());
                 });
+
+        menuBar.heightProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    leftBorderPane.layoutYProperty().set(menuBar.getHeight());
+                    menuVBox.layoutYProperty().set(menuBar.getHeight());
+                });
+        leftBorderPane.setMinHeight(290);
+        leftBorderPane.setMinWidth(187);
     }
 
     public void setFullScreen(ActionEvent event) {
