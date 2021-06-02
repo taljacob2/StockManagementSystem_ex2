@@ -77,10 +77,14 @@
     -fx-background-color: rgba(0, 0, 0, 0.75);
 }
 
-.login {
-    -fx-background-image: url("/application/image/boat.jpg");
-    -fx-background-repeat: no-repeat;
-    -fx-background-size: cover;
-    -fx-background-position: center center;
-    /*-fx-background-color: blue;*/
+/*.login {*/
+/*    -fx-background-image: url("/application/image/boat.jpg");*/
+/*    -fx-background-repeat: no-repeat;*/
+/*    -fx-background-size: cover;*/
+/*    -fx-background-position: center center;*/
+/*    !*-fx-background-color: blue;*!*/
+/*}*/
+
+.scroll-pane {
+    -fx-background-color: transparent;
 }

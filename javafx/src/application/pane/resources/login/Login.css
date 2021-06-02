@@ -10,3 +10,10 @@
 .button:hover {
     -fx-background-color: linear-gradient(black, darkcyan);
 }
+
+.scroll-pane .viewport {
+    -fx-background-image: url("/application/image/boat.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center center;
+}
