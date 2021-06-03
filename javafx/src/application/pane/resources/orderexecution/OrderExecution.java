@@ -181,8 +181,6 @@ public class OrderExecution implements Initializable {
             }
         });
 
-        //BUG MKT doesn't work no more
-
         initDisable();
     }
 
