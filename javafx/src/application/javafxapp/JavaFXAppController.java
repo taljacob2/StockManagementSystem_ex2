@@ -90,7 +90,7 @@ public class JavaFXAppController
     @FXML private BorderPane bottomBorderPane;
     @FXML private Button loginButton;
     @FXML private Button printStocksButton;
-    @FXML private Button ownProfileButton;
+    @FXML private Button ownUserButton;
     @FXML private Button viewLogButton;
     @FXML private Label statusLabel;
     @FXML private Label progressLabel;
@@ -445,9 +445,9 @@ public class JavaFXAppController
         JavaFXAppHandler.handle(printStocksButton,
                 "/application/pane/resources/stocktablepane/StockTablePane.fxml");
 
-        // define 'ownProfileButton':
-        JavaFXAppHandler.handle(ownProfileButton,
-                "/application/pane/resources/ownprofile/OwnProfile.fxml");
+        // define 'ownUserButton':
+        JavaFXAppHandler.handle(ownUserButton,
+                "/application/pane/resources/ownuser/OwnUser.fxml");
 
         // define 'loginButton':
         JavaFXAppHandler.handle(loginButton,

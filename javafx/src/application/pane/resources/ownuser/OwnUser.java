@@ -1,4 +1,4 @@
-package application.pane.resources.ownprofile;
+package application.pane.resources.ownuser;
 
 import application.pane.ContainsAnotherPane;
 
@@ -9,9 +9,9 @@ import application.pane.ContainsAnotherPane;
  * <p>Represents the {@link javafx.scene.layout.Pane} of showing the
  * <i>Status</i> of a <i>User</i> in the system.</p>
  */
-public class OwnProfile extends ContainsAnotherPane {
+public class OwnUser extends ContainsAnotherPane {
 
-    public OwnProfile() {
+    public OwnUser() {
 
         // Show 'StockTablePane' on the inner BorderPane's CENTER:
         super("/application/pane/resources/stocktablepane/StockTablePane.fxml");

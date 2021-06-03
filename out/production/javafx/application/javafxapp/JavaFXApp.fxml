@@ -115,7 +115,7 @@
                                                         <Button fx:id="printStocksButton"
                                                                 mnemonicParsing="false"
                                                                 text="Print Stocks"/>
-                                                        <Button fx:id="ownProfileButton"
+                                                        <Button fx:id="ownUserButton"
                                                                 mnemonicParsing="false"
                                                                 text="Own User"/>
                                                         <Button fx:id="viewLogButton"

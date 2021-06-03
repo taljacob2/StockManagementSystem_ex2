@@ -51,6 +51,16 @@ public class OrderExecution implements Initializable {
      * Mainly, this number is a {@code final} value of {@code 1}.
      */
     private Long activeMinQuantityValue = 1L;
+
+    /**
+     * <p>A dynamical value.</p>
+     * <p>
+     * This value indicates the <i>minimum</i> <i>valid</i> {@code LimitPrice}
+     * in the executed {@code Order}.
+     * </p>
+     * <p>
+     * Mainly, this number is a {@code final} value of {@code 1}.
+     */
     private Long activeMinLimitPriceValue = 1L;
 
     /**
@@ -73,14 +83,53 @@ public class OrderExecution implements Initializable {
      * </ul>
      */
     private Long activeMaxQuantityValue = Long.MAX_VALUE;
+
+    /**
+     * <p>A dynamical value.</p>
+     * <p>
+     * This value indicates the <i>maximum</i> <i>valid</i> {@code LimitPrice}
+     * in the executed {@code Order}.
+     * </p>
+     *
+     * <ul>
+     *     <li>In case the {@code Order} is a <i>Sell</i> {@code Order}, then
+     *     this number is set to be the <i>maximum</i> {@code LimitPrice} of
+     *     the current {@code Stock} being selected in the
+     *     {@link SelectedUser#getSelectedUser()} .
+     *     </li>
+     *     <li>In case the {@code Order} is a <i>Buy</i> {@code Order}, then
+     *     this number is set to be the {@code final}: {@link Long#MAX_VALUE}
+     *     number.
+     *     </li>
+     * </ul>
+     */
     private Long activeMaxLimitPriceValue = Long.MAX_VALUE;
+
+    @FXML private Label userNameLabel;
     @FXML private ComboBox<String> orderDirectionComboBox;
     @FXML private ComboBox<Stock> stockComboBox;
     @FXML private ComboBox<String> orderTypeComboBox;
     @FXML private Button executeOrderButton;
     @FXML private TextField quantityTextField;
     @FXML private TextField limitPriceTextField;
-    @FXML private Label userNameLabel;
+
+    /**
+     * The {@link Runnable} that its {@link Runnable#run()} method would be
+     * <i>invoked</i> when clicking the {@link #executeOrderButton}.
+     */
+    private final Runnable executeOrderRunnable = new Runnable() {
+        @Override public void run() {
+            MenuUI.command_EXECUTE_TRANSACTION_ORDER(stockComboBox.getValue(),
+                    OrderDirection.valueOf(
+                            orderDirectionComboBox.getValue().toUpperCase()),
+                    OrderType.valueOf(
+                            orderTypeComboBox.getValue().toUpperCase()),
+                    Long.parseLong(quantityTextField.getText()),
+                    limitPriceTextField.getText().equalsIgnoreCase("MKT") ? 0L :
+                            Long.parseLong(limitPriceTextField.getText()));
+
+        }
+    };
 
     /**
      * Save here the {@link ChangeListener} that is being invoked in {@link
@@ -105,21 +154,6 @@ public class OrderExecution implements Initializable {
         initTextToLongNumbersOnly(limitPriceTextField, "'Price'",
                 limitPriceValidityState, activeMinLimitPriceValue,
                 activeMaxLimitPriceValue);
-
-        Runnable executeOrderRunnable = new Runnable() {
-            @Override public void run() {
-                MenuUI.command_EXECUTE_TRANSACTION_ORDER(
-                        stockComboBox.getValue(), OrderDirection.valueOf(
-                                orderDirectionComboBox.getValue()
-                                        .toUpperCase()), OrderType.valueOf(
-                                orderTypeComboBox.getValue().toUpperCase()),
-                        Long.parseLong(quantityTextField.getText()),
-                        limitPriceTextField.getText().equalsIgnoreCase("MKT") ?
-                                0L :
-                                Long.parseLong(limitPriceTextField.getText()));
-
-            }
-        };
 
         new JavaFXAppHandler("/application/pane/resources/login/Login.fxml",
                 executeOrderRunnable).handleOnce(executeOrderButton);
