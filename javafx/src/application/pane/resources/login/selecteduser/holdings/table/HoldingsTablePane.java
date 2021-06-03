@@ -1,4 +1,4 @@
-package application.pane.resources.user.holdings.table;
+package application.pane.resources.login.selecteduser.holdings.table;
 
 import application.pane.resources.login.selecteduser.SelectedUser;
 import engine.Engine;

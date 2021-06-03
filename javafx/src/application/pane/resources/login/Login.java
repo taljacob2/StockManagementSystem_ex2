@@ -38,7 +38,8 @@ public class Login implements Initializable {
             MessagePrint.println(MessagePrint.Stream.ERR, e.getMessage());
         }
 
-        new JavaFXAppHandler("/application/pane/resources/user/UserPane.fxml")
+        new JavaFXAppHandler(
+                "/application/pane/resources/login/selecteduser/pane/UserPane.fxml")
                 .handleOnce(selectUserButton);
 
         SelectedUser.selectedUserProperty().bind(userComboBox.valueProperty());

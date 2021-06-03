@@ -1,4 +1,4 @@
-package application.pane.resources.user.holdings;
+package application.pane.resources.login.selecteduser.holdings;
 
 import application.pane.ContainsAnotherPane;
 
@@ -14,7 +14,7 @@ public class UserHoldings extends ContainsAnotherPane {
     public UserHoldings() {
 
         // Show 'StockTablePane' on the inner BorderPane's CENTER:
-        super("/application/pane/resources/user/holdings/table/HoldingsTablePane.fxml");
+        super("/application/pane/resources/login/selecteduser/holdings/table/HoldingsTablePane.fxml");
     }
 
 }
