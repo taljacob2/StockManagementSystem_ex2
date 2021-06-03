@@ -39,34 +39,16 @@
                                                 right="10.0" top="5.0"/>
                                     </VBox.margin>
                                 </ComboBox>
-                                <Label text="Quantity:" textFill="WHITE">
-                                    <VBox.margin>
-                                        <Insets bottom="5.0" left="10.0"
-                                                right="10.0" top="5.0"/>
-                                    </VBox.margin>
-                                    <padding>
-                                        <Insets left="10.0"/>
-                                    </padding>
-                                </Label>
-                                <TextField fx:id="quantityTextField">
+                                <TextField fx:id="quantityTextField"
+                                           promptText="Quantity">
                                     <VBox.margin>
                                         <Insets bottom="5.0" left="10.0"
                                                 right="10.0" top="5.0"/>
                                     </VBox.margin>
                                 </TextField>
-                                <Label layoutX="15.0" layoutY="138.0"
-                                       text="Desired Limit Price:"
-                                       textFill="WHITE">
-                                    <padding>
-                                        <Insets left="10.0"/>
-                                    </padding>
-                                    <VBox.margin>
-                                        <Insets bottom="5.0" left="10.0"
-                                                right="10.0" top="5.0"/>
-                                    </VBox.margin>
-                                </Label>
                                 <TextField fx:id="limitPriceTextField"
-                                           layoutX="10.0" layoutY="164.0">
+                                           layoutX="10.0" layoutY="164.0"
+                                           promptText="Desired Limit Price">
                                     <VBox.margin>
                                         <Insets bottom="5.0" left="10.0"
                                                 right="10.0" top="5.0"/>

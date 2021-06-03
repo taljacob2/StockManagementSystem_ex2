@@ -24,6 +24,7 @@ public class Item implements Comparable<Item> {
 
     @XmlAttribute(name = "quantity", required = true) private long quantity;
 
+
     /**
      * Must have a Default Constructor for {@code JAXBContext} <tt>.xml</tt>
      * load and save.

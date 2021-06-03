@@ -46,7 +46,7 @@ public class HoldingsTablePane implements Initializable {
     /**
      * A column in the {@link TableView}.
      */
-    // @FXML private TableColumn<Item, Long> priceColumn;
+    // @FXML private TableColumn<Stock, Long> priceColumn;;
 
     /**
      * Constructor. try to get the {@link stock.Stocks} in the {@link Engine}.
@@ -64,7 +64,7 @@ public class HoldingsTablePane implements Initializable {
         quantityColumn.setCellValueFactory(
                 new PropertyValueFactory<Item, Long>("quantity"));
         // priceColumn.setCellValueFactory(
-        //         new PropertyValueFactory<Item, Long>("price"));
+        //         new PropertyValueFactory<Stock, Long>("price"));
 
 
         // set the 'tableView' to the columns provided:

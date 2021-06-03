@@ -148,7 +148,7 @@ public class OrderExecution implements Initializable {
 
     /**
      * Save here the {@link ChangeListener} that is being invoked in {@link
-     * #initMinMaxQuantities()} to be able to <i>remove</i> it via {@link
+     * #initMinMaxQuantityValues()} to be able to <i>remove</i> it via {@link
      * javafx.beans.property.Property#removeListener(ChangeListener)} within
      * {@link #initDependencyOfMKTBranch()}.
      */
@@ -184,7 +184,7 @@ public class OrderExecution implements Initializable {
                 (observable, oldValue, newValue) -> initStockComboBox());
 
         stockComboBox.valueProperty().addListener(
-                (observable, oldValue, newValue) -> initMinMaxQuantities());
+                (observable, oldValue, newValue) -> initMinMaxQuantityValues());
 
         initDependencyOfMKT();
     }
@@ -234,7 +234,9 @@ public class OrderExecution implements Initializable {
                 .removeListener(textFieldChangeListener);
 
         // Setting the new settings:
-        limitPriceTextField.setText("MKT");
+        // limitPriceTextField.setText("MKT");
+        limitPriceTextField.setText(null);
+        limitPriceTextField.setPromptText("MKT");
         limitPriceTextField.disableProperty().unbind();
         limitPriceTextField.setDisable(true);
         executeOrderButton.disableProperty().unbind();
@@ -257,6 +259,7 @@ public class OrderExecution implements Initializable {
     private void initDependencyOfNonMKTBranch() {
 
         // Setting the new settings:
+        limitPriceTextField.setPromptText("Desired Limit Price");
         initTextToLongNumbersOnly(limitPriceTextField, "'Price'",
                 limitPriceValidityState, activeMinLimitPriceValue,
                 activeMaxLimitPriceValue);
@@ -394,7 +397,7 @@ public class OrderExecution implements Initializable {
                                     activeMinValue.get()) {
                                 textField.setText(oldValue);
                             }
-                        } catch (NumberFormatException e) {
+                        } catch (Exception e) {
 
                             // Means, the given number is invalid.
                             validity.setValue(false);
@@ -433,7 +436,7 @@ public class OrderExecution implements Initializable {
                         false);
     }
 
-    private void initMinMaxQuantities() {
+    private void initMinMaxQuantityValues() {
         if (orderDirectionComboBox.valueProperty().getValue().toString()
                 .equals("Sell") &&
                 (stockComboBox.valueProperty().isNotNull().get())) {
