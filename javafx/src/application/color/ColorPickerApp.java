@@ -90,6 +90,10 @@ public class ColorPickerApp {
         return ColorPickerApp.toStringColor(colorPicked.get());
     }
 
+    public static String getStringColor(Color color) {
+        return ColorPickerApp.toStringColor(color);
+    }
+
     public static String toStringColor(Color color) {
 
         // cut out the first two '0x' chars from the String:
@@ -104,6 +108,10 @@ public class ColorPickerApp {
         return toRGBString(getRed(), getGreen(), getBlue());
     }
 
+    public static String toRGBString(Color color) {
+        return toRGBString(getRed(color), getGreen(color), getBlue(color));
+    }
+
     public static String toRGBAString(double red, double green, double blue,
                                       double alpha) {
         return String.format("rgb(%f, %f, %f, %f)", red, green, blue, alpha);
@@ -111,6 +119,11 @@ public class ColorPickerApp {
 
     public static String toRGBAString(double alpha) {
         return toRGBAString(getRed(), getGreen(), getBlue(), alpha);
+    }
+
+    public static String toRGBAString(Color colorWithoutAlpha, double alpha) {
+        return toRGBAString(getRed(colorWithoutAlpha),
+                getGreen(colorWithoutAlpha), getBlue(colorWithoutAlpha), alpha);
     }
 
     public static double getRed() {

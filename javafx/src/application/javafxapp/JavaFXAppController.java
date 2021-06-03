@@ -69,10 +69,11 @@ public class JavaFXAppController
     private static final StringProperty rgbaString = new SimpleStringProperty(
             ColorPickerApp.toRGBAString(0, 0, 0, 0.75));
 
-    private static final StringProperty rgbString = new SimpleStringProperty();
+    private static final StringProperty rgbString = new SimpleStringProperty(
+            ColorPickerApp.toRGBString(colorPicked.get()));
 
-    private static final StringProperty stringColor =
-            new SimpleStringProperty();
+    private static final StringProperty stringColor = new SimpleStringProperty(
+            ColorPickerApp.toStringColor(colorPicked.get()));
 
     /**
      * Contains {@link #replaceAblePane}. The {@link Pane} that is
@@ -235,12 +236,8 @@ public class JavaFXAppController
          */
         menuVBox.setDisable(true);
 
-        /* -- set static variables -- */
-
-        staticMenuVBox = menuVBox;
-        staticStatusLabel = statusLabel;
-        staticProgressLabel = progressLabel;
-        staticBorderPane = borderPane;
+        // Set static variables
+        setStaticVariables();
 
         /*
          * Set Initial Pane:
@@ -251,8 +248,30 @@ public class JavaFXAppController
         // Define Buttons.
         defineAnimationToAllButtons();
 
-
         /* -- Properties -- */
+
+        initProgressBar();
+
+        // DoubleProperty fontSize = new SimpleDoubleProperty(12); // font size in pt
+        // root.styleProperty().bind(
+        //         Bindings.format("-fx-font-size: %.2fpt;", fontSize)); //TODO font slider
+
+        colorPicked.bind(ColorPickerApp.colorPickedProperty());
+        colorPicked.addListener((observable, oldValue, newValue) -> {
+            colorPicked.unbind();
+            colorPicked
+                    .setValue(ColorPickerApp.colorPickedProperty().getValue());
+            rgbaString.set(ColorPickerApp.toRGBAString(colorPicked.get(), 0.5));
+            rgbString.set(ColorPickerApp.toRGBString(colorPicked.get()));
+            stringColor.set(ColorPickerApp.getStringColor(colorPicked.get()));
+            colorPicked.bind(ColorPickerApp.colorPickedProperty());
+        });
+
+        InitMenuVBox();
+        secondColorPicking();
+    }
+
+    private void initProgressBar() {
 
         // initialize 'progressBarDoubleNumber':
         progressBarDoubleNumber.setNumber(0);
@@ -269,31 +288,27 @@ public class JavaFXAppController
                                 .bind(progressBarDoubleNumber.getProperty());
                     }
                 });
+    }
 
-        // DoubleProperty fontSize = new SimpleDoubleProperty(12); // font size in pt
-        // root.styleProperty().bind(
-        //         Bindings.format("-fx-font-size: %.2fpt;", fontSize)); //TODO font slider
+    private void setStaticVariables() {
+        staticMenuVBox = menuVBox;
+        staticStatusLabel = statusLabel;
+        staticProgressLabel = progressLabel;
+        staticBorderPane = borderPane;
+    }
 
-
-        // if (rgbaString.get() == null) {
-        //     rgbaString.set(ColorPickerApp.toRGBAString(0.5));
-        // }
-
-        // Translate: set Observers of 'ColorPickerApp.colorPickedProperty()':
-
-        ColorPickerApp.colorPickedProperty()
-                .addListener((observable, oldValue, newValue) -> {
-
-                    rgbaString.set(ColorPickerApp.toRGBAString(0.5));
-                    rgbString.set(ColorPickerApp.toRGBString());
-                    stringColor.set(ColorPickerApp.getStringColor());
-                });
+    private void InitMenuVBox() {
+        menuVBox.setStyle("-fx-background-color: " + getRgbaString());
+        String formatString = "-fx-text-fill: " + "#" + stringColor.get();
+        progressLabel.setStyle(formatString);
 
         // Set initial color of 'menuVBox':
         rgbaString.addListener((observable, oldValue, newValue) -> {
             menuVBox.setStyle("-fx-background-color: " + getRgbaString());
         });
+    }
 
+    private void secondColorPicking() {
         rgbaString.addListener((observable, oldValue, newValue) -> {
 
             // Set text Color and background Color of label rseLabel:
@@ -302,15 +317,6 @@ public class JavaFXAppController
             // Set staticProgressLabel the updated style:
             setProgressLabelColor();
         });
-
-        menuBar.heightProperty()
-                .addListener((observable, oldValue, newValue) -> {
-                    leftBorderPane.layoutYProperty().set(menuBar.getHeight());
-                    menuVBox.layoutYProperty().set(menuBar.getHeight());
-                });
-
-        leftBorderPane.setMinHeight(290);
-        leftBorderPane.setMinWidth(187);
     }
 
     public void setFullScreen(ActionEvent event) {
@@ -343,7 +349,6 @@ public class JavaFXAppController
     }
 
     private void setRseLabelColor() {
-        //TODO: may make this method a `static` method by doing the `static` label copy trick.
         String formatString = "";
         if ((ColorPickerApp.getRed(colorPicked.get()) >= 150) ||
                 (ColorPickerApp.getGreen(colorPicked.get()) > 150) ||
