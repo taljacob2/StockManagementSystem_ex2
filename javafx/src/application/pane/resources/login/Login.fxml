@@ -32,8 +32,8 @@
                     </top>
                     <center>
                         <Label alignment="CENTER"
-                               text="Choose A User To Log Into:"
-                               textFill="WHITE" BorderPane.alignment="CENTER">
+                               text="Choose A User To Log Into" textFill="WHITE"
+                               BorderPane.alignment="CENTER">
                             <font>
                                 <Font name="SansSerif Regular" size="36.0"/>
                             </font>

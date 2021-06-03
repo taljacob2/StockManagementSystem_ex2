@@ -190,13 +190,8 @@
 }
 
 
-
-
-
-
-#menuVBoxScrollPane .viewport{
+#menuVBoxScrollPane .viewport {
     -fx-background-color: rgb(128, 179, 128);
-    /*-fx-background-color: rgba(33, 221, 146, 0.5);*/
     /*-fx-background-image: url("/application/image/dark.jpg");*/
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
