@@ -66,9 +66,9 @@ public class HoldingsTablePane implements Initializable {
         // priceColumn.setCellValueFactory(
         //         new PropertyValueFactory<Stock, Long>("price"));
 
-
         // set the 'tableView' to the columns provided:
         tableView.setItems(holdingsObservableList);
+
     }
 
 }

@@ -25,7 +25,7 @@ public class Login implements Initializable {
 
     @FXML private ComboBox<User> userComboBox;
 
-    @FXML private Button selectUserButton;
+    @FXML private Button loginButton;
 
     public Login() {}
 
@@ -40,11 +40,11 @@ public class Login implements Initializable {
 
         new JavaFXAppHandler(
                 "/application/pane/resources/login/selecteduser/pane/UserPane.fxml")
-                .handleOnce(selectUserButton);
+                .handleOnce(loginButton);
 
         SelectedUser.selectedUserProperty().bind(userComboBox.valueProperty());
 
-        selectUserButton.disableProperty()
+        loginButton.disableProperty()
                 .bind(userComboBox.valueProperty().isNull());
     }
 

@@ -44,9 +44,8 @@
                         </Label>
                     </center>
                     <bottom>
-                        <Button fx:id="selectUserButton" mnemonicParsing="false"
-                                text="Order with the selected user"
-                                BorderPane.alignment="CENTER">
+                        <Button fx:id="loginButton" mnemonicParsing="false"
+                                text="Login" BorderPane.alignment="CENTER">
                             <font>
                                 <Font name="SansSerif Regular" size="24.0"/>
                             </font>

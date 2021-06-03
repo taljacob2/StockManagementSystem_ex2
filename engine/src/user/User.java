@@ -70,7 +70,7 @@ public class User {
                 holdings.getCollection().toString("\t\t\t");
     }
 
-    private long calculateTotalHoldingsWorth() {
+    public long calculateTotalHoldingsWorth() {
 
         // calculate total holdings worth:
         long totalHoldingsWorth = 0L;
@@ -81,7 +81,7 @@ public class User {
             } catch (IOException e) {
 
                 // Note: this exception should not happen thanks to the initial check of users.
-                MessagePrint.println(MessagePrint.Stream.OUT, e.getMessage());
+                MessagePrint.println(MessagePrint.Stream.ERR, e.getMessage());
             }
         }
         return totalHoldingsWorth;
