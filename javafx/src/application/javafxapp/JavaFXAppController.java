@@ -256,6 +256,12 @@ public class JavaFXAppController
         // root.styleProperty().bind(
         //         Bindings.format("-fx-font-size: %.2fpt;", fontSize)); //TODO font slider
 
+        firstColorBind();
+        InitMenuVBox();
+        secondColorBind();
+    }
+
+    private void firstColorBind() {
         colorPicked.bind(ColorPickerApp.colorPickedProperty());
         colorPicked.addListener((observable, oldValue, newValue) -> {
             colorPicked.unbind();
@@ -266,9 +272,6 @@ public class JavaFXAppController
             stringColor.set(ColorPickerApp.getStringColor(colorPicked.get()));
             colorPicked.bind(ColorPickerApp.colorPickedProperty());
         });
-
-        InitMenuVBox();
-        secondColorPicking();
     }
 
     private void initProgressBar() {
@@ -308,7 +311,7 @@ public class JavaFXAppController
         });
     }
 
-    private void secondColorPicking() {
+    private void secondColorBind() {
         rgbaString.addListener((observable, oldValue, newValue) -> {
 
             // Set text Color and background Color of label rseLabel:
