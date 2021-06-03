@@ -31,17 +31,15 @@ public class Login implements Initializable {
 
     @Override public void initialize(URL location, ResourceBundle resources) {
         try {
-            userComboBox.getItems()
-                    .addAll(Engine.getUsers().getCollection());
+            userComboBox.getItems().addAll(Engine.getUsers().getCollection());
         } catch (IOException e) {
 
             // Note: this exception should not happen thanks to the initial check of users.
             MessagePrint.println(MessagePrint.Stream.ERR, e.getMessage());
         }
 
-        new JavaFXAppHandler(
-                "/application/pane/resources/orderexecution/OrderExecution" +
-                        ".fxml").handleOnce(selectUserButton);
+        new JavaFXAppHandler("/application/pane/resources/user/UserPane.fxml")
+                .handleOnce(selectUserButton);
 
         SelectedUser.selectedUserProperty().bind(userComboBox.valueProperty());
 

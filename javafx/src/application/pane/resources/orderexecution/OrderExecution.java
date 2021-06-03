@@ -174,9 +174,7 @@ public class OrderExecution implements Initializable {
     }
 
     private void initUserNameLabel() {
-        userNameLabel.setText(
-                "Hello, " + SelectedUser.getSelectedUser().getName() + ". " +
-                        "Please make an order.");
+        userNameLabel.setText("Please make an order.");
     }
 
     private void initDisable() {

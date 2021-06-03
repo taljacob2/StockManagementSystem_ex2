@@ -438,49 +438,6 @@ public interface PaneAnimator extends PaneReplacer {
             this.runnable = runnable;
         }
 
-        public Handler() {}
-
-        public Handler(Runnable runnable) {
-            this.runnable = runnable;
-        }
-
-        public Handler(BorderPane borderPaneToShowOnItsCenter,
-                       Pane parentContainer, String pathToFXML,
-                       AnimationType animationType,
-                       SimpleBooleanProperty handle, Runnable runnable) {
-            this.borderPaneToShowOnItsCenter = borderPaneToShowOnItsCenter;
-            this.parentContainer = parentContainer;
-            this.pathToFXML = pathToFXML;
-            this.animationType = animationType;
-            this.handle = handle;
-            this.runnable = runnable;
-        }
-
-        public Handler(SimpleBooleanProperty handle) {
-            this.handle = handle;
-        }
-
-        public Handler(BorderPane borderPaneToShowOnItsCenter) {
-            this.borderPaneToShowOnItsCenter = borderPaneToShowOnItsCenter;
-        }
-
-        public Handler(Pane parentContainer) {
-            this.parentContainer = parentContainer;
-        }
-
-        public Handler(String pathToFXML) {
-            this.pathToFXML = pathToFXML;
-        }
-
-        public Handler(AnimationType animationType) {
-            this.animationType = animationType;
-        }
-
-        public Handler(SimpleBooleanProperty handle, Runnable runnable) {
-            this.handle = handle;
-            this.runnable = runnable;
-        }
-
         public static void handleOnce(Handler handler, ButtonBase buttonBase,
                                       String pathToFXML) {
             handler.handleOnce(buttonBase,
@@ -567,6 +524,7 @@ public interface PaneAnimator extends PaneReplacer {
             if (handle.get()) {
                 setPane(event, borderPaneToShowOnItsCenter, parentContainer,
                         pathToFXML, animationType);
+                if (runnable != null) { runnable.run(); }
             }
         }
 

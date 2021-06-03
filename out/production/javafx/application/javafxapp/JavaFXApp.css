@@ -190,10 +190,22 @@
 }
 
 
-#menuVBoxScrollPane .viewport {
-    -fx-background-color: rgb(128, 179, 128);
-    /*-fx-background-image: url("/application/image/dark.jpg");*/
-    -fx-background-repeat: no-repeat;
-    -fx-background-size: cover;
-    -fx-background-position: center center;
+/*#menuVBoxScrollPane .viewport {*/
+/*    -fx-background-color: rgba(255, 255, 255, 0);*/
+/*    !*-fx-background-image: url("/application/image/dark.jpg");*!*/
+/*    -fx-background-repeat: no-repeat;*/
+/*    -fx-background-size: cover;*/
+/*    -fx-background-position: center center;*/
+/*}*/
+
+/*#userVBoxScrollPane .viewport {*/
+/*    -fx-background-color: rgba(255, 255, 255, 0);*/
+/*    !*-fx-background-image: url("/application/image/dark.jpg");*!*/
+/*    -fx-background-repeat: no-repeat;*/
+/*    -fx-background-size: cover;*/
+/*    -fx-background-position: center center;*/
+/*}*/
+
+.scroll-pane .viewport {
+    -fx-background-color: rgba(255, 255, 255, 0);
 }

@@ -1,10 +1,15 @@
 package application.pane.resources.user;
 
+import application.javafxapp.JavaFXAppController;
 import application.pane.ContainsAnotherPane;
 import application.pane.resources.login.selecteduser.SelectedUser;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,6 +25,9 @@ import java.util.ResourceBundle;
 public class UserPane extends ContainsAnotherPane implements Initializable {
 
     @FXML private Label userNameLabel;
+    @FXML private Button viewOwnsButton;
+    @FXML private Button makeAnOrderButton;
+    @FXML private VBox userVBox;
 
     public UserPane() {
 
@@ -31,6 +39,32 @@ public class UserPane extends ContainsAnotherPane implements Initializable {
         super.initialize(location, resources);
 
         userNameLabel.setText(
-                "Hello, " + SelectedUser.getSelectedUser().getName() + ". ");
+                "Hello, " + SelectedUser.getSelectedUser().getName() + ".");
+
+
+        viewOwnsButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent event) {
+                setPane(getBorderPaneToShowTheAnotherInnerPane(),
+                        "/application/pane/resources/ownuser/OwnUser.fxml");
+            }
+        });
+
+        makeAnOrderButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent event) {
+                setPane(getBorderPaneToShowTheAnotherInnerPane(),
+                        "/application/pane/resources/orderexecution/OrderExecution.fxml");
+            }
+        });
+
+        // Set userVBox the updated style:
+        JavaFXAppController.rgbaStringPropertyProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    userVBox.setStyle("-fx-background-color: " +
+                            JavaFXAppController.rgbaStringPropertyProperty()
+                                    .get());
+                });
+
+        userVBox.setMinHeight(290);
+        userVBox.setMinWidth(187);
     }
 }

@@ -194,6 +194,42 @@ public class JavaFXAppController
         return staticBorderPane;
     }
 
+    public static String getRgbaStringProperty() {
+        return rgbaStringProperty.get();
+    }
+
+    public static void setRgbaStringProperty(String rgbaStringProperty) {
+        JavaFXAppController.rgbaStringProperty.set(rgbaStringProperty);
+    }
+
+    public static StringProperty rgbaStringPropertyProperty() {
+        return rgbaStringProperty;
+    }
+
+    public static String getRgbStringProperty() {
+        return rgbStringProperty.get();
+    }
+
+    public static void setRgbStringProperty(String rgbStringProperty) {
+        JavaFXAppController.rgbStringProperty.set(rgbStringProperty);
+    }
+
+    public static StringProperty rgbStringPropertyProperty() {
+        return rgbStringProperty;
+    }
+
+    public static String getStringColorProperty() {
+        return stringColorProperty.get();
+    }
+
+    public static void setStringColorProperty(String stringColorProperty) {
+        JavaFXAppController.stringColorProperty.set(stringColorProperty);
+    }
+
+    public static StringProperty stringColorPropertyProperty() {
+        return stringColorProperty;
+    }
+
     @Override public void initialize(URL location, ResourceBundle resources) {
 
         /*

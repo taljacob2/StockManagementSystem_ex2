@@ -47,4 +47,9 @@ public class ContainsAnotherPane implements Initializable, PaneReplacer {
     @Override public void initialize(URL location, ResourceBundle resources) {
         setPane(pathToFXML);
     }
+
+    public BorderPane getBorderPaneToShowTheAnotherInnerPane() {
+        return borderPaneToShowTheAnotherInnerPane;
+    }
+
 }
