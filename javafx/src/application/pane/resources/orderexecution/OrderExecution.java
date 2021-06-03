@@ -140,7 +140,9 @@ public class OrderExecution implements Initializable {
                     OrderType.valueOf(
                             orderTypeComboBox.getValue().toUpperCase()),
                     Long.parseLong(quantityTextField.getText()),
-                    limitPriceTextField.getText().equalsIgnoreCase("MKT") ? 0L :
+                    (limitPriceTextField.getText() == null) ||
+                            (limitPriceTextField.getText()
+                                    .equalsIgnoreCase("MKT")) ? 0L :
                             Long.parseLong(limitPriceTextField.getText()));
 
         }
@@ -161,14 +163,9 @@ public class OrderExecution implements Initializable {
     public OrderExecution() {}
 
     @Override public void initialize(URL location, ResourceBundle resources) {
-        initComboBoxes();
         initUserNameLabel();
-        initTextToLongNumbersOnly(quantityTextField, "'Quantity'",
-                quantityValidityState, activeMinQuantityValue,
-                activeMaxQuantityValue);
-        initTextToLongNumbersOnly(limitPriceTextField, "'Price'",
-                limitPriceValidityState, activeMinLimitPriceValue,
-                activeMaxLimitPriceValue);
+        initComboBoxes();
+        initTextFields();
 
         // new JavaFXAppHandler("/application/pane/resources/login/Login.fxml",
         //         executeOrderRunnable).handleOnce(executeOrderButton);
@@ -184,21 +181,32 @@ public class OrderExecution implements Initializable {
             }
         });
 
+        //BUG MKT doesn't work no more
 
         initDisable();
+    }
+
+    private void initTextFields() {
+        initTextFieldValues();
+        initTextToLongNumbersOnly(limitPriceTextField, "'Price'",
+                limitPriceValidityState, activeMinLimitPriceValue,
+                activeMaxLimitPriceValue);
+        initTextToLongNumbersOnly(quantityTextField, "'Quantity'",
+                quantityValidityState, activeMinQuantityValue,
+                activeMaxQuantityValue);
+    }
+
+    private void initTextFieldValues() {
+        orderDirectionComboBox.valueProperty().addListener(
+                (observable, oldValue, newValue) -> initStockComboBox());
+        stockComboBox.valueProperty().addListener(
+                (observable, oldValue, newValue) -> initMinMaxQuantityValues());
+        initDependencyOfMKT();
     }
 
     private void initComboBoxes() {
         orderDirectionComboBox.getItems().addAll("Buy", "Sell");
         orderTypeComboBox.getItems().addAll("LMT", "MKT");
-
-        orderDirectionComboBox.valueProperty().addListener(
-                (observable, oldValue, newValue) -> initStockComboBox());
-
-        stockComboBox.valueProperty().addListener(
-                (observable, oldValue, newValue) -> initMinMaxQuantityValues());
-
-        initDependencyOfMKT();
     }
 
     private void initUserNameLabel() {
@@ -322,16 +330,16 @@ public class OrderExecution implements Initializable {
      *                       be <tt>greater than or equal to</tt> this value.
      * @param activeMaxValue the <i>value</i> that the {@link TextField} should
      *                       be <tt>less than or equal to</tt> this value.
-     * @see #initTextQuantityFormatter(TextField)
-     * @see #initTextQuantityMinMaxValidation(TextField, String,
+     * @see #initTextFormatter(TextField)
+     * @see #initTextMinMaxValueValidation(TextField, String,
      * SimpleBooleanProperty, SimpleLongProperty, SimpleLongProperty)
      */
     private void initTextToLongNumbersOnly(TextField textField, String field,
                                            SimpleBooleanProperty validity,
                                            SimpleLongProperty activeMinValue,
                                            SimpleLongProperty activeMaxValue) {
-        initTextQuantityFormatter(textField);
-        initTextQuantityMinMaxValidation(textField, field, validity,
+        initTextFormatter(textField);
+        initTextMinMaxValueValidation(textField, field, validity,
                 activeMinValue, activeMaxValue);
     }
 
@@ -347,7 +355,7 @@ public class OrderExecution implements Initializable {
      *                      and {@link #activeMaxQuantityValue}.</li>
      *                  </ul>
      */
-    private void initTextQuantityFormatter(TextField textField) {
+    private void initTextFormatter(TextField textField) {
         textField.setTextFormatter(new TextFormatter<>(change -> {
 
             // Allow only numbers:
@@ -390,11 +398,11 @@ public class OrderExecution implements Initializable {
      * @param activeMaxValue the <i>value</i> that the {@link TextField} should
      *                       be <tt>less than or equal to</tt> this value.
      */
-    private void initTextQuantityMinMaxValidation(TextField textField,
-                                                  String field,
-                                                  SimpleBooleanProperty validity,
-                                                  SimpleLongProperty activeMinValue,
-                                                  SimpleLongProperty activeMaxValue) {
+    private void initTextMinMaxValueValidation(TextField textField,
+                                               String field,
+                                               SimpleBooleanProperty validity,
+                                               SimpleLongProperty activeMinValue,
+                                               SimpleLongProperty activeMaxValue) {
         textField.textProperty().addListener(
                 textFieldChangeListener = new ChangeListener<String>() {
                     @Override public void changed(
