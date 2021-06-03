@@ -392,7 +392,7 @@ public class JavaFXAppController
 
         // // set the new pane to show:
         // Pane view =
-        //         getPane("/application/scene/StockTablePane.fxml");//todo: check if can be replaced with: getClass().getResource(pathToFXML)
+        //         getPane("/application/scene/HoldingsTablePane.fxml");//todo: check if can be replaced with: getClass().getResource(pathToFXML)
         // borderPane.setCenter(view);
         //
         // // TODO: check this is `double` lifting the pane up
