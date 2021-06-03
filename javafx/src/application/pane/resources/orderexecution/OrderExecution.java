@@ -199,6 +199,9 @@ public class OrderExecution implements Initializable {
                 (observable, oldValue, newValue) -> initStockComboBox());
         stockComboBox.valueProperty().addListener(
                 (observable, oldValue, newValue) -> initMinMaxQuantityValues());
+        stockComboBox.valueProperty().addListener(
+                (observable, oldValue, newValue) -> quantityTextField
+                        .setText("1"));
         initDependencyOfMKT();
     }
 
@@ -212,7 +215,7 @@ public class OrderExecution implements Initializable {
     }
 
     private void initDisable() {
-        limitPriceTextField.setDisable(true);
+        quantityTextField.setDisable(true);
         executeOrderButton.setDisable(true);
 
         // 'stockComboBox' depends on 'orderDirectionComboBox'.
@@ -225,10 +228,20 @@ public class OrderExecution implements Initializable {
                 .bind(stockComboBox.valueProperty().isNull()
                         .or(stockComboBox.disableProperty()));
 
-        // 'quantityTextField' depends on 'orderTypeComboBox'.
-        quantityTextField.disableProperty()
+        // 'limitPriceTextField' depends on 'orderTypeComboBox'.
+        limitPriceTextField.disableProperty()
                 .bind(orderTypeComboBox.valueProperty().isNull()
                         .or(orderTypeComboBox.disableProperty()));
+
+        // 'quantityTextField' depends on all combo-boxes.
+        quantityTextField.disableProperty()
+                .bind(orderDirectionComboBox.disableProperty()
+                        .or(orderDirectionComboBox.valueProperty().isNull())
+                        .or(orderTypeComboBox.disableProperty()
+                                .or(orderTypeComboBox.valueProperty().isNull())
+                                .or(orderTypeComboBox.disableProperty()
+                                        .or(orderTypeComboBox.valueProperty()
+                                                .isNull()))));
     }
 
     private void initDependencyOfMKT() {
@@ -257,7 +270,13 @@ public class OrderExecution implements Initializable {
         limitPriceTextField.setPromptText("MKT");
         limitPriceTextField.disableProperty().unbind();
         limitPriceTextField.setDisable(true);
+
+        quantityTextField.disableProperty().unbind();
+        quantityTextField.disableProperty().setValue(false);
+        quantityTextField.disableProperty().unbind();
+
         executeOrderButton.disableProperty().unbind();
+
 
         /*
          * In order to press the button,
@@ -281,10 +300,17 @@ public class OrderExecution implements Initializable {
         initTextToLongNumbersOnly(limitPriceTextField, "'Price'",
                 limitPriceValidityState, activeMinLimitPriceValue,
                 activeMaxLimitPriceValue);
+
+        // 'limitPriceTextField' depends on 'orderTypeComboBox'.
         limitPriceTextField.disableProperty().unbind();
-        limitPriceTextField.disableProperty().bind(quantityValidityState.not()
-                .or(quantityTextField.disabledProperty()
-                        .or(quantityTextField.textProperty().isNull())));
+        limitPriceTextField.disableProperty()
+                .bind(orderTypeComboBox.valueProperty().isNull()
+                        .or(orderTypeComboBox.disableProperty()));
+
+        quantityTextField.disableProperty().unbind();
+        quantityTextField.disableProperty().bind(limitPriceValidityState.not()
+                .or(limitPriceTextField.disabledProperty()
+                        .or(limitPriceTextField.textProperty().isNull())));
         executeOrderButton.disableProperty().unbind();
 
         /*
@@ -300,9 +326,9 @@ public class OrderExecution implements Initializable {
                                         .or(quantityTextField.disableProperty()
                                                 .or(limitPriceTextField
                                                         .disableProperty()
-                                                        .or(quantityValidityState
-                                                                .not())
                                                         .or(limitPriceValidityState
+                                                                .not())
+                                                        .or(quantityValidityState
                                                                 .not()))))));
     }
 
