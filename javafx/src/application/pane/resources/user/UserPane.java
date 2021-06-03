@@ -32,7 +32,7 @@ public class UserPane extends ContainsAnotherPane implements Initializable {
     public UserPane() {
 
         // Show 'StockTablePane' on the inner BorderPane's CENTER:
-        super("/application/pane/resources/stocktablepane/StockTablePane.fxml");
+        super("/application/pane/resources/ownuser/OwnUser.fxml");
     }
 
     @Override public void initialize(URL location, ResourceBundle resources) {
@@ -63,8 +63,7 @@ public class UserPane extends ContainsAnotherPane implements Initializable {
         JavaFXAppController.rgbaStringProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     userVBox.setStyle("-fx-background-color: " +
-                            JavaFXAppController.rgbaStringProperty()
-                                    .get());
+                            JavaFXAppController.rgbaStringProperty().get());
                 });
     }
 }

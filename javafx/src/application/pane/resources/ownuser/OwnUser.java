@@ -14,7 +14,7 @@ public class OwnUser extends ContainsAnotherPane {
     public OwnUser() {
 
         // Show 'StockTablePane' on the inner BorderPane's CENTER:
-        super("/application/pane/resources/stocktablepane/StockTablePane.fxml");
+        super("/application/pane/resources/user/holdings/HoldingsTablePane.fxml");
     }
 
 }
