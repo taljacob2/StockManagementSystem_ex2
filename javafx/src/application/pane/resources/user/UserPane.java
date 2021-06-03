@@ -66,8 +66,5 @@ public class UserPane extends ContainsAnotherPane implements Initializable {
                             JavaFXAppController.rgbaStringProperty()
                                     .get());
                 });
-
-        userVBox.setMinHeight(290);
-        userVBox.setMinWidth(187);
     }
 }
