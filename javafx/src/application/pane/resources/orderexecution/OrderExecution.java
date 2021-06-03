@@ -237,8 +237,8 @@ public class OrderExecution implements Initializable {
         quantityTextField.disableProperty()
                 .bind(orderDirectionComboBox.disableProperty()
                         .or(orderDirectionComboBox.valueProperty().isNull())
-                        .or(orderTypeComboBox.disableProperty()
-                                .or(orderTypeComboBox.valueProperty().isNull())
+                        .or(stockComboBox.disableProperty()
+                                .or(stockComboBox.valueProperty().isNull())
                                 .or(orderTypeComboBox.disableProperty()
                                         .or(orderTypeComboBox.valueProperty()
                                                 .isNull()))));
@@ -445,7 +445,7 @@ public class OrderExecution implements Initializable {
 
                             // Means, the given number is invalid.
                             validity.setValue(false);
-                            printInvalidErrorMessage(field,
+                            printInvalidErrorMessage(textField, field,
                                     activeMinValue.get(), activeMaxValue.get());
                             return;
                         }
@@ -453,7 +453,7 @@ public class OrderExecution implements Initializable {
 
                             // Means, there is no number given. Number is invalid.
                             validity.setValue(false);
-                            printInvalidErrorMessage(field,
+                            printInvalidErrorMessage(textField, field,
                                     activeMinValue.get(), activeMaxValue.get());
                             return;
                         }
@@ -465,7 +465,8 @@ public class OrderExecution implements Initializable {
                 });
     }
 
-    private void printInvalidErrorMessage(String field, Long activeMinValue,
+    private void printInvalidErrorMessage(TextField textField, String field,
+                                          Long activeMinValue,
                                           Long activeMaxValue) {
         MessagePrint.println(MessagePrint.Stream.ERR,
                 "Invalid [long] " + field + "." +
