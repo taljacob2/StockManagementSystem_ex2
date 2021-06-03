@@ -39,16 +39,16 @@
                                                 right="10.0" top="5.0"/>
                                     </VBox.margin>
                                 </ComboBox>
-                                <TextField fx:id="quantityTextField"
-                                           promptText="Quantity">
+                                <TextField fx:id="limitPriceTextField"
+                                           layoutX="10.0" layoutY="164.0"
+                                           promptText="Desired Limit Price">
                                     <VBox.margin>
                                         <Insets bottom="5.0" left="10.0"
                                                 right="10.0" top="5.0"/>
                                     </VBox.margin>
                                 </TextField>
-                                <TextField fx:id="limitPriceTextField"
-                                           layoutX="10.0" layoutY="164.0"
-                                           promptText="Desired Limit Price">
+                                <TextField fx:id="quantityTextField"
+                                           promptText="Quantity">
                                     <VBox.margin>
                                         <Insets bottom="5.0" left="10.0"
                                                 right="10.0" top="5.0"/>

@@ -5,33 +5,41 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="login" stylesheets="@Login.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.pane.resources.login.Login">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="login"
+            stylesheets="@Login.css" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="application.pane.resources.login.Login">
     <children>
-        <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <ScrollPane fitToHeight="true" fitToWidth="true"
+                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <content>
                 <BorderPane prefHeight="200.0" prefWidth="200.0">
                     <top>
-                        <FlowPane alignment="CENTER" BorderPane.alignment="CENTER">
+                        <FlowPane alignment="CENTER"
+                                  BorderPane.alignment="CENTER">
                             <children>
-                                <ComboBox fx:id="userComboBox" promptText="Choose a user" />
+                                <ComboBox fx:id="userComboBox"
+                                          promptText="Choose a user"/>
                             </children>
                             <BorderPane.margin>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                <Insets bottom="5.0" left="5.0" right="5.0"
+                                        top="5.0"/>
                             </BorderPane.margin>
                         </FlowPane>
                     </top>
                     <center>
-                        <Label alignment="CENTER" text="Choose A User To Log Into" textFill="WHITE" BorderPane.alignment="CENTER">
+                        <Label alignment="CENTER"
+                               text="Choose A User To Log Into" textFill="WHITE"
+                               BorderPane.alignment="CENTER">
                             <font>
-                                <Font name="SansSerif Regular" size="36.0" />
+                                <Font name="SansSerif Regular" size="36.0"/>
                             </font>
                             <BorderPane.margin>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                <Insets bottom="5.0" left="5.0" right="5.0"
+                                        top="5.0"/>
                             </BorderPane.margin>
                         </Label>
                     </center>
@@ -39,10 +47,11 @@
                         <Button fx:id="loginButton" mnemonicParsing="false"
                                 text="Login" BorderPane.alignment="CENTER">
                             <font>
-                                <Font name="SansSerif Regular" size="24.0" />
+                                <Font name="SansSerif Regular" size="24.0"/>
                             </font>
                             <BorderPane.margin>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                <Insets bottom="5.0" left="5.0" right="5.0"
+                                        top="5.0"/>
                             </BorderPane.margin>
                         </Button>
                     </bottom>
