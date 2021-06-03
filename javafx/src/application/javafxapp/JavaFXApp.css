@@ -24,12 +24,6 @@
     /*-fx-progress-color: red;*/
 }
 
-
-#menuVBox {
-    -fx-background-color: rgba(0, 0, 0, 0.75);
-    /*-fx-background-radius: 10;*/
-}
-
 /*.tool-bar:hover {*/
 /*    !*-fx-background-color: blue;*!*/
 /*    -fx-background-color: linear-gradient(green, red);*/
@@ -49,7 +43,6 @@
 #rseLabel {
     -fx-text-fill: rgb(202, 200, 197);
     -fx-background-color: rgb(128, 179, 128);
-    /*-fx-background-radius: 10;*/
 }
 
 #progressBarLabel {

@@ -56,6 +56,9 @@ public class UserPane extends ContainsAnotherPane implements Initializable {
             }
         });
 
+        userVBox.setStyle("-fx-background-color: " +
+                JavaFXAppController.rgbaStringPropertyProperty().get());
+
         // Set userVBox the updated style:
         JavaFXAppController.rgbaStringPropertyProperty()
                 .addListener((observable, oldValue, newValue) -> {

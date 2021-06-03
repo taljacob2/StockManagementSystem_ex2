@@ -58,13 +58,12 @@ public class JavaFXAppController
     final private static NumberProperty fontSizeDoubleNumber =
             new NumberProperty();//FIXME need to fix/kill all of this
 
-    private static final StringProperty rgbaStringProperty =
-            new SimpleStringProperty();
+    private static final StringProperty rgbaString = new SimpleStringProperty(
+            ColorPickerApp.toRGBAString(0, 0, 0, 0.75));
 
-    private static final StringProperty rgbStringProperty =
-            new SimpleStringProperty();
+    private static final StringProperty rgbString = new SimpleStringProperty();
 
-    private static final StringProperty stringColorProperty =
+    private static final StringProperty stringColor =
             new SimpleStringProperty();
 
     /**
@@ -165,8 +164,7 @@ public class JavaFXAppController
              * if the color is dark enough:
              * set the staticProgressLabel the updated style:
              */
-            staticProgressLabel
-                    .setStyle("-fx-text-fill: " + rgbStringProperty.get());
+            staticProgressLabel.setStyle("-fx-text-fill: " + rgbString.get());
         } else {
 
             /*
@@ -181,53 +179,44 @@ public class JavaFXAppController
         return staticMenuVBox;
     }
 
-    // TODO kill this
-    // public void generateRandom(ActionEvent event) {
-    //     Random rand = new Random();
-    //     int myRand = rand.nextInt(50) + 1;
-    //     myMessage.setText(Integer.toString(myRand));
-    //     progressBarDoubleNumber.setNumber(((double) myRand / 100) *
-    //             2); // TODO: fix progress bar to sync into processes and not to the 'generate' method
-    // }
-
     public static BorderPane getStaticBorderPane() {
         return staticBorderPane;
     }
 
-    public static String getRgbaStringProperty() {
-        return rgbaStringProperty.get();
+    public static String getRgbaString() {
+        return rgbaString.get();
     }
 
-    public static void setRgbaStringProperty(String rgbaStringProperty) {
-        JavaFXAppController.rgbaStringProperty.set(rgbaStringProperty);
+    public static void setRgbaString(String rgbaString) {
+        JavaFXAppController.rgbaString.set(rgbaString);
     }
 
     public static StringProperty rgbaStringPropertyProperty() {
-        return rgbaStringProperty;
+        return rgbaString;
     }
 
-    public static String getRgbStringProperty() {
-        return rgbStringProperty.get();
+    public static String getRgbString() {
+        return rgbString.get();
     }
 
-    public static void setRgbStringProperty(String rgbStringProperty) {
-        JavaFXAppController.rgbStringProperty.set(rgbStringProperty);
+    public static void setRgbString(String rgbString) {
+        JavaFXAppController.rgbString.set(rgbString);
     }
 
     public static StringProperty rgbStringPropertyProperty() {
-        return rgbStringProperty;
+        return rgbString;
     }
 
-    public static String getStringColorProperty() {
-        return stringColorProperty.get();
+    public static String getStringColor() {
+        return stringColor.get();
     }
 
-    public static void setStringColorProperty(String stringColorProperty) {
-        JavaFXAppController.stringColorProperty.set(stringColorProperty);
+    public static void setStringColor(String stringColor) {
+        JavaFXAppController.stringColor.set(stringColor);
     }
 
     public static StringProperty stringColorPropertyProperty() {
-        return stringColorProperty;
+        return stringColor;
     }
 
     @Override public void initialize(URL location, ResourceBundle resources) {
@@ -249,14 +238,9 @@ public class JavaFXAppController
          * Set Initial Pane:
          * Note: this is not a must
          */
-        setPane("/application/pane/resources/welcome/Welcome.fxml");// TODO remove check
-        // setPane(borderPane, "/application/pane/resources/fxml/Welcome
-        // .fxml");// TODO remove check
+        setPane("/application/pane/resources/welcome/Welcome.fxml");
 
-        /*
-         * Define Buttons.
-         * Also, set Default Animation to 'FADE_IN_OUT'
-         */
+        // Define Buttons.
         defineAnimationToAllButtons();
 
 
@@ -283,32 +267,24 @@ public class JavaFXAppController
         //         Bindings.format("-fx-font-size: %.2fpt;", fontSize)); //TODO font slider
 
 
-        // messageProperty.addListener(new ChangeListener<String>() {
-        //
-        //     @Override
-        //     public void changed(ObservableValue<? extends String> observable,
-        //                         String oldValue, String newValue) {
-        //
-        //         // set bind of 'statusLabel' to 'messageProperty' property:
-        //         statusText.textProperty().bind(messageProperty);
-        //     }
-        // });
-
-
         // Translate: set Observers of 'ColorPickerApp.colorPickedProperty()':
         ColorPickerApp.colorPickedProperty()
                 .addListener((observable, oldValue, newValue) -> {
 
-                    rgbaStringProperty.set(ColorPickerApp.toRGBAString(0.5));
-                    rgbStringProperty.set(ColorPickerApp.toRGBString());
-                    stringColorProperty.set(ColorPickerApp.getStringColor());
+                    rgbaString.set(ColorPickerApp.toRGBAString(0.5));
+                    rgbString.set(ColorPickerApp.toRGBString());
+                    stringColor.set(ColorPickerApp.getStringColor());
                 });
+
+        // Set initial color of 'menuVBox':
+        menuVBox.setStyle("-fx-background-color: " + getRgbaString());
 
         menuBar.heightProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     leftBorderPane.layoutYProperty().set(menuBar.getHeight());
                     menuVBox.layoutYProperty().set(menuBar.getHeight());
                 });
+
         leftBorderPane.setMinHeight(290);
         leftBorderPane.setMinWidth(187);
     }
@@ -334,20 +310,20 @@ public class JavaFXAppController
 
         /* -- Set Style Colors -- */
 
-        if (rgbaStringProperty.get() == null) {
-            rgbaStringProperty.set(ColorPickerApp.toRGBAString(0.5));
+        if (rgbaString.get() == null) {
+            rgbaString.set(ColorPickerApp.toRGBAString(0.5));
         }
 
         // Set menuBar the updated style:
         menuBar.styleProperty().bind(Bindings.when(menuBar.hoverProperty())
                 .then(new SimpleStringProperty(
-                        "-fx-background-color: " + rgbaStringProperty.get() +
-                                ";")).otherwise(new SimpleStringProperty(
+                        "-fx-background-color: " + rgbaString.get() + ";"))
+                .otherwise(new SimpleStringProperty(
                         "-fx-background-color: " + "rgba(0, 0, 0, 0.75)" +
                                 ";")));
 
         // Set menuVBox the updated style:
-        menuVBox.setStyle("-fx-background-color: " + rgbaStringProperty.get());
+        menuVBox.setStyle("-fx-background-color: " + rgbaString.get());
 
         // Set text Color and background Color of label rseLabel:
         setRseLabelColor();
@@ -368,8 +344,8 @@ public class JavaFXAppController
              * set the rseLabel the updated style:
              */
             formatString = "-fx-text-fill: black;";
-            if (stringColorProperty.get() == null) {
-                stringColorProperty.set(ColorPickerApp.getStringColor());
+            if (stringColor.get() == null) {
+                stringColor.set(ColorPickerApp.getStringColor());
             }
 
         } else {
@@ -379,12 +355,11 @@ public class JavaFXAppController
              * set the rseLabel the updated style:
              */
             formatString = "-fx-text-fill: rgb(202,200,197);";
-            if (stringColorProperty.get() == null) {
-                stringColorProperty.set(ColorPickerApp.getStringColor());
+            if (stringColor.get() == null) {
+                stringColor.set(ColorPickerApp.getStringColor());
             }
         }
-        formatString +=
-                "-fx-background-color: " + "#" + stringColorProperty.get();
+        formatString += "-fx-background-color: " + "#" + stringColor.get();
         rseLabel.setStyle(formatString);
     }
 
