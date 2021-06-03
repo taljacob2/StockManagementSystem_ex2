@@ -18,7 +18,7 @@
                 <TableColumn fx:id="companyNameColumn" prefWidth="178.0"
                              text="Company Name"/>
                 <TableColumn fx:id="priceColumn" prefWidth="129.0"
-                             text="Price"/>
+                             text="($) Price"/>
             </columns>
         </TableView>
     </children>

@@ -1,4 +1,4 @@
-package application.pane.resources.ownuser;
+package application.pane.resources.user.holdings;
 
 import application.pane.ContainsAnotherPane;
 
@@ -9,12 +9,12 @@ import application.pane.ContainsAnotherPane;
  * <p>Represents the {@link javafx.scene.layout.Pane} of showing the
  * <i>Status</i> of a <i>User</i> in the system.</p>
  */
-public class OwnUser extends ContainsAnotherPane {
+public class UserHoldings extends ContainsAnotherPane {
 
-    public OwnUser() {
+    public UserHoldings() {
 
         // Show 'StockTablePane' on the inner BorderPane's CENTER:
-        super("/application/pane/resources/user/holdings/HoldingsTablePane.fxml");
+        super("/application/pane/resources/user/holdings/table/HoldingsTablePane.fxml");
     }
 
 }

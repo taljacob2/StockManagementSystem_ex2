@@ -25,14 +25,14 @@ import java.util.ResourceBundle;
 public class UserPane extends ContainsAnotherPane implements Initializable {
 
     @FXML private Label userNameLabel;
-    @FXML private Button viewOwnsButton;
+    @FXML private Button viewHoldingsButton;
     @FXML private Button makeAnOrderButton;
     @FXML private VBox userVBox;
 
     public UserPane() {
 
         // Show 'StockTablePane' on the inner BorderPane's CENTER:
-        super("/application/pane/resources/ownuser/OwnUser.fxml");
+        super("/application/pane/resources/user/holdings/UserHoldings.fxml");
     }
 
     @Override public void initialize(URL location, ResourceBundle resources) {
@@ -42,10 +42,10 @@ public class UserPane extends ContainsAnotherPane implements Initializable {
                 "Hello, " + SelectedUser.getSelectedUser().getName() + ".");
 
 
-        viewOwnsButton.setOnAction(new EventHandler<ActionEvent>() {
+        viewHoldingsButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent event) {
                 setPane(getBorderPaneToShowTheAnotherInnerPane(),
-                        "/application/pane/resources/ownuser/OwnUser.fxml");
+                        "/application/pane/resources/user/holdings/UserHoldings.fxml");
             }
         });
 

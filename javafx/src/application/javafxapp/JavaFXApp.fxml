@@ -28,13 +28,6 @@
                                           onAction="#command_EXIT" text="Exit"/>
                             </items>
                         </Menu>
-                        <Menu mnemonicParsing="false" text="Print">
-                            <items>
-                                <MenuItem mnemonicParsing="false"
-                                          onAction="#printStocksOnTableView"
-                                          text="Print Stocks"/>
-                            </items>
-                        </Menu>
                         <Menu mnemonicParsing="false" text="View">
                             <items>
                                 <MenuItem mnemonicParsing="false"
@@ -117,9 +110,6 @@
                                                         <Button fx:id="printStocksButton"
                                                                 mnemonicParsing="false"
                                                                 text="Print Stocks"/>
-                                                        <Button fx:id="ownUserButton"
-                                                                mnemonicParsing="false"
-                                                                text="Own User"/>
                                                         <Button fx:id="viewLogButton"
                                                                 layoutX="27.0"
                                                                 layoutY="102.0"

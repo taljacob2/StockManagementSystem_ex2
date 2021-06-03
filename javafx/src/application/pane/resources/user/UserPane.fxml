@@ -40,8 +40,9 @@
                <content>
                   <VBox fx:id="userVBox" alignment="TOP_CENTER" spacing="10.0">
                      <children>
-                        <Button fx:id="viewOwnsButton" mnemonicParsing="false"
-                                text="View Owns">
+                        <Button fx:id="viewHoldingsButton"
+                                mnemonicParsing="false"
+                                text="View Holdings">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0"
                                       top="5.0"/>
