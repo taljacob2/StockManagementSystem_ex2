@@ -7,6 +7,8 @@ import application.pane.PaneReplacerShortened;
 import application.property.NumberProperty;
 import engine.Engine;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
@@ -19,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import main.MenuUI;
 
 import java.io.File;
@@ -57,6 +60,11 @@ public class JavaFXAppController
      */
     final private static NumberProperty fontSizeDoubleNumber =
             new NumberProperty();//FIXME need to fix/kill all of this
+
+    private static final ObjectProperty<Color> colorPicked =
+            (ColorPickerApp.getColorPicked() == null) ?
+                    new SimpleObjectProperty<>(Color.rgb(128, 179, 128)) :
+                    new SimpleObjectProperty<>(ColorPickerApp.getColorPicked());
 
     private static final StringProperty rgbaString = new SimpleStringProperty(
             ColorPickerApp.toRGBAString(0, 0, 0, 0.75));
@@ -184,14 +192,14 @@ public class JavaFXAppController
     }
 
     public static String getRgbaString() {
-        return rgbaString.get();
+        return rgbaStringProperty().get();
     }
 
     public static void setRgbaString(String rgbaString) {
-        JavaFXAppController.rgbaString.set(rgbaString);
+        JavaFXAppController.rgbaStringProperty().set(rgbaString);
     }
 
-    public static StringProperty rgbaStringPropertyProperty() {
+    public static StringProperty rgbaStringProperty() {
         return rgbaString;
     }
 
@@ -267,7 +275,12 @@ public class JavaFXAppController
         //         Bindings.format("-fx-font-size: %.2fpt;", fontSize)); //TODO font slider
 
 
+        // if (rgbaString.get() == null) {
+        //     rgbaString.set(ColorPickerApp.toRGBAString(0.5));
+        // }
+
         // Translate: set Observers of 'ColorPickerApp.colorPickedProperty()':
+
         ColorPickerApp.colorPickedProperty()
                 .addListener((observable, oldValue, newValue) -> {
 
@@ -277,7 +290,18 @@ public class JavaFXAppController
                 });
 
         // Set initial color of 'menuVBox':
-        menuVBox.setStyle("-fx-background-color: " + getRgbaString());
+        rgbaString.addListener((observable, oldValue, newValue) -> {
+            menuVBox.setStyle("-fx-background-color: " + getRgbaString());
+        });
+
+        rgbaString.addListener((observable, oldValue, newValue) -> {
+
+            // Set text Color and background Color of label rseLabel:
+            setRseLabelColor();
+
+            // Set staticProgressLabel the updated style:
+            setProgressLabelColor();
+        });
 
         menuBar.heightProperty()
                 .addListener((observable, oldValue, newValue) -> {
@@ -307,12 +331,7 @@ public class JavaFXAppController
         // Play the color pop-up window:
         ColorPickerApp.play();
 
-
         /* -- Set Style Colors -- */
-
-        if (rgbaString.get() == null) {
-            rgbaString.set(ColorPickerApp.toRGBAString(0.5));
-        }
 
         // Set menuBar the updated style:
         menuBar.styleProperty().bind(Bindings.when(menuBar.hoverProperty())
@@ -321,23 +340,14 @@ public class JavaFXAppController
                 .otherwise(new SimpleStringProperty(
                         "-fx-background-color: " + "rgba(0, 0, 0, 0.75)" +
                                 ";")));
-
-        // Set menuVBox the updated style:
-        menuVBox.setStyle("-fx-background-color: " + rgbaString.get());
-
-        // Set text Color and background Color of label rseLabel:
-        setRseLabelColor();
-
-        // Set staticProgressLabel the updated style:
-        setProgressLabelColor();
     }
 
     private void setRseLabelColor() {
         //TODO: may make this method a `static` method by doing the `static` label copy trick.
         String formatString = "";
-        if ((ColorPickerApp.getRed() >= 150) ||
-                (ColorPickerApp.getGreen() > 150) ||
-                (ColorPickerApp.getBlue() > 150)) {
+        if ((ColorPickerApp.getRed(colorPicked.get()) >= 150) ||
+                (ColorPickerApp.getGreen(colorPicked.get()) > 150) ||
+                (ColorPickerApp.getBlue(colorPicked.get()) > 150)) {
 
             /*
              * if the background is bright:
@@ -345,7 +355,8 @@ public class JavaFXAppController
              */
             formatString = "-fx-text-fill: black;";
             if (stringColor.get() == null) {
-                stringColor.set(ColorPickerApp.getStringColor());
+                stringColor
+                        .set(ColorPickerApp.toStringColor(colorPicked.get()));
             }
 
         } else {
@@ -356,7 +367,8 @@ public class JavaFXAppController
              */
             formatString = "-fx-text-fill: rgb(202,200,197);";
             if (stringColor.get() == null) {
-                stringColor.set(ColorPickerApp.getStringColor());
+                stringColor
+                        .set(ColorPickerApp.toStringColor(colorPicked.get()));
             }
         }
         formatString += "-fx-background-color: " + "#" + stringColor.get();

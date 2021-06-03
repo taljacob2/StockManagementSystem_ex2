@@ -57,13 +57,13 @@ public class UserPane extends ContainsAnotherPane implements Initializable {
         });
 
         userVBox.setStyle("-fx-background-color: " +
-                JavaFXAppController.rgbaStringPropertyProperty().get());
+                JavaFXAppController.rgbaStringProperty().get());
 
         // Set userVBox the updated style:
-        JavaFXAppController.rgbaStringPropertyProperty()
+        JavaFXAppController.rgbaStringProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     userVBox.setStyle("-fx-background-color: " +
-                            JavaFXAppController.rgbaStringPropertyProperty()
+                            JavaFXAppController.rgbaStringProperty()
                                     .get());
                 });
 

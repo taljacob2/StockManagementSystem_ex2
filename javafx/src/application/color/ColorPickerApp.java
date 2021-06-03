@@ -1,6 +1,5 @@
 package application.color;
 
-import application.javafxapp.JavaFXApp;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Insets;
@@ -23,17 +22,8 @@ import javafx.stage.Stage;
  */
 public class ColorPickerApp {
 
-    /**
-     * Manually initialize to {@code Color} <i>rgb(128, 179, 128);</i>.
-     *
-     * <p>Should be the same value as the <tt>#rseLabel</tt> role:</p>
-     * <code>#rseLabel {
-     * fx-background-color: rgb(128, 179, 128); }</code> in the <tt>.css</tt>
-     * file of the {@code primaryStage} of {@link JavaFXApp}.
-     */
     private static final ObjectProperty<Color> colorPicked =
             new SimpleObjectProperty<>(Color.rgb(128, 179, 128));
-
 
     /**
      * The <b>core</b> method of this {@code Class}. Calls {@link #getColor()}
@@ -127,11 +117,23 @@ public class ColorPickerApp {
         return colorPicked.get().getRed() * 255;
     }
 
+    public static double getRed(Color color) {
+        return color.getRed() * 255;
+    }
+
     public static double getGreen() {
         return colorPicked.get().getGreen() * 255;
     }
 
+    public static double getGreen(Color color) {
+        return color.getGreen() * 255;
+    }
+
     public static double getBlue() {
         return colorPicked.get().getBlue() * 255;
+    }
+
+    public static double getBlue(Color color) {
+        return color.getBlue() * 255;
     }
 }
