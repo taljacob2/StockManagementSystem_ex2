@@ -219,7 +219,7 @@ public class OrderExecution implements Initializable {
                     if (orderTypeComboBox.getValue().equals("MKT")) {
                         initDependencyOfMKTBranch();
                     } else {
-                        initDepencencyOfNonMKTBranch();
+                        initDependencyOfNonMKTBranch();
                     }
                 });
 
@@ -254,7 +254,7 @@ public class OrderExecution implements Initializable {
                                                         .not())))));
     }
 
-    private void initDepencencyOfNonMKTBranch() {
+    private void initDependencyOfNonMKTBranch() {
 
         // Setting the new settings:
         initTextToLongNumbersOnly(limitPriceTextField, "'Price'",
