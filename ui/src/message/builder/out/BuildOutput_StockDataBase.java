@@ -3,6 +3,7 @@ package message.builder.out;
 import message.Message;
 import message.builder.BuildMessage;
 import message.builder.err.BuildError;
+import message.print.Log;
 import message.print.MessagePrint;
 import order.Order;
 import transaction.Transaction;
@@ -43,6 +44,9 @@ public class BuildOutput_StockDataBase extends BuildOutput {
      */
     public String newSuccessAdd(Object object) {
 
+        // Add a newLine to the Log-View:
+        Log.getMessageLog().append("\n");
+
         // append the message.
         if (object instanceof Transaction) {
             Transaction transaction = (Transaction) object;
@@ -59,7 +63,6 @@ public class BuildOutput_StockDataBase extends BuildOutput {
                     new BuildError().getMessage() +
                             "Problem when adding to the data-base.");
         }
-        // Log.getMessageLog().append("\r\n");
 
         // return the String.
         return getMessage();

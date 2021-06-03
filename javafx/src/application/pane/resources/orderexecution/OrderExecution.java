@@ -1,6 +1,6 @@
 package application.pane.resources.orderexecution;
 
-import application.javafxapp.JavaFXAppHandler;
+import application.dialog.FxDialogs;
 import application.pane.resources.login.selecteduser.SelectedUser;
 import engine.Engine;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -170,8 +170,20 @@ public class OrderExecution implements Initializable {
                 limitPriceValidityState, activeMinLimitPriceValue,
                 activeMaxLimitPriceValue);
 
-        new JavaFXAppHandler("/application/pane/resources/login/Login.fxml",
-                executeOrderRunnable).handleOnce(executeOrderButton);
+        // new JavaFXAppHandler("/application/pane/resources/login/Login.fxml",
+        //         executeOrderRunnable).handleOnce(executeOrderButton);
+
+        executeOrderButton.setOnAction(event -> {
+            event.consume();
+
+            String answer = FxDialogs
+                    .showConfirm("Order Confirmation", "Are you sure?", "Yes",
+                            "No");
+            if (answer.equals("Yes")) {
+                executeOrderRunnable.run();
+            }
+        });
+
 
         initDisable();
     }
