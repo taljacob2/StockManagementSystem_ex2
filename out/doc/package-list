@@ -9,6 +9,7 @@ application.pane.resources.ownuser
 application.pane.resources.scene1
 application.pane.resources.scene2
 application.pane.resources.stocktablepane
+application.pane.resources.user
 application.pane.resources.viewlog
 application.pane.resources.welcome
 application.property
