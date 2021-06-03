@@ -80,7 +80,8 @@ JavaFXApp via
 # check if there is an option to make the "Spinner" in "OrderExecution.class" to
     be "Editable" without bugs.
 
-
+# ->>write in README - after picking the second color the RSE-LABEL and the
+        PROGRESS-LABEL are set to be the last color
 
 
 
