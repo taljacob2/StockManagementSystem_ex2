@@ -102,19 +102,31 @@
                                             <center>
                                                 <VBox fx:id="menuVBox"
                                                       alignment="TOP_CENTER"
+                                                      prefHeight="538.0"
+                                                      prefWidth="153.0"
                                                       spacing="10.0">
                                                     <children>
                                                         <Button fx:id="loginButton"
                                                                 mnemonicParsing="false"
-                                                                text="Login"/>
+                                                                text="Login"
+                                                                textAlignment="CENTER"
+                                                                wrapText="true"/>
                                                         <Button fx:id="printStocksButton"
                                                                 mnemonicParsing="false"
-                                                                text="Print Stocks"/>
+                                                                text="Print Stocks"
+                                                                textAlignment="CENTER"
+                                                                wrapText="true"/>
+                                                        <Button mnemonicParsing="false"
+                                                                text="Print All Orders And Transactions"
+                                                                textAlignment="CENTER"
+                                                                wrapText="true"/>
                                                         <Button fx:id="viewLogButton"
                                                                 layoutX="27.0"
                                                                 layoutY="102.0"
                                                                 mnemonicParsing="false"
-                                                                text="View Log"/>
+                                                                text="View Log"
+                                                                textAlignment="CENTER"
+                                                                wrapText="true"/>
                                                     </children>
                                                     <padding>
                                                         <Insets bottom="10.0"

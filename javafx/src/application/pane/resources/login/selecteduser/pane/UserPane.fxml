@@ -41,15 +41,16 @@
                   <VBox fx:id="userVBox" alignment="TOP_CENTER" spacing="10.0">
                      <children>
                         <Button fx:id="viewHoldingsButton"
-                                mnemonicParsing="false"
-                                text="View Holdings">
+                                mnemonicParsing="false" text="View Holdings"
+                                textAlignment="CENTER" wrapText="true">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0"
                                       top="5.0"/>
                            </VBox.margin>
                         </Button>
                         <Button fx:id="makeAnOrderButton"
-                                mnemonicParsing="false" text="Make an Order"/>
+                                mnemonicParsing="false" text="Make an Order"
+                                textAlignment="CENTER" wrapText="true"/>
                      </children>
                      <opaqueInsets>
                         <Insets/>
