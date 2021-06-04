@@ -14,8 +14,8 @@ public class PrintStockContainer {
     /**
      * Stores here the <i>current</i> iterated {@link stock.Stock} in the {@link
      * engine.Engine}.
-     * <blockquote>Warning: the <i>index</i> <b>must</b> be initialized to '0'
-     * before/after <b>every</b> call to {@code this} class when
+     * <blockquote><b>Warning:</b> the <i>index</i> <b>must</b> be initialized
+     * to '0' before/after <b>every</b> call to {@code this} class when
      * <i>initiating</i> a {@link application.pane.resources.printall.PrintAll}
      * {@code Controller}.
      * </blockquote>
