@@ -3,6 +3,7 @@ package application.pane.resources.login.selecteduser.pane;
 import application.javafxapp.JavaFXAppController;
 import application.pane.ContainsAnotherPane;
 import application.pane.resources.login.selecteduser.SelectedUser;
+import application.pane.resources.login.selecteduser.pane.borderpane.SaveUserBorderPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -37,6 +38,8 @@ public class UserPane extends ContainsAnotherPane implements Initializable {
 
     @Override public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
+        SaveUserBorderPane.setBorderPaneToShowTheAnotherInnerPane(
+                getBorderPaneToShowTheAnotherInnerPane());
 
         userNameLabel.setText(
                 "Hello, " + SelectedUser.getSelectedUser().getName() + ".");

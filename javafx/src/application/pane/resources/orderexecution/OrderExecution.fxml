@@ -19,7 +19,7 @@
                         <VBox>
                             <children>
                                 <ComboBox fx:id="orderDirectionComboBox"
-                                          promptText="Buy / Sell">
+                                          promptText="Direction">
                                     <VBox.margin>
                                         <Insets bottom="5.0" left="10.0"
                                                 right="10.0" top="5.0"/>

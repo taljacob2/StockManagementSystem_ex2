@@ -1,7 +1,10 @@
 package application.pane.resources.orderexecution;
 
 import application.dialog.FxDialogs;
+import application.pane.PaneReplacer;
+import application.pane.resources.afterexecution.container.AfterExecuteOrderAndTransactionContainer;
 import application.pane.resources.login.selecteduser.SelectedUser;
+import application.pane.resources.login.selecteduser.pane.borderpane.SaveUserBorderPane;
 import engine.Engine;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleLongProperty;
@@ -35,7 +38,7 @@ import java.util.stream.Collectors;
  * previous <i>Login page</i>.
  * </p>
  */
-public class OrderExecution implements Initializable {
+public class OrderExecution implements Initializable, PaneReplacer {
 
     /**
      * States if the current inputted {@code quantity} value in the {@link
@@ -134,8 +137,9 @@ public class OrderExecution implements Initializable {
      */
     private final Runnable executeOrderRunnable = new Runnable() {
         @Override public void run() {
-            MenuUI.command_EXECUTE_TRANSACTION_ORDER(stockComboBox.getValue(),
-                    OrderDirection.valueOf(
+            MenuUI.command_EXECUTE_TRANSACTION_ORDER(
+                    new AfterExecuteOrderAndTransactionContainer(),
+                    stockComboBox.getValue(), OrderDirection.valueOf(
                             orderDirectionComboBox.getValue().toUpperCase()),
                     OrderType.valueOf(
                             orderTypeComboBox.getValue().toUpperCase()),
@@ -178,6 +182,12 @@ public class OrderExecution implements Initializable {
                             "No");
             if (answer.equals("Yes")) {
                 executeOrderRunnable.run();
+
+                // BUG:
+                setPane(SaveUserBorderPane
+                                .getBorderPaneToShowTheAnotherInnerPane(),
+                        "application/pane/resources/afterexecution" +
+                                "/OrderTableAndTransactionTable.fxml");
             }
         });
 

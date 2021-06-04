@@ -1,6 +1,8 @@
 package engine;
 
+import application.dialog.FxDialogs;
 import application.javafxapp.JavaFXAppController;
+import application.pane.resources.afterexecution.container.AfterExecuteOrderAndTransactionContainer;
 import engine.collection.EngineCollection;
 import load.Descriptor;
 import message.Message;
@@ -42,6 +44,13 @@ public class Engine {
      * The program's users.
      */
     private static Users users;
+
+    /**
+     * Store here the {@link Order}s and {@link Transaction}s after invoking an
+     * <i>order-execution.</i>
+     */
+    private static AfterExecuteOrderAndTransactionContainer
+            afterExecuteOrderAndTransactionContainer;
 
     /**
      * Empty constructor.
@@ -337,6 +346,16 @@ public class Engine {
         Engine.users = users;
     }
 
+    public static AfterExecuteOrderAndTransactionContainer getAfterExecuteOrderAndTransactionContainer() {
+        return afterExecuteOrderAndTransactionContainer;
+    }
+
+    public static void setAfterExecuteOrderAndTransactionContainer(
+            AfterExecuteOrderAndTransactionContainer afterExecuteOrderAndTransactionContainer) {
+        Engine.afterExecuteOrderAndTransactionContainer =
+                afterExecuteOrderAndTransactionContainer;
+    }
+
     /**
      * <b>The {@code Engine}'s core method.</b>
      * <p>
@@ -365,6 +384,66 @@ public class Engine {
      */
     public static void calcOrdersOfASingleStock(Stock stock,
                                                 Order arrivedOrder) {
+
+        // get the dataBase of this Stock:
+        StockDataBase dataBase = stock.getDataBase();
+
+        /*
+         * get the 'Buy' Orders Collection, and the 'Sell' Orders Collection,
+         * sorted by desiredLimitPrice/timeStamp priority:
+         *
+         * Orders are sorted with the highest desiredLimitPrice at the top (= first),
+         * and the lowest desiredLimitPrice at the bottom (= last).
+         * upon finding that prices are equal, they are sorted by timeStamp priority.
+         */
+        List<Order> buyOrders = dataBase.getAwaitingBuyOrders().getCollection();
+        List<Order> sellOrders =
+                dataBase.getAwaitingSellOrders().getCollection();
+
+        // if the arrived Order is a 'Buy' Order:
+        if (arrivedOrder.getOrderDirection() == OrderDirection.BUY) {
+            checkForOppositeAlreadyPlacedOrders(stock, sellOrders,
+                    arrivedOrder);
+
+            // if the arrived Order is a 'Sell' Order:
+        } else if (arrivedOrder.getOrderDirection() == OrderDirection.SELL) {
+            checkForOppositeAlreadyPlacedOrders(stock, buyOrders, arrivedOrder);
+        }
+
+    }
+
+    /**
+     * <b>The {@code Engine}'s core method.</b>
+     * <p>
+     * This method checks a single {@link Stock} (by passing its {@code Symbol}
+     * as a parameter), reads all its {@link order.Order}(s) lists, and
+     * calculates whether it is possible to create a {@link
+     * transaction.Transaction} between two {@link order.Order}(s).
+     * </p>
+     *
+     * @param stock        the stock the user wishes to check.
+     * @param arrivedOrder place here the <i>last placed</i> {@link Order} of in
+     *                     the stock's data-base. this means, that on the
+     *                     calculation process of interaction between two
+     *                     opposite already placed orders, this <i>last
+     *                     placed</i> order would match the desiredLimitPrice
+     *                     placed in another <i>opposite already placed</i>
+     *                     order. thus means, the {@link transaction.Transaction}'s
+     *                     desiredLimitPrice would be determined by the
+     *                     <i>opposite already placed</i> order
+     *                     desiredLimitPrice.
+     * @see #checkForOppositeAlreadyPlacedOrders
+     * @see #makeATransaction
+     * @see #checkRemainders
+     * @see #checkOppositeAlreadyPlacedOrderRemainder
+     * @see #checkArrivedOrderRemainder
+     */
+    public static void calcOrdersOfASingleStock(
+            AfterExecuteOrderAndTransactionContainer afterExecuteOrderAndTransactionContainer,
+            Stock stock, Order arrivedOrder) {
+
+        Engine.afterExecuteOrderAndTransactionContainer =
+                afterExecuteOrderAndTransactionContainer;
 
         // get the dataBase of this Stock:
         StockDataBase dataBase = stock.getDataBase();
@@ -521,6 +600,8 @@ public class Engine {
                 .getCollection().addFirst(transaction);
         MessagePrint.println(MessagePrint.Stream.OUT,
                 Message.Out.StockDataBase.newSuccessAdd(transaction));
+        afterExecuteOrderAndTransactionContainer.getTransactions()
+                .addFirst(transaction);
 
         return transaction;
     }
@@ -590,6 +671,8 @@ public class Engine {
             }
             MessagePrint.println(MessagePrint.Stream.OUT,
                     "The Order has a remainder:\n\t" + arrivedOrder);
+            afterExecuteOrderAndTransactionContainer.getRemainderOrders()
+                    .addFirst(arrivedOrder);
         } else {
 
             /*
@@ -614,10 +697,14 @@ public class Engine {
                 MessagePrint.println(MessagePrint.Stream.OUT,
                         Message.Out.StockDataBase
                                 .printOrderPerformedInItsEntirety());
+                FxDialogs.showInformation("INFO", Message.Out.StockDataBase
+                        .printOrderPerformedInItsEntirety());
             } else {
                 MessagePrint.println(MessagePrint.Stream.ERR,
                         new BuildError().getMessage() +
                                 Message.Err.Order.removeFail());
+                FxDialogs.showError("ERROR", new BuildError().getMessage() +
+                        Message.Err.Order.removeFail());
             }
         } else if (arrivedOrder.getOrderDirection() == OrderDirection.SELL) {
 
@@ -626,10 +713,14 @@ public class Engine {
                 MessagePrint.println(MessagePrint.Stream.OUT,
                         Message.Out.StockDataBase
                                 .printOrderPerformedInItsEntirety());
+                FxDialogs.showInformation("INFO", Message.Out.StockDataBase
+                        .printOrderPerformedInItsEntirety());
             } else {
                 MessagePrint.println(MessagePrint.Stream.ERR,
                         new BuildError().getMessage() +
                                 Message.Err.Order.removeFail());
+                FxDialogs.showError("ERROR", new BuildError().getMessage() +
+                        Message.Err.Order.removeFail());
             }
         }
     }
