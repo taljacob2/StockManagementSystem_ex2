@@ -1,8 +1,7 @@
 package application.pane.resources.stocktablepane;
 
+import application.pane.table.TableUtils;
 import engine.Engine;
-import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -101,12 +100,6 @@ public class StockTablePane implements Initializable {
     }
 
     private void initNumOfTotalTransactionsColumn() {
-
-        /*
-         * Note: getItems() is a ObservableList of "Items".
-         * Note: "Item" = an Object of a HeightCell in a specific column,
-         * ordered from top to bottom.
-         */
         numOfTotalTransactionsColumn
                 .setCellFactory(new Callback<TableColumn, TableCell>() {
                     @Override public TableCell call(TableColumn p) {
@@ -139,12 +132,6 @@ public class StockTablePane implements Initializable {
     }
 
     private void initTotalTransactionsPeriodColumn() {
-
-        /*
-         * Note: getItems() is a ObservableList of "Items".
-         * Note: "Item" = an Object of a HeightCell in a specific column,
-         * ordered from top to bottom.
-         */
         totalTransactionsPeriodColumn
                 .setCellFactory(new Callback<TableColumn, TableCell>() {
                     @Override public TableCell call(TableColumn p) {
@@ -181,21 +168,8 @@ public class StockTablePane implements Initializable {
     }
 
     private void setDynamicColumns() {
-        numOfTotalTransactionsColumn.setCellValueFactory(
-                new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
-                    @Override public ObservableValue call(
-                            TableColumn.CellDataFeatures p) {
-                        return new ReadOnlyObjectWrapper(p.getValue());
-                    }
-                });
-
-        totalTransactionsPeriodColumn.setCellValueFactory(
-                new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
-                    @Override public ObservableValue call(
-                            TableColumn.CellDataFeatures p) {
-                        return new ReadOnlyObjectWrapper(p.getValue());
-                    }
-                });
+        TableUtils.setDynamicColumn(numOfTotalTransactionsColumn);
+        TableUtils.setDynamicColumn(totalTransactionsPeriodColumn);
     }
 
 
