@@ -103,25 +103,34 @@ public class StockTablePane implements Initializable {
                                         (item != null)) {
                                     int currentRowIndex =
                                             this.getTableRow().getIndex();
-                                    int preRowIndex = currentRowIndex - 1;
-                                    if (currentRowIndex == 0) {
-                                        preRowIndex = currentRowIndex;
-                                    }
 
-                                    // Sum Items of Column:
-                                    Integer totalValue = new Integer(0);
-                                    for (int i = 0; i <= currentRowIndex; i++) {
-                                        totalValue = totalValue +
-                                                (Integer.parseInt(getTableView()
-                                                        .getItems().get(i)
-                                                        .toString()));
-                                    }
+                                    String currentRowStockSymbol =
+                                            symbolColumn.getTableView()
+                                                    .getItems()
+                                                    .get(currentRowIndex)
+                                                    .getSymbol().toString();
 
-                                    /*
-                                     * Setting the text of the
-                                     * current-Item-in-the-column.
-                                     */
-                                    setText(String.valueOf(totalValue));
+                                    try {
+                                        Stock currentRowStock =
+                                                Engine.getStockBySymbol(
+                                                        currentRowStockSymbol);
+
+                                        setText(Integer.toString(
+                                                currentRowStock.getDataBase()
+                                                        .getSuccessfullyFinishedTransactions()
+                                                        .getCollection()
+                                                        .size()));
+                                    } catch (IOException e) {
+
+                                        /*
+                                         * Note: this exception should not
+                                         * happen thanks to the initial check
+                                         * of Stocks.
+                                         */
+                                        MessagePrint.println(
+                                                MessagePrint.Stream.ERR,
+                                                e.getMessage());
+                                    }
                                 } else {
                                     setText("");
                                 }
@@ -129,6 +138,44 @@ public class StockTablePane implements Initializable {
                         };
                     }
                 });
+
+        // numOfTotalTransactionsColumn
+        //         .setCellFactory(new Callback<TableColumn, TableCell>() {
+        //             @Override public TableCell call(TableColumn p) {
+        //                 return new TableCell() {
+        //                     @Override protected void updateItem(Object item,
+        //                                                         boolean empty) {
+        //                         super.updateItem(item, empty);
+        //                         if ((this.getTableRow() != null) &&
+        //                                 (item != null)) {
+        //                             int currentRowIndex =
+        //                                     this.getTableRow().getIndex();
+        //                             int preRowIndex = currentRowIndex - 1;
+        //                             if (currentRowIndex == 0) {
+        //                                 preRowIndex = currentRowIndex;
+        //                             }
+        //
+        //                             // Sum Items of Column:
+        //                             Integer totalValue = new Integer(0);
+        //                             for (int i = 0; i <= currentRowIndex; i++) {
+        //                                 totalValue = totalValue +
+        //                                         (Integer.parseInt(getTableView()
+        //                                                 .getItems().get(i)
+        //                                                 .toString()));
+        //                             }
+        //
+        //                             /*
+        //                              * Setting the text of the
+        //                              * current-Item-in-the-column.
+        //                              */
+        //                             setText(String.valueOf(totalValue));
+        //                         } else {
+        //                             setText("");
+        //                         }
+        //                     }
+        //                 };
+        //             }
+        //         });
 
 
         // set the 'tableView' to the columns provided:
