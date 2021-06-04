@@ -53,7 +53,10 @@ public class StockTablePane implements Initializable {
      */
     @FXML private TableColumn<Stock, Long> priceColumn;
 
-    @FXML private TableColumn balance = new TableColumn("Balance");
+    @FXML private TableColumn numOfTotalTransactionsColumn;
+
+    @FXML private TableColumn totalTransactionsPeriodColumn;
+
 
     /**
      * Constructor. try to get the {@link stock.Stocks} in the {@link Engine}.
@@ -82,8 +85,8 @@ public class StockTablePane implements Initializable {
                 new PropertyValueFactory<Stock, Long>("price"));
 
 
-        balance.setMinWidth(50);
-        balance.setCellValueFactory(
+        numOfTotalTransactionsColumn.setMinWidth(50);
+        numOfTotalTransactionsColumn.setCellValueFactory(
                 new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
                     @Override public ObservableValue call(
                             TableColumn.CellDataFeatures p) {
@@ -97,17 +100,20 @@ public class StockTablePane implements Initializable {
          * Note: "Item" = an Object of a HeightCell in a specific column,
          * ordered from top to bottom.
          */
-        balance.setCellFactory(new Callback<TableColumn, TableCell>() {
-            @Override public TableCell call(TableColumn p) {
-                return new TableCell() {
-                    @Override
-                    protected void updateItem(Object item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if ((this.getTableRow() != null) && (item != null)) {
-                            int currentRowIndex = this.getTableRow().getIndex();
-                            int preRowIndex = currentRowIndex - 1;
-                            if (currentRowIndex == 0) {
-                                preRowIndex = currentRowIndex;
+        numOfTotalTransactionsColumn
+                .setCellFactory(new Callback<TableColumn, TableCell>() {
+                    @Override public TableCell call(TableColumn p) {
+                        return new TableCell() {
+                            @Override protected void updateItem(Object item,
+                                                                boolean empty) {
+                                super.updateItem(item, empty);
+                                if ((this.getTableRow() != null) &&
+                                        (item != null)) {
+                                    int currentRowIndex =
+                                            this.getTableRow().getIndex();
+                                    int preRowIndex = currentRowIndex - 1;
+                                    if (currentRowIndex == 0) {
+                                        preRowIndex = currentRowIndex;
                             }
 
                             // Sum Items of Column:

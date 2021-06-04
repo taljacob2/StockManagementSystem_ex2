@@ -16,9 +16,11 @@
                              text="Company Name"/>
                 <TableColumn fx:id="priceColumn" prefWidth="150.0"
                              text="($) Price"/>
-                <TableColumn prefWidth="200.0"
+                <TableColumn fx:id="numOfTotalTransactionsColumn"
+                             prefWidth="200.0"
                              text="Num Of Total Transactions"/>
-                <TableColumn prefWidth="200.0"
+                <TableColumn fx:id="totalTransactionsPeriodColumn"
+                             prefWidth="200.0"
                              text="Total Transactions Period"/>
             </columns>
         </TableView>
