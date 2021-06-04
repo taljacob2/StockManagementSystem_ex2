@@ -74,6 +74,7 @@ public class StockTablePane implements Initializable {
         }
     }
 
+
     @Override public void initialize(URL location, ResourceBundle resources) {
 
         // initialize columns:
@@ -89,46 +90,7 @@ public class StockTablePane implements Initializable {
 
         initNumOfTotalTransactionsColumn();
 
-        inittotalTransactionsPeriodColumn();
-
-        // numOfTotalTransactionsColumn
-        //         .setCellFactory(new Callback<TableColumn, TableCell>() {
-        //             @Override public TableCell call(TableColumn p) {
-        //                 return new TableCell() {
-        //                     @Override protected void updateItem(Object item,
-        //                                                         boolean empty) {
-        //                         super.updateItem(item, empty);
-        //                         if ((this.getTableRow() != null) &&
-        //                                 (item != null)) {
-        //                             int currentRowIndex =
-        //                                     this.getTableRow().getIndex();
-        //                             int preRowIndex = currentRowIndex - 1;
-        //                             if (currentRowIndex == 0) {
-        //                                 preRowIndex = currentRowIndex;
-        //                             }
-        //
-        //                             // Sum Items of Column:
-        //                             Integer totalValue = new Integer(0);
-        //                             for (int i = 0; i <= currentRowIndex; i++) {
-        //                                 totalValue = totalValue +
-        //                                         (Integer.parseInt(getTableView()
-        //                                                 .getItems().get(i)
-        //                                                 .toString()));
-        //                             }
-        //
-        //                             /*
-        //                              * Setting the text of the
-        //                              * current-Item-in-the-column.
-        //                              */
-        //                             setText(String.valueOf(totalValue));
-        //                         } else {
-        //                             setText("");
-        //                         }
-        //                     }
-        //                 };
-        //             }
-        //         });
-
+        initTotalTransactionsPeriodColumn();
 
         // set the 'tableView' to the columns provided:
         tableView.setItems(stockObservableList);
@@ -150,36 +112,19 @@ public class StockTablePane implements Initializable {
                                 super.updateItem(item, empty);
                                 if ((this.getTableRow() != null) &&
                                         (item != null)) {
+
                                     int currentRowIndex =
                                             this.getTableRow().getIndex();
 
-                                    String currentRowStockSymbol =
-                                            symbolColumn.getTableView()
+                                    Stock currentRowStock =
+                                            (Stock) this.getTableView()
                                                     .getItems()
-                                                    .get(currentRowIndex)
-                                                    .getSymbol().toString();
+                                                    .get(currentRowIndex);
 
-                                    try {
-                                        Stock currentRowStock =
-                                                Engine.getStockBySymbol(
-                                                        currentRowStockSymbol);
-
-                                        setText(Integer.toString(
-                                                currentRowStock.getDataBase()
-                                                        .getSuccessfullyFinishedTransactions()
-                                                        .getCollection()
-                                                        .size()));
-                                    } catch (IOException e) {
-
-                                        /*
-                                         * Note: this exception should not
-                                         * happen thanks to the initial check
-                                         * of Stocks.
-                                         */
-                                        MessagePrint.println(
-                                                MessagePrint.Stream.ERR,
-                                                e.getMessage());
-                                    }
+                                    setText(Integer.toString(
+                                            currentRowStock.getDataBase()
+                                                    .getSuccessfullyFinishedTransactions()
+                                                    .getCollection().size()));
                                 } else {
                                     setText("");
                                 }
@@ -189,14 +134,14 @@ public class StockTablePane implements Initializable {
                 });
     }
 
-    private void inittotalTransactionsPeriodColumn() {
+    private void initTotalTransactionsPeriodColumn() {
 
         /*
          * Note: getItems() is a ObservableList of "Items".
          * Note: "Item" = an Object of a HeightCell in a specific column,
          * ordered from top to bottom.
          */
-        numOfTotalTransactionsColumn
+        totalTransactionsPeriodColumn
                 .setCellFactory(new Callback<TableColumn, TableCell>() {
                     @Override public TableCell call(TableColumn p) {
                         return new TableCell() {
@@ -205,36 +150,23 @@ public class StockTablePane implements Initializable {
                                 super.updateItem(item, empty);
                                 if ((this.getTableRow() != null) &&
                                         (item != null)) {
+
                                     int currentRowIndex =
                                             this.getTableRow().getIndex();
 
-                                    String currentRowStockSymbol =
-                                            symbolColumn.getTableView()
+                                    Stock currentRowStock =
+                                            (Stock) this.getTableView()
                                                     .getItems()
-                                                    .get(currentRowIndex)
-                                                    .getSymbol().toString();
+                                                    .get(currentRowIndex);
 
-                                    try {
-                                        Stock currentRowStock =
-                                                Engine.getStockBySymbol(
-                                                        currentRowStockSymbol);
+                                    setText(Long.toString(
+                                            (currentRowStock.getDataBase()
+                                                    .getTotalPeriod(
+                                                            currentRowStock
+                                                                    .getDataBase()
+                                                                    .getSuccessfullyFinishedTransactions()
+                                                                    .getCollection()))));
 
-                                        setText(Integer.toString(
-                                                currentRowStock.getDataBase()
-                                                        .getSuccessfullyFinishedTransactions()
-                                                        .getCollection()
-                                                        .size()));
-                                    } catch (IOException e) {
-
-                                        /*
-                                         * Note: this exception should not
-                                         * happen thanks to the initial check
-                                         * of Stocks.
-                                         */
-                                        MessagePrint.println(
-                                                MessagePrint.Stream.ERR,
-                                                e.getMessage());
-                                    }
                                 } else {
                                     setText("");
                                 }
