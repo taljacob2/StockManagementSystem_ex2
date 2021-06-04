@@ -1,13 +1,17 @@
 package application.pane.resources.stocktablepane;
 
 import engine.Engine;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import message.print.MessagePrint;
 import stock.Stock;
 
@@ -49,6 +53,8 @@ public class StockTablePane implements Initializable {
      */
     @FXML private TableColumn<Stock, Long> priceColumn;
 
+    @FXML private TableColumn balance = new TableColumn("Balance");
+
     /**
      * Constructor. try to get the {@link stock.Stocks} in the {@link Engine}.
      */
@@ -74,6 +80,57 @@ public class StockTablePane implements Initializable {
                 new PropertyValueFactory<Stock, String>("companyName"));
         priceColumn.setCellValueFactory(
                 new PropertyValueFactory<Stock, Long>("price"));
+
+
+        balance.setMinWidth(50);
+        balance.setCellValueFactory(
+                new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
+                    @Override public ObservableValue call(
+                            TableColumn.CellDataFeatures p) {
+                        return new ReadOnlyObjectWrapper(p.getValue());
+                    }
+                });
+
+
+        /*
+         * Note: getItems() is a ObservableList of "Items".
+         * Note: "Item" = an Object of a HeightCell in a specific column,
+         * ordered from top to bottom.
+         */
+        balance.setCellFactory(new Callback<TableColumn, TableCell>() {
+            @Override public TableCell call(TableColumn p) {
+                return new TableCell() {
+                    @Override
+                    protected void updateItem(Object item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if ((this.getTableRow() != null) && (item != null)) {
+                            int currentRowIndex = this.getTableRow().getIndex();
+                            int preRowIndex = currentRowIndex - 1;
+                            if (currentRowIndex == 0) {
+                                preRowIndex = currentRowIndex;
+                            }
+
+                            // Sum Items of Column:
+                            Integer totalValue = new Integer(0);
+                            for (int i = 0; i <= currentRowIndex; i++) {
+                                totalValue = totalValue + (Integer.parseInt(
+                                        getTableView().getItems().get(i)
+                                                .toString()));
+                            }
+
+                            /*
+                             * Setting the text of the
+                             * current-Item-in-the-column.
+                             */
+                            setText(String.valueOf(totalValue));
+                        } else {
+                            setText("");
+                        }
+                    }
+                };
+            }
+        });
+
 
         // set the 'tableView' to the columns provided:
         tableView.setItems(stockObservableList);
