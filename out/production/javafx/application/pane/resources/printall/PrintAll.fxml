@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@PrintAll.css"
+            xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="application.pane.resources.printall.PrintAll">
+    <children>
+        <BorderPane layoutX="57.0" layoutY="26.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <top>
+                <AnchorPane BorderPane.alignment="CENTER">
+                    <children>
+                        <Label alignment="CENTER" prefHeight="42.0" prefWidth="79.0" styleClass="title" text="All Orders And Tranactions In The System" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                    </children>
+                </AnchorPane>
+            </top>
+            <bottom>
+                <AnchorPane BorderPane.alignment="CENTER" />
+            </bottom>
+            <center>
+                <BorderPane fx:id="borderPaneToShowTheAnotherInnerPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <center>
+                        <ScrollPane fitToHeight="true" fitToWidth="true" BorderPane.alignment="CENTER">
+                            <BorderPane.margin>
+                                <Insets />
+                            </BorderPane.margin>
+                            <content>
+                                <Text fx:id="log" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0">
+                                    <font>
+                                        <Font name="SansSerif Regular" size="24.0" />
+                                    </font>
+                                </Text>
+                            </content>
+                        </ScrollPane>
+                    </center>
+                </BorderPane>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>
