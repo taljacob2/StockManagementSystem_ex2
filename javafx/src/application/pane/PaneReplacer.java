@@ -38,11 +38,16 @@ public interface PaneReplacer {
             MessagePrint.println(MessagePrint.Stream.ERR,
                     "No page " + pathToFXML +
                             " please check 'PaneLoader' or 'FXMLLoader'." +
-                            " ALSO: make sure that the '.fxml' file root " +
+                            " ALSO: make sure the '.fxml' file root " +
                             "Component is a 'Pane' Component!" + " ALSO: make" +
                             " sure the PATH to the Controller of the " +
                             "pane is correct (TIP1: maybe you renamed the " +
-                            "class)(TIP2: maybe the PATH doesn't start with '/') ");
+                            "class)(TIP2: maybe the PATH doesn't start with " +
+                            "'/') " + "(TIP3: make sure there is an empty " +
+                            "default constructor in the Controller class)" +
+                            "(TIP4: If you want to initialize the components " +
+                            "of the Controller, make sure NOT to do so in its" +
+                            " Constructor, but in its 'initialize' method.)");
         }
         return pane;
     }

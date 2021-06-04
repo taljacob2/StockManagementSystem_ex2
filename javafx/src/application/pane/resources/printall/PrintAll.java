@@ -2,13 +2,18 @@ package application.pane.resources.printall;
 
 import application.pane.PaneReplacer;
 import engine.Engine;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.TitledPane;
 import message.print.MessagePrint;
 import stock.Stock;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
 /**
@@ -20,16 +25,23 @@ import java.util.function.Consumer;
  * each {@link stock.Stock}.
  * </p>
  */
-public class PrintAll implements PaneReplacer {
+public class PrintAll implements Initializable, PaneReplacer {
+
+    @FXML private Accordion accordion;
 
     public PrintAll() {}
+
+    @Override public void initialize(URL location, ResourceBundle resources) {
+        List<TitledPane> titledPaneList = createTitledPanesForEachStock();
+        accordion.getPanes().addAll(titledPaneList);
+    }
 
     private List<TitledPane> createTitledPanesForEachStock() {
         List<TitledPane> titledPanes = new LinkedList<>();
         try {
             List<Stock> stockList = Engine.getStocks().getCollection();
 
-            stockList.stream().forEach(new Consumer<Stock>() {
+            stockList.forEach(new Consumer<Stock>() {
                 @Override public void accept(Stock stock) {
                     titledPanes.add(new TitledPane(stock.getSymbol(),
                             getPane("/application/pane/resources/welcome/Welcome.fxml")));
@@ -47,4 +59,6 @@ public class PrintAll implements PaneReplacer {
 
         return titledPanes;
     }
+
+
 }
