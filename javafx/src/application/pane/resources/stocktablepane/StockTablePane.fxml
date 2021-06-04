@@ -17,10 +17,10 @@
                 <TableColumn fx:id="priceColumn" prefWidth="150.0"
                              text="($) Price"/>
                 <TableColumn fx:id="numOfTotalTransactionsColumn"
-                             prefWidth="200.0"
+                             prefWidth="330.0"
                              text="Num Of Total Transactions"/>
                 <TableColumn fx:id="totalTransactionsPeriodColumn"
-                             prefWidth="200.0"
+                             prefWidth="350.0"
                              text="Total Transactions Period"/>
             </columns>
         </TableView>
