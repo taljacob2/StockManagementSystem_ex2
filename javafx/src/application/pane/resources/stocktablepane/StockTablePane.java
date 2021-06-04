@@ -89,6 +89,8 @@ public class StockTablePane implements Initializable {
 
         initNumOfTotalTransactionsColumn();
 
+        inittotalTransactionsPeriodColumn();
+
         // numOfTotalTransactionsColumn
         //         .setCellFactory(new Callback<TableColumn, TableCell>() {
         //             @Override public TableCell call(TableColumn p) {
@@ -133,6 +135,61 @@ public class StockTablePane implements Initializable {
     }
 
     private void initNumOfTotalTransactionsColumn() {
+
+        /*
+         * Note: getItems() is a ObservableList of "Items".
+         * Note: "Item" = an Object of a HeightCell in a specific column,
+         * ordered from top to bottom.
+         */
+        numOfTotalTransactionsColumn
+                .setCellFactory(new Callback<TableColumn, TableCell>() {
+                    @Override public TableCell call(TableColumn p) {
+                        return new TableCell() {
+                            @Override protected void updateItem(Object item,
+                                                                boolean empty) {
+                                super.updateItem(item, empty);
+                                if ((this.getTableRow() != null) &&
+                                        (item != null)) {
+                                    int currentRowIndex =
+                                            this.getTableRow().getIndex();
+
+                                    String currentRowStockSymbol =
+                                            symbolColumn.getTableView()
+                                                    .getItems()
+                                                    .get(currentRowIndex)
+                                                    .getSymbol().toString();
+
+                                    try {
+                                        Stock currentRowStock =
+                                                Engine.getStockBySymbol(
+                                                        currentRowStockSymbol);
+
+                                        setText(Integer.toString(
+                                                currentRowStock.getDataBase()
+                                                        .getSuccessfullyFinishedTransactions()
+                                                        .getCollection()
+                                                        .size()));
+                                    } catch (IOException e) {
+
+                                        /*
+                                         * Note: this exception should not
+                                         * happen thanks to the initial check
+                                         * of Stocks.
+                                         */
+                                        MessagePrint.println(
+                                                MessagePrint.Stream.ERR,
+                                                e.getMessage());
+                                    }
+                                } else {
+                                    setText("");
+                                }
+                            }
+                        };
+                    }
+                });
+    }
+
+    private void inittotalTransactionsPeriodColumn() {
 
         /*
          * Note: getItems() is a ObservableList of "Items".
