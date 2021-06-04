@@ -85,15 +85,7 @@ public class StockTablePane implements Initializable {
                 new PropertyValueFactory<Stock, Long>("price"));
 
 
-        numOfTotalTransactionsColumn.setMinWidth(50);
-        numOfTotalTransactionsColumn.setCellValueFactory(
-                new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
-                    @Override public ObservableValue call(
-                            TableColumn.CellDataFeatures p) {
-                        return new ReadOnlyObjectWrapper(p.getValue());
-                    }
-                });
-
+        setDynamicColumns();
 
         /*
          * Note: getItems() is a ObservableList of "Items".
@@ -114,32 +106,51 @@ public class StockTablePane implements Initializable {
                                     int preRowIndex = currentRowIndex - 1;
                                     if (currentRowIndex == 0) {
                                         preRowIndex = currentRowIndex;
-                            }
+                                    }
 
-                            // Sum Items of Column:
-                            Integer totalValue = new Integer(0);
-                            for (int i = 0; i <= currentRowIndex; i++) {
-                                totalValue = totalValue + (Integer.parseInt(
-                                        getTableView().getItems().get(i)
-                                                .toString()));
-                            }
+                                    // Sum Items of Column:
+                                    Integer totalValue = new Integer(0);
+                                    for (int i = 0; i <= currentRowIndex; i++) {
+                                        totalValue = totalValue +
+                                                (Integer.parseInt(getTableView()
+                                                        .getItems().get(i)
+                                                        .toString()));
+                                    }
 
-                            /*
-                             * Setting the text of the
-                             * current-Item-in-the-column.
-                             */
-                            setText(String.valueOf(totalValue));
-                        } else {
-                            setText("");
-                        }
+                                    /*
+                                     * Setting the text of the
+                                     * current-Item-in-the-column.
+                                     */
+                                    setText(String.valueOf(totalValue));
+                                } else {
+                                    setText("");
+                                }
+                            }
+                        };
                     }
-                };
-            }
-        });
+                });
 
 
         // set the 'tableView' to the columns provided:
         tableView.setItems(stockObservableList);
+    }
+
+    private void setDynamicColumns() {
+        numOfTotalTransactionsColumn.setCellValueFactory(
+                new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
+                    @Override public ObservableValue call(
+                            TableColumn.CellDataFeatures p) {
+                        return new ReadOnlyObjectWrapper(p.getValue());
+                    }
+                });
+
+        totalTransactionsPeriodColumn.setCellValueFactory(
+                new Callback<TableColumn.CellDataFeatures, ObservableValue>() {
+                    @Override public ObservableValue call(
+                            TableColumn.CellDataFeatures p) {
+                        return new ReadOnlyObjectWrapper(p.getValue());
+                    }
+                });
     }
 
 }
