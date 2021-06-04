@@ -6,7 +6,8 @@
 .titled-pane > .title {
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 10 10 0 0, 10 10 0 0, 10 10 0 0;
-    -fx-padding: 0.166667em 0.833333em 0.25em 0.833333em; /* 2 10 3 10 */
+    /*-fx-padding: 0.166667em 0.833333em 0.25em 0.833333em; !* 2 10 3 10 *!*/
+    /*-fx-background-color: rgb(211, 211, 211);*/
 }
 
 .titled-pane:focused > .title {
@@ -14,10 +15,10 @@
 }
 
 .titled-pane > *.content {
-    -fx-padding: 0.167em;
+    /*-fx-padding: 0.167em;*/
     -fx-background-color: rgba(255, 255, 255, 0);
 }
 
-.accordion . {
+.accordion {
     -fx-background-color: rgba(255, 255, 255, 0);
 }

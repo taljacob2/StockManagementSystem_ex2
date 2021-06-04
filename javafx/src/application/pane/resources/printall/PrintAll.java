@@ -15,7 +15,6 @@ import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.function.Consumer;
 
 /**
  * This {@code class} is a {@code Controller} loaded from a <tt>.fxml</tt>
@@ -72,24 +71,25 @@ public class PrintAll implements Initializable, PaneReplacer {
             List<Stock> stockList = Engine.getStocks().getCollection();
 
             int index = 0;
-            stockList.forEach(new Consumer<Stock>() {
-                @Override public void accept(Stock stock) {
+            for (Stock stock : stockList) {
 
-                    // Important: Set the iteration index to '0'.
-                    PrintStockContainer.setIndex(index);
+                // Important: Set the iteration index to '0'.
+                PrintStockContainer.setIndex(index);
 
-                    /*
-                     * Call the correct "Print Stock" with this "index",
-                     * and add it to the List.
-                     */
-                    titledPanes.add(new TitledPane(stock.getSymbol(),
-                            getPane("/application/pane/resources/printall/stock/PrintStock.fxml")));
-                }
-            });
+                /*
+                 * Call the correct "Print Stock" with this "index",
+                 * and add it to the List.
+                 */
+                titledPanes.add(new TitledPane(stock.getSymbol(),
+                        getPane("/application/pane/resources/printall/stock/PrintStock.fxml")));
+
+                index++;
+            }
 
             /*
              * Important: Set the iteration index to "0",
-             * just to make sure future users won't fall into an error.
+             * Note: this is NOT a must, but just to make sure future users
+             * won't fall into an error.
              */
             PrintStockContainer.setIndex(0);
 
