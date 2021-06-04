@@ -33,23 +33,24 @@
                                                     <columns>
                                                         <TableColumn
                                                                 fx:id="orderTimeStampColumn"
-                                                                prefWidth="99.0"
+                                                                prefWidth="150.0"
                                                                 text="Time Stamp"/>
                                                         <TableColumn
                                                                 fx:id="orderDirectionColumn"
-                                                                prefWidth="98.0"
+                                                                prefWidth="150.0"
                                                                 text="Direction"/>
                                                         <TableColumn
                                                                 fx:id="orderTypeColumn"
-                                                                prefWidth="87.0"
+                                                                minWidth="3.0"
+                                                                prefWidth="150.0"
                                                                 text="Type"/>
                                                         <TableColumn
                                                                 fx:id="orderQuantityColumn"
-                                                                prefWidth="83.0"
+                                                                prefWidth="150.0"
                                                                 text="Quantity"/>
                                                         <TableColumn
                                                                 fx:id="orderDesiredLimitPriceColumn"
-                                                                prefWidth="95.0"
+                                                                prefWidth="150.0"
                                                                 text="($) Price"/>
                                                     </columns>
                                                 </TableView>
@@ -92,15 +93,16 @@
                                                     <columns>
                                                         <TableColumn
                                                                 fx:id="transactionTimeStampColumn"
-                                                                prefWidth="99.0"
+                                                                prefWidth="150.0"
                                                                 text="Time Stamp"/>
                                                         <TableColumn
                                                                 fx:id="transactionQuantityColumn"
-                                                                prefWidth="83.0"
+                                                                prefWidth="150.0"
                                                                 text="Quantity"/>
                                                         <TableColumn
                                                                 fx:id="transactionPriceColumn"
-                                                                prefWidth="95.0"
+                                                                minWidth="7.0"
+                                                                prefWidth="150.0"
                                                                 text="($) Price"/>
                                                     </columns>
                                                 </TableView>

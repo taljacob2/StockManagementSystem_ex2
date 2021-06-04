@@ -13,9 +13,9 @@
                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <columns>
-                <TableColumn fx:id="symbolColumn" prefWidth="120.0"
+                <TableColumn fx:id="symbolColumn" prefWidth="150.0"
                              text="Symbol"/>
-                <TableColumn fx:id="quantityColumn" prefWidth="178.0"
+                <TableColumn fx:id="quantityColumn" prefWidth="150.0"
                              text="Quantity"/>
             </columns>
         </TableView>
