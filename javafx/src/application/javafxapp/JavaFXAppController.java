@@ -98,6 +98,7 @@ public class JavaFXAppController
     @FXML private BorderPane bottomBorderPane;
     @FXML private Button loginButton;
     @FXML private Button printStocksButton;
+    @FXML private Button printAllButton;
     @FXML private Button viewLogButton;
     @FXML private Label statusLabel;
     @FXML private Label progressLabel;
@@ -471,13 +472,17 @@ public class JavaFXAppController
 
     private void defineAnimationToAllButtons() {
 
+        // define 'loginButton':
+        JavaFXAppHandler.handle(loginButton,
+                "/application/pane/resources/login/Login.fxml");
+
         // define 'printStocksButton':
         JavaFXAppHandler.handle(printStocksButton,
                 "/application/pane/resources/stocktablepane/StockTablePane.fxml");
 
-        // define 'loginButton':
-        JavaFXAppHandler.handle(loginButton,
-                "/application/pane/resources/login/Login.fxml");
+        // define 'printAllButton':
+        JavaFXAppHandler.handle(printAllButton,
+                "/application/pane/resources/printall/PrintAll.fxml");
 
         // define 'viewLogButton':
         JavaFXAppHandler.handle(viewLogButton,

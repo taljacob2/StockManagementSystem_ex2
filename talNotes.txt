@@ -84,6 +84,8 @@ JavaFXApp via
         PROGRESS-LABEL are set to be the last color
 
 
+# maybe add to "TableUtils" actions with Consumer
+
 
     _________________________________________________________________________
 
@@ -157,3 +159,5 @@ private TableColumn balance = new TableColumn("Balance");
 
 
 __________________________________________________________________________
+
+

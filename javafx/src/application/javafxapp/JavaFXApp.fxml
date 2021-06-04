@@ -111,7 +111,8 @@
                                                                 text="Print Stocks"
                                                                 textAlignment="CENTER"
                                                                 wrapText="true"/>
-                                                        <Button mnemonicParsing="false"
+                                                        <Button fx:id="printAllButton"
+                                                                mnemonicParsing="false"
                                                                 text="Print All Orders And Transactions"
                                                                 textAlignment="CENTER"
                                                                 wrapText="true"/>
