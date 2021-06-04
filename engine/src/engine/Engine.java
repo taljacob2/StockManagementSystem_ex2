@@ -421,17 +421,33 @@ public class Engine {
      * transaction.Transaction} between two {@link order.Order}(s).
      * </p>
      *
-     * @param stock        the stock the user wishes to check.
-     * @param arrivedOrder place here the <i>last placed</i> {@link Order} of in
-     *                     the stock's data-base. this means, that on the
-     *                     calculation process of interaction between two
-     *                     opposite already placed orders, this <i>last
-     *                     placed</i> order would match the desiredLimitPrice
-     *                     placed in another <i>opposite already placed</i>
-     *                     order. thus means, the {@link transaction.Transaction}'s
-     *                     desiredLimitPrice would be determined by the
-     *                     <i>opposite already placed</i> order
-     *                     desiredLimitPrice.
+     * @param afterExecuteOrderAndTransactionContainer the {@code Container}
+     *                                                 that <i>saves</i> the
+     *                                                 {@link Order}s and {@link
+     *                                                 Transaction}s
+     *                                                 <i>made</i> after an
+     *                                                 <i>order-execution.</i>
+     * @param stock                                    the stock the user wishes
+     *                                                 to check.
+     * @param arrivedOrder                             place here the <i>last
+     *                                                 placed</i> {@link Order}
+     *                                                 of in the stock's
+     *                                                 data-base. this means,
+     *                                                 that on the calculation
+     *                                                 process of interaction
+     *                                                 between two opposite
+     *                                                 already placed orders,
+     *                                                 this <i>last placed</i>
+     *                                                 order would match the
+     *                                                 desiredLimitPrice placed
+     *                                                 in another <i>opposite
+     *                                                 already placed</i> order.
+     *                                                 thus means, the {@link
+     *                                                 transaction.Transaction}'s
+     *                                                 desiredLimitPrice would
+     *                                                 be determined by the
+     *                                                 <i>opposite already
+     *                                                 placed</i> order desiredLimitPrice.
      * @see #checkForOppositeAlreadyPlacedOrders
      * @see #makeATransaction
      * @see #checkRemainders

@@ -183,10 +183,9 @@ public class OrderExecution implements Initializable, PaneReplacer {
             if (answer.equals("Yes")) {
                 executeOrderRunnable.run();
 
-                // BUG:
                 setPane(SaveUserBorderPane
                                 .getBorderPaneToShowTheAnotherInnerPane(),
-                        "application/pane/resources/afterexecution" +
+                        "/application/pane/resources/afterexecution" +
                                 "/OrderTableAndTransactionTable.fxml");
             }
         });
