@@ -38,7 +38,7 @@ public class PrintStock implements Initializable {
 
     /**
      * {@link ObservableList} of all <i>buy</i> {@link Order}s of a {@link
-     * stock.Stock}.</i>
+     * stock.Stock}.
      */
     private ObservableList<Order> buyOrdersObservableList;
 
@@ -75,7 +75,7 @@ public class PrintStock implements Initializable {
 
     /**
      * {@link ObservableList} of all <i>sell</i> {@link Order}s of a {@link
-     * stock.Stock}.</i>
+     * stock.Stock}.
      */
     private ObservableList<Order> sellOrdersObservableList;
 
@@ -112,7 +112,7 @@ public class PrintStock implements Initializable {
 
     /**
      * {@link ObservableList} of all {@link Transaction}s made in a {@link
-     * stock.Stock}.</i>
+     * stock.Stock}.
      */
     private ObservableList<Transaction> transactionsMadeObservableList;
 
