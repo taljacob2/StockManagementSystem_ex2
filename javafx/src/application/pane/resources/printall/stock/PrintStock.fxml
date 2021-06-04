@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane stylesheets="@PrintStock.css"
+            xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="application.pane.resources.printall.stock.PrintStock">
+    <children>
+        <ScrollPane fitToHeight="true" fitToWidth="true"
+                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <content>
+                <AnchorPane>
+                    <children>
+                        <SplitPane dividerPositions="0.5" orientation="VERTICAL"
+                                   AnchorPane.bottomAnchor="0.0"
+                                   AnchorPane.leftAnchor="0.0"
+                                   AnchorPane.rightAnchor="0.0"
+                                   AnchorPane.topAnchor="0.0">
+                            <items>
+                                <AnchorPane>
+                                    <children>
+                                        <BorderPane
+                                                AnchorPane.bottomAnchor="0.0"
+                                                AnchorPane.leftAnchor="0.0"
+                                                AnchorPane.rightAnchor="0.0"
+                                                AnchorPane.topAnchor="0.0">
+                                            <center>
+                                                <ScrollPane fitToHeight="true"
+                                                            fitToWidth="true">
+                                                    <content>
+                                                        <TableView
+                                                                fx:id="orderTableView"
+                                                                minHeight="400.0"
+                                                                minWidth="752.0"
+                                                                stylesheets="@PrintStock.css">
+                                                            <columns>
+                                                                <TableColumn
+                                                                        fx:id="orderTimeStampColumn"
+                                                                        prefWidth="150.0"
+                                                                        text="Time Stamp"/>
+                                                                <TableColumn
+                                                                        fx:id="orderDirectionColumn"
+                                                                        prefWidth="150.0"
+                                                                        text="Direction"/>
+                                                                <TableColumn
+                                                                        fx:id="orderTypeColumn"
+                                                                        minWidth="3.0"
+                                                                        prefWidth="150.0"
+                                                                        text="Type"/>
+                                                                <TableColumn
+                                                                        fx:id="orderQuantityColumn"
+                                                                        prefWidth="150.0"
+                                                                        text="Quantity"/>
+                                                                <TableColumn
+                                                                        fx:id="orderDesiredLimitPriceColumn"
+                                                                        prefWidth="150.0"
+                                                                        text="($) Price"/>
+                                                            </columns>
+                                                        </TableView>
+                                                    </content>
+                                                </ScrollPane>
+                                            </center>
+                                            <top>
+                                                <AnchorPane
+                                                        BorderPane.alignment="CENTER">
+                                                    <children>
+                                                        <Label alignment="CENTER"
+                                                               styleClass="title"
+                                                               text="Transactions Made"
+                                                               textFill="WHITE"
+                                                               wrapText="true"
+                                                               AnchorPane.bottomAnchor="0.0"
+                                                               AnchorPane.leftAnchor="0.0"
+                                                               AnchorPane.rightAnchor="0.0"
+                                                               AnchorPane.topAnchor="0.0">
+                                                            <font>
+                                                                <Font name="SansSerif Regular"
+                                                                      size="24.0"/>
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </AnchorPane>
+                                            </top>
+                                        </BorderPane>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane>
+                                    <children>
+                                        <BorderPane
+                                                AnchorPane.bottomAnchor="0.0"
+                                                AnchorPane.leftAnchor="0.0"
+                                                AnchorPane.rightAnchor="0.0"
+                                                AnchorPane.topAnchor="0.0">
+                                            <center>
+                                                <ScrollPane fitToHeight="true"
+                                                            fitToWidth="true">
+                                                    <content>
+                                                        <TableView
+                                                                fx:id="transactionTableView"
+                                                                minHeight="400.0"
+                                                                minWidth="752.0"
+                                                                stylesheets="@PrintStock.css">
+                                                            <columns>
+                                                                <TableColumn
+                                                                        fx:id="transactionTimeStampColumn"
+                                                                        prefWidth="150.0"
+                                                                        text="Time Stamp"/>
+                                                                <TableColumn
+                                                                        fx:id="transactionQuantityColumn"
+                                                                        prefWidth="150.0"
+                                                                        text="Quantity"/>
+                                                                <TableColumn
+                                                                        fx:id="transactionPriceColumn"
+                                                                        minWidth="7.0"
+                                                                        prefWidth="150.0"
+                                                                        text="($) Price"/>
+                                                            </columns>
+                                                        </TableView>
+                                                    </content>
+                                                </ScrollPane>
+                                            </center>
+                                            <top>
+                                                <AnchorPane
+                                                        BorderPane.alignment="CENTER">
+                                                    <children>
+                                                        <Label alignment="CENTER"
+                                                               styleClass="title"
+                                                               text="Remainded Orders"
+                                                               textFill="WHITE"
+                                                               wrapText="true"
+                                                               AnchorPane.bottomAnchor="0.0"
+                                                               AnchorPane.leftAnchor="0.0"
+                                                               AnchorPane.rightAnchor="0.0"
+                                                               AnchorPane.topAnchor="0.0">
+                                                            <font>
+                                                                <Font name="SansSerif Regular"
+                                                                      size="24.0"/>
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </AnchorPane>
+                                            </top>
+                                        </BorderPane>
+                                    </children>
+                                </AnchorPane>
+                            </items>
+                        </SplitPane>
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>

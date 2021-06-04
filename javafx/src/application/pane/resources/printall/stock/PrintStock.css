@@ -1,0 +1,7 @@
+.split-pane > .split-pane-divider {
+    -fx-background-color: rgba(255, 255, 255, 0.5);
+}
+
+.split-pane {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+}

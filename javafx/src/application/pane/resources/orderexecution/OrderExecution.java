@@ -186,7 +186,7 @@ public class OrderExecution implements Initializable, PaneReplacer {
                 setPane(SaveUserBorderPane
                                 .getBorderPaneToShowTheAnotherInnerPane(),
                         "/application/pane/resources/afterexecution" +
-                                "/OrderTableAndTransactionTable.fxml");
+                                "/PrintStock.fxml");
             }
         });
 
