@@ -22,3 +22,11 @@
 .accordion {
     -fx-background-color: rgba(255, 255, 255, 0);
 }
+
+.accordion {
+    -fx-font: 14 sans-serif;
+}
+
+.label{
+    -fx-font: 18 sans-serif;
+}

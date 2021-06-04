@@ -6,13 +6,19 @@
     -fx-background-size: cover;
     -fx-background-position: center center;
 
-    -fx-font: 22 sans-serif;
+    -fx-font: 18 sans-serif;
     -fx-font-family: "Open Sans", sans-serif;
 }
 
 .title {
     -fx-background-color: rgba(0, 0, 0, 0.75);
     -fx-text-fill: rgb(202, 200, 197);
+}
+
+.label {
+    -fx-font: 18 sans-serif;
+    -fx-font-family: "Open Sans", sans-serif;
+    -fx-wrap-text: true;
 }
 
 .menu-bar {

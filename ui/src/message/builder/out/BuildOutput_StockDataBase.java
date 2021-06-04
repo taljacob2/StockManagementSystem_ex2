@@ -44,9 +44,6 @@ public class BuildOutput_StockDataBase extends BuildOutput {
      */
     public String newSuccessAdd(Object object) {
 
-        // Add a newLine to the Log-View:
-        Log.getMessageLog().append("\n");
-
         // append the message.
         if (object instanceof Transaction) {
             Transaction transaction = (Transaction) object;
@@ -63,6 +60,9 @@ public class BuildOutput_StockDataBase extends BuildOutput {
                     new BuildError().getMessage() +
                             "Problem when adding to the data-base.");
         }
+
+        // Add a newLine to the Log-View:
+        Log.getMessageLog().append("\n");
 
         // return the String.
         return getMessage();

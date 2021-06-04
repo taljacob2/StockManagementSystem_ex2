@@ -88,6 +88,8 @@ JavaFXApp via
 
 # delete all empty .css files in the end !!!
 
+# ->> Write in README - multiple tables are split by split-pane
+
     _________________________________________________________________________
 
         /* XXX - GUIDE: dynamic style:
