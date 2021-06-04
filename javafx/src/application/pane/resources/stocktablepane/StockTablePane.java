@@ -53,8 +53,14 @@ public class StockTablePane implements Initializable {
      */
     @FXML private TableColumn<Stock, Long> priceColumn;
 
+    /**
+     * A <i>dynamic</i> column in the {@link TableView}.
+     */
     @FXML private TableColumn numOfTotalTransactionsColumn;
 
+    /**
+     * A <i>dynamic</i> column in the {@link TableView}.
+     */
     @FXML private TableColumn totalTransactionsPeriodColumn;
 
 
@@ -85,11 +91,9 @@ public class StockTablePane implements Initializable {
         priceColumn.setCellValueFactory(
                 new PropertyValueFactory<Stock, Long>("price"));
 
-
+        // initialize dynamic-columns:
         setDynamicColumns();
-
         initNumOfTotalTransactionsColumn();
-
         initTotalTransactionsPeriodColumn();
 
         // set the 'tableView' to the columns provided:
