@@ -15,10 +15,11 @@
     -fx-text-fill: rgb(202, 200, 197);
 }
 
-.label{
+.label {
     -fx-font: 18 sans-serif;
     -fx-font-family: "Open Sans", sans-serif;
     -fx-wrap-text: true;
+    /*-fx-text-fill: rgb(202, 200, 197);*/
 }
 
 .menu-bar {

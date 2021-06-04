@@ -24,9 +24,9 @@
 }
 
 .accordion {
-    -fx-font: 14 sans-serif;
+    -fx-font: 16 sans-serif;
 }
 
-.label{
+.label {
     -fx-font: 18 sans-serif;
 }
