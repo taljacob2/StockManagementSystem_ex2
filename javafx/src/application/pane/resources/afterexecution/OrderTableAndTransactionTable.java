@@ -25,6 +25,33 @@ import java.util.ResourceBundle;
 public class OrderTableAndTransactionTable implements Initializable {
 
     /**
+     * {@link ObservableList} of all {@link Transaction}s made after
+     * <i>order-execution.</i>
+     */
+    private ObservableList<Transaction> transactionsMadeObservableList;
+
+    /**
+     * The {@link TableView} needed to be shown.
+     */
+    @FXML private TableView<Transaction> transactionTableView;
+
+    /**
+     * A column in the {@link TableView} of {@link Transaction}s.s.
+     */
+    @FXML private TableColumn<Transaction, String> transactionTimeStampColumn;
+
+    /**
+     * A column in the {@link TableView} of {@link Transaction}s.s.
+     */
+    @FXML private TableColumn<Transaction, Long> transactionQuantityColumn;
+
+    /**
+     * A column in the {@link TableView} of {@link Transaction}s.
+     */
+    @FXML private TableColumn<Transaction, Long> transactionPriceColumn;
+
+
+    /**
      * {@link ObservableList} of all {@link Order}s remained after
      * <i>order-execution.</i>
      */
@@ -60,32 +87,6 @@ public class OrderTableAndTransactionTable implements Initializable {
      */
     @FXML private TableColumn<Order, Long> orderDesiredLimitPriceColumn;
 
-
-    /**
-     * {@link ObservableList} of all {@link Transaction}s made after
-     * <i>order-execution.</i>
-     */
-    private ObservableList<Transaction> transactionsMadeObservableList;
-
-    /**
-     * The {@link TableView} needed to be shown.
-     */
-    @FXML private TableView<Transaction> transactionTableView;
-
-    /**
-     * A column in the {@link TableView} of {@link Transaction}s.s.
-     */
-    @FXML private TableColumn<Transaction, String> transactionTimeStampColumn;
-
-    /**
-     * A column in the {@link TableView} of {@link Transaction}s.s.
-     */
-    @FXML private TableColumn<Transaction, Long> transactionQuantityColumn;
-
-    /**
-     * A column in the {@link TableView} of {@link Transaction}s.
-     */
-    @FXML private TableColumn<Transaction, Long> transactionPriceColumn;
 
     /**
      * Constructor. try to get the {@link stock.Stocks} in the {@link Engine}.

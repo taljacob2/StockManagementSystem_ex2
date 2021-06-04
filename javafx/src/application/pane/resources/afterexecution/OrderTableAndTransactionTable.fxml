@@ -32,30 +32,22 @@
                                                             fitToWidth="true">
                                                     <content>
                                                         <TableView
-                                                                fx:id="orderTableView"
+                                                                fx:id="transactionTableView"
                                                                 minHeight="400.0"
                                                                 minWidth="752.0"
                                                                 stylesheets="@OrderTableAndTransactionTable.css">
                                                             <columns>
                                                                 <TableColumn
-                                                                        fx:id="orderTimeStampColumn"
+                                                                        fx:id="transactionTimeStampColumn"
                                                                         prefWidth="150.0"
                                                                         text="Time Stamp"/>
                                                                 <TableColumn
-                                                                        fx:id="orderDirectionColumn"
-                                                                        prefWidth="150.0"
-                                                                        text="Direction"/>
-                                                                <TableColumn
-                                                                        fx:id="orderTypeColumn"
-                                                                        minWidth="3.0"
-                                                                        prefWidth="150.0"
-                                                                        text="Type"/>
-                                                                <TableColumn
-                                                                        fx:id="orderQuantityColumn"
+                                                                        fx:id="transactionQuantityColumn"
                                                                         prefWidth="150.0"
                                                                         text="Quantity"/>
                                                                 <TableColumn
-                                                                        fx:id="orderDesiredLimitPriceColumn"
+                                                                        fx:id="transactionPriceColumn"
+                                                                        minWidth="7.0"
                                                                         prefWidth="150.0"
                                                                         text="($) Price"/>
                                                             </columns>
@@ -99,22 +91,30 @@
                                                             fitToWidth="true">
                                                     <content>
                                                         <TableView
-                                                                fx:id="transactionTableView"
+                                                                fx:id="orderTableView"
                                                                 minHeight="400.0"
                                                                 minWidth="752.0"
                                                                 stylesheets="@OrderTableAndTransactionTable.css">
                                                             <columns>
                                                                 <TableColumn
-                                                                        fx:id="transactionTimeStampColumn"
+                                                                        fx:id="orderTimeStampColumn"
                                                                         prefWidth="150.0"
                                                                         text="Time Stamp"/>
                                                                 <TableColumn
-                                                                        fx:id="transactionQuantityColumn"
+                                                                        fx:id="orderDirectionColumn"
+                                                                        prefWidth="150.0"
+                                                                        text="Direction"/>
+                                                                <TableColumn
+                                                                        fx:id="orderTypeColumn"
+                                                                        minWidth="3.0"
+                                                                        prefWidth="150.0"
+                                                                        text="Type"/>
+                                                                <TableColumn
+                                                                        fx:id="orderQuantityColumn"
                                                                         prefWidth="150.0"
                                                                         text="Quantity"/>
                                                                 <TableColumn
-                                                                        fx:id="transactionPriceColumn"
-                                                                        minWidth="7.0"
+                                                                        fx:id="orderDesiredLimitPriceColumn"
                                                                         prefWidth="150.0"
                                                                         text="($) Price"/>
                                                             </columns>

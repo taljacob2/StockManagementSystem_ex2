@@ -36,6 +36,34 @@ public class PrintStock implements Initializable {
      */
     private Stock thisStock;
 
+
+    /**
+     * {@link ObservableList} of all {@link Transaction}s made in a {@link
+     * stock.Stock}.
+     */
+    private ObservableList<Transaction> transactionsMadeObservableList;
+
+    /**
+     * The {@link TableView} needed to be shown.
+     */
+    @FXML private TableView<Transaction> transactionTableView;
+
+    /**
+     * A column in the {@link TableView} of {@link Transaction}s.s.
+     */
+    @FXML private TableColumn<Transaction, String> transactionTimeStampColumn;
+
+    /**
+     * A column in the {@link TableView} of {@link Transaction}s.s.
+     */
+    @FXML private TableColumn<Transaction, Long> transactionQuantityColumn;
+
+    /**
+     * A column in the {@link TableView} of {@link Transaction}s.
+     */
+    @FXML private TableColumn<Transaction, Long> transactionPriceColumn;
+
+
     /**
      * {@link ObservableList} of all <i>buy</i> {@link Order}s of a {@link
      * stock.Stock}.
@@ -108,33 +136,6 @@ public class PrintStock implements Initializable {
      * A column in the {@link TableView} of <i>sell</i> {@link Order}s.
      */
     @FXML private TableColumn<Order, Long> sellOrderDesiredLimitPriceColumn;
-
-
-    /**
-     * {@link ObservableList} of all {@link Transaction}s made in a {@link
-     * stock.Stock}.
-     */
-    private ObservableList<Transaction> transactionsMadeObservableList;
-
-    /**
-     * The {@link TableView} needed to be shown.
-     */
-    @FXML private TableView<Transaction> transactionTableView;
-
-    /**
-     * A column in the {@link TableView} of {@link Transaction}s.s.
-     */
-    @FXML private TableColumn<Transaction, String> transactionTimeStampColumn;
-
-    /**
-     * A column in the {@link TableView} of {@link Transaction}s.s.
-     */
-    @FXML private TableColumn<Transaction, Long> transactionQuantityColumn;
-
-    /**
-     * A column in the {@link TableView} of {@link Transaction}s.
-     */
-    @FXML private TableColumn<Transaction, Long> transactionPriceColumn;
 
 
     public PrintStock() {}
