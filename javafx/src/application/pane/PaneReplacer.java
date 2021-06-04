@@ -39,7 +39,10 @@ public interface PaneReplacer {
                     "No page " + pathToFXML +
                             " please check 'PaneLoader' or 'FXMLLoader'." +
                             " ALSO: make sure that the '.fxml' file root " +
-                            "Component is a 'Pane' Component!");
+                            "Component is a 'Pane' Component!" + " ALSO: make" +
+                            " sure the PATH to the Controller of the " +
+                            "pane is correct (TIP1: maybe you renamed the " +
+                            "class)(TIP2: maybe the PATH doesn't start with '/') ");
         }
         return pane;
     }

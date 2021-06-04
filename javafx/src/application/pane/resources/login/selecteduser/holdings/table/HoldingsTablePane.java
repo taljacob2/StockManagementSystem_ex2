@@ -43,9 +43,9 @@ public class HoldingsTablePane implements Initializable {
      */
     @FXML private TableColumn<Item, Long> quantityColumn;
 
-    /**
-     * A column in the {@link TableView}.
-     */
+    // /**
+    //  * A column in the {@link TableView}.
+    //  */
     // @FXML private TableColumn<Stock, Long> priceColumn;;
 
     /**

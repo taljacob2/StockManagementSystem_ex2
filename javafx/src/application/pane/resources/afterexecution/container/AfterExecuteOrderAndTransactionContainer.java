@@ -17,17 +17,18 @@ public class AfterExecuteOrderAndTransactionContainer {
      * {@link java.util.List} of all {@link Order}s remained after
      * <i>order-execution.</i>
      */
-    private SortableLinkedList<Order> remainderOrders =
-            new SortableLinkedList<>();
+    private SortableLinkedList<Order> remainderOrders;
 
     /**
      * {@link java.util.List} of all {@link Transaction}s made after
      * <i>order-execution.</i>
      */
-    private SortableLinkedList<Transaction> transactions =
-            new SortableLinkedList<>();
+    private SortableLinkedList<Transaction> transactions;
 
-    public AfterExecuteOrderAndTransactionContainer() {}
+    public AfterExecuteOrderAndTransactionContainer() {
+        remainderOrders = new SortableLinkedList<>();
+        transactions = new SortableLinkedList<>();
+    }
 
     public SortableLinkedList<Order> getRemainderOrders() {
         return remainderOrders;

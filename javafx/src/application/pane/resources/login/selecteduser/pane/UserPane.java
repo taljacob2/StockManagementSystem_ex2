@@ -33,7 +33,7 @@ public class UserPane extends ContainsAnotherPane implements Initializable {
     public UserPane() {
 
         // Show 'StockTablePane' on the inner BorderPane's CENTER:
-        super("/application/pane/resources/login/selecteduser/holdings/UserHoldings.fxml");
+        super("/application/pane/resources/login/selecteduser/holdings/ViewHoldings.fxml");
     }
 
     @Override public void initialize(URL location, ResourceBundle resources) {
@@ -48,7 +48,7 @@ public class UserPane extends ContainsAnotherPane implements Initializable {
         viewHoldingsButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override public void handle(ActionEvent event) {
                 setPane(getBorderPaneToShowTheAnotherInnerPane(),
-                        "/application/pane/resources/login/selecteduser/holdings/UserHoldings.fxml");
+                        "/application/pane/resources/login/selecteduser/holdings/ViewHoldings.fxml");
             }
         });
 

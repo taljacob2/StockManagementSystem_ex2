@@ -457,9 +457,8 @@ public class Engine {
     public static void calcOrdersOfASingleStock(
             AfterExecuteOrderAndTransactionContainer afterExecuteOrderAndTransactionContainer,
             Stock stock, Order arrivedOrder) {
-
-        Engine.afterExecuteOrderAndTransactionContainer =
-                afterExecuteOrderAndTransactionContainer;
+        setAfterExecuteOrderAndTransactionContainer(
+                afterExecuteOrderAndTransactionContainer);
 
         // get the dataBase of this Stock:
         StockDataBase dataBase = stock.getDataBase();

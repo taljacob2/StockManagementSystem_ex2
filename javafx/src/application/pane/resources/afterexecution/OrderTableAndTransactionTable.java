@@ -28,7 +28,7 @@ public class OrderTableAndTransactionTable implements Initializable {
      * {@link ObservableList} of all {@link Order}s remained after
      * <i>order-execution.</i>
      */
-    private ObservableList<Order> orderObservableList;
+    private ObservableList<Order> remaindedOrdersObservableList;
 
     /**
      * The {@link TableView} needed to be shown.
@@ -65,7 +65,7 @@ public class OrderTableAndTransactionTable implements Initializable {
      * {@link ObservableList} of all {@link Transaction}s made after
      * <i>order-execution.</i>
      */
-    private ObservableList<Transaction> transactionObservableList;
+    private ObservableList<Transaction> transactionsMadeObservableList;
 
     /**
      * The {@link TableView} needed to be shown.
@@ -91,11 +91,11 @@ public class OrderTableAndTransactionTable implements Initializable {
      * Constructor. try to get the {@link stock.Stocks} in the {@link Engine}.
      */
     public OrderTableAndTransactionTable() {
-        orderObservableList = FXCollections.observableArrayList(
+        remaindedOrdersObservableList = FXCollections.observableArrayList(
                 Engine.getAfterExecuteOrderAndTransactionContainer()
                         .getRemainderOrders());
 
-        transactionObservableList = FXCollections.observableArrayList(
+        transactionsMadeObservableList = FXCollections.observableArrayList(
                 Engine.getAfterExecuteOrderAndTransactionContainer()
                         .getTransactions());
     }
@@ -115,7 +115,7 @@ public class OrderTableAndTransactionTable implements Initializable {
                 new PropertyValueFactory<Order, Long>("desiredLimitPrice"));
 
         // set the 'tableView' to the columns provided:
-        orderTableView.setItems(orderObservableList);
+        orderTableView.setItems(remaindedOrdersObservableList);
 
 
         // transactionTableView: initialize columns:
@@ -127,7 +127,7 @@ public class OrderTableAndTransactionTable implements Initializable {
                 new PropertyValueFactory<Transaction, Long>("price"));
 
         // set the 'tableView' to the columns provided:
-        transactionTableView.setItems(transactionObservableList);
+        transactionTableView.setItems(transactionsMadeObservableList);
     }
 
 }
