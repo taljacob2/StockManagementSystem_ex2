@@ -2,8 +2,15 @@
     -fx-text-fill: rgb(202, 200, 197);
 }
 
+/*.scroll-pane .viewport {*/
+/*    -fx-background-image: url("/application/image/dark.jpg");*/
+/*    -fx-background-repeat: no-repeat;*/
+/*    -fx-background-size: cover;*/
+/*    -fx-background-position: center center;*/
+/*}*/
+
 .scroll-pane .viewport {
-    -fx-background-image: url("/application/image/dark.jpg");
+    -fx-background-color: rgba(0, 0, 0, 0.75);
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
     -fx-background-position: center center;

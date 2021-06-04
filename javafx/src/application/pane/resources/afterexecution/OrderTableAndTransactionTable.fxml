@@ -3,7 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.171"
+<AnchorPane stylesheets="@OrderTableAndTransactionTable.css"
+            xmlns="http://javafx.com/javafx/8.0.171"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="application.pane.resources.afterexecution.OrderTableAndTransactionTable">
     <children>
