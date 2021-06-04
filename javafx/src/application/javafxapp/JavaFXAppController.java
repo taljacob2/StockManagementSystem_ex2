@@ -118,7 +118,7 @@ public class JavaFXAppController
 
     public static void closeRequest() {
         String answer =
-                FxDialogs.showConfirm("Hello", "Are you sure?", "Yes", "No");
+                FxDialogs.showConfirm("Exit", "Are you sure?", "Yes", "No");
         if (answer.equals("Yes")) {
             System.exit(0);
         }
