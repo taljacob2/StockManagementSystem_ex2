@@ -36,7 +36,7 @@ import java.util.LinkedList;
      * LinkedList}.
      */
     public StockGraphSeries() {
-        setCollection(new LinkedList<XYChart.Data<String, Long>>());
+        setCollection(new LinkedList<>());
     }
 
     @Override public LinkedList<XYChart.Data<String, Long>> getCollection() {

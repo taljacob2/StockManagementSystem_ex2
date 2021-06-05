@@ -69,7 +69,9 @@ public class Stock {
      * Must have a Default Constructor for {@code JAXBContext} <tt>.xml</tt>
      * load and save.
      */
-    public Stock() {}
+    public Stock() {
+        stockGraphSeries = new StockGraphSeries();
+    }
 
     public StockGraphSeries getStockGraphSeries() {
         return stockGraphSeries;
