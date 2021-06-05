@@ -6,6 +6,7 @@ import message.Message;
 import message.builder.err.BuildError_XML;
 import message.print.MessagePrint;
 import stock.Stocks;
+import timestamp.TimeStamp;
 import user.Users;
 
 import javax.xml.bind.JAXBContext;
@@ -16,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.AbstractMap;
 import java.util.Objects;
 
 /**
@@ -150,6 +152,16 @@ public class LoadSaveXML {
 
                 // stocks found as valid, so we are allowed to set the Stocks:
                 Engine.setStocks(stocks);
+
+                stocks.getCollection().stream().forEach(stock -> {
+
+                    // Add a first element to the stockGraphSeries.
+                    stock.getStockGraphSeries().getCollection()
+                            .add(new AbstractMap.SimpleEntry<String, Long>(
+                                    TimeStamp.getTimeStamp(),
+                                    stock.getPrice()));
+                });
+
 
                 // after all checks are valid, enable JavaFX menuVBox:
                 JavaFXAppController.getStaticMenuVBox().setDisable(false);
