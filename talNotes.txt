@@ -90,6 +90,9 @@ JavaFXApp via
 
 # ->> Write in README - multiple tables are split by split-pane
 
+# print Transactions: add "Period" column + make sure that in the summary pane
+there are presented sellingUser and buyingUser
+
     _________________________________________________________________________
 
         /* XXX - GUIDE: dynamic style:

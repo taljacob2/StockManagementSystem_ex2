@@ -23,6 +23,7 @@ import user.holding.item.Item;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * The Main Engine of the program.
@@ -365,62 +366,6 @@ public class Engine {
      * transaction.Transaction} between two {@link order.Order}(s).
      * </p>
      *
-     * @param stock        the stock the user wishes to check.
-     * @param arrivedOrder place here the <i>last placed</i> {@link Order} of in
-     *                     the stock's data-base. this means, that on the
-     *                     calculation process of interaction between two
-     *                     opposite already placed orders, this <i>last
-     *                     placed</i> order would match the desiredLimitPrice
-     *                     placed in another <i>opposite already placed</i>
-     *                     order. thus means, the {@link transaction.Transaction}'s
-     *                     desiredLimitPrice would be determined by the
-     *                     <i>opposite already placed</i> order
-     *                     desiredLimitPrice.
-     * @see #checkForOppositeAlreadyPlacedOrders
-     * @see #makeATransaction
-     * @see #checkRemainders
-     * @see #checkOppositeAlreadyPlacedOrderRemainder
-     * @see #checkArrivedOrderRemainder
-     */
-    public static void calcOrdersOfASingleStock(Stock stock,
-                                                Order arrivedOrder) {
-
-        // get the dataBase of this Stock:
-        StockDataBase dataBase = stock.getDataBase();
-
-        /*
-         * get the 'Buy' Orders Collection, and the 'Sell' Orders Collection,
-         * sorted by desiredLimitPrice/timeStamp priority:
-         *
-         * Orders are sorted with the highest desiredLimitPrice at the top (= first),
-         * and the lowest desiredLimitPrice at the bottom (= last).
-         * upon finding that prices are equal, they are sorted by timeStamp priority.
-         */
-        List<Order> buyOrders = dataBase.getAwaitingBuyOrders().getCollection();
-        List<Order> sellOrders =
-                dataBase.getAwaitingSellOrders().getCollection();
-
-        // if the arrived Order is a 'Buy' Order:
-        if (arrivedOrder.getOrderDirection() == OrderDirection.BUY) {
-            checkForOppositeAlreadyPlacedOrders(stock, sellOrders,
-                    arrivedOrder);
-
-            // if the arrived Order is a 'Sell' Order:
-        } else if (arrivedOrder.getOrderDirection() == OrderDirection.SELL) {
-            checkForOppositeAlreadyPlacedOrders(stock, buyOrders, arrivedOrder);
-        }
-
-    }
-
-    /**
-     * <b>The {@code Engine}'s core method.</b>
-     * <p>
-     * This method checks a single {@link Stock} (by passing its {@code Symbol}
-     * as a parameter), reads all its {@link order.Order}(s) lists, and
-     * calculates whether it is possible to create a {@link
-     * transaction.Transaction} between two {@link order.Order}(s).
-     * </p>
-     *
      * @param afterExecuteOrderAndTransactionContainer the {@code Container}
      *                                                 that <i>saves</i> the
      *                                                 {@link Order}s and {@link
@@ -475,33 +420,38 @@ public class Engine {
         List<Order> sellOrders =
                 dataBase.getAwaitingSellOrders().getCollection();
 
-        // Store the 'before' quantity of the order.
-        long arrivedOrderQuantityBefore = arrivedOrder.getQuantity();
+        /*
+         * Update here whether the 'arrivedOrder' was treated in part or in
+         * its entirety.
+         */
+        AtomicBoolean arrivedOrderWasTreated = new AtomicBoolean(false);
 
         // if the arrived Order is a 'Buy' Order:
         if (arrivedOrder.getOrderDirection() == OrderDirection.BUY) {
-            checkForOppositeAlreadyPlacedOrders(stock, sellOrders,
-                    arrivedOrder);
+            checkForOppositeAlreadyPlacedOrders(stock, sellOrders, arrivedOrder,
+                    arrivedOrderWasTreated);
 
             // if the arrived Order is a 'Sell' Order:
         } else if (arrivedOrder.getOrderDirection() == OrderDirection.SELL) {
-            checkForOppositeAlreadyPlacedOrders(stock, buyOrders, arrivedOrder);
+            checkForOppositeAlreadyPlacedOrders(stock, buyOrders, arrivedOrder,
+                    arrivedOrderWasTreated);
         }
 
-        // Store the 'after' quantity of the order.
-        long arrivedOrderQuantityAfter = arrivedOrder.getQuantity();
-
-        // if the 'before' and 'after' quantities are the same. throw a message.
-        if (arrivedOrderQuantityBefore == arrivedOrderQuantityAfter) {
+        /*
+         * Check if the order has not been fulfilled in its entirety nor
+         * partially yet:
+         */
+        if (!arrivedOrderWasTreated.get()) {
             MessagePrint.println(MessagePrint.Stream.OUT,
-                    "\nNote: The order has not been fulfilled at all yet.");
+                    "\nNote: The order has not been fulfilled in its " +
+                            "entirety nor partially yet.");
         }
-
     }
 
     private static void checkForOppositeAlreadyPlacedOrders(Stock stock,
                                                             List<Order> oppositeAlreadyPlacedOrders,
-                                                            Order arrivedOrder) {
+                                                            Order arrivedOrder,
+                                                            AtomicBoolean arrivedOrderWasTreated) {
 
         /*
          * search the 'opposite already placed' Orders of this Stock
@@ -512,18 +462,19 @@ public class Engine {
             Order oppositeAlreadyPlacedOrder = it.next();
 
             /*
-             * the 'arrivedOrder' is a 'Sell' Order.
+             * check if the 'arrivedOrder' is a 'Sell' Order.
              * compare orders: if 'buy' >= 'sell':
              */
             if (checkForOppositeBuyAlreadyPlacedOrders(stock, arrivedOrder, it,
-                    oppositeAlreadyPlacedOrder)) {}
+                    oppositeAlreadyPlacedOrder, arrivedOrderWasTreated)) {}
 
             /*
-             * the 'arrivedOrder' is a 'Buy' Order.
+             * check if the 'arrivedOrder' is a 'Buy' Order.
              * compare orders: if 'buy' >= 'sell':
              */
             else if (checkForOppositeSellAlreadyPlacedOrders(stock,
-                    arrivedOrder, it, oppositeAlreadyPlacedOrder)) {}
+                    arrivedOrder, it, oppositeAlreadyPlacedOrder,
+                    arrivedOrderWasTreated)) {}
 
             /*
              * we found that there are no matching 'opposite already placed' Orders,
@@ -536,10 +487,11 @@ public class Engine {
     private static boolean checkForOppositeBuyAlreadyPlacedOrders(Stock stock,
                                                                   Order arrivedOrder,
                                                                   Iterator<Order> it,
-                                                                  Order oppositeAlreadyPlacedOrder) {
+                                                                  Order oppositeAlreadyPlacedOrder,
+                                                                  AtomicBoolean arrivedOrderWasTreated) {
 
         /*
-         * the 'arrivedOrder' is a 'Sell' Order.
+         * check if the 'arrivedOrder' is a 'Sell' Order.
          * compare orders: if 'buy' >= 'sell':
          */
         if ((oppositeAlreadyPlacedOrder.getOrderDirection() ==
@@ -550,8 +502,8 @@ public class Engine {
             // only if the 'arrivedOrder' wasn't removed from the data-base yet:
             checkForOppositeAlreadyPlacedOrders_DependencyOnDirection(stock,
                     arrivedOrder, it, oppositeAlreadyPlacedOrder,
-                    stock.getDataBase().getAwaitingSellOrders()
-                            .getCollection());
+                    stock.getDataBase().getAwaitingSellOrders().getCollection(),
+                    arrivedOrderWasTreated);
             return true;
         } else {return false;}
     }
@@ -559,10 +511,11 @@ public class Engine {
     private static boolean checkForOppositeSellAlreadyPlacedOrders(Stock stock,
                                                                    Order arrivedOrder,
                                                                    Iterator<Order> it,
-                                                                   Order oppositeAlreadyPlacedOrder) {
+                                                                   Order oppositeAlreadyPlacedOrder,
+                                                                   AtomicBoolean arrivedOrderWasTreated) {
 
         /*
-         * the 'arrivedOrder' is a 'Buy' Order.
+         * check if the 'arrivedOrder' is a 'Buy' Order.
          * compare orders: if 'buy' >= 'sell':
          */
         if ((oppositeAlreadyPlacedOrder.getOrderDirection() ==
@@ -573,19 +526,22 @@ public class Engine {
             // only if the 'arrivedOrder' wasn't removed from the data-base yet:
             checkForOppositeAlreadyPlacedOrders_DependencyOnDirection(stock,
                     arrivedOrder, it, oppositeAlreadyPlacedOrder,
-                    stock.getDataBase().getAwaitingBuyOrders().getCollection());
+                    stock.getDataBase().getAwaitingBuyOrders().getCollection(),
+                    arrivedOrderWasTreated);
             return true;
         } else { return false; }
     }
 
     private static void checkForOppositeAlreadyPlacedOrders_DependencyOnDirection(
             Stock stock, Order arrivedOrder, Iterator<Order> it,
-            Order oppositeAlreadyPlacedOrder, List<Order> OrderList) {
+            Order oppositeAlreadyPlacedOrder, List<Order> OrderList,
+            AtomicBoolean arrivedOrderWasTreated) {
 
         // only if the 'arrivedOrder' wasn't removed from the data-base yet:
         if (OrderList.contains(arrivedOrder)) {
             makeTransactionAndCheckRemainders(stock, it, arrivedOrder,
                     oppositeAlreadyPlacedOrder);
+            arrivedOrderWasTreated.set(true);
         }
     }
 
@@ -735,8 +691,8 @@ public class Engine {
                 MessagePrint.println(MessagePrint.Stream.OUT,
                         Message.Out.StockDataBase
                                 .printOrderPerformedInItsEntirety());
-                FxDialogs.showInformation("INFO", Message.Out.StockDataBase
-                        .printOrderPerformedInItsEntirety());
+                // FxDialogs.showInformation("INFO", Message.Out.StockDataBase
+                //         .printOrderPerformedInItsEntirety());
             } else {
                 MessagePrint.println(MessagePrint.Stream.ERR,
                         new BuildError().getMessage() +
@@ -751,8 +707,8 @@ public class Engine {
                 MessagePrint.println(MessagePrint.Stream.OUT,
                         Message.Out.StockDataBase
                                 .printOrderPerformedInItsEntirety());
-                FxDialogs.showInformation("INFO", Message.Out.StockDataBase
-                        .printOrderPerformedInItsEntirety());
+                // FxDialogs.showInformation("INFO", Message.Out.StockDataBase
+                //         .printOrderPerformedInItsEntirety());
             } else {
                 MessagePrint.println(MessagePrint.Stream.ERR,
                         new BuildError().getMessage() +

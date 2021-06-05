@@ -66,16 +66,16 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="buyOrders">
-    <xs:complexContent>
-      <xs:extension base="engineCollection">
-        <xs:sequence>
-            <xs:element name="rse-buy-order" type="order" minOccurs="0"
-                        maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
+    <xs:complexType name="buyOrders">
+        <xs:complexContent>
+            <xs:extension base="engineCollection">
+                <xs:sequence>
+                    <xs:element name="rse-buy-order" type="order" minOccurs="0"
+                                maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
 
     <xs:complexType name="order">
         <xs:sequence>
@@ -121,28 +121,28 @@
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="transactions">
+        <xs:complexContent>
+            <xs:extension base="engineCollection">
+                <xs:sequence>
+                    <xs:element ref="rse-transaction" minOccurs="0"
+                                maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="transactions">
-    <xs:complexContent>
-      <xs:extension base="engineCollection">
+    <xs:complexType name="transaction">
         <xs:sequence>
-            <xs:element ref="rse-transaction" minOccurs="0"
-                        maxOccurs="unbounded"/>
+            <xs:element name="time-stamp" type="xs:string"/>
+            <xs:element name="quantity" type="xs:long"/>
+            <xs:element name="price" type="xs:long"/>
+            <xs:element name="buying-user" type="user" minOccurs="0"/>
+            <xs:element name="selling-user" type="user" minOccurs="0"/>
         </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="transaction">
-      <xs:sequence>
-          <xs:element name="time-stamp" type="xs:string"/>
-          <xs:element name="quantity" type="xs:long"/>
-          <xs:element name="price" type="xs:long"/>
-          <xs:element name="buying-user" type="user" minOccurs="0"/>
-          <xs:element name="selling-user" type="user" minOccurs="0"/>
-      </xs:sequence>
-  </xs:complexType>
+    </xs:complexType>
 
   <xs:complexType name="users">
     <xs:complexContent>
