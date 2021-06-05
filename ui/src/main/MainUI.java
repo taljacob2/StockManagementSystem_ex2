@@ -35,8 +35,6 @@ public class MainUI {
      */
     public static void main(String[] args) {
 
-        // MenuUI.run();
-
         Application.launch(JavaFXApp.class, args);
 
     }
