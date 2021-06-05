@@ -100,6 +100,11 @@ public class PrintStock implements Initializable {
      */
     @FXML private TableColumn<Order, Long> buyOrderDesiredLimitPriceColumn;
 
+    /**
+     * A column in the {@link TableView} of <i>buy</i> {@link Order}s.
+     */
+    @FXML private TableColumn<Order, Long> buyOrderRequestingUserColumn;
+
 
     /**
      * {@link ObservableList} of all <i>sell</i> {@link Order}s of a {@link
@@ -136,6 +141,11 @@ public class PrintStock implements Initializable {
      * A column in the {@link TableView} of <i>sell</i> {@link Order}s.
      */
     @FXML private TableColumn<Order, Long> sellOrderDesiredLimitPriceColumn;
+
+    /**
+     * A column in the {@link TableView} of <i>sell</i> {@link Order}s.
+     */
+    @FXML private TableColumn<Order, Long> sellOrderRequestingUserColumn;
 
 
     public PrintStock() {}
@@ -184,6 +194,8 @@ public class PrintStock implements Initializable {
                 new PropertyValueFactory<Order, Long>("quantity"));
         buyOrderDesiredLimitPriceColumn.setCellValueFactory(
                 new PropertyValueFactory<Order, Long>("desiredLimitPrice"));
+        buyOrderRequestingUserColumn.setCellValueFactory(
+                new PropertyValueFactory<Order, Long>("requestingUser"));
 
         // set the 'tableView' to the columns provided:
         buyOrderTableView.setItems(buyOrdersObservableList);
@@ -200,6 +212,8 @@ public class PrintStock implements Initializable {
                 new PropertyValueFactory<Order, Long>("quantity"));
         sellOrderDesiredLimitPriceColumn.setCellValueFactory(
                 new PropertyValueFactory<Order, Long>("desiredLimitPrice"));
+        sellOrderRequestingUserColumn.setCellValueFactory(
+                new PropertyValueFactory<Order, Long>("requestingUser"));
 
         // set the 'tableView' to the columns provided:
         sellOrderTableView.setItems(sellOrdersObservableList);

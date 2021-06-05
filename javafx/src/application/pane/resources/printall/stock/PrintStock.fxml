@@ -119,6 +119,10 @@
                                                                         fx:id="buyOrderDesiredLimitPriceColumn"
                                                                         prefWidth="150.0"
                                                                         text="($) Price"/>
+                                                                <TableColumn
+                                                                        fx:id="buyOrderRequestingUserColumn"
+                                                                        prefWidth="150.0"
+                                                                        text="Requesting User"/>
                                                             </columns>
                                                         </TableView>
                                                     </content>
@@ -186,6 +190,10 @@
                                                                         fx:id="sellOrderDesiredLimitPriceColumn"
                                                                         prefWidth="150.0"
                                                                         text="($) Price"/>
+                                                                <TableColumn
+                                                                        fx:id="sellOrderRequestingUserColumn"
+                                                                        prefWidth="150.0"
+                                                                        text="Requesting User"/>
                                                             </columns>
                                                         </TableView>
                                                     </content>

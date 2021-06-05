@@ -432,10 +432,6 @@ public class JavaFXAppController
         MenuUI.command_INFO_ABOUT_A_STOCK();
     }
 
-    public void command_EXECUTE_TRANSACTION_ORDER(ActionEvent event) {
-        MenuUI.command_EXECUTE_TRANSACTION_ORDER();
-    }
-
     public void command_PRINT_LISTS_OF_ALL_ORDERS_AND_TRANSACTIONS(
             ActionEvent event) {
         MenuUI.command_PRINT_LISTS_OF_ALL_ORDERS_AND_TRANSACTIONS();
