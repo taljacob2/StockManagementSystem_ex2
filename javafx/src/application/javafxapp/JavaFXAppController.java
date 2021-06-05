@@ -263,8 +263,6 @@ public class JavaFXAppController
         firstColorBind();
         InitMenuVBox();
         secondColorBind();
-
-
     }
 
     private void firstColorBind() {
