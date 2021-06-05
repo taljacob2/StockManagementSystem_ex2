@@ -60,9 +60,19 @@ public class PrintStock implements Initializable {
     @FXML private TableColumn<Transaction, Long> transactionQuantityColumn;
 
     /**
-     * A <i>dynamic</i> column in the {@link TableView}.
+     * A column in the {@link TableView} of {@link Transaction}s.s.
      */
     @FXML private TableColumn transactionPriceColumn;
+
+    /**
+     * A <i>dynamic</i> column in the {@link TableView}.
+     */
+    @FXML private TableColumn transactionBuyingUserColumn;
+
+    /**
+     * A <i>dynamic</i> column in the {@link TableView}.
+     */
+    @FXML private TableColumn transactionSellingUserColumn;
 
 
     /**
@@ -183,6 +193,12 @@ public class PrintStock implements Initializable {
     }
 
     private void initAllTables() {
+        initBuyOrdersTable();
+        initSellOrdersTable();
+        initTransactionsTable();
+    }
+
+    private void initBuyOrdersTable() {
 
         // buyOrderTableView: initialize columns:
         buyOrderTimeStampColumn.setCellValueFactory(
@@ -203,7 +219,9 @@ public class PrintStock implements Initializable {
 
         // set the 'tableView' to the columns provided:
         buyOrderTableView.setItems(buyOrdersObservableList);
+    }
 
+    private void initSellOrdersTable() {
 
         // sellOrderTableView: initialize columns:
         sellOrderTimeStampColumn.setCellValueFactory(
@@ -225,6 +243,10 @@ public class PrintStock implements Initializable {
         sellOrderTableView.setItems(sellOrdersObservableList);
 
 
+    }
+
+    private void initTransactionsTable() {
+
         // transactionTableView: initialize columns:
         transactionTimeStampColumn.setCellValueFactory(
                 new PropertyValueFactory<Transaction, String>("timeStamp"));
@@ -233,9 +255,16 @@ public class PrintStock implements Initializable {
         transactionPriceColumn.setCellValueFactory(
                 new PropertyValueFactory<Transaction, Long>("price"));
 
+        // initialize dynamic-column:
+        TableUtils.setDynamicColumn(transactionBuyingUserColumn);
+        TableUtils.initTransactionBuyingUserColumn(transactionBuyingUserColumn);
+
+        // initialize dynamic-column:
+        TableUtils.setDynamicColumn(transactionSellingUserColumn);
+        TableUtils
+                .initTransactionSellingUserColumn(transactionSellingUserColumn);
+
         // set the 'tableView' to the columns provided:
         transactionTableView.setItems(transactionsMadeObservableList);
     }
-
-
 }

@@ -6,6 +6,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.util.Callback;
 import order.Order;
+import transaction.Transaction;
 
 /**
  * This class bundles some {@code static} methods for handling
@@ -47,6 +48,72 @@ public class TableUtils {
                                             .get(currentRowIndex);
 
                             setText(currentRowOrder.getRequestingUser()
+                                    .getName());
+                        } else {
+                            setText("");
+                        }
+                    }
+                };
+            }
+        });
+    }
+
+    /**
+     * Used for printing <i>dynamic</i> {@link Order#getRequestingUser()}'s
+     * {@code Symbol}.
+     *
+     * @param tableColumn a {@link TableColumn} of {@link transaction.Transaction}s.
+     */
+    public static void initTransactionBuyingUserColumn(
+            TableColumn tableColumn) {
+        tableColumn.setCellFactory(new Callback<TableColumn, TableCell>() {
+            @Override public TableCell call(TableColumn p) {
+                return new TableCell() {
+                    @Override
+                    protected void updateItem(Object item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if ((this.getTableRow() != null) && (item != null)) {
+
+                            int currentRowIndex = this.getTableRow().getIndex();
+
+                            Transaction currentRowTransaction =
+                                    (Transaction) this.getTableView().getItems()
+                                            .get(currentRowIndex);
+
+                            setText(currentRowTransaction.getBuyingUser()
+                                    .getName());
+                        } else {
+                            setText("");
+                        }
+                    }
+                };
+            }
+        });
+    }
+
+    /**
+     * Used for printing <i>dynamic</i> {@link Order#getRequestingUser()}'s
+     * {@code Symbol}.
+     *
+     * @param tableColumn a {@link TableColumn} of {@link transaction.Transaction}s.
+     */
+    public static void initTransactionSellingUserColumn(
+            TableColumn tableColumn) {
+        tableColumn.setCellFactory(new Callback<TableColumn, TableCell>() {
+            @Override public TableCell call(TableColumn p) {
+                return new TableCell() {
+                    @Override
+                    protected void updateItem(Object item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if ((this.getTableRow() != null) && (item != null)) {
+
+                            int currentRowIndex = this.getTableRow().getIndex();
+
+                            Transaction currentRowTransaction =
+                                    (Transaction) this.getTableView().getItems()
+                                            .get(currentRowIndex);
+
+                            setText(currentRowTransaction.getSellingUser()
                                     .getName());
                         } else {
                             setText("");

@@ -47,7 +47,10 @@ public interface PaneReplacer {
                             "default constructor in the Controller class)" +
                             "(TIP4: If you want to initialize the components " +
                             "of the Controller, make sure NOT to do so in its" +
-                            " Constructor, but in its 'initialize' method.)");
+                            " Constructor, but in its 'initialize' method.)" +
+                            "(TIP5: Make sure that all components in the " +
+                            "Controller are configured accordingly in the " +
+                            "FXML file.)");
         }
         return pane;
     }
