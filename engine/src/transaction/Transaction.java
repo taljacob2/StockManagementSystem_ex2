@@ -73,6 +73,10 @@ public class Transaction implements Comparable<Transaction>, Periodable {
 
         // forces update of the Stock's price:
         stock.setPrice(price);
+
+        // forces update of the Stock's graph:
+        stock.getStockGraph().getPriceList().add(stock.getPrice());
+        stock.getStockGraph().getTimeStampList().add(timeStamp);
     }
 
     /**
