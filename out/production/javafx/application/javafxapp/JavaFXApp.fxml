@@ -188,8 +188,6 @@
                                         <ProgressBar fx:id="progressBar"
                                                      cache="true"
                                                      progress="0.0"/>
-                                        <Button mnemonicParsing="false"
-                                                text="Button"/>
                                         <Label fx:id="progressMessageLabel"/>
                                     </children>
                                     <padding>
