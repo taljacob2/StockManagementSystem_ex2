@@ -84,7 +84,6 @@ public class JavaFXApp extends Application {
         root = FXMLLoader.load(getClass()
                 .getResource("/application/javafxapp/JavaFXApp.fxml"));
 
-        // set COMMANDS: TODO: reorder this, not to be here!
         stage.setOnCloseRequest(event -> {
             event.consume();
             JavaFXAppController.closeRequest();

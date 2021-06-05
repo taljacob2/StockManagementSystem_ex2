@@ -58,7 +58,7 @@ public class JavaFXAppController
      * <i>value</i> to the {@link #progressBar}.
      */
     final private static NumberProperty fontSizeDoubleNumber =
-            new NumberProperty();//FIXME need to fix/kill all of this
+            new NumberProperty();
 
     private static final ObjectProperty<Color> colorPicked =
             (ColorPickerApp.getColorPicked() == null) ?
@@ -277,7 +277,6 @@ public class JavaFXAppController
 
     private Task<Integer> progressBarLoadTask() {
 
-        // TODO: maybe kill this line:
         // initialize 'progressBarDoubleNumber':
         progressBarDoubleNumber.setNumber(0);
 
@@ -319,7 +318,6 @@ public class JavaFXAppController
 
     private Task<Integer> progressBarSaveTask() {
 
-        // TODO: maybe kill this line:
         // initialize 'progressBarDoubleNumber':
         progressBarDoubleNumber.setNumber(0);
 
@@ -457,16 +455,7 @@ public class JavaFXAppController
      * javafx.scene.control.TableView} of all the {@link stock.Stocks} in the
      * program, and shows it to the screen.
      */
-    public void printStocksOnTableView() { //TODO: kill
-
-        // // set the new pane to show:
-        // Pane view =
-        //         getPane("/application/scene/HoldingsTablePane.fxml");//todo: check if can be replaced with: getClass().getResource(pathToFXML)
-        // borderPane.setCenter(view);
-        //
-        // // TODO: check this is `double` lifting the pane up
-        // System.out.println("printStockOnTableView Pressed");
-
+    public void printStocksOnTableView() {
         setPane("/application/pane/resources/stocktablepane/StockTablePane.fxml");
     }
 

@@ -45,9 +45,6 @@ public class MessagePrint {
             JavaFXAppController.getStaticStatusLabel().setText(message);
         }
         if (appendToLog) { Log.getMessageLog().append(message); }
-
-        // TODO - Note: re-setting the JavaFX progress bar:
-        JavaFXAppController.resetProgressBar();
     }
 
     /**

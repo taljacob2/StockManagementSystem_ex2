@@ -203,11 +203,10 @@ public class LoadSaveXML {
      * @throws IOException in case the given {@link Users} have found invalid.
      */
     private static void checkAndSetUsersInEngine(Users users, Stocks stocks)
-            throws IOException { //TODO: need to implement!!!
+            throws IOException {
 
         // check the validation of the users in the File given:
-        checkValidUsers(users, stocks);//TODO: need to UN-NOTE this and
-        // implement!!!
+        checkValidUsers(users, stocks);
 
         // users found as valid, so we are allowed to set the Users:
         Engine.setUsers(users); // set users of Engine.

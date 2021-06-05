@@ -87,7 +87,6 @@ public interface PaneAnimator extends PaneReplacer {
 
     @Deprecated
     static void setPaneWithNoneAnimation(Pane parentContainer, Pane newPane) {
-        // TODO: maybe can kill this
         parentContainer.getChildren().add(newPane);
         parentContainer.getChildren()
                 .remove(JavaFXAppController.getReplaceAblePane());
@@ -258,10 +257,6 @@ public interface PaneAnimator extends PaneReplacer {
              * We are doing so by removing it as a child of the parentContainer, and
              * right after that adding it as a child of the parentContainer.
              */
-            //         FIXME not sure why this is kinda BUGGED
-            // parentContainer.getChildren()
-            //         .remove(JavaFXAppController.getReplaceAblePane()); //
-
 
             // play fade out of 'replaceAblePane':
             fadeOutTransition.play();

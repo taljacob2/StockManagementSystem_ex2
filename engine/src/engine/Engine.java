@@ -1,7 +1,6 @@
 package engine;
 
 import application.dialog.FxDialogs;
-import application.javafxapp.JavaFXAppController;
 import application.pane.resources.afterexecutionsummary.container.AfterExecutionOrderAndTransactionContainer;
 import engine.collection.EngineCollection;
 import load.Descriptor;
@@ -80,9 +79,6 @@ public class Engine {
         // bubble - compare:
         for (int i = 0; i < list.size(); ++i) {
 
-            // TODO - Note: updating the JavaFX progress bar:
-            JavaFXAppController.setProgressBarValue(i, list.size());
-
             String i_symbol = list.get(i).getSymbol();
             String i_companyName = list.get(i).getCompanyName();
             for (int j = list.size() - 1; j > i; --j) {
@@ -156,8 +152,7 @@ public class Engine {
                      */
                     throw new IOException(new BuildError().getMessage() +
                             "Invalid Stocks - There is an ambiguity in the 'name' [String]s of the users: " +
-                            "'" + i_name + "' and '" + j_name +
-                            "'");  // TODO: make a message: usersInvalid_NamesAmbiguity !!
+                            "'" + i_name + "' and '" + j_name + "'");
                 }
             }
 
@@ -219,7 +214,7 @@ public class Engine {
                                 userToCheck.getName() + "': " +
                                 "the 'symbol' of the item: " + "'" +
                                 currentItemSymbol + "'" +
-                                " was not found as a Stock 'symbol' in the system"); // TODO: make a message: usersInvalid_SymbolsNotAvailable !! remember to name the 'name' of the current 'i_name' user.
+                                " was not found as a Stock 'symbol' in the system");
                     }
 
                 }
