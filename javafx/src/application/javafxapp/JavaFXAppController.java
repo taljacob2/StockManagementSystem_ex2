@@ -91,7 +91,6 @@ public class JavaFXAppController
     private static BorderPane staticBorderPane;
     private static PaneAnimator.AnimationType animationType =
             PaneAnimator.AnimationType.FADE_OUT_IN;
-
     @FXML private static Label staticProgressLabel;
     @FXML private BorderPane leftBorderPane;
     @FXML private AnchorPane bottomAnchorPane;
@@ -107,6 +106,10 @@ public class JavaFXAppController
     @FXML private BorderPane borderPane;
     @FXML private VBox menuVBox;
     @FXML private ProgressBar progressBar;
+
+    public static StringProperty rgbStringProperty() {
+        return rgbString;
+    }
 
     public static PaneAnimator.AnimationType getAnimationType() {
         return animationType;
@@ -259,6 +262,8 @@ public class JavaFXAppController
         firstColorBind();
         InitMenuVBox();
         secondColorBind();
+
+
     }
 
     private void firstColorBind() {
@@ -270,6 +275,11 @@ public class JavaFXAppController
             rgbaString.set(ColorPickerApp.toRGBAString(colorPicked.get(), 0.5));
             rgbString.set(ColorPickerApp.toRGBString(colorPicked.get()));
             stringColor.set(ColorPickerApp.getStringColor(colorPicked.get()));
+
+            // // Edits all components in the 'JavaFXApp.css' file that have this 'selector':
+            // JavaFXApp.getRoot().lookupAll(".title").forEach(n -> n.setStyle(
+            //         "-fx-background-color: " + rgbaString.get() + ";"));
+
             colorPicked.bind(ColorPickerApp.colorPickedProperty());
         });
     }
