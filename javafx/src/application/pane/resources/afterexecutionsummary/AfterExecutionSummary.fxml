@@ -33,8 +33,6 @@
                                                     <content>
                                                         <TableView
                                                                 fx:id="transactionTableView"
-                                                                minHeight="400.0"
-                                                                minWidth="752.0"
                                                                 stylesheets="@AfterExecutionSummary.css">
                                                             <columns>
                                                                 <TableColumn
@@ -59,6 +57,14 @@
                                                                         minWidth="7.0"
                                                                         prefWidth="150.0"
                                                                         text="($) Period"/>
+                                                                <TableColumn
+                                                                        fx:id="transactionBuyingUserColumn"
+                                                                        prefWidth="150.0"
+                                                                        text="Buying User"/>
+                                                                <TableColumn
+                                                                        fx:id="transactionSellingUserColumn"
+                                                                        prefWidth="150.0"
+                                                                        text="Selling User"/>
                                                             </columns>
                                                         </TableView>
                                                     </content>
@@ -101,8 +107,6 @@
                                                     <content>
                                                         <TableView
                                                                 fx:id="orderTableView"
-                                                                minHeight="400.0"
-                                                                minWidth="752.0"
                                                                 stylesheets="@AfterExecutionSummary.css">
                                                             <columns>
                                                                 <TableColumn
@@ -130,6 +134,10 @@
                                                                         fx:id="orderDesiredLimitPriceColumn"
                                                                         prefWidth="150.0"
                                                                         text="($) Price"/>
+                                                                <TableColumn
+                                                                        fx:id="orderRequestingUserColumn"
+                                                                        prefWidth="150.0"
+                                                                        text="Requesting User"/>
                                                             </columns>
                                                         </TableView>
                                                     </content>

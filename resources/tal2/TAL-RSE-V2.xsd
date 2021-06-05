@@ -39,15 +39,15 @@
     <xs:complexContent>
       <xs:extension base="engineCollection">
         <xs:sequence>
-          <xs:element ref="rse-stock" maxOccurs="unbounded"/>
+            <xs:element ref="rse-stock" maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="engineCollection">
-    <xs:sequence/>
-  </xs:complexType>
+    <xs:complexType name="engineCollection">
+        <xs:sequence/>
+    </xs:complexType>
 
     <xs:complexType name="stock">
         <xs:sequence>
@@ -166,11 +166,11 @@
 
     <xs:simpleType name="orderType">
         <xs:restriction base="xs:string">
-      <xs:enumeration value="LMT"/>
-      <xs:enumeration value="MKT"/>
-      <xs:enumeration value="FOX"/>
-      <xs:enumeration value="IOC"/>
-    </xs:restriction>
-  </xs:simpleType>
+            <xs:enumeration value="LMT"/>
+            <xs:enumeration value="MKT"/>
+            <xs:enumeration value="FOX"/>
+            <xs:enumeration value="IOC"/>
+        </xs:restriction>
+    </xs:simpleType>
 </xs:schema>
 

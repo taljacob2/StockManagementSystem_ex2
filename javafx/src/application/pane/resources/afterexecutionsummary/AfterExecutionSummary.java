@@ -59,6 +59,16 @@ public class AfterExecutionSummary implements Initializable {
     /**
      * A <i>dynamic</i> column in the {@link TableView}.
      */
+    @FXML private TableColumn transactionBuyingUserColumn;
+
+    /**
+     * A <i>dynamic</i> column in the {@link TableView}.
+     */
+    @FXML private TableColumn transactionSellingUserColumn;
+
+    /**
+     * A <i>dynamic</i> column in the {@link TableView}.
+     */
     @FXML private TableColumn transactionPeriodColumn;
 
 
@@ -103,6 +113,11 @@ public class AfterExecutionSummary implements Initializable {
      */
     @FXML private TableColumn<Order, Long> orderSerialTimeColumn;
 
+    /**
+     * A <i>dynamic</i> column in the {@link TableView} of {@link Order}s.
+     */
+    @FXML private TableColumn orderRequestingUserColumn;
+
 
     /**
      * Constructor. try to get the {@link stock.Stocks} in the {@link Engine}.
@@ -130,6 +145,15 @@ public class AfterExecutionSummary implements Initializable {
                 new PropertyValueFactory<Transaction, Long>("price"));
 
         // initialize dynamic-column:
+        TableUtils.setDynamicColumn(transactionBuyingUserColumn);
+        TableUtils.initTransactionBuyingUserColumn(transactionBuyingUserColumn);
+
+        // initialize dynamic-column:
+        TableUtils.setDynamicColumn(transactionSellingUserColumn);
+        TableUtils
+                .initTransactionSellingUserColumn(transactionSellingUserColumn);
+
+        // initialize dynamic-column:
         TableUtils.setDynamicColumn(transactionPeriodColumn);
         TableUtils.initTransactionPeriodColumn(transactionPeriodColumn);
 
@@ -151,6 +175,10 @@ public class AfterExecutionSummary implements Initializable {
                 new PropertyValueFactory<Order, Long>("quantity"));
         orderDesiredLimitPriceColumn.setCellValueFactory(
                 new PropertyValueFactory<Order, Long>("desiredLimitPrice"));
+
+        // initialize dynamic-column:
+        TableUtils.setDynamicColumn(orderRequestingUserColumn);
+        TableUtils.initOrderRequestingUserColumn(orderRequestingUserColumn);
 
 
         // set the 'tableView' to the columns provided:

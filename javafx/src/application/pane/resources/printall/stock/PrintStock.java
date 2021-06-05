@@ -74,6 +74,11 @@ public class PrintStock implements Initializable {
      */
     @FXML private TableColumn transactionSellingUserColumn;
 
+    /**
+     * A <i>dynamic</i> column in the {@link TableView}
+     */
+    @FXML private TableColumn transactionPeriodColumn;
+
 
     /**
      * {@link ObservableList} of all <i>buy</i> {@link Order}s of a {@link
@@ -112,7 +117,8 @@ public class PrintStock implements Initializable {
     @FXML private TableColumn<Order, Long> buyOrderDesiredLimitPriceColumn;
 
     /**
-     * A <i>dynamic</i> column in the {@link TableView}.
+     * A <i>dynamic</i> column in the {@link TableView} of <i>buy</i> {@link
+     * Order}s.
      */
     @FXML private TableColumn buyOrderRequestingUserColumn;
 
@@ -154,9 +160,10 @@ public class PrintStock implements Initializable {
     @FXML private TableColumn<Order, Long> sellOrderDesiredLimitPriceColumn;
 
     /**
-     * A column in the {@link TableView} of <i>sell</i> {@link Order}s.
+     * A <i>dynamic</i> column in the {@link TableView} of <i>sell</i> {@link
+     * Order}s.
      */
-    @FXML private TableColumn<Order, String> sellOrderRequestingUserColumn;
+    @FXML private TableColumn sellOrderRequestingUserColumn;
 
 
     public PrintStock() {}
@@ -193,9 +200,36 @@ public class PrintStock implements Initializable {
     }
 
     private void initAllTables() {
+        initTransactionsTable();
         initBuyOrdersTable();
         initSellOrdersTable();
-        initTransactionsTable();
+    }
+
+    private void initTransactionsTable() {
+
+        // transactionTableView: initialize columns:
+        transactionTimeStampColumn.setCellValueFactory(
+                new PropertyValueFactory<Transaction, String>("timeStamp"));
+        transactionQuantityColumn.setCellValueFactory(
+                new PropertyValueFactory<Transaction, Long>("quantity"));
+        transactionPriceColumn.setCellValueFactory(
+                new PropertyValueFactory<Transaction, Long>("price"));
+
+        // initialize dynamic-column:
+        TableUtils.setDynamicColumn(transactionBuyingUserColumn);
+        TableUtils.initTransactionBuyingUserColumn(transactionBuyingUserColumn);
+
+        // initialize dynamic-column:
+        TableUtils.setDynamicColumn(transactionSellingUserColumn);
+        TableUtils
+                .initTransactionSellingUserColumn(transactionSellingUserColumn);
+
+        // initialize dynamic-column:
+        TableUtils.setDynamicColumn(transactionPeriodColumn);
+        TableUtils.initTransactionPeriodColumn(transactionPeriodColumn);
+
+        // set the 'tableView' to the columns provided:
+        transactionTableView.setItems(transactionsMadeObservableList);
     }
 
     private void initBuyOrdersTable() {
@@ -245,26 +279,4 @@ public class PrintStock implements Initializable {
 
     }
 
-    private void initTransactionsTable() {
-
-        // transactionTableView: initialize columns:
-        transactionTimeStampColumn.setCellValueFactory(
-                new PropertyValueFactory<Transaction, String>("timeStamp"));
-        transactionQuantityColumn.setCellValueFactory(
-                new PropertyValueFactory<Transaction, Long>("quantity"));
-        transactionPriceColumn.setCellValueFactory(
-                new PropertyValueFactory<Transaction, Long>("price"));
-
-        // initialize dynamic-column:
-        TableUtils.setDynamicColumn(transactionBuyingUserColumn);
-        TableUtils.initTransactionBuyingUserColumn(transactionBuyingUserColumn);
-
-        // initialize dynamic-column:
-        TableUtils.setDynamicColumn(transactionSellingUserColumn);
-        TableUtils
-                .initTransactionSellingUserColumn(transactionSellingUserColumn);
-
-        // set the 'tableView' to the columns provided:
-        transactionTableView.setItems(transactionsMadeObservableList);
-    }
 }

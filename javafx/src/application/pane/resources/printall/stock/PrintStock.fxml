@@ -34,9 +34,6 @@
                                                     <content>
                                                         <TableView
                                                                 fx:id="transactionTableView"
-                                                                minHeight="0.0"
-                                                                minWidth="752.0"
-                                                                prefWidth="752.0"
                                                                 stylesheets="@PrintStock.css">
                                                             <columns>
                                                                 <TableColumn
@@ -52,6 +49,11 @@
                                                                         minWidth="7.0"
                                                                         prefWidth="150.0"
                                                                         text="($) Price"/>
+                                                                <TableColumn
+                                                                        fx:id="transactionPeriodColumn"
+                                                                        minWidth="7.0"
+                                                                        prefWidth="150.0"
+                                                                        text="($) Period"/>
                                                                 <TableColumn
                                                                         fx:id="transactionBuyingUserColumn"
                                                                         prefWidth="150.0"
@@ -102,8 +104,6 @@
                                                     <content>
                                                         <TableView
                                                                 fx:id="buyOrderTableView"
-                                                                minHeight="400.0"
-                                                                minWidth="752.0"
                                                                 stylesheets="@PrintStock.css">
                                                             <columns>
                                                                 <TableColumn
@@ -173,8 +173,6 @@
                                                     <content>
                                                         <TableView
                                                                 fx:id="sellOrderTableView"
-                                                                minHeight="400.0"
-                                                                minWidth="752.0"
                                                                 stylesheets="@PrintStock.css">
                                                             <columns>
                                                                 <TableColumn
