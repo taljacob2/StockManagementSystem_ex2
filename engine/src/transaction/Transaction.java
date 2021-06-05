@@ -81,6 +81,14 @@ public class Transaction implements Comparable<Transaction>, Periodable {
      */
     public Transaction() {}
 
+    public long getSerialTime() {
+        return serialTime;
+    }
+
+    public void setSerialTime(long serialTime) {
+        this.serialTime = serialTime;
+    }
+
     public User getBuyingUser() {
         return buyingUser;
     }

@@ -58,13 +58,14 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="stockDataBase">
-    <xs:sequence>
-      <xs:element ref="rse-buy-orders" minOccurs="0"/>
-      <xs:element ref="rse-sell-orders" minOccurs="0"/>
-      <xs:element ref="rse-successfully-finished-transactions" minOccurs="0"/>
-    </xs:sequence>
-  </xs:complexType>
+    <xs:complexType name="stockDataBase">
+        <xs:sequence>
+            <xs:element ref="rse-buy-orders" minOccurs="0"/>
+            <xs:element ref="rse-sell-orders" minOccurs="0"/>
+            <xs:element ref="rse-successfully-finished-transactions"
+                        minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 
     <xs:complexType name="buyOrders">
         <xs:complexContent>
@@ -85,6 +86,7 @@
             <xs:element name="quantity" type="xs:long"/>
             <xs:element name="desired-limit-price" type="xs:long"/>
             <xs:element name="requesting-user" type="user" minOccurs="0"/>
+            <xs:element name="serialTimeOfRemainedOrder" type="xs:long"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -132,7 +134,7 @@
                 </xs:sequence>
             </xs:extension>
         </xs:complexContent>
-  </xs:complexType>
+    </xs:complexType>
 
     <xs:complexType name="transaction">
         <xs:sequence>
@@ -141,18 +143,19 @@
             <xs:element name="price" type="xs:long"/>
             <xs:element name="buying-user" type="user" minOccurs="0"/>
             <xs:element name="selling-user" type="user" minOccurs="0"/>
+            <xs:element name="serialTime" type="xs:long"/>
         </xs:sequence>
     </xs:complexType>
 
-  <xs:complexType name="users">
-    <xs:complexContent>
-      <xs:extension base="engineCollection">
-        <xs:sequence>
-          <xs:element ref="rse-user" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
+    <xs:complexType name="users">
+        <xs:complexContent>
+            <xs:extension base="engineCollection">
+                <xs:sequence>
+                    <xs:element ref="rse-user" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
 
   <xs:simpleType name="orderDirection">
     <xs:restriction base="xs:string">

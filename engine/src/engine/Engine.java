@@ -428,8 +428,14 @@ public class Engine {
         AtomicBoolean arrivedOrderWasTreated = new AtomicBoolean(false);
 
 
-        // Store here the serial time of the 'added' Order/Transaction.
-        AtomicLong serialTime = new AtomicLong(0);
+        /*
+         * Store here the serial time of the 'added' Order/Transaction.
+         *
+         * Important: must initialize with "1", so that it will be indicated
+         * that if an Order has a serialTime value of "0" it would mean that the
+         * Order is NOT a 'remained order'.
+         */
+        AtomicLong serialTime = new AtomicLong(1);
 
         // if the arrived Order is a 'Buy' Order:
         if (arrivedOrder.getOrderDirection() == OrderDirection.BUY) {

@@ -51,16 +51,16 @@ public class AfterExecutionSummary implements Initializable {
     @FXML private TableColumn<Transaction, Long> transactionPriceColumn;
 
     /**
-     * A <i>dynamic</i> column in the {@link TableView}.
+     * A column in the {@link TableView} of {@link Transaction}s.
      */
-    @FXML private TableColumn transactionSerialTimeColumn;
+    @FXML private TableColumn<Transaction, Long> transactionSerialTimeColumn;
 
 
     /**
      * {@link ObservableList} of all {@link Order}s remained after
      * <i>order-execution.</i>
      */
-    private ObservableList<Order> remaindedOrdersObservableList;
+    private ObservableList<Order> remainedOrdersObservableList;
 
     /**
      * The {@link TableView} needed to be shown.
@@ -93,16 +93,16 @@ public class AfterExecutionSummary implements Initializable {
     @FXML private TableColumn<Order, Long> orderDesiredLimitPriceColumn;
 
     /**
-     * A <i>dynamic</i> column in the {@link TableView}.
+     * A column in the {@link TableView} of {@link order.Order}s.
      */
-    @FXML private TableColumn orderSerialTimeColumn;
+    @FXML private TableColumn<Order, Long> orderSerialTimeColumn;
 
 
     /**
      * Constructor. try to get the {@link stock.Stocks} in the {@link Engine}.
      */
     public AfterExecutionSummary() {
-        remaindedOrdersObservableList = FXCollections.observableArrayList(
+        remainedOrdersObservableList = FXCollections.observableArrayList(
                 Engine.getAfterExecuteOrderAndTransactionContainer()
                         .getRemainderOrders());
 
@@ -120,10 +120,8 @@ public class AfterExecutionSummary implements Initializable {
                 new PropertyValueFactory<Transaction, Long>("quantity"));
         transactionPriceColumn.setCellValueFactory(
                 new PropertyValueFactory<Transaction, Long>("price"));
-
-        // // initialize dynamic-column:
-        // TableUtils.setDynamicColumn(transactionSerialTimeColumn);
-        // TableUtils.initTransactionBuyingUserColumn(transactionSerialTimeColumn);
+        transactionSerialTimeColumn.setCellValueFactory(
+                new PropertyValueFactory<Transaction, Long>("serialTime"));
 
         // set the 'tableView' to the columns provided:
         transactionTableView.setItems(transactionsMadeObservableList);
@@ -140,13 +138,12 @@ public class AfterExecutionSummary implements Initializable {
                 new PropertyValueFactory<Order, Long>("quantity"));
         orderDesiredLimitPriceColumn.setCellValueFactory(
                 new PropertyValueFactory<Order, Long>("desiredLimitPrice"));
-
-        // // initialize dynamic-column:
-        // TableUtils.setDynamicColumn(orderSerialTimeColumn);
-        // TableUtils.initTransactionBuyingUserColumn(orderSerialTimeColumn);
+        orderSerialTimeColumn.setCellValueFactory(
+                new PropertyValueFactory<Order, Long>(
+                        "serialTimeOfRemainedOrder"));
 
         // set the 'tableView' to the columns provided:
-        orderTableView.setItems(remaindedOrdersObservableList);
+        orderTableView.setItems(remainedOrdersObservableList);
     }
 
 }

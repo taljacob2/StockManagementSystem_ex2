@@ -48,6 +48,9 @@ public class Order implements Comparable<Order>, Periodable {
      * The <i>serial-time</i> that the {@code Order} was created, when viewing
      * in a {@link application.pane.resources.afterexecutionsummary.AfterExecutionSummary}
      * {@code Pane}.
+     * <blockquote><b>Note:</b> if this field is "0", it means
+     * {@code this} {@code Order} is <i>not</i> a <i>remained {@code Order}
+     * </i></blockquote>
      */
     private long serialTimeOfRemainedOrder = 0;
 

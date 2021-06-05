@@ -38,6 +38,10 @@
                                                                 stylesheets="@AfterExecutionSummary.css">
                                                             <columns>
                                                                 <TableColumn
+                                                                        fx:id="transactionSerialTimeColumn"
+                                                                        prefWidth="150.0"
+                                                                        text="Serial Time"/>
+                                                                <TableColumn
                                                                         fx:id="transactionTimeStampColumn"
                                                                         prefWidth="150.0"
                                                                         text="Time Stamp"/>
@@ -97,6 +101,10 @@
                                                                 stylesheets="@AfterExecutionSummary.css">
                                                             <columns>
                                                                 <TableColumn
+                                                                        fx:id="orderSerialTimeColumn"
+                                                                        prefWidth="150.0"
+                                                                        text="Serial Time"/>
+                                                                <TableColumn
                                                                         fx:id="orderTimeStampColumn"
                                                                         prefWidth="150.0"
                                                                         text="Time Stamp"/>
@@ -128,7 +136,7 @@
                                                     <children>
                                                         <Label alignment="CENTER"
                                                                styleClass="title"
-                                                               text="Remainded Orders"
+                                                               text="Remained Orders"
                                                                textFill="WHITE"
                                                                wrapText="true"
                                                                AnchorPane.bottomAnchor="0.0"
