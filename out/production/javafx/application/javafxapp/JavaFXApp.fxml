@@ -48,10 +48,6 @@
                                             <items>
                                                 <MenuItem
                                                         mnemonicParsing="false"
-                                                        onAction="#defineAnimationFadeInOut"
-                                                        text="Fade In Out"/>
-                                                <MenuItem
-                                                        mnemonicParsing="false"
                                                         onAction="#defineAnimationFadeOutIn"
                                                         text="Fade Out In"/>
                                                 <MenuItem

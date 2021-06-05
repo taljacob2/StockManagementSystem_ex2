@@ -8,9 +8,9 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="application.pane.resources.login.selecteduser.holdings.table.HoldingsTablePane">
     <children>
-        <TableView fx:id="tableView" stylesheets="@HoldingsTablePane.css"
-                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <TableView fx:id="tableView" AnchorPane.bottomAnchor="0.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                   AnchorPane.topAnchor="0.0">
             <columns>
                 <TableColumn fx:id="symbolColumn" prefWidth="150.0"
                              text="Symbol"/>

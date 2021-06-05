@@ -3,45 +3,45 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.*?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@ViewHoldings.css"
+<AnchorPane prefHeight="400.0" prefWidth="600.0"
             xmlns="http://javafx.com/javafx/8.0.171"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="application.pane.resources.login.selecteduser.holdings.ViewHoldings">
-   <children>
-      <ScrollPane fitToHeight="true" fitToWidth="true"
-                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                  AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <content>
-            <BorderPane>
-               <top>
+    <children>
+        <ScrollPane fitToHeight="true" fitToWidth="true"
+                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <content>
+                <BorderPane>
+                    <top>
+                        <AnchorPane BorderPane.alignment="CENTER">
+                            <children>
+                                <Label alignment="CENTER" prefHeight="42.0"
+                                       styleClass="title" text="Holdings"
+                                       textAlignment="CENTER" wrapText="true"
+                                       AnchorPane.bottomAnchor="0.0"
+                                       AnchorPane.leftAnchor="0.0"
+                                       AnchorPane.rightAnchor="0.0"
+                                       AnchorPane.topAnchor="0.0"/>
+                            </children>
+                        </AnchorPane>
+                    </top>
+                    <bottom>
                   <AnchorPane BorderPane.alignment="CENTER">
                      <children>
-                        <Label alignment="CENTER" prefHeight="42.0"
-                               styleClass="title" text="Holdings"
-                               textAlignment="CENTER" wrapText="true"
-                               AnchorPane.bottomAnchor="0.0"
-                               AnchorPane.leftAnchor="0.0"
-                               AnchorPane.rightAnchor="0.0"
-                               AnchorPane.topAnchor="0.0"/>
-                     </children>
-                  </AnchorPane>
-               </top>
-               <bottom>
-                  <AnchorPane BorderPane.alignment="CENTER">
-                     <children>
-                        <Label fx:id="totalHoldingsWorthLabel"
-                               alignment="CENTER" styleClass="title"
-                               textAlignment="CENTER" wrapText="true"
-                               AnchorPane.bottomAnchor="0.0"
-                               AnchorPane.leftAnchor="0.0"
-                               AnchorPane.rightAnchor="0.0"
-                               AnchorPane.topAnchor="0.0"/>
+                         <Label fx:id="totalHoldingsWorthLabel"
+                                alignment="CENTER" styleClass="title"
+                                textAlignment="CENTER" wrapText="true"
+                                AnchorPane.bottomAnchor="0.0"
+                                AnchorPane.leftAnchor="0.0"
+                                AnchorPane.rightAnchor="0.0"
+                                AnchorPane.topAnchor="0.0"/>
                      </children>
                   </AnchorPane>
                </bottom>
                <center>
-                  <BorderPane fx:id="borderPaneToShowTheAnotherInnerPane"
-                              BorderPane.alignment="CENTER"/>
+                   <BorderPane fx:id="borderPaneToShowTheAnotherInnerPane"
+                               BorderPane.alignment="CENTER"/>
                </center>
             </BorderPane>
          </content>
