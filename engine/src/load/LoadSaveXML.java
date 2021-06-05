@@ -275,8 +275,7 @@ public class LoadSaveXML {
                         jaxbContext.createUnmarshaller();
                 return (Descriptor) jaxbUnmarshaller.unmarshal(fileToUnmarshal);
             } catch (JAXBException e) {
-                // BUG : printing:
-                e.printStackTrace();
+                // e.printStackTrace();
 
                 /* Reading Exceptions: */
 
