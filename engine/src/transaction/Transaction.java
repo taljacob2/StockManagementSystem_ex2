@@ -4,6 +4,7 @@ import currency.Currency;
 import engine.collection.Periodable;
 import order.Order;
 import stock.Stock;
+import user.User;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -23,34 +24,44 @@ import java.util.Objects;
  *
  * @version 1.0
  */
-@XmlRootElement(name = "rse-transaction")
-@XmlAccessorType(XmlAccessType.FIELD) public class Transaction
-        implements Comparable<Transaction>, Periodable {
+@XmlRootElement(name = "rse-transaction") @XmlAccessorType(XmlAccessType.FIELD)
+public class Transaction implements Comparable<Transaction>, Periodable {
 
     /**
      * The {@code TimeStamp} of the {@code Transaction}'s execution.
      */
-    @XmlElement(name = "time-stamp", required = true)
-    private String timeStamp;
+    @XmlElement(name = "time-stamp", required = true) private String timeStamp;
 
     /**
      * The quantity of the {@link stock.Stock}s sold in the {@code
      * Transaction}.
      */
-    @XmlElement(name = "quantity", required = true)
-    private long quantity;
+    @XmlElement(name = "quantity", required = true) private long quantity;
 
     /**
      * Price of each sold {@link stock.Stock}.
      */
-    @XmlElement(name = "price", required = true)
-    private long price;
+    @XmlElement(name = "price", required = true) private long price;
 
-    public Transaction(Stock stock, String timeStamp, long quantity,
-                       long price) {
+    /**
+     * The {@link user.User} who <i>sold</i> a {@link Stock} in the current
+     * {@code Transaction}.
+     */
+    @XmlElement(name = "buying-user") private User buyingUser;
+
+    /**
+     * The {@link user.User} who <i>bought</i> a {@link Stock} in the current
+     * {@code Transaction}.
+     */
+    @XmlElement(name = "selling-user") private User sellingUser;
+
+    public Transaction(Stock stock, String timeStamp, long quantity, long price,
+                       User buyingUser, User sellingUser) {
         this.timeStamp = timeStamp;
         this.quantity = quantity;
         this.price = price;
+        this.buyingUser = buyingUser;
+        this.sellingUser = sellingUser;
 
         // forces update of the Stock's price:
         stock.setPrice(price);
@@ -61,6 +72,22 @@ import java.util.Objects;
      * load and save.
      */
     public Transaction() {}
+
+    public User getBuyingUser() {
+        return buyingUser;
+    }
+
+    public void setBuyingUser(User buyingUser) {
+        this.buyingUser = buyingUser;
+    }
+
+    public User getSellingUser() {
+        return sellingUser;
+    }
+
+    public void setSellingUser(User sellingUser) {
+        this.sellingUser = sellingUser;
+    }
 
     @Override public boolean equals(Object o) {
         if (this == o) { return true; }
@@ -86,7 +113,9 @@ import java.util.Objects;
         return "Transaction{" + "timeStamp='" + timeStamp + '\'' +
                 ", quantity=" + quantity + ", price=" +
                 Currency.numberFormat.format(price) + ", transactionPeriod=" +
-                Currency.numberFormat.format(getPeriod()) + '}';
+                Currency.numberFormat.format(getPeriod()) + ", buyingUserName" +
+                "=" + buyingUser.getName() + ", sellingUserName=" +
+                sellingUser.getName() + '}';
     }
 
     public String getTimeStamp() {

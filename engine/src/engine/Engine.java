@@ -616,11 +616,22 @@ public class Engine {
         long quantityOfTransaction = Math.min(arrivedOrder.getQuantity(),
                 oppositeAlreadyPlacedOrder.getQuantity());
 
+        Transaction transaction = null;
+
         // create Transaction:
-        Transaction transaction =
-                new Transaction(stock, arrivedOrder.getTimeStamp(),
-                        quantityOfTransaction,
-                        oppositeAlreadyPlacedOrder.getDesiredLimitPrice());
+        if (arrivedOrder.getOrderDirection() == OrderDirection.BUY) {
+            transaction = new Transaction(stock, arrivedOrder.getTimeStamp(),
+                    quantityOfTransaction,
+                    oppositeAlreadyPlacedOrder.getDesiredLimitPrice(),
+                    arrivedOrder.getRequestingUser(),
+                    oppositeAlreadyPlacedOrder.getRequestingUser());
+        } else if (arrivedOrder.getOrderDirection() == OrderDirection.SELL) {
+            transaction = new Transaction(stock, arrivedOrder.getTimeStamp(),
+                    quantityOfTransaction,
+                    oppositeAlreadyPlacedOrder.getDesiredLimitPrice(),
+                    oppositeAlreadyPlacedOrder.getRequestingUser(),
+                    arrivedOrder.getRequestingUser());
+        }
 
         // add Transaction:
         stock.getDataBase().getSuccessfullyFinishedTransactions()
