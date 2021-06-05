@@ -36,7 +36,7 @@ public class ViewStocksGraphs extends ContainsAnotherPane
     @Override public void initialize(URL location, ResourceBundle resources) {
 
         setPane(getBorderPaneToShowTheAnotherInnerPane(),
-                "/application/pane/resources" + "/viewstocksgraphs/welcome" +
+                "/application/pane/resources/viewstocksgraphs/welcome" +
                         "/StocksGraphsWelcome.fxml");
 
 
