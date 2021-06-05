@@ -57,10 +57,6 @@
     -fx-background-color: rgb(128, 179, 128);
 }
 
-/*#progressMessageLabel {*/
-/*    -fx-text-fill: rgb(128, 179, 128);*/
-/*}*/
-
 #progressBarLabel {
     -fx-text-fill: white;
 }
