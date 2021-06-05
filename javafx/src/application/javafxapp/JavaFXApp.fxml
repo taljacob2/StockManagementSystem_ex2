@@ -194,6 +194,7 @@
                                                      progress="0.0"/>
                                         <Button mnemonicParsing="false"
                                                 text="Button"/>
+                                        <Label fx:id="progressMessageLabel"/>
                                     </children>
                                     <padding>
                                         <Insets bottom="5.0" left="10.0"

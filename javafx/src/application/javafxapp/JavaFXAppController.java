@@ -107,6 +107,7 @@ public class JavaFXAppController
     @FXML private BorderPane borderPane;
     @FXML private VBox menuVBox;
     @FXML private ProgressBar progressBar;
+    @FXML private Label progressMessageLabel;
 
     public static StringProperty rgbStringProperty() {
         return rgbString;
