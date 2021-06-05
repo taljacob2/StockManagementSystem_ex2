@@ -147,7 +147,8 @@ public class OrderExecution implements Initializable, PaneReplacer {
                     (limitPriceTextField.getText() == null) ||
                             (limitPriceTextField.getText()
                                     .equalsIgnoreCase("MKT")) ? 0L :
-                            Long.parseLong(limitPriceTextField.getText()));
+                            Long.parseLong(limitPriceTextField.getText()),
+                    SelectedUser.getSelectedUser());
 
         }
     };

@@ -42,15 +42,16 @@ public class Order implements Comparable<Order>, Periodable {
     /**
      * The {@link User} who requested the current {@code Order}.
      */
-    @XmlElement(name = "user") private User user;
+    @XmlElement(name = "user") private User requestingUser;
 
     public Order(OrderDirection direction, OrderType type, long quantity,
-                 long desiredLimitPrice) {
+                 long desiredLimitPrice, User requestingUser) {
         timeStamp = TimeStamp.getTimeStamp();
         this.quantity = quantity;
         this.orderDirection = direction;
         this.orderType = type;
         this.desiredLimitPrice = desiredLimitPrice;
+        this.requestingUser = requestingUser;
     }
 
     /**
@@ -59,12 +60,12 @@ public class Order implements Comparable<Order>, Periodable {
      */
     public Order() {}
 
-    public User getUser() {
-        return user;
+    public User getRequestingUser() {
+        return requestingUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setRequestingUser(User requestingUser) {
+        this.requestingUser = requestingUser;
     }
 
     public String getTimeStamp() {
@@ -129,7 +130,7 @@ public class Order implements Comparable<Order>, Periodable {
                 orderType + ", quantity=" + quantity + ", desiredLimitPrice=" +
                 Currency.numberFormat.format(desiredLimitPrice) +
                 ", orderPeriod=" + Currency.numberFormat.format(getPeriod()) +
-                '}';
+                "requestingUser=" + requestingUser.getName() + '}';
     }
 
     /**

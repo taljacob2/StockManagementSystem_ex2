@@ -10,6 +10,7 @@ import order.OrderDirection;
 import order.OrderType;
 import stock.Stock;
 import stock.Stocks;
+import user.User;
 
 import java.io.IOException;
 import java.util.InputMismatchException;
@@ -18,7 +19,7 @@ import java.util.Scanner;
 /**
  * This {@code class} defines the Menu's User-Interface.
  *
- * @version 1.2
+ * @version 2.0
  */
 public class MenuUI {
 
@@ -77,7 +78,7 @@ public class MenuUI {
      * <p><b>Note:</b> the {@link Keys#LOAD_SAVED_XML_FILE} command is the same
      * as the {@link Keys#LOAD_XML_FILE} command.</p>
      */
-    private static void commandViaInput() {
+    @Deprecated private static void commandViaInput() {
         try {
 
             // get input
@@ -90,7 +91,7 @@ public class MenuUI {
             } else if (input == Keys.PRINT_INFO_ABOUT_A_STOCK) {
                 command_INFO_ABOUT_A_STOCK();
             } else if (input == Keys.EXECUTE_TRANSACTION_ORDER) {
-                command_EXECUTE_TRANSACTION_ORDER();
+                // command_EXECUTE_TRANSACTION_ORDER();
             } else if (input ==
                     Keys.PRINT_LISTS_OF_ALL_ORDERS_AND_TRANSACTIONS) {
                 command_PRINT_LISTS_OF_ALL_ORDERS_AND_TRANSACTIONS();
@@ -176,103 +177,11 @@ public class MenuUI {
         }
     }
 
-    public static void command_EXECUTE_TRANSACTION_ORDER() {
-
-        // first of all check if there are Stocks available in the system:
-        if (Engine.isStocks()) {
-
-            // get Parameters of the Order, and insert the new Order to Database:
-
-            try {
-                // //TODO check print of all Users:
-                // MessagePrint.println(MessagePrint.Stream.OUT,
-                //         Engine.getUsers().toString());
-
-                // insert the Symbol, and get the matching stock to it:
-                Stock stock = inputOrderSymbolAndGetMatchingStock();
-
-                // get the orderDirection:
-                OrderDirection orderDirection = getOrderDirection();
-
-                // get the orderType:
-                OrderType orderType = getOrderType();
-
-                // get the Quantity:
-                Long quantity = getOrderQuantity();
-
-                // initialize 'desiredLimitPrice' to 0.
-                Long desiredLimitPrice = 0L;
-
-                // get the desiredLimitPrice (only if the orderType is 'LMT'):
-                if (orderType == OrderType.LMT) {
-                    desiredLimitPrice = getOrderDesiredLimit();
-                } else if (orderType == OrderType.MKT) {
-
-                    // set the 'desiredLimitPrice':
-                    desiredLimitPrice =
-                            Engine.calcDesiredLimitPriceOfMKTOrder(stock,
-                                    orderDirection);
-                }
-
-                // create the instance of the Order and insert it to DataBase:
-                Order order =
-                        insertOrder(stock, orderDirection, orderType, quantity,
-                                desiredLimitPrice);
-
-                // calc this newly placed order with the matching already placed Orders:
-                Engine.calcOrdersOfASingleStock(stock, order);
-
-            } catch (IOException e) {
-                MessagePrint.println(MessagePrint.Stream.ERR, e.getMessage());
-            }
-
-        }
-    }
-
-    public static void command_EXECUTE_TRANSACTION_ORDER(Stock stock,
-                                                         OrderDirection orderDirection,
-                                                         OrderType orderType,
-                                                         Long quantity, Long insertedDesiredLimitPrice) {
-
-        // first of all check if there are Stocks available in the system:
-        if (Engine.isStocks()) {
-
-            // get Parameters of the Order, and insert the new Order to Database:
-
-            try {
-
-                // initialize 'desiredLimitPrice' to 0.
-                Long desiredLimitPrice = 0L;
-
-                // get the desiredLimitPrice (only if the orderType is 'LMT'):
-                if (orderType == OrderType.LMT) {
-                    desiredLimitPrice = insertedDesiredLimitPrice;
-                } else if (orderType == OrderType.MKT) {
-
-                    // set the 'desiredLimitPrice':
-                    desiredLimitPrice = Engine.calcDesiredLimitPriceOfMKTOrder(stock,
-                            orderDirection);
-                }
-
-                // create the instance of the Order and insert it to DataBase:
-                Order order =
-                        insertOrder(stock, orderDirection, orderType, quantity,
-                                desiredLimitPrice);
-
-                // calc this newly placed order with the matching already placed Orders:
-                Engine.calcOrdersOfASingleStock(stock, order);
-
-            } catch (IOException e) {
-                MessagePrint.println(MessagePrint.Stream.ERR, e.getMessage());
-            }
-
-        }
-    }
-
     public static void command_EXECUTE_TRANSACTION_ORDER(
             AfterExecuteOrderAndTransactionContainer afterExecuteOrderAndTransactionContainer,
             Stock stock, OrderDirection orderDirection, OrderType orderType,
-            Long quantity, Long insertedDesiredLimitPrice) {
+            Long quantity, Long insertedDesiredLimitPrice,
+            User requestingUser) {
 
         // first of all check if there are Stocks available in the system:
         if (Engine.isStocks()) {
@@ -298,7 +207,7 @@ public class MenuUI {
                 // create the instance of the Order and insert it to DataBase:
                 Order order =
                         insertOrder(stock, orderDirection, orderType, quantity,
-                                desiredLimitPrice);
+                                desiredLimitPrice, requestingUser);
 
                 // calc this newly placed order with the matching already placed Orders:
                 Engine.calcOrdersOfASingleStock(
@@ -497,18 +406,20 @@ public class MenuUI {
      *                          </ul>
      * @param desiredLimitPrice takes action only for {@link OrderType#LMT}
      *                          {@code OrderTypes}.
+     * @param requestingUser    is the {@link User} that requested this {@link
+     *                          Order}
      * @return the newly placed order.
      * @throws IOException if the {@link Order} build process failed.
      */
     private static Order insertOrder(Stock stock, OrderDirection orderDirection,
                                      OrderType orderType, long quantity,
-                                     long desiredLimitPrice)
-            throws IOException {
+                                     long desiredLimitPrice,
+                                     User requestingUser) throws IOException {
 
         // create the instance of the Order:
         try {
             Order order = new Order(orderDirection, orderType, quantity,
-                    desiredLimitPrice);
+                    desiredLimitPrice, requestingUser);
 
             // print success message:
             MessagePrint.println(MessagePrint.Stream.OUT,
@@ -613,7 +524,7 @@ public class MenuUI {
      *     <li>gets an input from the user and executes a command.</li>
      * </ul>
      */
-    public static void run() {
+    @Deprecated public static void run() {
         while (!exit) {
             printMenu();
             commandViaInput();
