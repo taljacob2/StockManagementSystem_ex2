@@ -16,13 +16,19 @@
             <content>
                 <AnchorPane>
                     <children>
-                        <LineChart fx:id="lineChart">
+                        <LineChart fx:id="lineChart" legendVisible="false"
+                                   AnchorPane.bottomAnchor="0.0"
+                                   AnchorPane.leftAnchor="0.0"
+                                   AnchorPane.rightAnchor="0.0"
+                                   AnchorPane.topAnchor="0.0">
                             <xAxis>
                                 <CategoryAxis fx:id="timeStampAxis"
-                                              side="BOTTOM"/>
+                                              label="Time Stamp" side="BOTTOM"
+                                              tickLabelFill="WHITE"/>
                             </xAxis>
                             <yAxis>
-                                <NumberAxis fx:id="stockPriceAxis" side="LEFT"/>
+                                <NumberAxis fx:id="stockPriceAxis" label="Price"
+                                            side="LEFT" tickLabelFill="WHITE"/>
                             </yAxis>
                         </LineChart>
                     </children>

@@ -34,6 +34,12 @@ public class ViewStocksGraphs extends ContainsAnotherPane
     }
 
     @Override public void initialize(URL location, ResourceBundle resources) {
+
+        setPane(getBorderPaneToShowTheAnotherInnerPane(),
+                "/application/pane/resources" + "/viewstocksgraphs/welcome" +
+                        "/StocksGraphsWelcome.fxml");
+
+
         try {
 
             // Set all Symbols of the stocks in the Engine to the combo-box:

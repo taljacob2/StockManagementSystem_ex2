@@ -1,10 +1,5 @@
-.login {
-    -fx-background-image: url("/application/image/boat.jpg");
-    -fx-background-repeat: no-repeat;
-    -fx-background-size: cover;
-    -fx-background-position: center center;
-}
 
 .label {
     -fx-font: 32 sans-serif;
 }
+

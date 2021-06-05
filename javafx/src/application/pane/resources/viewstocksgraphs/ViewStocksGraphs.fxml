@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.*?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0"
+            style="-fx-background-color: rgb(0,0,0,0.75);"
             stylesheets="@ViewStocksGraphs.css"
             xmlns="http://javafx.com/javafx/8.0.171"
             xmlns:fx="http://javafx.com/fxml/1"
@@ -18,9 +19,9 @@
          <top>
             <AnchorPane BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="userNameLabel" alignment="CENTER"
-                         prefHeight="42.0" styleClass="title"
-                         text="Stocks Graphs" AnchorPane.bottomAnchor="0.0"
+                  <Label fx:id="topLabel" alignment="CENTER" prefHeight="42.0"
+                         styleClass="title" text="Stocks Graphs"
+                         AnchorPane.bottomAnchor="0.0"
                          AnchorPane.leftAnchor="0.0"
                          AnchorPane.rightAnchor="0.0"
                          AnchorPane.topAnchor="0.0"/>
@@ -32,13 +33,13 @@
                         BorderPane.alignment="CENTER"/>
          </center>
          <left>
-            <ScrollPane fx:id="userVBoxScrollPane" fitToHeight="true"
+            <ScrollPane fx:id="stockVBoxScrollPane" fitToHeight="true"
                         fitToWidth="true" BorderPane.alignment="CENTER">
                <BorderPane.margin>
                   <Insets/>
                </BorderPane.margin>
                <content>
-                  <VBox fx:id="userVBox" alignment="TOP_CENTER" spacing="10.0">
+                  <VBox fx:id="stockVBox" alignment="TOP_CENTER" spacing="10.0">
                      <children>
                         <ComboBox fx:id="stockSymbolComboBox"
                                   promptText="Stock"/>
