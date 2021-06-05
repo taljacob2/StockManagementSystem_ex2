@@ -493,7 +493,7 @@ public class JavaFXAppController
 
         // define 'viewStocksGraphs':
         JavaFXAppHandler.handle(viewStocksGraphs,
-                "/application/pane/resources/printall/PrintAll.fxml");
+                "/application/pane/resources/viewstocksgraphs/ViewStocksGraphs.fxml");
 
         // define 'viewLogButton':
         JavaFXAppHandler.handle(viewLogButton,

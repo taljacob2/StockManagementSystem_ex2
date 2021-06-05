@@ -160,9 +160,6 @@ public class LoadSaveXML {
 
             } catch (IOException e) {
                 MessagePrint.println(MessagePrint.Stream.ERR, e.getMessage());
-
-                // BUG : printing:
-                e.printStackTrace();
             } catch (NullPointerException e) {
                 MessagePrint.println(MessagePrint.Stream.ERR,
                         Message.Err.XML.Load.nullPointerException());

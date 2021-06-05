@@ -30,7 +30,7 @@ public class ViewStocksGraphs extends ContainsAnotherPane
 
         // Set initial pane:
         super("/application/pane/resources" +
-                "/viewstocksgraphs/welcome/Welcome.fxml");
+                "/viewstocksgraphs/welcome/StocksGraphsWelcome.fxml");
     }
 
     @Override public void initialize(URL location, ResourceBundle resources) {
@@ -64,8 +64,9 @@ public class ViewStocksGraphs extends ContainsAnotherPane
                                     .setSelectedStock(selectedStock);
 
                             setPane(getBorderPaneToShowTheAnotherInnerPane(),
-                                    "/application/pane/resources/viewstocksgraphs" +
-                                            "/stockgraph.fxml");
+                                    "/application/pane/resources" +
+                                            "/viewstocksgraphs/stockgraph" +
+                                            "/StockGraph.fxml");
                         }
                     } catch (IOException e) {
 

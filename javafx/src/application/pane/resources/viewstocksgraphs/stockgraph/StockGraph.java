@@ -12,7 +12,7 @@ import javafx.scene.chart.XYChart;
 import stock.Stock;
 
 import java.net.URL;
-import java.util.AbstractMap;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 /**
@@ -27,8 +27,7 @@ public class StockGraph implements Initializable {
     private final XYChart.Series<String, Long> series =
             new XYChart.Series<String, Long>();
 
-    private ObservableList<AbstractMap.SimpleEntry<String, Long>>
-            dataObservableList;
+    private ObservableList<XYChart.Data<String, Long>> dataObservableList;
 
     /**
      * The <i>X</i> axis in the {@link javafx.scene.chart.LineChart}.
@@ -46,11 +45,23 @@ public class StockGraph implements Initializable {
 
     @Override public void initialize(URL location, ResourceBundle resources) {
 
+        // Create an empty list:
         dataObservableList = FXCollections.observableArrayList(
-                SelectedStockContainer.getSelectedStock().getStockGraphSeries()
-                        .getCollection());
+                new LinkedList<XYChart.Data<String, Long>>());
 
-        // series.getData().addAll(dataObservableList);
+        /*
+         * Fill 'dataObservableList' of series, with the Entries in the
+         * selected-stock's 'StockGraphSeries'.
+         */
+        SelectedStockContainer.getSelectedStock().getStockGraphSeries()
+                .getCollection().stream().forEach(stringLongSimpleEntry -> {
+            dataObservableList
+                    .add(new XYChart.Data<>(stringLongSimpleEntry.getKey(),
+                            stringLongSimpleEntry.getValue()));
+        });
+
+
+        series.getData().addAll(dataObservableList);
 
         lineChart.getData().addAll(series);
     }

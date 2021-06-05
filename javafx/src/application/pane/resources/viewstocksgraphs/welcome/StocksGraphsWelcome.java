@@ -7,4 +7,4 @@ package application.pane.resources.viewstocksgraphs.welcome;
  * <p>Represents the {@link javafx.scene.layout.Pane} of the <i>View Stock
  * Graph Welcome</i> page.</p>
  */
-public class Welcome {}
+public class StocksGraphsWelcome {}

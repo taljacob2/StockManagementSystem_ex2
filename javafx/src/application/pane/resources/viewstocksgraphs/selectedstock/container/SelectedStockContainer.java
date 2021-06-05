@@ -10,7 +10,8 @@ import stock.Stock;
  */
 public class SelectedStockContainer {
 
-    private static SimpleObjectProperty<Stock> selectedStock;
+    private static SimpleObjectProperty<Stock> selectedStock =
+            new SimpleObjectProperty<Stock>();
 
     public static Stock getSelectedStock() {
         return selectedStock.get();
