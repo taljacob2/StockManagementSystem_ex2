@@ -17,11 +17,11 @@
                 <TableColumn fx:id="priceColumn" prefWidth="150.0"
                              text="($) Price"/>
                 <TableColumn fx:id="numOfTotalTransactionsColumn"
-                             prefWidth="330.0"
-                             text="Num Of Total Transactions"/>
+                             prefWidth="250.0"
+                             text="Number of Total Transactions"/>
                 <TableColumn fx:id="totalTransactionsPeriodColumn"
-                             prefWidth="350.0"
-                             text="Total Transactions Period"/>
+                             prefWidth="250.0"
+                             text="($) Total Transactions Period"/>
             </columns>
         </TableView>
     </children>

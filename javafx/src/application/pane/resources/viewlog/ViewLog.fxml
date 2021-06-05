@@ -19,7 +19,8 @@
                 <AnchorPane BorderPane.alignment="CENTER">
                     <children>
                         <Label alignment="CENTER" prefHeight="42.0"
-                               prefWidth="79.0" styleClass="title" text="Log"
+                               styleClass="title" text="Log"
+                               textAlignment="CENTER"
                                AnchorPane.bottomAnchor="0.0"
                                AnchorPane.leftAnchor="0.0"
                                AnchorPane.rightAnchor="0.0"
