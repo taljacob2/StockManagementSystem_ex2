@@ -4,6 +4,7 @@ import currency.Currency;
 import message.Message;
 import message.builder.out.BuildOutput_StockDataBase;
 import stock.database.StockDataBase;
+import stock.graph.StockGraph;
 import transaction.Transaction;
 import user.User;
 import user.holding.item.Item;
@@ -35,6 +36,7 @@ public class Stock {
      * long)} {@code Constructor}.
      */
     @XmlElement(name = "rse-price", required = true) private long price;
+
     /**
      * A data-base of all the orders of the stock.
      * <p>Includes:</p>
@@ -46,6 +48,35 @@ public class Stock {
      */
     @XmlElement(name = "rse-data-base") private StockDataBase dataBase =
             new StockDataBase();
+
+    /**
+     * Store here the {@link StockGraph} data, required for printing a
+     * <i>Stock-Graph</i>.
+     */
+    private StockGraph stockGraph = new StockGraph();
+
+    public Stock(String symbol, String companyName, long price,
+                 StockDataBase dataBase, StockGraph stockGraph) {
+        this.symbol = symbol;
+        this.companyName = companyName;
+        this.price = price;
+        this.dataBase = dataBase;
+        this.stockGraph = stockGraph;
+    }
+
+    /**
+     * Must have a Default Constructor for {@code JAXBContext} <tt>.xml</tt>
+     * load and save.
+     */
+    public Stock() {}
+
+    public StockGraph getStockGraph() {
+        return stockGraph;
+    }
+
+    public void setStockGraph(StockGraph stockGraph) {
+        this.stockGraph = stockGraph;
+    }
 
     public String getSymbol() {
         return symbol;

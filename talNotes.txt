@@ -99,6 +99,11 @@ JavaFXApp via
 
 #V add a column in the AfterExecutionSummary Table pane, that is indicating the
      Serial time of execution. -> Write in README
+
+# change "requestingUser" field in "Order" to be a Symbol-String only, and not
+    an acutal "User" field, because it is heavy.
+            # -> this will change "dynamic" columns to be "normal" columns.
+
     _________________________________________________________________________
 
         /* XXX - GUIDE: dynamic style:
