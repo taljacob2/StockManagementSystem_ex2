@@ -11,8 +11,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -284,23 +283,45 @@ public class JavaFXAppController
         });
     }
 
-    private void initProgressBar() {
+    private Task<Integer> initProgressBar() {
 
+        // TODO: maybe kill this line:
         // initialize 'progressBarDoubleNumber':
         progressBarDoubleNumber.setNumber(0);
 
-        // set all Observers of 'progressBarDoubleNumber':
-        progressBarDoubleNumber.getProperty()
-                .addListener(new ChangeListener<Number>() {
-                    @Override public void changed(
-                            ObservableValue<? extends Number> observable,
-                            Number oldValue, Number newValue) {
+        Task progressTask = new Task<Integer>() {
+            @Override public boolean cancel(boolean mayInterruptIfRunning) {
+                return super.cancel(mayInterruptIfRunning);
+            }
 
-                        // set bind of 'progressBar' to 'progressBarDoubleNumber' property:
-                        progressBar.progressProperty()
-                                .bind(progressBarDoubleNumber.getProperty());
+            @Override
+            protected void updateProgress(double workDone, double max) {
+                super.updateProgress(workDone, max);
+            }
+
+            @Override protected void updateMessage(String message) {
+                super.updateMessage(message);
+            }
+
+            @Override protected Integer call() throws Exception {
+                int i = 0;
+                for (; i < 10; i++) {
+                    updateProgress(i + 1, 10);
+                    Thread.sleep(500);
+                    if (isCancelled()) {
+                        break;
                     }
-                });
+                }
+                return i;
+            }
+        };
+
+        progressBar.progressProperty().bind(progressTask.progressProperty());
+        progressMessageLabel.textProperty()
+                .bind(progressTask.messageProperty());
+
+
+        return progressTask;
     }
 
     private void setStaticVariables() {
