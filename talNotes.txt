@@ -93,6 +93,9 @@ JavaFXApp via
 # print Transactions: add "Period" column + make sure that in the summary pane
 there are presented sellingUser and buyingUser
 
+# NOTE: now Transactions are able to be made with the same User to serve as both
+    a buyingUser and a sellinguUser ->> maybe fix that
+
     _________________________________________________________________________
 
         /* XXX - GUIDE: dynamic style:
