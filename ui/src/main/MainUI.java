@@ -12,14 +12,7 @@ import javafx.application.Application;
  *
  * <ul>
  *
- * <li>there is a mutual dependency between the <tt>ui</tt> module and
- * the <tt>engine</tt> module.</li>
- *
- * <li>the <tt>ui</tt> module is dependent on
- * the <tt>javafx</tt> module.</li>
- *
- * <li>the <tt>javafx</tt> module is dependent on
- * the <tt>ui</tt> module and the <tt>engine</tt> module.</li>
+ * <li>there is a mutual dependency between all modules.
  *
  * </ul>
  *
