@@ -5,7 +5,7 @@ application.pane
 application.pane.resources.afterexecutionsummary
 application.pane.resources.afterexecutionsummary.container
 application.pane.resources.login
-application.pane.resources.login.selecteduser
+application.pane.resources.login.selecteduser.container
 application.pane.resources.login.selecteduser.holdings
 application.pane.resources.login.selecteduser.holdings.table
 application.pane.resources.login.selecteduser.pane
@@ -16,6 +16,10 @@ application.pane.resources.printall.stock
 application.pane.resources.printall.stock.container
 application.pane.resources.stocktablepane
 application.pane.resources.viewlog
+application.pane.resources.viewstocksgraphs
+application.pane.resources.viewstocksgraphs.selectedstock.container
+application.pane.resources.viewstocksgraphs.stockgraph
+application.pane.resources.viewstocksgraphs.welcome
 application.pane.resources.welcome
 application.pane.table
 application.property
@@ -33,6 +37,7 @@ message.print
 order
 stock
 stock.database
+stock.graph
 timestamp
 transaction
 user
