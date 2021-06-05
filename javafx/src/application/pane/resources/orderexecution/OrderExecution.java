@@ -2,7 +2,7 @@ package application.pane.resources.orderexecution;
 
 import application.dialog.FxDialogs;
 import application.pane.PaneReplacer;
-import application.pane.resources.afterexecution.container.AfterExecuteOrderAndTransactionContainer;
+import application.pane.resources.afterexecutionsummary.container.AfterExecutionOrderAndTransactionContainer;
 import application.pane.resources.login.selecteduser.SelectedUser;
 import application.pane.resources.login.selecteduser.pane.borderpane.SaveUserBorderPane;
 import engine.Engine;
@@ -138,7 +138,7 @@ public class OrderExecution implements Initializable, PaneReplacer {
     private final Runnable executeOrderRunnable = new Runnable() {
         @Override public void run() {
             MenuUI.command_EXECUTE_TRANSACTION_ORDER(
-                    new AfterExecuteOrderAndTransactionContainer(),
+                    new AfterExecutionOrderAndTransactionContainer(),
                     stockComboBox.getValue(), OrderDirection.valueOf(
                             orderDirectionComboBox.getValue().toUpperCase()),
                     OrderType.valueOf(
@@ -186,7 +186,7 @@ public class OrderExecution implements Initializable, PaneReplacer {
 
                 setPane(SaveUserBorderPane
                                 .getBorderPaneToShowTheAnotherInnerPane(),
-                        "/application/pane/resources/afterexecution/OrderTableAndTransactionTable.fxml");
+                        "/application/pane/resources/afterexecutionsummary/AfterExecutionSummary.fxml");
             }
         });
 

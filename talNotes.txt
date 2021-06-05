@@ -90,12 +90,15 @@ JavaFXApp via
 
 # ->> Write in README - multiple tables are split by split-pane
 
-# print Transactions: add "Period" column + make sure that in the summary pane
-there are presented sellingUser and buyingUser
 
 # NOTE: now Transactions are able to be made with the same User to serve as both
     a buyingUser and a sellinguUser ->> maybe fix that
 
+# Print Transactions: add "Period" column + make sure that in the summary pane
+    there are presented sellingUser and buyingUser
+
+# add a column in the AfterExecutionSummary Table pane, that is indicating the
+     Serial time of execution.
     _________________________________________________________________________
 
         /* XXX - GUIDE: dynamic style:

@@ -1,6 +1,6 @@
 package main;
 
-import application.pane.resources.afterexecution.container.AfterExecuteOrderAndTransactionContainer;
+import application.pane.resources.afterexecutionsummary.container.AfterExecutionOrderAndTransactionContainer;
 import engine.Engine;
 import load.LoadSaveXML;
 import message.Message;
@@ -178,10 +178,9 @@ public class MenuUI {
     }
 
     public static void command_EXECUTE_TRANSACTION_ORDER(
-            AfterExecuteOrderAndTransactionContainer afterExecuteOrderAndTransactionContainer,
+            AfterExecutionOrderAndTransactionContainer afterExecuteOrderAndTransactionContainer,
             Stock stock, OrderDirection orderDirection, OrderType orderType,
-            Long quantity, Long insertedDesiredLimitPrice,
-            User requestingUser) {
+            Long quantity, Long insertedDesiredLimitPrice, User requestingUser) {
 
         // first of all check if there are Stocks available in the system:
         if (Engine.isStocks()) {

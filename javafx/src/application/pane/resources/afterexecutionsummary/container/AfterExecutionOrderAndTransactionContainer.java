@@ -1,5 +1,6 @@
-package application.pane.resources.afterexecution.container;
+package application.pane.resources.afterexecutionsummary.container;
 
+import application.pane.resources.afterexecutionsummary.AfterExecutionSummary;
 import engine.collection.list.SortableLinkedList;
 import order.Order;
 import transaction.Transaction;
@@ -9,9 +10,9 @@ import transaction.Transaction;
  * <i>order-execution.</i>
  *
  * @see application.pane.resources.orderexecution.OrderExecution
- * @see application.pane.resources.afterexecution.OrderTableAndTransactionTable
+ * @see AfterExecutionSummary
  */
-public class AfterExecuteOrderAndTransactionContainer {
+public class AfterExecutionOrderAndTransactionContainer {
 
     /**
      * {@link java.util.List} of all {@link Order}s remained after
@@ -25,7 +26,7 @@ public class AfterExecuteOrderAndTransactionContainer {
      */
     private SortableLinkedList<Transaction> transactions;
 
-    public AfterExecuteOrderAndTransactionContainer() {
+    public AfterExecutionOrderAndTransactionContainer() {
         remainderOrders = new SortableLinkedList<>();
         transactions = new SortableLinkedList<>();
     }

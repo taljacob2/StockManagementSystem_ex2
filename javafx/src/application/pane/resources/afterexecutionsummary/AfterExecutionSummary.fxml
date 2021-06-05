@@ -3,10 +3,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<AnchorPane stylesheets="@OrderTableAndTransactionTable.css"
+<AnchorPane stylesheets="@AfterExecutionSummary.css"
             xmlns="http://javafx.com/javafx/8.0.171"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="application.pane.resources.afterexecution.OrderTableAndTransactionTable">
+            fx:controller="application.pane.resources.afterexecutionsummary.AfterExecutionSummary">
     <children>
         <ScrollPane fitToHeight="true" fitToWidth="true"
                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
@@ -35,7 +35,7 @@
                                                                 fx:id="transactionTableView"
                                                                 minHeight="400.0"
                                                                 minWidth="752.0"
-                                                                stylesheets="@OrderTableAndTransactionTable.css">
+                                                                stylesheets="@AfterExecutionSummary.css">
                                                             <columns>
                                                                 <TableColumn
                                                                         fx:id="transactionTimeStampColumn"
@@ -94,7 +94,7 @@
                                                                 fx:id="orderTableView"
                                                                 minHeight="400.0"
                                                                 minWidth="752.0"
-                                                                stylesheets="@OrderTableAndTransactionTable.css">
+                                                                stylesheets="@AfterExecutionSummary.css">
                                                             <columns>
                                                                 <TableColumn
                                                                         fx:id="orderTimeStampColumn"

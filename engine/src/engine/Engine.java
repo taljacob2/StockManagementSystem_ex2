@@ -2,7 +2,7 @@ package engine;
 
 import application.dialog.FxDialogs;
 import application.javafxapp.JavaFXAppController;
-import application.pane.resources.afterexecution.container.AfterExecuteOrderAndTransactionContainer;
+import application.pane.resources.afterexecutionsummary.container.AfterExecutionOrderAndTransactionContainer;
 import engine.collection.EngineCollection;
 import load.Descriptor;
 import message.Message;
@@ -50,7 +50,7 @@ public class Engine {
      * Store here the {@link Order}s and {@link Transaction}s after invoking an
      * <i>order-execution.</i>
      */
-    private static AfterExecuteOrderAndTransactionContainer
+    private static AfterExecutionOrderAndTransactionContainer
             afterExecuteOrderAndTransactionContainer;
 
     /**
@@ -347,12 +347,12 @@ public class Engine {
         Engine.users = users;
     }
 
-    public static AfterExecuteOrderAndTransactionContainer getAfterExecuteOrderAndTransactionContainer() {
+    public static AfterExecutionOrderAndTransactionContainer getAfterExecuteOrderAndTransactionContainer() {
         return afterExecuteOrderAndTransactionContainer;
     }
 
     public static void setAfterExecuteOrderAndTransactionContainer(
-            AfterExecuteOrderAndTransactionContainer afterExecuteOrderAndTransactionContainer) {
+            AfterExecutionOrderAndTransactionContainer afterExecuteOrderAndTransactionContainer) {
         Engine.afterExecuteOrderAndTransactionContainer =
                 afterExecuteOrderAndTransactionContainer;
     }
@@ -400,7 +400,7 @@ public class Engine {
      * @see #checkArrivedOrderRemainder
      */
     public static void calcOrdersOfASingleStock(
-            AfterExecuteOrderAndTransactionContainer afterExecuteOrderAndTransactionContainer,
+            AfterExecutionOrderAndTransactionContainer afterExecuteOrderAndTransactionContainer,
             Stock stock, Order arrivedOrder) {
         setAfterExecuteOrderAndTransactionContainer(
                 afterExecuteOrderAndTransactionContainer);

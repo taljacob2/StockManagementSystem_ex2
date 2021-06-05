@@ -1,4 +1,4 @@
-package application.pane.resources.afterexecution;
+package application.pane.resources.afterexecutionsummary;
 
 import engine.Engine;
 import javafx.collections.FXCollections;
@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
  * and {@link transaction.Transaction}s that were made <i>after an order
  * execution.</i></p>
  */
-public class OrderTableAndTransactionTable implements Initializable {
+public class AfterExecutionSummary implements Initializable {
 
     /**
      * {@link ObservableList} of all {@link Transaction}s made after
@@ -91,7 +91,7 @@ public class OrderTableAndTransactionTable implements Initializable {
     /**
      * Constructor. try to get the {@link stock.Stocks} in the {@link Engine}.
      */
-    public OrderTableAndTransactionTable() {
+    public AfterExecutionSummary() {
         remaindedOrdersObservableList = FXCollections.observableArrayList(
                 Engine.getAfterExecuteOrderAndTransactionContainer()
                         .getRemainderOrders());
