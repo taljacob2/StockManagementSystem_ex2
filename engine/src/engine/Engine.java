@@ -7,6 +7,7 @@ import engine.collection.EngineCollection;
 import load.Descriptor;
 import message.Message;
 import message.builder.err.BuildError;
+import message.print.Log;
 import message.print.MessagePrint;
 import order.Order;
 import order.OrderDirection;
@@ -453,8 +454,12 @@ public class Engine {
          * partially yet:
          */
         if (!arrivedOrderWasTreated.get()) {
+
+            // Add a newLine to the Log-View:
+            Log.getMessageLog().append("\n");
+
             MessagePrint.println(MessagePrint.Stream.OUT,
-                    "\nNote: The order has not been fulfilled in its " +
+                    "Note: The order has not been fulfilled in its " +
                             "entirety nor partially yet.");
         }
     }

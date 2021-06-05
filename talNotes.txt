@@ -98,7 +98,7 @@ JavaFXApp via
     there are presented sellingUser and buyingUser
 
 #V add a column in the AfterExecutionSummary Table pane, that is indicating the
-     Serial time of execution.
+     Serial time of execution. -> Write in README
     _________________________________________________________________________
 
         /* XXX - GUIDE: dynamic style:
