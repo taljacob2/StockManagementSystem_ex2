@@ -52,6 +52,14 @@
                                                                         minWidth="7.0"
                                                                         prefWidth="150.0"
                                                                         text="($) Price"/>
+                                                                <TableColumn
+                                                                        fx:id="transactionBuyingUserColumn"
+                                                                        prefWidth="150.0"
+                                                                        text="Buying User"/>
+                                                                <TableColumn
+                                                                        fx:id="transactionSellingUserColumn"
+                                                                        prefWidth="150.0"
+                                                                        text="Selling User"/>
                                                             </columns>
                                                         </TableView>
                                                     </content>

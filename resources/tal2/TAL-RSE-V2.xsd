@@ -70,51 +70,78 @@
     <xs:complexContent>
       <xs:extension base="engineCollection">
         <xs:sequence>
-          <xs:element name="rse-buy-order" type="order" minOccurs="0"
-                      maxOccurs="unbounded"/>
+            <xs:element name="rse-buy-order" type="order" minOccurs="0"
+                        maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
-  <xs:complexType name="order">
-    <xs:sequence>
-      <xs:element name="time-stamp" type="xs:string"/>
-      <xs:element name="order-direction" type="orderDirection"/>
-      <xs:element name="order-type" type="orderType"/>
-      <xs:element name="quantity" type="xs:long"/>
-      <xs:element name="desired-limit-price" type="xs:long"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="sellOrders">
-    <xs:complexContent>
-      <xs:extension base="engineCollection">
+    <xs:complexType name="order">
         <xs:sequence>
-          <xs:element name="rse-sell-order" type="order" minOccurs="0"
-                      maxOccurs="unbounded"/>
+            <xs:element name="time-stamp" type="xs:string"/>
+            <xs:element name="order-direction" type="orderDirection"/>
+            <xs:element name="order-type" type="orderType"/>
+            <xs:element name="quantity" type="xs:long"/>
+            <xs:element name="desired-limit-price" type="xs:long"/>
+            <xs:element name="requesting-user" type="user" minOccurs="0"/>
         </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="user">
+        <xs:sequence>
+            <xs:element ref="rse-holdings" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="holdings">
+        <xs:complexContent>
+            <xs:extension base="engineCollection">
+                <xs:sequence>
+                    <xs:element ref="rse-item" minOccurs="0"
+                                maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="item">
+        <xs:sequence/>
+        <xs:attribute name="symbol" type="xs:string" use="required"/>
+        <xs:attribute name="quantity" type="xs:long" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="sellOrders">
+        <xs:complexContent>
+            <xs:extension base="engineCollection">
+                <xs:sequence>
+                    <xs:element name="rse-sell-order" type="order" minOccurs="0"
+                                maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
   </xs:complexType>
 
   <xs:complexType name="transactions">
     <xs:complexContent>
       <xs:extension base="engineCollection">
         <xs:sequence>
-          <xs:element ref="rse-transaction" minOccurs="0"
-                      maxOccurs="unbounded"/>
+            <xs:element ref="rse-transaction" minOccurs="0"
+                        maxOccurs="unbounded"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
 
   <xs:complexType name="transaction">
-    <xs:sequence>
-      <xs:element name="time-stamp" type="xs:string"/>
-      <xs:element name="quantity" type="xs:long"/>
-      <xs:element name="price" type="xs:long"/>
-    </xs:sequence>
+      <xs:sequence>
+          <xs:element name="time-stamp" type="xs:string"/>
+          <xs:element name="quantity" type="xs:long"/>
+          <xs:element name="price" type="xs:long"/>
+          <xs:element name="buying-user" type="user" minOccurs="0"/>
+          <xs:element name="selling-user" type="user" minOccurs="0"/>
+      </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="users">
@@ -125,29 +152,6 @@
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="user">
-    <xs:sequence>
-      <xs:element ref="rse-holdings" minOccurs="0"/>
-    </xs:sequence>
-    <xs:attribute name="name" type="xs:string" use="required"/>
-  </xs:complexType>
-
-  <xs:complexType name="holdings">
-    <xs:complexContent>
-      <xs:extension base="engineCollection">
-        <xs:sequence>
-          <xs:element ref="rse-item" minOccurs="0" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="item">
-    <xs:sequence/>
-    <xs:attribute name="symbol" type="xs:string" use="required"/>
-    <xs:attribute name="quantity" type="xs:long" use="required"/>
   </xs:complexType>
 
   <xs:simpleType name="orderDirection">
