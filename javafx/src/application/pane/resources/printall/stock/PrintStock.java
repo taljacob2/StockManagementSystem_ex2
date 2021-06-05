@@ -1,6 +1,7 @@
 package application.pane.resources.printall.stock;
 
 import application.pane.resources.printall.stock.container.PrintStockContainer;
+import application.pane.table.TableUtils;
 import engine.Engine;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -59,9 +60,9 @@ public class PrintStock implements Initializable {
     @FXML private TableColumn<Transaction, Long> transactionQuantityColumn;
 
     /**
-     * A column in the {@link TableView} of {@link Transaction}s.
+     * A <i>dynamic</i> column in the {@link TableView}.
      */
-    @FXML private TableColumn<Transaction, Long> transactionPriceColumn;
+    @FXML private TableColumn transactionPriceColumn;
 
 
     /**
@@ -101,9 +102,9 @@ public class PrintStock implements Initializable {
     @FXML private TableColumn<Order, Long> buyOrderDesiredLimitPriceColumn;
 
     /**
-     * A column in the {@link TableView} of <i>buy</i> {@link Order}s.
+     * A <i>dynamic</i> column in the {@link TableView}.
      */
-    @FXML private TableColumn<Order, String> buyOrderRequestingUserColumn;
+    @FXML private TableColumn buyOrderRequestingUserColumn;
 
 
     /**
@@ -194,8 +195,11 @@ public class PrintStock implements Initializable {
                 new PropertyValueFactory<Order, Long>("quantity"));
         buyOrderDesiredLimitPriceColumn.setCellValueFactory(
                 new PropertyValueFactory<Order, Long>("desiredLimitPrice"));
-        buyOrderRequestingUserColumn.setCellValueFactory(
-                new PropertyValueFactory<Order, String>("requestingUser"));
+
+        // initialize dynamic-column:
+        TableUtils.setDynamicColumn(buyOrderRequestingUserColumn);
+        TableUtils.initOrderRequestingUserColumn(buyOrderRequestingUserColumn);
+
 
         // set the 'tableView' to the columns provided:
         buyOrderTableView.setItems(buyOrdersObservableList);
@@ -212,8 +216,10 @@ public class PrintStock implements Initializable {
                 new PropertyValueFactory<Order, Long>("quantity"));
         sellOrderDesiredLimitPriceColumn.setCellValueFactory(
                 new PropertyValueFactory<Order, Long>("desiredLimitPrice"));
-        sellOrderRequestingUserColumn.setCellValueFactory(
-                new PropertyValueFactory<Order, String>("requestingUser"));
+
+        // initialize dynamic-column:
+        TableUtils.setDynamicColumn(sellOrderRequestingUserColumn);
+        TableUtils.initOrderRequestingUserColumn(sellOrderRequestingUserColumn);
 
         // set the 'tableView' to the columns provided:
         sellOrderTableView.setItems(sellOrdersObservableList);
@@ -230,4 +236,6 @@ public class PrintStock implements Initializable {
         // set the 'tableView' to the columns provided:
         transactionTableView.setItems(transactionsMadeObservableList);
     }
+
+
 }

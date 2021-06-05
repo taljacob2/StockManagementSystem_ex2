@@ -130,7 +130,7 @@ public class Order implements Comparable<Order>, Periodable {
                 orderType + ", quantity=" + quantity + ", desiredLimitPrice=" +
                 Currency.numberFormat.format(desiredLimitPrice) +
                 ", orderPeriod=" + Currency.numberFormat.format(getPeriod()) +
-                "requestingUser=" + requestingUser.getName() + '}';
+                ", requestingUser=" + requestingUser.getName() + '}';
     }
 
     /**
