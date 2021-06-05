@@ -7,26 +7,28 @@
 
   <xs:element name="rse-data-base" type="stockDataBase"/>
 
-  <xs:element name="rse-holdings" type="holdings"/>
+    <xs:element name="rse-holdings" type="holdings"/>
 
-  <xs:element name="rse-item" type="item"/>
+    <xs:element name="rse-item" type="item"/>
 
-  <xs:element name="rse-order" type="order"/>
+    <xs:element name="rse-order" type="order"/>
 
-  <xs:element name="rse-sell-orders" type="sellOrders"/>
+    <xs:element name="rse-sell-orders" type="sellOrders"/>
 
-  <xs:element name="rse-stock" type="stock"/>
+    <xs:element name="rse-stock" type="stock"/>
 
-  <xs:element name="rse-stocks" type="stocks"/>
+    <xs:element name="rse-stock-graph-series" type="stockGraphSeries"/>
 
-  <xs:element name="rse-successfully-finished-transactions"
-              type="transactions"/>
+    <xs:element name="rse-stocks" type="stocks"/>
 
-  <xs:element name="rse-transaction" type="transaction"/>
+    <xs:element name="rse-successfully-finished-transactions"
+                type="transactions"/>
 
-  <xs:element name="rse-user" type="user"/>
+    <xs:element name="rse-transaction" type="transaction"/>
 
-  <xs:element name="rse-users" type="users"/>
+    <xs:element name="rse-user" type="user"/>
+
+    <xs:element name="rse-users" type="users"/>
 
   <xs:complexType name="descriptor">
     <xs:sequence>
@@ -35,15 +37,15 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="stocks">
-    <xs:complexContent>
-      <xs:extension base="engineCollection">
-        <xs:sequence>
-            <xs:element ref="rse-stock" maxOccurs="unbounded"/>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
+    <xs:complexType name="stocks">
+        <xs:complexContent>
+            <xs:extension base="engineCollection">
+                <xs:sequence>
+                    <xs:element ref="rse-stock" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
 
     <xs:complexType name="engineCollection">
         <xs:sequence/>
@@ -55,6 +57,7 @@
             <xs:element name="rse-company-name" type="xs:string"/>
             <xs:element name="rse-price" type="xs:long"/>
             <xs:element ref="rse-data-base" minOccurs="0"/>
+            <xs:element ref="rse-stock-graph-series" minOccurs="0"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -144,6 +147,23 @@
             <xs:element name="buying-user" type="user" minOccurs="0"/>
             <xs:element name="selling-user" type="user" minOccurs="0"/>
             <xs:element name="serialTime" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="stockGraphSeries">
+        <xs:complexContent>
+            <xs:extension base="engineCollection">
+                <xs:sequence>
+                    <xs:element name="rse-stock-graph-data" type="simpleEntry"
+                                minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="simpleEntry">
+        <xs:sequence>
+            <xs:element name="value" type="xs:anyType" minOccurs="0"/>
         </xs:sequence>
     </xs:complexType>
 

@@ -4,20 +4,31 @@
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane stylesheets="@StockGraph.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.pane.resources.viewstocksgraphs.stockgraph.StockGraph">
+<?import javafx.scene.layout.*?>
+<AnchorPane stylesheets="@StockGraph.css"
+            xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="application.pane.resources.viewstocksgraphs.stockgraph.StockGraph">
     <children>
-        <ScrollPane fitToHeight="true" fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <ScrollPane fitToHeight="true" fitToWidth="true"
+                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <content>
                 <AnchorPane>
                     <children>
-                        <LineChart fx:id="lineChart" legendVisible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <LineChart fx:id="lineChart" legendVisible="false"
+                                   AnchorPane.bottomAnchor="0.0"
+                                   AnchorPane.leftAnchor="0.0"
+                                   AnchorPane.rightAnchor="0.0"
+                                   AnchorPane.topAnchor="0.0">
                             <xAxis>
-                                <CategoryAxis fx:id="timeStampAxis" label="Time Stamp" side="BOTTOM" tickLabelFill="WHITE" />
+                                <CategoryAxis fx:id="timeStampAxis"
+                                              label="Time Stamp" side="BOTTOM"
+                                              tickLabelFill="WHITE"/>
                             </xAxis>
                             <yAxis>
-                                <NumberAxis fx:id="stockPriceAxis" label="Price" side="LEFT" tickLabelFill="WHITE" />
+                                <NumberAxis fx:id="stockPriceAxis" label="Price"
+                                            side="LEFT" tickLabelFill="WHITE"/>
                             </yAxis>
                         </LineChart>
                     </children>
