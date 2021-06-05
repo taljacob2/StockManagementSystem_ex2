@@ -160,6 +160,9 @@ public class LoadSaveXML {
 
             } catch (IOException e) {
                 MessagePrint.println(MessagePrint.Stream.ERR, e.getMessage());
+
+                // BUG : printing:
+                e.printStackTrace();
             } catch (NullPointerException e) {
                 MessagePrint.println(MessagePrint.Stream.ERR,
                         Message.Err.XML.Load.nullPointerException());
@@ -272,6 +275,11 @@ public class LoadSaveXML {
                         jaxbContext.createUnmarshaller();
                 return (Descriptor) jaxbUnmarshaller.unmarshal(fileToUnmarshal);
             } catch (JAXBException e) {
+                // BUG : printing:
+                e.printStackTrace();
+
+                /* Reading Exceptions: */
+
                 MessagePrint.println(MessagePrint.Stream.ERR,
                         Message.Err.XML.Load.readFail());
                 MessagePrint.println(MessagePrint.Stream.ERR,

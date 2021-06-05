@@ -12,6 +12,7 @@ import javafx.scene.chart.XYChart;
 import stock.Stock;
 
 import java.net.URL;
+import java.util.AbstractMap;
 import java.util.ResourceBundle;
 
 /**
@@ -26,7 +27,8 @@ public class StockGraph implements Initializable {
     private final XYChart.Series<String, Long> series =
             new XYChart.Series<String, Long>();
 
-    private ObservableList<XYChart.Data<String, Long>> dataObservableList;
+    private ObservableList<AbstractMap.SimpleEntry<String, Long>>
+            dataObservableList;
 
     /**
      * The <i>X</i> axis in the {@link javafx.scene.chart.LineChart}.
@@ -48,7 +50,7 @@ public class StockGraph implements Initializable {
                 SelectedStockContainer.getSelectedStock().getStockGraphSeries()
                         .getCollection());
 
-        series.getData().addAll(dataObservableList);
+        // series.getData().addAll(dataObservableList);
 
         lineChart.getData().addAll(series);
     }
