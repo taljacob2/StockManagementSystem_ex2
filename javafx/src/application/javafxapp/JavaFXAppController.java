@@ -252,14 +252,8 @@ public class JavaFXAppController
         // Define Buttons.
         defineAnimationToAllButtons();
 
-        /* -- Properties -- */
-
-        // DoubleProperty fontSize = new SimpleDoubleProperty(12); // font size in pt
-        // root.styleProperty().bind(
-        //         Bindings.format("-fx-font-size: %.2fpt;", fontSize)); //TODO font slider
-
         firstColorBind();
-        InitMenuVBox();
+        initColorListeners();
         secondColorBind();
     }
 
@@ -372,14 +366,17 @@ public class JavaFXAppController
         staticBorderPane = borderPane;
     }
 
-    private void InitMenuVBox() {
+    private void initColorListeners() {
         menuVBox.setStyle("-fx-background-color: " + getRgbaString());
         String formatString = "-fx-text-fill: " + "#" + stringColor.get();
         progressLabel.setStyle(formatString);
+        progressMessageLabel.setStyle(formatString);
+
 
         // Set initial color of 'menuVBox':
         rgbaString.addListener((observable, oldValue, newValue) -> {
             menuVBox.setStyle("-fx-background-color: " + getRgbaString());
+            // progressMessageLabel.setStyle("-fx-text-fill: " + getRgbaString());
         });
     }
 
