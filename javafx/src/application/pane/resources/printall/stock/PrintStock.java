@@ -103,7 +103,7 @@ public class PrintStock implements Initializable {
     /**
      * A column in the {@link TableView} of <i>buy</i> {@link Order}s.
      */
-    @FXML private TableColumn<Order, Long> buyOrderRequestingUserColumn;
+    @FXML private TableColumn<Order, String> buyOrderRequestingUserColumn;
 
 
     /**
@@ -145,7 +145,7 @@ public class PrintStock implements Initializable {
     /**
      * A column in the {@link TableView} of <i>sell</i> {@link Order}s.
      */
-    @FXML private TableColumn<Order, Long> sellOrderRequestingUserColumn;
+    @FXML private TableColumn<Order, String> sellOrderRequestingUserColumn;
 
 
     public PrintStock() {}
@@ -195,7 +195,7 @@ public class PrintStock implements Initializable {
         buyOrderDesiredLimitPriceColumn.setCellValueFactory(
                 new PropertyValueFactory<Order, Long>("desiredLimitPrice"));
         buyOrderRequestingUserColumn.setCellValueFactory(
-                new PropertyValueFactory<Order, Long>("requestingUser"));
+                new PropertyValueFactory<Order, String>("requestingUser"));
 
         // set the 'tableView' to the columns provided:
         buyOrderTableView.setItems(buyOrdersObservableList);
@@ -213,7 +213,7 @@ public class PrintStock implements Initializable {
         sellOrderDesiredLimitPriceColumn.setCellValueFactory(
                 new PropertyValueFactory<Order, Long>("desiredLimitPrice"));
         sellOrderRequestingUserColumn.setCellValueFactory(
-                new PropertyValueFactory<Order, Long>("requestingUser"));
+                new PropertyValueFactory<Order, String>("requestingUser"));
 
         // set the 'tableView' to the columns provided:
         sellOrderTableView.setItems(sellOrdersObservableList);
