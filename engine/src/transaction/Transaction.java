@@ -55,13 +55,21 @@ public class Transaction implements Comparable<Transaction>, Periodable {
      */
     @XmlElement(name = "selling-user") private User sellingUser;
 
+    /**
+     * The <i>serial-time</i> that the {@code Transaction} was created, when
+     * viewing in a {@link application.pane.resources.afterexecutionsummary.AfterExecutionSummary}
+     * {@code Pane}.
+     */
+    private long serialTime;
+
     public Transaction(Stock stock, String timeStamp, long quantity, long price,
-                       User buyingUser, User sellingUser) {
+                       User buyingUser, User sellingUser, long serialTime) {
         this.timeStamp = timeStamp;
         this.quantity = quantity;
         this.price = price;
         this.buyingUser = buyingUser;
         this.sellingUser = sellingUser;
+        this.serialTime = serialTime;
 
         // forces update of the Stock's price:
         stock.setPrice(price);

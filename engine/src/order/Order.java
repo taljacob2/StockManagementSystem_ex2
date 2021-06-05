@@ -44,6 +44,13 @@ public class Order implements Comparable<Order>, Periodable {
      */
     @XmlElement(name = "requesting-user") private User requestingUser;
 
+    /**
+     * The <i>serial-time</i> that the {@code Order} was created, when viewing
+     * in a {@link application.pane.resources.afterexecutionsummary.AfterExecutionSummary}
+     * {@code Pane}.
+     */
+    private long serialTimeOfRemainedOrder = 0;
+
     public Order(OrderDirection direction, OrderType type, long quantity,
                  long desiredLimitPrice, User requestingUser) {
         timeStamp = TimeStamp.getTimeStamp();
@@ -52,6 +59,17 @@ public class Order implements Comparable<Order>, Periodable {
         this.orderType = type;
         this.desiredLimitPrice = desiredLimitPrice;
         this.requestingUser = requestingUser;
+        this.serialTimeOfRemainedOrder = 0;
+    }
+
+    public Order(Order other) {
+        timeStamp = other.getTimeStamp();
+        this.quantity = other.getQuantity();
+        this.orderDirection = other.getOrderDirection();
+        this.orderType = other.getOrderType();
+        this.desiredLimitPrice = other.getDesiredLimitPrice();
+        this.requestingUser = other.getRequestingUser();
+        this.serialTimeOfRemainedOrder = 0;
     }
 
     /**
@@ -59,6 +77,14 @@ public class Order implements Comparable<Order>, Periodable {
      * load and save.
      */
     public Order() {}
+
+    public long getSerialTimeOfRemainedOrder() {
+        return serialTimeOfRemainedOrder;
+    }
+
+    public void setSerialTimeOfRemainedOrder(long serialTimeOfRemainedOrder) {
+        this.serialTimeOfRemainedOrder = serialTimeOfRemainedOrder;
+    }
 
     public User getRequestingUser() {
         return requestingUser;

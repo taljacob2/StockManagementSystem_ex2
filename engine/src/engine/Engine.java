@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * The Main Engine of the program.
@@ -426,15 +427,19 @@ public class Engine {
          */
         AtomicBoolean arrivedOrderWasTreated = new AtomicBoolean(false);
 
+
+        // Store here the serial time of the 'added' Order/Transaction.
+        AtomicLong serialTime = new AtomicLong(0);
+
         // if the arrived Order is a 'Buy' Order:
         if (arrivedOrder.getOrderDirection() == OrderDirection.BUY) {
             checkForOppositeAlreadyPlacedOrders(stock, sellOrders, arrivedOrder,
-                    arrivedOrderWasTreated);
+                    arrivedOrderWasTreated, serialTime);
 
             // if the arrived Order is a 'Sell' Order:
         } else if (arrivedOrder.getOrderDirection() == OrderDirection.SELL) {
             checkForOppositeAlreadyPlacedOrders(stock, buyOrders, arrivedOrder,
-                    arrivedOrderWasTreated);
+                    arrivedOrderWasTreated, serialTime);
         }
 
         /*
@@ -451,7 +456,8 @@ public class Engine {
     private static void checkForOppositeAlreadyPlacedOrders(Stock stock,
                                                             List<Order> oppositeAlreadyPlacedOrders,
                                                             Order arrivedOrder,
-                                                            AtomicBoolean arrivedOrderWasTreated) {
+                                                            AtomicBoolean arrivedOrderWasTreated,
+                                                            AtomicLong serialTime) {
 
         /*
          * search the 'opposite already placed' Orders of this Stock
@@ -466,7 +472,8 @@ public class Engine {
              * compare orders: if 'buy' >= 'sell':
              */
             if (checkForOppositeBuyAlreadyPlacedOrders(stock, arrivedOrder, it,
-                    oppositeAlreadyPlacedOrder, arrivedOrderWasTreated)) {}
+                    oppositeAlreadyPlacedOrder, arrivedOrderWasTreated,
+                    serialTime)) {}
 
             /*
              * check if the 'arrivedOrder' is a 'Buy' Order.
@@ -474,7 +481,7 @@ public class Engine {
              */
             else if (checkForOppositeSellAlreadyPlacedOrders(stock,
                     arrivedOrder, it, oppositeAlreadyPlacedOrder,
-                    arrivedOrderWasTreated)) {}
+                    arrivedOrderWasTreated, serialTime)) {}
 
             /*
              * we found that there are no matching 'opposite already placed' Orders,
@@ -488,7 +495,8 @@ public class Engine {
                                                                   Order arrivedOrder,
                                                                   Iterator<Order> it,
                                                                   Order oppositeAlreadyPlacedOrder,
-                                                                  AtomicBoolean arrivedOrderWasTreated) {
+                                                                  AtomicBoolean arrivedOrderWasTreated,
+                                                                  AtomicLong serialTime) {
 
         /*
          * check if the 'arrivedOrder' is a 'Sell' Order.
@@ -503,7 +511,7 @@ public class Engine {
             checkForOppositeAlreadyPlacedOrders_DependencyOnDirection(stock,
                     arrivedOrder, it, oppositeAlreadyPlacedOrder,
                     stock.getDataBase().getAwaitingSellOrders().getCollection(),
-                    arrivedOrderWasTreated);
+                    arrivedOrderWasTreated, serialTime);
             return true;
         } else {return false;}
     }
@@ -512,7 +520,8 @@ public class Engine {
                                                                    Order arrivedOrder,
                                                                    Iterator<Order> it,
                                                                    Order oppositeAlreadyPlacedOrder,
-                                                                   AtomicBoolean arrivedOrderWasTreated) {
+                                                                   AtomicBoolean arrivedOrderWasTreated,
+                                                                   AtomicLong serialTime) {
 
         /*
          * check if the 'arrivedOrder' is a 'Buy' Order.
@@ -527,7 +536,7 @@ public class Engine {
             checkForOppositeAlreadyPlacedOrders_DependencyOnDirection(stock,
                     arrivedOrder, it, oppositeAlreadyPlacedOrder,
                     stock.getDataBase().getAwaitingBuyOrders().getCollection(),
-                    arrivedOrderWasTreated);
+                    arrivedOrderWasTreated, serialTime);
             return true;
         } else { return false; }
     }
@@ -535,12 +544,12 @@ public class Engine {
     private static void checkForOppositeAlreadyPlacedOrders_DependencyOnDirection(
             Stock stock, Order arrivedOrder, Iterator<Order> it,
             Order oppositeAlreadyPlacedOrder, List<Order> OrderList,
-            AtomicBoolean arrivedOrderWasTreated) {
+            AtomicBoolean arrivedOrderWasTreated, AtomicLong serialTime) {
 
         // only if the 'arrivedOrder' wasn't removed from the data-base yet:
         if (OrderList.contains(arrivedOrder)) {
             makeTransactionAndCheckRemainders(stock, it, arrivedOrder,
-                    oppositeAlreadyPlacedOrder);
+                    oppositeAlreadyPlacedOrder, serialTime);
             arrivedOrderWasTreated.set(true);
         }
     }
@@ -548,18 +557,20 @@ public class Engine {
     private static void makeTransactionAndCheckRemainders(Stock stock,
                                                           Iterator<Order> it,
                                                           Order arrivedOrder,
-                                                          Order oppositeAlreadyPlacedOrder) {
+                                                          Order oppositeAlreadyPlacedOrder,
+                                                          AtomicLong serialTime) {
 
         Transaction transaction = makeATransaction(stock, arrivedOrder,
-                oppositeAlreadyPlacedOrder);
+                oppositeAlreadyPlacedOrder, serialTime);
 
         // check if there are remainders:
         checkRemainders(stock, it, arrivedOrder, oppositeAlreadyPlacedOrder,
-                transaction);
+                transaction, serialTime);
     }
 
     private static Transaction makeATransaction(Stock stock, Order arrivedOrder,
-                                                Order oppositeAlreadyPlacedOrder) {
+                                                Order oppositeAlreadyPlacedOrder,
+                                                AtomicLong serialTime) {
 
         /*
          * make a Transaction:
@@ -580,13 +591,16 @@ public class Engine {
                     quantityOfTransaction,
                     oppositeAlreadyPlacedOrder.getDesiredLimitPrice(),
                     arrivedOrder.getRequestingUser(),
-                    oppositeAlreadyPlacedOrder.getRequestingUser());
+                    oppositeAlreadyPlacedOrder.getRequestingUser(),
+                    serialTime.get());
+            serialTime.set(serialTime.get() + 1);
         } else if (arrivedOrder.getOrderDirection() == OrderDirection.SELL) {
             transaction = new Transaction(stock, arrivedOrder.getTimeStamp(),
                     quantityOfTransaction,
                     oppositeAlreadyPlacedOrder.getDesiredLimitPrice(),
                     oppositeAlreadyPlacedOrder.getRequestingUser(),
-                    arrivedOrder.getRequestingUser());
+                    arrivedOrder.getRequestingUser(), serialTime.get());
+            serialTime.set(serialTime.get() + 1);
         }
 
         // add Transaction:
@@ -603,14 +617,16 @@ public class Engine {
     private static void checkRemainders(Stock stock, Iterator<Order> it,
                                         Order arrivedOrder,
                                         Order oppositeAlreadyPlacedOrder,
-                                        Transaction transaction) {
+                                        Transaction transaction,
+                                        AtomicLong serialTime) {
 
         // check if there is a remainder in the 'opposite already placed' Order:
         checkOppositeAlreadyPlacedOrderRemainder(it, oppositeAlreadyPlacedOrder,
                 transaction);
 
         // check if there is a remainder in the arrivedOrder:
-        checkArrivedOrderRemainder(stock, arrivedOrder, transaction);
+        checkArrivedOrderRemainder(stock, arrivedOrder, transaction,
+                serialTime);
     }
 
     private static void checkOppositeAlreadyPlacedOrderRemainder(
@@ -640,7 +656,8 @@ public class Engine {
 
     private static void checkArrivedOrderRemainder(Stock stock,
                                                    Order arrivedOrder,
-                                                   Transaction transaction) {
+                                                   Transaction transaction,
+                                                   AtomicLong serialTime) {
 
         // check if there is a remainder in the arrivedOrder:
         long arrivedRemainderQuantity =
@@ -663,10 +680,18 @@ public class Engine {
                         calcDesiredLimitPriceOfMKTOrder(stock,
                                 arrivedOrder.getOrderDirection()));
             }
+
+            // Create remained order with a correct 'serialTime':
+            Order remainedOrder = new Order(arrivedOrder);
+            remainedOrder.setSerialTimeOfRemainedOrder(serialTime.get());
+            serialTime.set(serialTime.get() + 1);
+
             MessagePrint.println(MessagePrint.Stream.OUT,
-                    "The Order has a remainder:\n\t" + arrivedOrder);
+                    "The Order has a remainder:\n\t" + remainedOrder);
+
+            // Add 'remainedOrder' to 'afterExecuteOrderAndTransactionContainer':
             afterExecuteOrderAndTransactionContainer.getRemainderOrders()
-                    .addFirst(arrivedOrder);
+                    .addFirst(remainedOrder);
         } else {
 
             /*
