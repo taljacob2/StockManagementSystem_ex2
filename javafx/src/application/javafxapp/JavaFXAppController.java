@@ -254,8 +254,6 @@ public class JavaFXAppController
 
         /* -- Properties -- */
 
-        initProgressBar();
-
         // DoubleProperty fontSize = new SimpleDoubleProperty(12); // font size in pt
         // root.styleProperty().bind(
         //         Bindings.format("-fx-font-size: %.2fpt;", fontSize)); //TODO font slider
@@ -283,31 +281,33 @@ public class JavaFXAppController
         });
     }
 
-    private Task<Integer> initProgressBar() {
+    private Task<Integer> progressBarLoadTask() {
 
         // TODO: maybe kill this line:
         // initialize 'progressBarDoubleNumber':
         progressBarDoubleNumber.setNumber(0);
 
-        Task progressTask = new Task<Integer>() {
+        Task<Integer> progressTask = new Task<Integer>() {
             @Override public boolean cancel(boolean mayInterruptIfRunning) {
+                updateMessage("Cancelled");
                 return super.cancel(mayInterruptIfRunning);
             }
 
             @Override
             protected void updateProgress(double workDone, double max) {
-                super.updateProgress(workDone, max);
-            }
+                if (workDone == 1) {updateMessage("Starting Load");}
+                if (workDone == 4) {updateMessage("Getting Components");}
+                if (workDone == 7) {updateMessage("Almost There");}
+                if (workDone == 9) {updateMessage("Done Load!");}
 
-            @Override protected void updateMessage(String message) {
-                super.updateMessage(message);
+                super.updateProgress(workDone, max);
             }
 
             @Override protected Integer call() throws Exception {
                 int i = 0;
                 for (; i < 10; i++) {
                     updateProgress(i + 1, 10);
-                    Thread.sleep(500);
+                    Thread.sleep(200);
                     if (isCancelled()) {
                         break;
                     }
@@ -320,6 +320,47 @@ public class JavaFXAppController
         progressMessageLabel.textProperty()
                 .bind(progressTask.messageProperty());
 
+        return progressTask;
+    }
+
+    private Task<Integer> progressBarSaveTask() {
+
+        // TODO: maybe kill this line:
+        // initialize 'progressBarDoubleNumber':
+        progressBarDoubleNumber.setNumber(0);
+
+        Task<Integer> progressTask = new Task<Integer>() {
+            @Override public boolean cancel(boolean mayInterruptIfRunning) {
+                updateMessage("Cancelled");
+                return super.cancel(mayInterruptIfRunning);
+            }
+
+            @Override
+            protected void updateProgress(double workDone, double max) {
+                if (workDone == 1) {updateMessage("Starting Save");}
+                if (workDone == 4) {updateMessage("Getting Components");}
+                if (workDone == 7) {updateMessage("Almost There");}
+                if (workDone == 9) {updateMessage("Done Save!");}
+
+                super.updateProgress(workDone, max);
+            }
+
+            @Override protected Integer call() throws Exception {
+                int i = 0;
+                for (; i < 10; i++) {
+                    updateProgress(i + 1, 10);
+                    Thread.sleep(200);
+                    if (isCancelled()) {
+                        break;
+                    }
+                }
+                return i;
+            }
+        };
+
+        progressBar.progressProperty().bind(progressTask.progressProperty());
+        progressMessageLabel.textProperty()
+                .bind(progressTask.messageProperty());
 
         return progressTask;
     }
@@ -438,7 +479,24 @@ public class JavaFXAppController
         JavaFXApp.fileChooser.setTitle("Choose a '.xml' file");
         try {
             File file = JavaFXApp.fileChooser.showOpenDialog(null);
-            MenuUI.command_LOAD_XML_FILE(file.getAbsolutePath());
+            if (file != null) {
+
+                // Set task:
+                Task task = progressBarLoadTask();
+                task.setOnSucceeded(event1 -> {
+                    MenuUI.command_LOAD_XML_FILE(file.getAbsolutePath());
+
+                    progressBar.progressProperty().unbind();
+                    progressBar.progressProperty().set(0);
+
+                    progressMessageLabel.textProperty().unbind();
+                    progressMessageLabel.textProperty().set("");
+                });
+
+                // Run task on a thread:
+                Thread thread = new Thread(task);
+                thread.start();
+            }
         } catch (java.lang.NullPointerException catchIgnored) {
 
             /* In case the fileChooser.showOpenDialog was canceled, ignore. */
@@ -453,10 +511,26 @@ public class JavaFXAppController
             // set fileChooser Title:
             JavaFXApp.fileChooser
                     .setTitle("Choose where to save the '.xml' file");
-
             try {
                 File file = JavaFXApp.fileChooser.showSaveDialog(null);
-                MenuUI.command_SAVE_XML_FILE(file.getAbsolutePath());
+
+                if (file != null) {
+                    // Set task:
+                    Task task = progressBarSaveTask();
+                    task.setOnSucceeded(event1 -> {
+                        MenuUI.command_SAVE_XML_FILE(file.getAbsolutePath());
+
+                        progressBar.progressProperty().unbind();
+                        progressBar.progressProperty().set(0);
+
+                        progressMessageLabel.textProperty().unbind();
+                        progressMessageLabel.textProperty().set("");
+                    });
+
+                    // Run task on a thread:
+                    Thread thread = new Thread(task);
+                    thread.start();
+                }
             } catch (java.lang.NullPointerException catchIgnored) {
 
                 /* In case the fileChooser.showSaveDialog was canceled, ignore. */

@@ -7,7 +7,7 @@
 
   <xs:element name="rse-data-base" type="stockDataBase"/>
 
-    <xs:element name="rse-holdings" type="holdings"/>
+  <xs:element name="rse-holdings" type="holdings"/>
 
     <xs:element name="rse-item" type="item"/>
 
@@ -30,12 +30,12 @@
 
     <xs:element name="rse-users" type="users"/>
 
-  <xs:complexType name="descriptor">
-    <xs:sequence>
-      <xs:element ref="rse-stocks" minOccurs="0"/>
-      <xs:element ref="rse-users" minOccurs="0"/>
-    </xs:sequence>
-  </xs:complexType>
+    <xs:complexType name="descriptor">
+        <xs:sequence>
+            <xs:element ref="rse-stocks" minOccurs="0"/>
+            <xs:element ref="rse-users" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 
     <xs:complexType name="stocks">
         <xs:complexContent>
