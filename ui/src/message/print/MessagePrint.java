@@ -57,18 +57,6 @@ public class MessagePrint {
         println(stream, message, true);
     }
 
-    // @Deprecated public static void print(Stream stream, String message) {
-    //     if (stream == OUT) {
-    //         // DEPRECATED:
-    //         // System.out.print(message);
-    //
-    //     } else if (stream == ERR) {
-    //         // DEPRECATED:
-    //         // System.err.print(message);
-    //     }
-    //     println(stream, message);
-    // }
-
     /**
      * Defines in what {@link java.io.PrintStream} to print the messages.
      */
