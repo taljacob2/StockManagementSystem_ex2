@@ -116,6 +116,11 @@
                                                                 text="Print All Orders And Transactions"
                                                                 textAlignment="CENTER"
                                                                 wrapText="true"/>
+                                                        <Button fx:id="viewStocksGraphs"
+                                                                mnemonicParsing="false"
+                                                                text="View Stocks Graphs"
+                                                                textAlignment="CENTER"
+                                                                wrapText="true"/>
                                                         <Button fx:id="viewLogButton"
                                                                 layoutX="27.0"
                                                                 layoutY="102.0"

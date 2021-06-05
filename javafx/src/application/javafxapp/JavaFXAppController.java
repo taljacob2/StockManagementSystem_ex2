@@ -98,6 +98,7 @@ public class JavaFXAppController
     @FXML private Button loginButton;
     @FXML private Button printStocksButton;
     @FXML private Button printAllButton;
+    @FXML private Button viewStocksGraphs;
     @FXML private Button viewLogButton;
     @FXML private Label statusLabel;
     @FXML private Label progressLabel;
@@ -488,6 +489,10 @@ public class JavaFXAppController
 
         // define 'printAllButton':
         JavaFXAppHandler.handle(printAllButton,
+                "/application/pane/resources/printall/PrintAll.fxml");
+
+        // define 'viewStocksGraphs':
+        JavaFXAppHandler.handle(viewStocksGraphs,
                 "/application/pane/resources/printall/PrintAll.fxml");
 
         // define 'viewLogButton':
