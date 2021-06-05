@@ -2,6 +2,7 @@ package transaction;
 
 import currency.Currency;
 import engine.collection.Periodable;
+import javafx.scene.chart.XYChart;
 import order.Order;
 import stock.Stock;
 import user.User;
@@ -75,8 +76,8 @@ public class Transaction implements Comparable<Transaction>, Periodable {
         stock.setPrice(price);
 
         // forces update of the Stock's graph:
-        stock.getStockGraph().getPriceList().add(stock.getPrice());
-        stock.getStockGraph().getTimeStampList().add(timeStamp);
+        stock.getStockGraphSeries().getCollection()
+                .add(new XYChart.Data<>(timeStamp, stock.getPrice()));
     }
 
     /**

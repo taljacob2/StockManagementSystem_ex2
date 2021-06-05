@@ -1,0 +1,12 @@
+
+#welcomeLabel {
+    -fx-font: 46 sans-serif;
+}
+
+#messageLabel {
+    -fx-font: 32 sans-serif;
+}
+
+#pathLabel {
+    -fx-font: 24 sans-serif;
+}

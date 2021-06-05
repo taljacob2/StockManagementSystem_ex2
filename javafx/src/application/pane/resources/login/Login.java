@@ -1,7 +1,7 @@
 package application.pane.resources.login;
 
 import application.javafxapp.JavaFXAppHandler;
-import application.pane.resources.login.selecteduser.SelectedUser;
+import application.pane.resources.login.selecteduser.container.SelectedUserContainer;
 import engine.Engine;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -42,7 +42,8 @@ public class Login implements Initializable {
                 "/application/pane/resources/login/selecteduser/pane/UserPane.fxml")
                 .handleOnce(loginButton);
 
-        SelectedUser.selectedUserProperty().bind(userComboBox.valueProperty());
+        SelectedUserContainer.selectedUserProperty()
+                .bind(userComboBox.valueProperty());
 
         loginButton.disableProperty()
                 .bind(userComboBox.valueProperty().isNull());

@@ -3,7 +3,7 @@ package application.pane.resources.orderexecution;
 import application.dialog.FxDialogs;
 import application.pane.PaneReplacer;
 import application.pane.resources.afterexecutionsummary.container.AfterExecutionOrderAndTransactionContainer;
-import application.pane.resources.login.selecteduser.SelectedUser;
+import application.pane.resources.login.selecteduser.container.SelectedUserContainer;
 import application.pane.resources.login.selecteduser.pane.borderpane.SaveUserBorderPane;
 import engine.Engine;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -90,7 +90,7 @@ public class OrderExecution implements Initializable, PaneReplacer {
      *     <li>In case the {@code Order} is a <i>Sell</i> {@code Order}, then
      *     this number is set to be the <i>maximum</i> {@code Quantity} of
      *     the current {@code Stock} being selected in the
-     *     {@link SelectedUser#getSelectedUser()} .
+     *     {@link SelectedUserContainer#getSelectedUser()} .
      *     </li>
      *     <li>In case the {@code Order} is a <i>Buy</i> {@code Order}, then
      *     this number is set to be the {@code final}: {@link Long#MAX_VALUE}
@@ -112,7 +112,7 @@ public class OrderExecution implements Initializable, PaneReplacer {
      *     <li>In case the {@code Order} is a <i>Sell</i> {@code Order}, then
      *     this number is set to be the <i>maximum</i> {@code LimitPrice} of
      *     the current {@code Stock} being selected in the
-     *     {@link SelectedUser#getSelectedUser()} .
+     *     {@link SelectedUserContainer#getSelectedUser()} .
      *     </li>
      *     <li>In case the {@code Order} is a <i>Buy</i> {@code Order}, then
      *     this number is set to be the {@code final}: {@link Long#MAX_VALUE}
@@ -148,7 +148,7 @@ public class OrderExecution implements Initializable, PaneReplacer {
                             (limitPriceTextField.getText()
                                     .equalsIgnoreCase("MKT")) ? 0L :
                             Long.parseLong(limitPriceTextField.getText()),
-                    SelectedUser.getSelectedUser());
+                    SelectedUserContainer.getSelectedUser());
 
         }
     };
@@ -498,7 +498,7 @@ public class OrderExecution implements Initializable, PaneReplacer {
             // "Sell" is being selected, and a "Stock" is being selected.
             activeMinQuantityValue.setValue(1L);
             activeMaxQuantityValue.setValue(stockComboBox.getValue()
-                    .getQuantity(SelectedUser.getSelectedUser()));
+                    .getQuantity(SelectedUserContainer.getSelectedUser()));
         } else if (orderDirectionComboBox.valueProperty().getValue().toString()
                 .equals("Sell") &&
                 (stockComboBox.valueProperty().isNull().get())) {
@@ -542,9 +542,9 @@ public class OrderExecution implements Initializable, PaneReplacer {
 
             // Show only the stock available in the user's items:
             stockComboBox.getItems()
-                    .addAll(SelectedUser.getSelectedUser().getHoldings()
-                            .getCollection().stream().map(Item::getStock)
-                            .collect(Collectors.toList()));
+                    .addAll(SelectedUserContainer.getSelectedUser()
+                            .getHoldings().getCollection().stream()
+                            .map(Item::getStock).collect(Collectors.toList()));
 
         }
     }

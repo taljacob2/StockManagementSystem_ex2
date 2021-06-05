@@ -2,7 +2,7 @@ package application.pane.resources.login.selecteduser.pane;
 
 import application.javafxapp.JavaFXAppController;
 import application.pane.ContainsAnotherPane;
-import application.pane.resources.login.selecteduser.SelectedUser;
+import application.pane.resources.login.selecteduser.container.SelectedUserContainer;
 import application.pane.resources.login.selecteduser.pane.borderpane.SaveUserBorderPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
  *
  * <p>Represents the {@link javafx.scene.layout.Pane} after logging in to a
  * <i>User</i>, showing all commands available for the
- * {@link SelectedUser#getSelectedUser()} to pick.</p>
+ * {@link SelectedUserContainer#getSelectedUser()} to pick.</p>
  */
 public class UserPane extends ContainsAnotherPane implements Initializable {
 
@@ -42,7 +42,8 @@ public class UserPane extends ContainsAnotherPane implements Initializable {
                 getBorderPaneToShowTheAnotherInnerPane());
 
         userNameLabel.setText(
-                "Hello, " + SelectedUser.getSelectedUser().getName() + ".");
+                "Hello, " + SelectedUserContainer.getSelectedUser().getName() +
+                        ".");
 
 
         viewHoldingsButton.setOnAction(new EventHandler<ActionEvent>() {

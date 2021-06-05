@@ -1,7 +1,7 @@
 package application.pane.resources.login.selecteduser.holdings;
 
 import application.pane.ContainsAnotherPane;
-import application.pane.resources.login.selecteduser.SelectedUser;
+import application.pane.resources.login.selecteduser.container.SelectedUserContainer;
 import currency.Currency;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -31,8 +31,8 @@ public class ViewHoldings extends ContainsAnotherPane {
         super.initialize(location, resources);
 
         // calculate total holdings worth, and set label:
-        long totalHoldingsWorth =
-                SelectedUser.getSelectedUser().calculateTotalHoldingsWorth();
+        long totalHoldingsWorth = SelectedUserContainer.getSelectedUser()
+                .calculateTotalHoldingsWorth();
         totalHoldingsWorthLabel.setText("[Total Holdings Worth = " +
                 Currency.numberFormat.format(totalHoldingsWorth) + "]");
     }

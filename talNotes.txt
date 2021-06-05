@@ -104,6 +104,7 @@ JavaFXApp via
     an acutal "User" field, because it is heavy.
             # -> this will change "dynamic" columns to be "normal" columns.
 
+# change skin to support initialize in every Controller. ->> Like "UserPane" !!
     _________________________________________________________________________
 
         /* XXX - GUIDE: dynamic style:

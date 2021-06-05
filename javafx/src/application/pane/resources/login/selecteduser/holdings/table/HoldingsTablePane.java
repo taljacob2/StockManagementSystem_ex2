@@ -1,6 +1,6 @@
 package application.pane.resources.login.selecteduser.holdings.table;
 
-import application.pane.resources.login.selecteduser.SelectedUser;
+import application.pane.resources.login.selecteduser.container.SelectedUserContainer;
 import application.pane.table.TableUtils;
 import engine.Engine;
 import javafx.collections.FXCollections;
@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
  * file.
  *
  * <p><i>Controls</i> the {@link TableView} of all the
- * {@link user.holding.Holdings} of a specific {@link SelectedUser#getSelectedUser()}.</p>
+ * {@link user.holding.Holdings} of a specific {@link SelectedUserContainer#getSelectedUser()}.</p>
  */
 public class HoldingsTablePane implements Initializable {
 
@@ -56,7 +56,8 @@ public class HoldingsTablePane implements Initializable {
      */
     public HoldingsTablePane() {
         holdingsObservableList = FXCollections.observableArrayList(
-                SelectedUser.getSelectedUser().getHoldings().getCollection());
+                SelectedUserContainer.getSelectedUser().getHoldings()
+                        .getCollection());
     }
 
     @Override public void initialize(URL location, ResourceBundle resources) {

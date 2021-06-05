@@ -1,7 +1,7 @@
 package application.pane.resources.viewstocksgraphs;
 
-import application.javafxapp.JavaFXAppHandler;
-import application.pane.resources.login.selecteduser.SelectedUser;
+import application.pane.ContainsAnotherPane;
+import application.pane.resources.viewstocksgraphs.selectedstock.container.SelectedStockContainer;
 import engine.Engine;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,11 +21,17 @@ import java.util.stream.Collectors;
  * <p>Represents the {@link javafx.scene.layout.Pane} of the <i>View Stocks
  * Graphs</i> page.</p>
  */
-public class ViewStocksGraphs implements Initializable {
+public class ViewStocksGraphs extends ContainsAnotherPane
+        implements Initializable {
 
     @FXML private ComboBox<String> stockSymbolComboBox;
 
-    public ViewStocksGraphs() {}
+    public ViewStocksGraphs() {
+
+        // Set initial pane:
+        super("/application/pane/resources" +
+                "/viewstocksgraphs/welcome/Welcome.fxml");
+    }
 
     @Override public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -44,14 +50,34 @@ public class ViewStocksGraphs implements Initializable {
             MessagePrint.println(MessagePrint.Stream.ERR, e.getMessage());
         }
 
-        new JavaFXAppHandler(
-                "/application/pane/resources/login/selecteduser/pane/UserPane.fxml")
-                .handleOnce(stockSymbolComboBox.getValue());
 
-        SelectedUser.selectedUserProperty().bind(userComboBox.valueProperty());
+        stockSymbolComboBox.valueProperty()
+                .addListener((observable, oldValue, newValue) -> {
 
-        loginButton.disableProperty()
-                .bind(userComboBox.valueProperty().isNull());
+                    try {
+                        if (stockSymbolComboBox.getValue() != null) {
+                            Stock selectedStock = Engine.getStockBySymbol(
+                                    stockSymbolComboBox.getValue());
+
+                            // Store the selected Stock in 'SelectedStock':
+                            SelectedStockContainer
+                                    .setSelectedStock(selectedStock);
+
+                            setPane(getBorderPaneToShowTheAnotherInnerPane(),
+                                    "/application/pane/resources/viewstocksgraphs" +
+                                            "/stockgraph.fxml");
+                        }
+                    } catch (IOException e) {
+
+                        /*
+                         * Note: this exception should not happen thanks to the initial
+                         * check of stocks.
+                         */
+                        MessagePrint.println(MessagePrint.Stream.ERR,
+                                e.getMessage());
+                    }
+
+                });
     }
 
 }

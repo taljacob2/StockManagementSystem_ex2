@@ -4,7 +4,7 @@ import currency.Currency;
 import message.Message;
 import message.builder.out.BuildOutput_StockDataBase;
 import stock.database.StockDataBase;
-import stock.graph.StockGraph;
+import stock.graph.StockGraphSeries;
 import transaction.Transaction;
 import user.User;
 import user.holding.item.Item;
@@ -50,18 +50,19 @@ public class Stock {
             new StockDataBase();
 
     /**
-     * Store here the {@link StockGraph} data, required for printing a
+     * Store here the {@link StockGraphSeries} data, required for printing a
      * <i>Stock-Graph</i>.
      */
-    private StockGraph stockGraph = new StockGraph();
+    @XmlElement(name = "rse-stock-graph-series") private StockGraphSeries
+            stockGraphSeries;
 
     public Stock(String symbol, String companyName, long price,
-                 StockDataBase dataBase, StockGraph stockGraph) {
+                 StockDataBase dataBase, StockGraphSeries stockGraph) {
         this.symbol = symbol;
         this.companyName = companyName;
         this.price = price;
         this.dataBase = dataBase;
-        this.stockGraph = stockGraph;
+        this.stockGraphSeries = stockGraph;
     }
 
     /**
@@ -70,12 +71,12 @@ public class Stock {
      */
     public Stock() {}
 
-    public StockGraph getStockGraph() {
-        return stockGraph;
+    public StockGraphSeries getStockGraphSeries() {
+        return stockGraphSeries;
     }
 
-    public void setStockGraph(StockGraph stockGraph) {
-        this.stockGraph = stockGraph;
+    public void setStockGraphSeries(StockGraphSeries stockGraphSeries) {
+        this.stockGraphSeries = stockGraphSeries;
     }
 
     public String getSymbol() {
