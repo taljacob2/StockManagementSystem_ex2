@@ -3,6 +3,7 @@ package order;
 import currency.Currency;
 import engine.collection.Periodable;
 import timestamp.TimeStamp;
+import user.User;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -21,24 +22,27 @@ public class Order implements Comparable<Order>, Periodable {
     /**
      * Timestamp of current execution.
      */
-    @XmlElement(name = "time-stamp", required = true)
-    private String timeStamp;
+    @XmlElement(name = "time-stamp", required = true) private String timeStamp;
 
     @XmlElement(name = "order-direction", required = true)
     private OrderDirection orderDirection;
 
-    @XmlElement(name = "order-type", required = true)
-    private OrderType orderType;
+    @XmlElement(name = "order-type", required = true) private OrderType
+            orderType;
 
-    @XmlElement(name = "quantity", required = true)
-    private long quantity;
+    @XmlElement(name = "quantity", required = true) private long quantity;
 
     /**
      * Initialized only if the {@link #orderType} is not {@link OrderType#LMT},
      * else initialized to {@code 0}.
      */
-    @XmlElement(name = "desired-limit-price", required = true)
-    private long desiredLimitPrice;
+    @XmlElement(name = "desired-limit-price", required = true) private long
+            desiredLimitPrice;
+
+    /**
+     * The {@link User} who requested the current {@code Order}.
+     */
+    @XmlElement(name = "user") private User user;
 
     public Order(OrderDirection direction, OrderType type, long quantity,
                  long desiredLimitPrice) {
@@ -54,6 +58,14 @@ public class Order implements Comparable<Order>, Periodable {
      * load and save.
      */
     public Order() {}
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public String getTimeStamp() {
         return timeStamp;
