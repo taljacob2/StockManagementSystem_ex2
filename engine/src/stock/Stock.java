@@ -31,8 +31,8 @@ public class Stock {
 
     /**
      * <i>price</i> is updated after each successful transaction, inside the
-     * {@link Transaction#Transaction(Stock, String, long, long)} {@code
-     * Constructor}.
+     * {@link Transaction#Transaction(Stock, String, long, long, User, User,
+     * long)} {@code Constructor}.
      */
     @XmlElement(name = "rse-price", required = true) private long price;
     /**

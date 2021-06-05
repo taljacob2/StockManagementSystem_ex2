@@ -49,14 +49,14 @@
     <xs:sequence/>
   </xs:complexType>
 
-  <xs:complexType name="stock">
-    <xs:sequence>
-      <xs:element name="rse-symbol" type="xs:string"/>
-      <xs:element name="rse-company-name" type="xs:string"/>
-      <xs:element name="rse-price" type="xs:long"/>
-      <xs:element ref="rse-data-base" minOccurs="0"/>
-    </xs:sequence>
-  </xs:complexType>
+    <xs:complexType name="stock">
+        <xs:sequence>
+            <xs:element name="rse-symbol" type="xs:string"/>
+            <xs:element name="rse-company-name" type="xs:string"/>
+            <xs:element name="rse-price" type="xs:long"/>
+            <xs:element ref="rse-data-base" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
 
     <xs:complexType name="stockDataBase">
         <xs:sequence>
@@ -157,15 +157,15 @@
         </xs:complexContent>
     </xs:complexType>
 
-  <xs:simpleType name="orderDirection">
-    <xs:restriction base="xs:string">
-      <xs:enumeration value="BUY"/>
-      <xs:enumeration value="SELL"/>
-    </xs:restriction>
-  </xs:simpleType>
+    <xs:simpleType name="orderDirection">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="BUY"/>
+            <xs:enumeration value="SELL"/>
+        </xs:restriction>
+    </xs:simpleType>
 
-  <xs:simpleType name="orderType">
-    <xs:restriction base="xs:string">
+    <xs:simpleType name="orderType">
+        <xs:restriction base="xs:string">
       <xs:enumeration value="LMT"/>
       <xs:enumeration value="MKT"/>
       <xs:enumeration value="FOX"/>

@@ -124,4 +124,36 @@ public class TableUtils {
         });
     }
 
+
+    /**
+     * Used for printing <i>dynamic</i> {@link Transaction#getPeriod()}.
+     *
+     * @param tableColumn a {@link TableColumn} of {@link transaction.Transaction}s.
+     */
+    public static void initTransactionPeriodColumn(TableColumn tableColumn) {
+        tableColumn.setCellFactory(new Callback<TableColumn, TableCell>() {
+            @Override public TableCell call(TableColumn p) {
+                return new TableCell() {
+                    @Override
+                    protected void updateItem(Object item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if ((this.getTableRow() != null) && (item != null)) {
+
+                            int currentRowIndex = this.getTableRow().getIndex();
+
+                            Transaction currentRowTransaction =
+                                    (Transaction) this.getTableView().getItems()
+                                            .get(currentRowIndex);
+
+                            setText(Long.toString(
+                                    currentRowTransaction.getPeriod()));
+                        } else {
+                            setText("");
+                        }
+                    }
+                };
+            }
+        });
+    }
+
 }

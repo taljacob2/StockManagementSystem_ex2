@@ -1,5 +1,6 @@
 package application.pane.resources.afterexecutionsummary;
 
+import application.pane.table.TableUtils;
 import engine.Engine;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -54,6 +55,11 @@ public class AfterExecutionSummary implements Initializable {
      * A column in the {@link TableView} of {@link Transaction}s.
      */
     @FXML private TableColumn<Transaction, Long> transactionSerialTimeColumn;
+
+    /**
+     * A <i>dynamic</i> column in the {@link TableView}.
+     */
+    @FXML private TableColumn transactionPeriodColumn;
 
 
     /**
@@ -114,20 +120,27 @@ public class AfterExecutionSummary implements Initializable {
     @Override public void initialize(URL location, ResourceBundle resources) {
 
         // transactionTableView: initialize columns:
+        transactionSerialTimeColumn.setCellValueFactory(
+                new PropertyValueFactory<Transaction, Long>("serialTime"));
         transactionTimeStampColumn.setCellValueFactory(
                 new PropertyValueFactory<Transaction, String>("timeStamp"));
         transactionQuantityColumn.setCellValueFactory(
                 new PropertyValueFactory<Transaction, Long>("quantity"));
         transactionPriceColumn.setCellValueFactory(
                 new PropertyValueFactory<Transaction, Long>("price"));
-        transactionSerialTimeColumn.setCellValueFactory(
-                new PropertyValueFactory<Transaction, Long>("serialTime"));
+
+        // initialize dynamic-column:
+        TableUtils.setDynamicColumn(transactionPeriodColumn);
+        TableUtils.initTransactionPeriodColumn(transactionPeriodColumn);
 
         // set the 'tableView' to the columns provided:
         transactionTableView.setItems(transactionsMadeObservableList);
 
 
         // orderTableView: initialize columns:
+        orderSerialTimeColumn.setCellValueFactory(
+                new PropertyValueFactory<Order, Long>(
+                        "serialTimeOfRemainedOrder"));
         orderTimeStampColumn.setCellValueFactory(
                 new PropertyValueFactory<Order, String>("timeStamp"));
         orderDirectionColumn.setCellValueFactory(
@@ -138,9 +151,7 @@ public class AfterExecutionSummary implements Initializable {
                 new PropertyValueFactory<Order, Long>("quantity"));
         orderDesiredLimitPriceColumn.setCellValueFactory(
                 new PropertyValueFactory<Order, Long>("desiredLimitPrice"));
-        orderSerialTimeColumn.setCellValueFactory(
-                new PropertyValueFactory<Order, Long>(
-                        "serialTimeOfRemainedOrder"));
+
 
         // set the 'tableView' to the columns provided:
         orderTableView.setItems(remainedOrdersObservableList);

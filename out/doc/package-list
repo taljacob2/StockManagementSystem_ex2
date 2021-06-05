@@ -2,8 +2,8 @@ application.color
 application.dialog
 application.javafxapp
 application.pane
-application.pane.resources.afterexecution
-application.pane.resources.afterexecution.container
+application.pane.resources.afterexecutionsummary
+application.pane.resources.afterexecutionsummary.container
 application.pane.resources.login
 application.pane.resources.login.selecteduser
 application.pane.resources.login.selecteduser.holdings

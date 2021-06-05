@@ -54,6 +54,11 @@
                                                                         minWidth="7.0"
                                                                         prefWidth="150.0"
                                                                         text="($) Price"/>
+                                                                <TableColumn
+                                                                        fx:id="transactionPeriodColumn"
+                                                                        minWidth="7.0"
+                                                                        prefWidth="150.0"
+                                                                        text="($) Period"/>
                                                             </columns>
                                                         </TableView>
                                                     </content>
