@@ -1,5 +1,6 @@
 package application.pane.resources.login.selecteduser;
 
+import application.pane.container.SimpleContainer;
 import javafx.beans.property.SimpleObjectProperty;
 import user.User;
 
@@ -8,7 +9,7 @@ import user.User;
  * <i>Login page</i> in a {@link SimpleObjectProperty}, in order to transfer it
  * to the <i>Order-Execution page</i>.
  */
-public class SelectedUser {
+public class SelectedUser extends SimpleContainer {
 
     private static SimpleObjectProperty<User> selectedUser;
 
