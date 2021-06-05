@@ -12,165 +12,190 @@
                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <content>
-                <AnchorPane>
-                    <children>
-                        <SplitPane dividerPositions="0.5" orientation="VERTICAL"
-                                   AnchorPane.bottomAnchor="0.0"
-                                   AnchorPane.leftAnchor="0.0"
-                                   AnchorPane.rightAnchor="0.0"
-                                   AnchorPane.topAnchor="0.0">
-                            <items>
-                                <AnchorPane>
-                                    <children>
-                                        <BorderPane
-                                                AnchorPane.bottomAnchor="0.0"
-                                                AnchorPane.leftAnchor="0.0"
-                                                AnchorPane.rightAnchor="0.0"
-                                                AnchorPane.topAnchor="0.0">
-                                            <center>
-                                                <ScrollPane fitToHeight="true"
-                                                            fitToWidth="true">
-                                                    <content>
-                                                        <TableView
-                                                                fx:id="transactionTableView"
-                                                                stylesheets="@AfterExecutionSummary.css">
-                                                            <columns>
-                                                                <TableColumn
-                                                                        fx:id="transactionSerialTimeColumn"
-                                                                        prefWidth="150.0"
-                                                                        text="Serial Time"/>
-                                                                <TableColumn
-                                                                        fx:id="transactionTimeStampColumn"
-                                                                        prefWidth="150.0"
-                                                                        text="Time Stamp"/>
-                                                                <TableColumn
-                                                                        fx:id="transactionQuantityColumn"
-                                                                        prefWidth="150.0"
-                                                                        text="Quantity"/>
-                                                                <TableColumn
-                                                                        fx:id="transactionPriceColumn"
-                                                                        minWidth="7.0"
-                                                                        prefWidth="150.0"
-                                                                        text="($) Price"/>
-                                                                <TableColumn
-                                                                        fx:id="transactionPeriodColumn"
-                                                                        minWidth="7.0"
-                                                                        prefWidth="150.0"
-                                                                        text="($) Period"/>
-                                                                <TableColumn
-                                                                        fx:id="transactionBuyingUserColumn"
-                                                                        prefWidth="150.0"
-                                                                        text="Buying User"/>
-                                                                <TableColumn
-                                                                        fx:id="transactionSellingUserColumn"
-                                                                        prefWidth="150.0"
-                                                                        text="Selling User"/>
-                                                            </columns>
-                                                        </TableView>
-                                                    </content>
-                                                </ScrollPane>
-                                            </center>
-                                            <top>
-                                                <AnchorPane
-                                                        BorderPane.alignment="CENTER">
-                                                    <children>
-                                                        <Label alignment="CENTER"
-                                                               styleClass="title"
-                                                               text="Transactions Made"
-                                                               textFill="WHITE"
-                                                               wrapText="true"
-                                                               AnchorPane.bottomAnchor="0.0"
-                                                               AnchorPane.leftAnchor="0.0"
-                                                               AnchorPane.rightAnchor="0.0"
-                                                               AnchorPane.topAnchor="0.0">
-                                                            <font>
-                                                                <Font name="SansSerif Regular"
-                                                                      size="24.0"/>
-                                                            </font>
-                                                        </Label>
-                                                    </children>
-                                                </AnchorPane>
-                                            </top>
-                                        </BorderPane>
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane>
-                                    <children>
-                                        <BorderPane
-                                                AnchorPane.bottomAnchor="0.0"
-                                                AnchorPane.leftAnchor="0.0"
-                                                AnchorPane.rightAnchor="0.0"
-                                                AnchorPane.topAnchor="0.0">
-                                            <center>
-                                                <ScrollPane fitToHeight="true"
-                                                            fitToWidth="true">
-                                                    <content>
-                                                        <TableView
-                                                                fx:id="orderTableView"
-                                                                stylesheets="@AfterExecutionSummary.css">
-                                                            <columns>
-                                                                <TableColumn
-                                                                        fx:id="orderSerialTimeColumn"
-                                                                        prefWidth="150.0"
-                                                                        text="Serial Time"/>
-                                                                <TableColumn
-                                                                        fx:id="orderTimeStampColumn"
-                                                                        prefWidth="150.0"
-                                                                        text="Time Stamp"/>
-                                                                <TableColumn
-                                                                        fx:id="orderDirectionColumn"
-                                                                        prefWidth="150.0"
-                                                                        text="Direction"/>
-                                                                <TableColumn
-                                                                        fx:id="orderTypeColumn"
-                                                                        minWidth="3.0"
-                                                                        prefWidth="150.0"
-                                                                        text="Type"/>
-                                                                <TableColumn
-                                                                        fx:id="orderQuantityColumn"
-                                                                        prefWidth="150.0"
-                                                                        text="Quantity"/>
-                                                                <TableColumn
-                                                                        fx:id="orderDesiredLimitPriceColumn"
-                                                                        prefWidth="150.0"
-                                                                        text="($) Price"/>
-                                                                <TableColumn
-                                                                        fx:id="orderRequestingUserColumn"
-                                                                        prefWidth="150.0"
-                                                                        text="Requesting User"/>
-                                                            </columns>
-                                                        </TableView>
-                                                    </content>
-                                                </ScrollPane>
-                                            </center>
-                                            <top>
-                                                <AnchorPane
-                                                        BorderPane.alignment="CENTER">
-                                                    <children>
-                                                        <Label alignment="CENTER"
-                                                               styleClass="title"
-                                                               text="Remained Orders"
-                                                               textFill="WHITE"
-                                                               wrapText="true"
-                                                               AnchorPane.bottomAnchor="0.0"
-                                                               AnchorPane.leftAnchor="0.0"
-                                                               AnchorPane.rightAnchor="0.0"
-                                                               AnchorPane.topAnchor="0.0">
-                                                            <font>
-                                                                <Font name="SansSerif Regular"
-                                                                      size="24.0"/>
-                                                            </font>
-                                                        </Label>
-                                                    </children>
-                                                </AnchorPane>
-                                            </top>
-                                        </BorderPane>
-                                    </children>
-                                </AnchorPane>
-                            </items>
-                        </SplitPane>
-                    </children>
-                </AnchorPane>
+                <BorderPane>
+                    <center>
+                        <AnchorPane BorderPane.alignment="CENTER">
+                            <children>
+                                <SplitPane dividerPositions="0.5"
+                                           orientation="VERTICAL"
+                                           AnchorPane.bottomAnchor="0.0"
+                                           AnchorPane.leftAnchor="0.0"
+                                           AnchorPane.rightAnchor="0.0"
+                                           AnchorPane.topAnchor="0.0">
+                                    <items>
+                                        <AnchorPane>
+                                            <children>
+                                                <BorderPane
+                                                        AnchorPane.bottomAnchor="0.0"
+                                                        AnchorPane.leftAnchor="0.0"
+                                                        AnchorPane.rightAnchor="0.0"
+                                                        AnchorPane.topAnchor="0.0">
+                                                    <center>
+                                                        <ScrollPane
+                                                                fitToHeight="true"
+                                                                fitToWidth="true">
+                                                            <content>
+                                                                <TableView
+                                                                        fx:id="transactionTableView"
+                                                                        stylesheets="@AfterExecutionSummary.css">
+                                                                    <columns>
+                                                                        <TableColumn
+                                                                                fx:id="transactionSerialTimeColumn"
+                                                                                prefWidth="150.0"
+                                                                                text="Serial Time"/>
+                                                                        <TableColumn
+                                                                                fx:id="transactionTimeStampColumn"
+                                                                                prefWidth="150.0"
+                                                                                text="Time Stamp"/>
+                                                                        <TableColumn
+                                                                                fx:id="transactionQuantityColumn"
+                                                                                prefWidth="150.0"
+                                                                                text="Quantity"/>
+                                                                        <TableColumn
+                                                                                fx:id="transactionPriceColumn"
+                                                                                minWidth="7.0"
+                                                                                prefWidth="150.0"
+                                                                                text="($) Price"/>
+                                                                        <TableColumn
+                                                                                fx:id="transactionPeriodColumn"
+                                                                                minWidth="7.0"
+                                                                                prefWidth="150.0"
+                                                                                text="($) Period"/>
+                                                                        <TableColumn
+                                                                                fx:id="transactionBuyingUserColumn"
+                                                                                prefWidth="150.0"
+                                                                                text="Buying User"/>
+                                                                        <TableColumn
+                                                                                fx:id="transactionSellingUserColumn"
+                                                                                prefWidth="150.0"
+                                                                                text="Selling User"/>
+                                                                    </columns>
+                                                                </TableView>
+                                                            </content>
+                                                        </ScrollPane>
+                                                    </center>
+                                                    <top>
+                                                        <AnchorPane
+                                                                BorderPane.alignment="CENTER">
+                                                            <children>
+                                                                <Label alignment="CENTER"
+                                                                       styleClass="title"
+                                                                       text="Transactions Made"
+                                                                       textFill="WHITE"
+                                                                       wrapText="true"
+                                                                       AnchorPane.bottomAnchor="0.0"
+                                                                       AnchorPane.leftAnchor="0.0"
+                                                                       AnchorPane.rightAnchor="0.0"
+                                                                       AnchorPane.topAnchor="0.0">
+                                                                    <font>
+                                                                        <Font name="SansSerif Regular"
+                                                                              size="24.0"/>
+                                                                    </font>
+                                                                </Label>
+                                                            </children>
+                                                        </AnchorPane>
+                                                    </top>
+                                                </BorderPane>
+                                            </children>
+                                        </AnchorPane>
+                                        <AnchorPane>
+                                            <children>
+                                                <BorderPane
+                                                        AnchorPane.bottomAnchor="0.0"
+                                                        AnchorPane.leftAnchor="0.0"
+                                                        AnchorPane.rightAnchor="0.0"
+                                                        AnchorPane.topAnchor="0.0">
+                                                    <center>
+                                                        <ScrollPane
+                                                                fitToHeight="true"
+                                                                fitToWidth="true">
+                                                            <content>
+                                                                <TableView
+                                                                        fx:id="orderTableView"
+                                                                        stylesheets="@AfterExecutionSummary.css">
+                                                                    <columns>
+                                                                        <TableColumn
+                                                                                fx:id="orderSerialTimeColumn"
+                                                                                prefWidth="150.0"
+                                                                                text="Serial Time"/>
+                                                                        <TableColumn
+                                                                                fx:id="orderTimeStampColumn"
+                                                                                prefWidth="150.0"
+                                                                                text="Time Stamp"/>
+                                                                        <TableColumn
+                                                                                fx:id="orderDirectionColumn"
+                                                                                prefWidth="150.0"
+                                                                                text="Direction"/>
+                                                                        <TableColumn
+                                                                                fx:id="orderTypeColumn"
+                                                                                minWidth="3.0"
+                                                                                prefWidth="150.0"
+                                                                                text="Type"/>
+                                                                        <TableColumn
+                                                                                fx:id="orderQuantityColumn"
+                                                                                prefWidth="150.0"
+                                                                                text="Quantity"/>
+                                                                        <TableColumn
+                                                                                fx:id="orderDesiredLimitPriceColumn"
+                                                                                prefWidth="150.0"
+                                                                                text="($) Price"/>
+                                                                        <TableColumn
+                                                                                fx:id="orderRequestingUserColumn"
+                                                                                prefWidth="150.0"
+                                                                                text="Requesting User"/>
+                                                                    </columns>
+                                                                </TableView>
+                                                            </content>
+                                                        </ScrollPane>
+                                                    </center>
+                                                    <top>
+                                                        <AnchorPane
+                                                                BorderPane.alignment="CENTER">
+                                                            <children>
+                                                                <Label alignment="CENTER"
+                                                                       styleClass="title"
+                                                                       text="Remained Orders"
+                                                                       textFill="WHITE"
+                                                                       wrapText="true"
+                                                                       AnchorPane.bottomAnchor="0.0"
+                                                                       AnchorPane.leftAnchor="0.0"
+                                                                       AnchorPane.rightAnchor="0.0"
+                                                                       AnchorPane.topAnchor="0.0">
+                                                                    <font>
+                                                                        <Font name="SansSerif Regular"
+                                                                              size="24.0"/>
+                                                                    </font>
+                                                                </Label>
+                                                            </children>
+                                                        </AnchorPane>
+                                                    </top>
+                                                </BorderPane>
+                                            </children>
+                                        </AnchorPane>
+                                    </items>
+                                </SplitPane>
+                            </children>
+                        </AnchorPane>
+                    </center>
+                    <top>
+                        <AnchorPane BorderPane.alignment="CENTER">
+                            <children>
+                                <Label alignment="CENTER" styleClass="title"
+                                       text="This is what happened after your Order Execution"
+                                       textFill="WHITE" wrapText="true"
+                                       AnchorPane.bottomAnchor="0.0"
+                                       AnchorPane.leftAnchor="0.0"
+                                       AnchorPane.rightAnchor="0.0"
+                                       AnchorPane.topAnchor="0.0">
+                                    <font>
+                                        <Font name="SansSerif Regular"
+                                              size="24.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </AnchorPane>
+                    </top>
+                </BorderPane>
             </content>
         </ScrollPane>
     </children>

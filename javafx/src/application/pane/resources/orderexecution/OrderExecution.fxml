@@ -69,16 +69,22 @@
                         </VBox>
                     </left>
                     <top>
-                        <Label fx:id="userNameLabel" textFill="WHITE"
-                               BorderPane.alignment="CENTER">
-                            <font>
-                                <Font name="SansSerif Regular" size="36.0"/>
-                            </font>
-                            <BorderPane.margin>
-                                <Insets bottom="5.0" left="10.0" right="10.0"
-                                        top="5.0"/>
-                            </BorderPane.margin>
-                        </Label>
+                        <AnchorPane BorderPane.alignment="CENTER">
+                            <children>
+                                <Label fx:id="userNameLabel" alignment="CENTER"
+                                       styleClass="title" textAlignment="CENTER"
+                                       textFill="WHITE" wrapText="true"
+                                       AnchorPane.bottomAnchor="0.0"
+                                       AnchorPane.leftAnchor="0.0"
+                                       AnchorPane.rightAnchor="0.0"
+                                       AnchorPane.topAnchor="0.0">
+                                    <font>
+                                        <Font name="SansSerif Regular"
+                                              size="24.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </AnchorPane>
                     </top>
                 </BorderPane>
             </content>
