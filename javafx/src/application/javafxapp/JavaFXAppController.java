@@ -425,19 +425,6 @@ public class JavaFXAppController
         }
     }
 
-    public void command_PRINT_STOCKS(ActionEvent event) {
-        MenuUI.command_PRINT_STOCKS();
-    }
-
-    public void command_INFO_ABOUT_A_STOCK(ActionEvent event) {
-        MenuUI.command_INFO_ABOUT_A_STOCK();
-    }
-
-    public void command_PRINT_LISTS_OF_ALL_ORDERS_AND_TRANSACTIONS(
-            ActionEvent event) {
-        MenuUI.command_PRINT_LISTS_OF_ALL_ORDERS_AND_TRANSACTIONS();
-    }
-
     public void command_SAVE_XML_FILE(ActionEvent event) {
 
         // if there are stocks in the system:
