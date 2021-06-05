@@ -8,10 +8,13 @@
     -fx-background-radius: 10 10 0 0, 10 10 0 0, 10 10 0 0;
     /*-fx-padding: 0.166667em 0.833333em 0.25em 0.833333em; !* 2 10 3 10 *!*/
     /*-fx-background-color: rgb(211, 211, 211);*/
+    -fx-border-color: rgb(211, 211, 211);
+    -fx-border-radius: 10 10 0 0, 10 10 0 0, 10 10 0 0;
 }
 
 .titled-pane:focused > .title {
     -fx-color: -fx-focus-color;
+    -fx-border-color: -fx-focus-color;
 }
 
 .titled-pane > *.content {
