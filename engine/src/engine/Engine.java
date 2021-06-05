@@ -475,6 +475,9 @@ public class Engine {
         List<Order> sellOrders =
                 dataBase.getAwaitingSellOrders().getCollection();
 
+        // Store the 'before' quantity of the order.
+        long arrivedOrderQuantityBefore = arrivedOrder.getQuantity();
+
         // if the arrived Order is a 'Buy' Order:
         if (arrivedOrder.getOrderDirection() == OrderDirection.BUY) {
             checkForOppositeAlreadyPlacedOrders(stock, sellOrders,
@@ -483,6 +486,15 @@ public class Engine {
             // if the arrived Order is a 'Sell' Order:
         } else if (arrivedOrder.getOrderDirection() == OrderDirection.SELL) {
             checkForOppositeAlreadyPlacedOrders(stock, buyOrders, arrivedOrder);
+        }
+
+        // Store the 'after' quantity of the order.
+        long arrivedOrderQuantityAfter = arrivedOrder.getQuantity();
+
+        // if the 'before' and 'after' quantities are the same. throw a message.
+        if (arrivedOrderQuantityBefore == arrivedOrderQuantityAfter) {
+            MessagePrint.println(MessagePrint.Stream.OUT,
+                    "\nNote: The order has not been fulfilled at all yet.");
         }
 
     }
